@@ -13,3 +13,5 @@ C:\Users\Andy\Documents\GitHub\Snowflake\bin\Debug\Axiom.Platforms.OpenTK.pdb
 C:\Users\Andy\Documents\GitHub\Snowflake\bin\Debug\Axiom.RenderSystems.OpenGL.pdb
 C:\Users\Andy\Documents\GitHub\Snowflake\obj\x86\Debug\Snowflake.exe
 C:\Users\Andy\Documents\GitHub\Snowflake\obj\x86\Debug\Snowflake.pdb
+C:\Users\Nikko\Documents\Dev\Snowflake\obj\x86\Debug\Snowflake.exe
+C:\Users\Nikko\Documents\Dev\Snowflake\obj\x86\Debug\Snowflake.pdb

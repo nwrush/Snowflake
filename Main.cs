@@ -91,7 +91,7 @@ namespace Snowflake
 			MeshManager.Instance.CreatePlane("ground", ResourceGroupManager.DefaultResourceGroupName, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UnitZ);
 
 			ground = sceneManager.CreateEntity("GroundEntity", "ground");
-			ground.MaterialName = "Examples/Grass";
+			ground.MaterialName = "Grass";
 			world = sceneManager.RootSceneNode.CreateChildSceneNode();
 			world.AttachObject(ground);
 			world.Translate(new Vector3(0, -75, 0));
@@ -113,7 +113,7 @@ namespace Snowflake
 			if (input.IsMousePressed (MouseButtons.Right)) {
 
 			}
-			if (input.IsKeyPressed (KeyCodes.Space)) {
+            if (input.IsKeyPressed(KeyCodes.Space) || input.IsMousePressed(MouseButtons.Right)) {
 				Console.WriteLine ("mouse button pressed");
 				camera.Position = new Vector3 (camera.Position.x + input.RelativeMouseX, 
 				                               camera.Position.y, camera.Position.z + input.RelativeMouseY);

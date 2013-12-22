@@ -68,7 +68,7 @@ namespace Snowflake
 			light.CastShadows = true;
 
 			sceneManager.AmbientLight = ColorEx.Black;
-			sceneManager.ShadowTechnique = ShadowTechnique.StencilAdditive;
+			//sceneManager.ShadowTechnique = ShadowTechnique.StencilAdditive;
 			//sceneManager.ActiveCompositorChain
         }
 
@@ -79,8 +79,13 @@ namespace Snowflake
 
             sceneNode = sceneManager.RootSceneNode.CreateChildSceneNode();
             sceneNode.AttachObject(entity);
+			sceneNode.Translate(new Vector3(120, 0, 0));
             sceneNode.Yaw(45);
 			//sceneNode.Pitch(45);
+
+			Entity ent = sceneManager.CreateEntity("ninja", "ninja.mesh");
+			ent.CastShadows = true;
+			sceneManager.RootSceneNode.CreateChildSceneNode().AttachObject(ent);
 
 			Plane plane = new Plane(Vector3.UnitY, 0);
 			MeshManager.Instance.CreatePlane("ground", ResourceGroupManager.DefaultResourceGroupName, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UnitZ);

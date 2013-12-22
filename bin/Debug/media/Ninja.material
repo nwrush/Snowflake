@@ -7,7 +7,7 @@ material Examples/Ninja
 		
 			texture_unit
 			{
-				texture nskingr.jpg
+				texture nskingr.png
 			}
 		}
 	}

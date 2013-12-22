@@ -1,0 +1,1459 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Axiom.SceneManagers.PortalConnected</name>
+    </assembly>
+    <members>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PortalBase">
+            <summary>
+            PortalBase
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PortalBase._newHomeZone">
+            zone to transfer this portal to
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PortalBase._derivedCP">
+            <summary>
+            Derived (world coordinates) of portal (center point)
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.CurrentHomeZone">
+            <summary>
+            Set the current home zone of the portal 
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.Radius">
+            <summary>
+            Retrieve the radius of the portal (calculates if necessary for quad portals) 
+            Calculate the local bounding sphere of the portal from the corner points
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.Corners">
+            <summary>
+            Corners of the portal - coordinates are relative to the sceneNode
+            NOTE: there are 4 corners if the portal is a quad type
+              there are 2 corners if the portal is an AABB type
+              there are 2 corners if the portal is a sphere type (center and point on sphere)
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Axiom.SceneManagers.PortalConnected.PortalBase.Direction" -->
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.LocalCP">
+            <summary>
+            Local Center point of the portal
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Axiom.SceneManagers.PortalConnected.PortalBase.DerivedCorners" -->
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.DerivedDirection">
+            <summary>
+            Derived (world coordinates) direction of the portal
+            NOTE: Only applicable for a Quad portal
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.DerivedSphere">
+            <summary>
+            Sphere of the portal centered on the derived CP
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.DerivedPlane">
+            <summary>
+            Derived (world coordinates) Plane of the portal
+            NOTE: Only applicable for a Quad portal
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.PrevDerivedCP">
+            <summary>
+            Previous frame portal cp (in world coordinates)
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.PrevDerivedPlane">
+            <summary>
+            Previous frame derived plane 
+            NOTE: Only applicable for a Quad portal
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.LocalsUpToDate">
+            <summary>
+            flag indicating whether or not local values are up-to-date
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.DerivedUpToDate">
+            <summary>
+            flag indicating whether or not derived values are up-to-date
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PortalBase.PrevWorldTransform">
+            <summary>
+            Previous world transform
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.Capsule.EndPoint">
+            <summary>
+            EndPoint
+            </summary>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.DefaultZone">
+            <summary>
+            Default Instance of PCZone
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZone._nameGenerator">
+            <summary>
+            name generator
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.#ctor(Axiom.SceneManagers.PortalConnected.PCZSceneManager)">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.#ctor(Axiom.SceneManagers.PortalConnected.PCZSceneManager,System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="creator">PCZSceneManager</param>
+            <param name="name">string</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.dispose(System.Boolean)">
+             <summary>
+             Class level dispose method
+             </summary>
+             <remarks>
+             When implementing this method in an inherited class the following template should be used;
+             protected override void dispose( bool disposeManagedResources )
+             {
+             	if ( !isDisposed )
+             	{
+             		if ( disposeManagedResources )
+             		{
+             			// Dispose managed resources.
+             		}
+            
+             		// There are no unmanaged resources to release, but
+             		// if we add them, they need to be released here.
+             	}
+            
+             	// If it is available, make the call to the
+             	// base class's Dispose(Boolean) method
+             	base.dispose( disposeManagedResources );
+             }
+             </remarks>
+             <param name="disposeManagedResources">True if Unmanaged resources should be released.</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.AddNode(Axiom.SceneManagers.PortalConnected.PCZSceneNode)">
+            <summary>
+            AddNode
+            </summary>
+            <param name="node">PCZSceneNode</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.RemoveNode(Axiom.SceneManagers.PortalConnected.PCZSceneNode)">
+            <summary>
+            Removes all references to a SceneNode from this PCZone.   
+            </summary>
+            <param name="node">PCZSceneNode</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.ClearNodeLists">
+            <summary>
+            Remove all nodes from the node reference list and clear it
+            </summary>
+            <param name="type">ClearNodeLists</param>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZone._RequiresZoneSpecificNodeData">
+            <summary>
+            Indicates whether or not this zone requires zone-specific data for each scene node
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.CreateNodeZoneData(Axiom.SceneManagers.PortalConnected.PCZSceneNode)">
+            <summary>
+            create zone specific data for a node
+            create node specific zone data if necessary
+            </summary>
+            <param name="node">PCZSceneNode</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.FindMatchingPortal(Axiom.SceneManagers.PortalConnected.Portal)">
+            <summary>
+            find a matching portal (for connecting portals)
+            </summary>
+            <param name="portal">Portal</param>
+            <returns>Portal</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.AddPortal(Axiom.SceneManagers.PortalConnected.Portal)">
+            <summary>
+            Add a portal to the zone 
+            </summary>
+            <param name="newPortal">Portal</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.RemovePortal(Axiom.SceneManagers.PortalConnected.Portal)">
+            <summary>
+            Remove a portal from the zone (does not erase the portal object, just removes reference) 
+            </summary>
+            <param name="removePortal">Portal</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.AddAntiPortal(Axiom.SceneManagers.PortalConnected.AntiPortal)">
+            <summary>
+            Add an anti portal to the zone 
+            </summary>
+            <param name="newAntiPortal"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone._removeAntiPortal(Axiom.SceneManagers.PortalConnected.AntiPortal)">
+            <summary>
+            Remove an anti portal from the zone 
+            </summary>
+            <param name="removeAntiPortal">AntiPortal</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.CheckNodeAgainstPortals(Axiom.SceneManagers.PortalConnected.PCZSceneNode,Axiom.SceneManagers.PortalConnected.Portal)">
+            <summary>
+            (recursive) check the given node against all portals in the zone
+            </summary>
+            <param name="node">PCZSceneNode</param>
+            <param name="portal">portal</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.CheckLightAgainstPortals(Axiom.SceneManagers.PortalConnected.PCZLight,System.UInt64,Axiom.SceneManagers.PortalConnected.PCZFrustum,Axiom.SceneManagers.PortalConnected.Portal)">
+            <summary>
+            (recursive) check the given light against all portals in the zone
+            </summary>
+            <param name="light">light</param>
+            <param name="frameCount">frameCount</param>
+            <param name="portalFrustum">PCZFrustum</param>
+            <param name="ignorePortal">Portal</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.UpdatePortalsZoneData">
+            <summary>
+            Update the zone data for each portal 
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.DirtyNodeByMovingPortals">
+            <summary>
+            Mark nodes dirty base on moving portals. 
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.PCZone.UpdateNodeHomeZone(Axiom.SceneManagers.PortalConnected.PCZSceneNode,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.PCZone.FindVisibleNodes(Axiom.SceneManagers.PortalConnected.PCZCamera,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,Axiom.Graphics.RenderQueue,Axiom.Core.VisibleObjectsBoundsInfo,System.Boolean,System.Boolean,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.PCZone.FindNodes(Axiom.Math.AxisAlignedBox,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.Portal},System.Boolean,System.Boolean,Axiom.SceneManagers.PortalConnected.PCZSceneNode)" -->
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.PCZone.FindNodes(Axiom.Math.Sphere,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.Portal},System.Boolean,System.Boolean,Axiom.SceneManagers.PortalConnected.PCZSceneNode)" -->
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.PCZone.FindNodes(Axiom.Math.PlaneBoundedVolume,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.Portal},System.Boolean,System.Boolean,Axiom.SceneManagers.PortalConnected.PCZSceneNode)" -->
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.PCZone.FindNodes(Axiom.Math.Ray,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.Portal},System.Boolean,System.Boolean,Axiom.SceneManagers.PortalConnected.PCZSceneNode)" -->
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.SetOption(System.String,System.Object)">
+            <summary>
+            Sets the options for the Zone 
+            </summary>
+            <param name="NamelessParameter1">string</param>
+            <param name="NamelessParameter2">object</param>
+            <returns></returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.NotifyCameraCreated(Axiom.Core.Camera)">
+            <summary>
+            called when the scene manager creates a camera in order to store the first camera created as the primary
+            one, for determining error metrics and the 'home' terrain page.	
+            </summary>
+            <param name="c">Camera</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.NotifyWorldGeometryRenderQueue(Axiom.Core.RenderQueueGroupID)">
+            <summary>
+            NotifyWorldGeometryRenderQueue
+            </summary>
+            <param name="renderQueueGroupID">RenderQueueGroupID</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.NotifyBeginRenderScene">
+            <summary>
+            Called when a _renderScene is called in the SceneManager 
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.SetZoneGeometry(System.String,Axiom.SceneManagers.PortalConnected.PCZSceneNode)">
+            <summary>
+            called by PCZSM during setZoneGeometry() 
+            </summary>
+            <param name="filename">string</param>
+            <param name="parentNode">PCZSceneNode</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZone.GetAABB(Axiom.Math.AxisAlignedBox@)">
+             <summary>
+             get the world coordinate aabb of the zone 
+            
+             get the aabb of the zone - default implementation
+               uses the enclosure node, but there are other perhaps
+               better ways
+             </summary>
+             <param name="aabb"></param>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.Name">
+            <summary>
+            name of the zone (must be unique)
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.ZoneTypeName">
+            <summary>
+            Zone type name
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.LastVisibleFrame">
+            <summary>
+            frame counter for visibility
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.LastVisibleFromCamera">
+            <summary>
+            last camera which this zone was visible to
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.HomeNodeList">
+            <summary>
+            list of SceneNodes contained in this particular PCZone
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.PortalsUpdated">
+            <summary>
+            flag recording whether any portals in this zone have moved 
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.Portals">
+            <summary>
+            list of Portals which this zone contains (each portal leads to another zone)
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.PCZSM">
+            <summary>
+            pointer to the pcz scene manager that created this zone
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.WorldGeometryRenderQueueId">
+            <summary>
+             worldGeometryRenderQueueId
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.UserData">
+            <summary>
+            UserData
+            </summary>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZone.NodeListType">
+            <summary>
+            Node List Type
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Axiom.SceneManagers.PortalConnected.PCZone.PortalSortDistance" -->
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZone.PortalSortDistance.CameraPosition">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.DefaultZone._nameGenerator">
+            <summary>
+            Name Generator 
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.#ctor(Axiom.SceneManagers.PortalConnected.PCZSceneManager)">
+            <summary>
+            Default Constructor
+            </summary>
+            <param name="creator"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.#ctor(Axiom.SceneManagers.PortalConnected.PCZSceneManager,System.String)">
+            <summary>
+            Constructor with specific name
+            </summary>
+            <param name="creator">PCZSceneManager</param>
+            <param name="name">string</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.AddNode(Axiom.SceneManagers.PortalConnected.PCZSceneNode)">
+            <summary>
+            this call adds the given node to either the zone's list
+            of nodes at home in the zone, or to the list of visiting nodes
+            NOTE: The list is decided by the node's homeZone value, so
+            that must be set correctly before calling this function.
+            </summary>
+            <param name="node">PCZSceneNode</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.RemoveNode(Axiom.SceneManagers.PortalConnected.PCZSceneNode)">
+            <summary>
+            Removes the node
+            </summary>
+            <param name="node">PCZSceneNode</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.CheckNodeAgainstPortals(Axiom.SceneManagers.PortalConnected.PCZSceneNode,Axiom.SceneManagers.PortalConnected.Portal)">
+            <summary>
+            Recursively check for intersection of the given scene node
+            with zone portals.  If the node touches a portal, then the
+            connected zone is assumed to be touched.  The zone adds
+            the node to its node list and the node adds the zone to
+            its visiting zone list.
+                NOTE: This function assumes that the home zone of the node
+                        is correct.  The function "_updateHomeZone" in PCZSceneManager
+            takes care of this and should have been called before
+            this function.
+            </summary>
+            <param name="pczsn">PCZSceneNode</param>
+            <param name="ignorePortal">Portal</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.CheckLightAgainstPortals(Axiom.SceneManagers.PortalConnected.PCZLight,System.UInt64,Axiom.SceneManagers.PortalConnected.PCZFrustum,Axiom.SceneManagers.PortalConnected.Portal)">
+            <summary>
+            (recursive) check the given light against all portals in the zone
+            NOTE: This is the default implementation, which doesn't take advantage
+                  of any zone-specific optimizations for checking portal visibility
+            </summary>
+            <param name="light">PCZLight</param>
+            <param name="frameCount">ulong</param>
+            <param name="portalFrustum">PCZFrustum</param>
+            <param name="ignorePortal">Portal</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.UpdatePortalsZoneData">
+            <summary>
+             Update the zone data for the portals in the zone
+             NOTE: All portal spatial data must be up-to-date before calling this routine.
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.UpdateNodeHomeZone(Axiom.SceneManagers.PortalConnected.PCZSceneNode,System.Boolean)">
+            <summary>
+            The following function checks if a node has left it's current home zone.
+            This is done by checking each portal in the zone.  If the node has crossed
+            the portal, then the current zone is no longer the home zone of the node.  The
+            function then recurses into the connected zones.  Once a zone is found where
+            the node does NOT cross out through a portal, that zone is the new home zone.
+            NOTE: For this function to work, the node must start out in the proper zone to
+                  begin with!/
+            </summary>
+            <param name="pczsn">pczsn</param>
+            <param name="allowBackTouches">bool</param>
+            <returns>PCZone</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.DefaultZone.FindVisibleNodes(Axiom.SceneManagers.PortalConnected.PCZCamera,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,Axiom.Graphics.RenderQueue,Axiom.Core.VisibleObjectsBoundsInfo,System.Boolean,System.Boolean,System.Boolean)" -->
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.DefaultZone.FindNodes(Axiom.Math.AxisAlignedBox,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.Portal},System.Boolean,System.Boolean,Axiom.SceneManagers.PortalConnected.PCZSceneNode)" -->
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.DefaultZone.FindNodes(Axiom.Math.Sphere,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.Portal},System.Boolean,System.Boolean,Axiom.SceneManagers.PortalConnected.PCZSceneNode)" -->
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.DefaultZone.FindNodes(Axiom.Math.PlaneBoundedVolume,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.Portal},System.Boolean,System.Boolean,Axiom.SceneManagers.PortalConnected.PCZSceneNode)" -->
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.DefaultZone.FindNodes(Axiom.Math.Ray,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.PCZSceneNode}@,System.Collections.Generic.List{Axiom.SceneManagers.PortalConnected.Portal},System.Boolean,System.Boolean,Axiom.SceneManagers.PortalConnected.PCZSceneNode)" -->
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.DirtyNodeByMovingPortals">
+            <summary>
+            Mark nodes dirty base on moving portals.
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.SetOption(System.String,System.Object)">
+            <summary>
+            Set option for the zone
+            </summary>
+            <param name="name">string</param>
+            <param name="value">object</param>
+            <returns>bool</returns>
+            <remarks>Does nothing at the moment</remarks>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.NotifyCameraCreated(Axiom.Core.Camera)">
+            <summary>
+            called when the scene manager creates a camera because
+            some zone managers (like TerrainZone) need the camera info.
+            </summary>
+            <param name="c">Camera</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.NotifyBeginRenderScene">
+            <summary>
+            NotifyBeginRenderScene
+            </summary>
+            <remarks>Does nothing at the moment</remarks>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.NotifyWorldGeometryRenderQueue(Axiom.Core.RenderQueueGroupID)">
+            <summary>
+            NotifyWorldGeometryRenderQueue
+            </summary>
+            <param name="renderQueueGroupID"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.DefaultZone.SetZoneGeometry(System.String,Axiom.SceneManagers.PortalConnected.PCZSceneNode)">
+            <summary>
+            SetZoneGeometry
+            </summary>
+            <param name="filename">string</param>
+            <param name="parentNode">PCZSceneNode</param>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.DefaultZone.EnclosureNode">
+            <summary>
+            Set the enclosure node for this Zone
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.DefaultZone.RequiresZoneSpecificNodeData">
+            <summary>
+            Indicates whether or not this zone requires zone-specific data for
+            each scene node
+            </summary>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZPlane">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZPlane.Plane">
+            <summary>
+            Plane
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZPlane.Portal">
+            <summary>
+            Portal
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZCamera.IsObjectVisible(Axiom.SceneManagers.PortalConnected.PortalBase,Axiom.Core.FrustumPlane@)">
+            <summary>
+            IsObjectVisible() function for portals.
+            </summary>
+            <remarks>
+            Everything needs to be updated spatially before this function is
+            called including portal corners, frustum planes, etc.
+            </remarks>
+            <param name="portal">
+            The <see cref="T:Axiom.SceneManagers.PortalConnected.Portal"/> to check visibility against.
+            </param>
+            <param name="culledBy">
+            The <see cref="T:Axiom.Core.FrustumPlane"/> that the Portal is in.
+            </param>
+            <returns>
+            true if the Portal is visible.
+            </returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZCamera.GetVisibility(Axiom.Math.AxisAlignedBox)">
+            <summary>
+            A 'more detailed' check for visibility of an AAB.
+            </summary>
+            <remarks>
+            This is useful for stuff like Octree leaf culling.
+            </remarks>
+            <param name="bound">the <see cref="T:Axiom.Math.AxisAlignedBox"/> to check visibility aginst.</param>
+            <returns>
+            None, Partial, or Full for visibility of the box.
+            </returns>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZFrustum">
+            <summary>
+            PCZFrustum
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZFrustum.IsObjectVisible(Axiom.SceneManagers.PortalConnected.PortalBase)">
+            <summary>
+            IsObjectVisible() function for portals.
+            </summary>
+            <remarks>
+            Everything needs to be updated spatially before this function is
+            called including portal corners, frustum planes, etc.
+            </remarks>
+            <param name="portal">
+            The <see cref="T:Axiom.SceneManagers.PortalConnected.Portal"/> to check visibility against.
+            </param>
+            <returns>
+            true if the Portal is visible.
+            </returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZFrustum.GetVisibility(Axiom.Math.AxisAlignedBox)">
+            <summary>
+            A 'more detailed' check for visibility of an AAB.
+            </summary>
+            <remarks>
+            This is useful for stuff like Octree leaf culling.
+            </remarks>
+            <param name="bound">the <see cref="T:Axiom.Math.AxisAlignedBox"/> to check visibility aginst.</param>
+            <returns>
+            None, Partial, or Full for visibility of the box.
+            </returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZFrustum.dispose(System.Boolean)">
+             <summary>
+             Class level dispose method
+             </summary>
+             <remarks>
+             When implementing this method in an inherited class the following template should be used;
+             protected override void dispose( bool disposeManagedResources )
+             {
+             	if ( !isDisposed )
+             	{
+             		if ( disposeManagedResources )
+             		{
+             			// Dispose managed resources.
+             		}
+            
+             		// There are no unmanaged resources to release, but
+             		// if we add them, they need to be released here.
+             	}
+            
+             	// If it is available, make the call to the
+             	// base class's Dispose(Boolean) method
+             	base.dispose( disposeManagedResources );
+             }
+             </remarks>
+             <param name="disposeManagedResources">True if Unmanaged resources should be released.</param>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZLight">
+            <summary>
+            Specialized version of Axiom.Light which caches which zones the light affects 
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZLight._nameGenerator">
+            <summary>
+            name generator
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZLight._affectsVisibleZone">
+            <summary>
+            flag indicating if any of the zones in the affectedZonesList is 
+            visible in the current frame
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZLight._affectedZonesList">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZLight._needsUpdate">
+            <summary>
+            flag recording if light has moved, therefore affected list needs updating 
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZLight._portalFrustum">
+            <summary>
+            Update the list of zones the light affects 
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.#ctor(System.String)">
+            <summary>
+            Normal constructor. Should not be called directly, but rather the SceneManager.createLight method should be used
+            </summary>
+            <param name="name">string</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.Finalize">
+            <summary>
+            Standard destructor.
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.ClearAffectedZones">
+            <summary>
+            Clear the affectedZonesList  
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.AddZoneToAffectedZonesList(Axiom.SceneManagers.PortalConnected.PCZone)">
+            <summary>
+            Add a zone to the zones affected list
+            </summary>
+            <param name="zone">PCZone</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.AffectsZone(Axiom.SceneManagers.PortalConnected.PCZone)">
+            <summary>
+            check if a zone is in the list of zones affected by the light 
+            </summary>
+            <param name="zone">PCZone</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.UpdateZones(Axiom.SceneManagers.PortalConnected.PCZone,System.UInt64)">
+            <summary>
+            UpdateZones
+            </summary>
+            <param name="defaultZone">PCZone</param>
+            <param name="frameCount">ulong</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.RemoveZoneFromAffectedZonesList(Axiom.SceneManagers.PortalConnected.PCZone)">
+            <summary>
+            RemoveZoneFromAffectedZonesList
+            </summary>
+            <param name="zone">PCZone</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.NotifyMoved">
+            <summary>
+            MovableObject notified when SceneNode changes
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLight.ClearNeedsUpdate">
+            <summary>
+            clear update flag
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZLight.AffectedZonesList">
+            <summary>
+            List of PCZones which are affected by the light
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZLight.AffectsVisibleZone">
+            <summary>
+            returns flag indicating if the light affects a zone which is visible
+            in the current frame
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZLight.NeedsUpdate">
+            <summary>
+            get status of need for update. this checks all affected zones
+            </summary>
+            <returns>bool</returns>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZLightFactory">
+            <summary>
+            Factory object for creating PCZLight instances 
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZLightFactory.TypeName">
+            <summary>
+            TypeName
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLightFactory.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZLightFactory._createInstance(System.String,Axiom.Collections.NamedParameterList)">
+            <summary>
+            overridden MovableObject _createInstance
+            </summary>
+            <param name="name">string</param>
+            <param name="para">NamedParameterList</param>
+            <returns></returns>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZoneFactory._factoryTypeName">
+            Factory type name
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZPlugin">
+            <summary>
+            Plugin instance for PCZ Scene Manager 
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZPlugin.Initialize">
+            <summary>
+            Initialize the Plugin
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZPlugin.Shutdown">
+            <summary>
+            Shutdown the plugin
+            </summary>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.LightInfo">
+            <summary>
+            LightInfo
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.LightInfo.Light">
+            <summary>
+            Just a pointer for comparison, the light might destroyed for some reason
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.LightInfo.Type">
+            <summary>
+            LightType
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.LightInfo.Range">
+            <summary>
+            Sets to zero if directional light
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.LightInfo.Position">
+            <summary>
+            Sets to zero if directional light
+            </summary>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZSceneManager">
+            <summary>
+            PCZSceneManager
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._nameGenerator">
+            <summary>
+            name generator
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._defaultZoneTypeName">
+            <summary>
+            type of default zone to be used
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._defaultZoneFileName">
+            <summary>
+            name of data file for default zone
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._visibleNodes">
+            <summary>
+            list of visible nodes
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._defaultZone">
+            <summary>
+            The root PCZone
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager.zones">
+            <summary>
+            The list of all PCZones
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._portals">
+            <summary>
+            Master list of Portals in the world (includes all portals)
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._showPortals">
+            <summary>
+            Portals visibility flag
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._frameCount">
+            <summary>
+            frame counter used in visibility determination
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._zoneFactoryManager">
+            <summary>
+            ZoneFactoryManager instance
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._activeCameraZone">
+            <summary>
+            The zone of the active camera (for shadow texture casting use)
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._testLightInfos">
+            <summary>
+            Test LightInfo List  (private)
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneManager._cachedLightInfos">
+            <summary>
+            CachedLightInfos List (private)
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.#ctor">
+            <summary>
+            Constructor (auto generate name)
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.#ctor(System.String)">
+            <summary>
+            Constructor (custom name)
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.dispose(System.Boolean)">
+             <summary>
+             Class level dispose method
+             </summary>
+             <remarks>
+             When implementing this method in an inherited class the following template should be used;
+             protected override void dispose( bool disposeManagedResources )
+             {
+             	if ( !isDisposed )
+             	{
+             		if ( disposeManagedResources )
+             		{
+             			// Dispose managed resources.
+             		}
+            
+             		// There are no unmanaged resources to release, but
+             		// if we add them, they need to be released here.
+             	}
+            
+             	// If it is available, make the call to the
+             	// base class's Dispose(Boolean) method
+             	base.dispose( disposeManagedResources );
+             }
+             </remarks>
+             <param name="disposeManagedResources">True if Unmanaged resources should be released.</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.Init(System.String,System.String)">
+            <summary>
+            Init
+            </summary>
+            <param name="defaultZoneTypeName">string</param>
+            <param name="filename">string</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.CreatePortal(System.String,Axiom.SceneManagers.PortalConnected.PortalType)">
+            <summary>
+            Create a portal instance
+            </summary>
+            <param name="name">name (Portal Name)</param>
+            <param name="type">PortalType</param>
+            <returns>Portal</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.DestroyPortal(Axiom.SceneManagers.PortalConnected.Portal)">
+            <summary>
+            delete a portal instance by pointer
+            </summary>
+            <param name="portal"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.DestroyPortal(System.String)">
+            <summary>
+            delete a portal instance by name
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.CreateZoneFromFile(System.String,System.String,Axiom.SceneManagers.PortalConnected.PCZSceneNode,System.String)">
+            <summary>
+            Create a zone from a file (type of file)
+            depends on the zone type
+            ZoneType_Default uses an Ogre Model (.mesh) file
+            ZoneType_Octree uses an Ogre Model (.mesh) file
+            ZoneType_Terrain uses a Terrain.CFG file
+            </summary>
+            <param name="zoneTypeName">string</param>
+            <param name="zoneName">string</param>
+            <param name="parent">PCZSceneNode</param>
+            <param name="filename">string</param>
+            <returns>PCZone</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.GetZoneByName(System.String)">
+            <summary>
+            Get a zone by name
+            </summary>
+            <param name="name">string</param>
+            <returns>PCZone</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.SetZoneGeometry(System.String,Axiom.SceneManagers.PortalConnected.PCZSceneNode,System.String)">
+            <summary>
+            Sets Zone Geometry
+            </summary>
+            <param name="name">string</param>
+            <param name="parent">PCZSceneNode</param>
+            <param name="filename">string</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.CreateSceneNodeImpl">
+            <summary>
+            Create Scene Node Impl (auto generate node name)
+            </summary>
+            <returns>SceneNode</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.CreateSceneNodeImpl(System.String)">
+            <summary>
+            Create Scene Node Impl (with custom node name)
+            </summary>
+            <param name="nodeName"></param>
+            <returns>SceneNode</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.CreateSceneNode">
+            <summary>
+            CreateSceneNode
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.CreateSceneNode(System.String)">
+            <summary>
+            CreateSceneNode (custom name)
+            </summary>
+            <param name="name">string</param>
+            <returns>SceneNode</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.CreateCamera(System.String)">
+            <summary>
+            Create a camera for the scene
+            </summary>
+            <param name="name">name</param>
+            <returns>Camera</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.DestroySceneNode(System.String)">
+            <summary>
+            Destroy a Scene Node by name
+            </summary>
+            <param name="name">name</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.ClearScene">
+            <summary>
+            Clear the Scene
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneManager.EnableSky(System.Boolean)">
+            <summary>
+            enable/disable sky rendering
+            </summary>
+            <param name="onoff"></param>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneManager.TestLightInfos">
+            <summary>
+            Test LightInfo List  (protected)
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneManager.CachedLightInfos">
+            <summary>
+            CachedLightInfos List (protected)
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneManager.DefaultZone">
+            <summary>
+            the default zone
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneManager.ShowPortals">
+            <summary>
+            Sets the portal visibility flag
+            </summary>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZSceneManagerFactory">
+            Factory for PCZSceneManager
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.PCZSceneNode._nameGenerator">
+            <summary>
+            name generator
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.#ctor(Axiom.Core.SceneManager)">
+            <summary>
+             Standard constructor 
+            </summary>
+            <param name="creator">SceneManager</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.#ctor(Axiom.Core.SceneManager,System.String)">
+            <summary>
+            Standard constructor
+            </summary>
+            <param name="creator">SceneManager</param>
+            <param name="name">string</param> 
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.Update(System.Boolean,System.Boolean)">
+            <summary>
+            Update
+            </summary>
+            <param name="updateChildren">bool</param>
+            <param name="parentHasChanged">bool</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.UpdateFromParentImpl">
+            <summary>
+            UpdateFromParentImpl
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.CreateChildSceneNode(Axiom.Math.Vector3)">
+            <summary>
+            Creates an unnamed new SceneNode as a child of this node.
+            translate Initial translation offset of child relative to parent
+            rotate Initial rotation relative to parent
+            </summary>
+            <param name="inTranslate">Vector3</param>
+            <returns>SceneNode</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.CreateChildSceneNode">
+            <summary>
+            Creates an unnamed new SceneNode as a child of this node.
+            translate Initial translation offset of child relative to parent
+            rotate Initial rotation relative to parent
+            </summary>
+            <returns>SceneNode</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.CreateChildSceneNode(Axiom.Math.Vector3,Axiom.Math.Quaternion)">
+            <summary>
+            Creates an unnamed new SceneNode as a child of this node.
+            translate Initial translation offset of child relative to parent
+            rotate Initial rotation relative to parent
+            </summary>
+            <param name="inTranslate">Vector3</param>
+            <param name="inRotate">Quaternion</param>
+            <returns>SceneNode</returns>       
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.CreateChildSceneNode(System.String,Axiom.Math.Vector3)">
+            <summary>
+            Creates a new named SceneNode as a child of this node.
+                This creates a child node with a given name, which allows you to look the node up from 
+                the parent which holds this collection of nodes.
+                translate Initial translation offset of child relative to parent
+                rotate Initial rotation relative to parent
+            </summary>
+            <param name="name">string</param>
+            <param name="inTranslate">Vector3</param>
+            <returns>SceneNode</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.CreateChildSceneNode(System.String)">
+            <summary>
+            Creates a new named SceneNode as a child of this node.
+            </summary>
+            <param name="name">string</param>
+            <returns>SceneNode</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.CreateChildSceneNode(System.String,Axiom.Math.Vector3,Axiom.Math.Quaternion)">
+            <summary>
+            Creates a new named SceneNode as a child of this node.
+            </summary>
+            <param name="name">string</param>
+            <param name="inTranslate">Vector3</param>
+            <param name="inRotate">Quaternion</param>
+            <returns>SceneNode</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.AnchorToHomeZone(Axiom.SceneManagers.PortalConnected.PCZone)">
+            <summary>
+            AnchorToHomeZone
+            </summary>
+            <param name="zone"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.AddZoneToVisitingZonesMap(Axiom.SceneManagers.PortalConnected.PCZone)">
+            <summary>
+            Add Zone To Visiting Zones Map
+            </summary>
+            <param name="zone">PCZone</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.ClearVisitingZonesMap">
+            <summary>
+            ClearVisitingZonesMap
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.ClearNodeFromVisitedZones">
+            <summary>
+            The following function does the following:
+             1) Remove references to the node from zones the node is visiting
+             2) Clear the node's list of zones it is visiting
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.RemoveReferencesToZone(Axiom.SceneManagers.PortalConnected.PCZone)">
+            <summary>
+            Remove all references that the node has to the given zone
+            </summary>
+            <param name="zone">PCZone</param> 
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.IsVisitingZone(Axiom.SceneManagers.PortalConnected.PCZone)">
+            <summary>
+            returns true if zone is in the node's visiting zones map
+              false otherwise.
+            </summary>
+            <param name="zone">PCZone</param>
+            <returns>bool</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.AddToRenderQueue(Axiom.Core.Camera,Axiom.Graphics.RenderQueue,System.Boolean,Axiom.Core.VisibleObjectsBoundsInfo)">
+            <summary>
+            Adds the attached objects of this PCZSceneNode into the queue. 
+            </summary>
+            <param name="camera">Camera</param>
+            <param name="queue">RenderQueue</param>
+            <param name="onlyShadowCasters">bool</param>
+            <param name="visibleBounds">VisibleObjectsBoundsInfo</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.SavePrevPosition">
+            <summary>
+            Save the node's current position as the previous position
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.SetZoneData(Axiom.SceneManagers.PortalConnected.PCZone,Axiom.SceneManagers.PortalConnected.ZoneData)">
+            <summary>
+            SetZoneData
+            </summary>
+            <param name="zone">PCZone</param>
+            <param name="zoneData">ZoneData</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.GetZoneData(Axiom.SceneManagers.PortalConnected.PCZone)">
+            <summary>
+            get zone data for this node for given zone
+            NOTE: This routine assumes that the zone data is present!
+            </summary>
+            <param name="zone">PCZone</param>
+            <returns>ZoneData</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSceneNode.UpdateZoneData">
+            <summary>
+            update zone-specific data for any zone that the node is touching
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.NewPosition">
+            <summary>
+            NewPosition
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.Anchored">
+            <summary>
+            Anchored
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.AllowToVisit">
+            <summary>
+            AllowToVisit
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.AllowedToVisit">
+            <summary>
+            AllowedToVisit
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.VisitingZones">
+            <summary>
+            VisitingZones
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.PrevPosition">
+            <summary>
+            PrevPosition
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.LastVisibleFrame">
+            <summary>
+            LastVisibleFrame
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.LastVisibleFromCamera">
+            <summary>
+            LastVisibleFromCamera
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.ZoneData">
+            <summary>
+            ZoneData
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.Enabled">
+            <summary>
+            Enabled
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.Moved">
+            <summary>
+            Moved
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZSceneNode.HomeZone">
+            <summary>
+            HomeZone
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZAxisAlignedBoxSceneQuery.#ctor(Axiom.Core.SceneManager)">
+            <summary>
+            Creates a custom PCZ AAB query
+            </summary>
+            <param name="creator">
+            The SceneManager that creates the query.
+            </param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZAxisAlignedBoxSceneQuery.Execute(Axiom.Core.ISceneQueryListener)">
+            <summary>
+            Finds any entities that intersect the AAB for the query.
+            </summary>
+            <param name="listener">
+            The listener to call when we find the results.
+            </param>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZIntersectionSceneQuery">
+            <summary>
+            PCZIntersection SceneQuery
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZIntersectionSceneQuery.#ctor(Axiom.Core.SceneManager)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="creator"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZIntersectionSceneQuery.Execute(Axiom.Core.IIntersectionSceneQueryListener)">
+            <summary>
+            Execute
+            </summary>
+            <param name="listener">IIntersectionSceneQueryListener</param>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZSphereSceneQuery">
+            <summary>
+            PCZSphere SceneQuery
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSphereSceneQuery.#ctor(Axiom.Core.SceneManager)">
+            <summary>
+            PCZSphere SceneQuery
+            </summary>
+            <param name="creator">SceneManager</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZSphereSceneQuery.Execute(Axiom.Core.ISceneQueryListener)">
+            <summary>
+            Execute
+            </summary>
+            <param name="listener">ISceneQueryListener</param>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZRaySceneQuery">
+            <summary>
+            PCZRay SceneQuery
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZRaySceneQuery.#ctor(Axiom.Core.SceneManager)">
+            <summary>
+            PCZRay SceneQuery Constructor
+            </summary>
+            <param name="creator">SceneManager</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZRaySceneQuery.Execute(Axiom.Core.IRaySceneQueryListener)">
+            <summary>
+            Execute
+            </summary>
+            <param name="listener">IRaySceneQueryListener</param>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZRaySceneQuery.StartZone">
+            <summary>
+            StartZone
+            </summary>
+        </member>
+        <member name="P:Axiom.SceneManagers.PortalConnected.PCZRaySceneQuery.ExcludeNode">
+            <summary>
+            ExcludeNode
+            </summary>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PCZPlaneBoundedVolumeListSceneQuery">
+            <summary>
+            PCZPlaneBounded VolumeList SceneQuery
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZPlaneBoundedVolumeListSceneQuery.#ctor(Axiom.Core.SceneManager)">
+            <summary>
+            PCZPlaneBoundedVolumeListSceneQuery
+            </summary>
+            <param name="creator">SceneManager</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.PCZPlaneBoundedVolumeListSceneQuery.Execute(Axiom.Core.ISceneQueryListener)">
+            <summary>
+            Execute
+            </summary>
+            <param name="listener">ISceneQueryListener</param>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.Portal">
+            <summary>
+            Portal data structure for connecting zones. 
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.Portal._nameGenerator">
+            <summary>
+            name generator
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.Portal.#ctor">
+            <summary>
+            Portal Constructor, auto name
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.Portal.#ctor(System.String)">
+            <summary>
+            Portal Constructor, supply name
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.Portal.#ctor(System.String,Axiom.SceneManagers.PortalConnected.PortalType)">
+            <summary>
+            Portal Constructor, supply name and portal type
+            </summary>
+            <param name="name">string</param>
+            <param name="type">PortalType</param>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.Portal._targetZone">
+            connected Zone
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PortalIntersectResult">
+            <summary>
+            PortalIntersectResult Enum
+            </summary>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.PortalType">
+            <summary>
+            PortalBase - Base class to Portal and AntiPortal classes. 
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Axiom.SceneManagers.PortalConnected.Segment" -->
+        <member name="F:Axiom.SceneManagers.PortalConnected.Segment.Parallel_Tolerance">
+            <summary>
+            Parallel_Tolerance constant
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.Segment.#ctor(Axiom.Math.Vector3,Axiom.Math.Vector3,Axiom.Math.Real)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="origin">Vector3</param>
+            <param name="direction">Vector3</param>
+            <param name="extent">Real</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.Segment.Set(Axiom.Math.Vector3,Axiom.Math.Vector3)">
+            <summary>
+            Set
+            </summary>
+            <param name="newOrigin">Vector3</param>
+            <param name="newEnd">Vector3</param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.Segment.Distance(Axiom.SceneManagers.PortalConnected.Segment)">
+            <summary>
+            function to calculate distance to another segment
+            </summary>
+            <param name="otherSegment">Segment</param>
+            <returns>Real</returns>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.Segment.SquaredDistance(Axiom.SceneManagers.PortalConnected.Segment)">
+            <summary>
+            Squares the distance to another segment
+            </summary>
+            <param name="otherSegment">Segment</param>
+            <returns>Real</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Axiom.SceneManagers.PortalConnected.Segment.Intersects(Axiom.SceneManagers.PortalConnected.Capsule)" -->
+        <member name="P:Axiom.SceneManagers.PortalConnected.Segment.EndPoint">
+            <summary>
+            EndPoint
+            </summary>
+        </member>
+        <member name="T:Axiom.Core.VisibleObjectsBoundsInfo">
+            <summary>
+                Structure collecting together information about the visible objects
+                that have been discovered in a scene.
+            </summary>
+        </member>
+        <member name="M:Axiom.Core.VisibleObjectsBoundsInfo.Reset">
+            <summary>
+            Reset
+            </summary>
+        </member>
+        <member name="M:Axiom.Core.VisibleObjectsBoundsInfo.Merge(Axiom.Math.AxisAlignedBox,Axiom.Math.Sphere,Axiom.Core.Camera)">
+            <summary>
+            Merge
+            </summary>
+            <param name="boxBounds">AxisAlignedBox</param>
+            <param name="sphereBounds">Sphere</param>
+            <param name="cam">Camera</param>
+        </member>
+        <member name="M:Axiom.Core.VisibleObjectsBoundsInfo.Merge(Axiom.Math.AxisAlignedBox,Axiom.Math.Sphere,Axiom.Core.Camera,System.Boolean)">
+            <summary>
+            Merge
+            </summary>
+            <param name="boxBounds">AxisAlignedBox</param>
+            <param name="sphereBounds">Sphere</param>
+            <param name="cam">Camera</param>
+            <param name="receiver">bool</param>
+        </member>
+        <member name="P:Axiom.Core.VisibleObjectsBoundsInfo.AABB">
+            <summary>
+            The axis-aligned bounds of the visible objects
+            </summary>
+        </member>
+        <member name="P:Axiom.Core.VisibleObjectsBoundsInfo.ReceiverAABB">
+            <summary>
+            The axis-aligned bounds of the visible shadow receiver objects
+            </summary>
+        </member>
+        <member name="P:Axiom.Core.VisibleObjectsBoundsInfo.MinDistance">
+            <summary>
+            The closest a visible object is to the camera
+            </summary>
+        </member>
+        <member name="P:Axiom.Core.VisibleObjectsBoundsInfo.MaxDistance">
+            <summary>
+            The farthest a visible objects is from the camera
+            </summary>
+        </member>
+        <member name="T:Axiom.SceneManagers.PortalConnected.ZoneData">
+            <summary>
+            ZoneData - Zone-specific Data structure for Scene Nodes
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.ZoneData.AssociatedZone">
+            <summary>
+            AssociatedZone
+            </summary>
+        </member>
+        <member name="F:Axiom.SceneManagers.PortalConnected.ZoneData.AssociatedNode">
+            <summary>
+            AssociatedNode
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.ZoneData.#ctor(Axiom.SceneManagers.PortalConnected.PCZSceneNode,Axiom.SceneManagers.PortalConnected.PCZone)">
+            <summary>
+            Standard Constructor 
+            </summary>
+            <param name="node"></param>
+            <param name="zone"></param>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.ZoneData.Finalize">
+            <summary>
+            Standard destructor
+            </summary>
+        </member>
+        <member name="M:Axiom.SceneManagers.PortalConnected.ZoneData.Update">
+            <summary>
+            Update data if necessary 
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,13 @@
+material Examples/Grass
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture grass.tga
+			}
+		}
+	}
+}

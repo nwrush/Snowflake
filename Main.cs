@@ -62,6 +62,8 @@ namespace Snowflake {
 			light.Direction = new Vector3(0, -1, 0.5);
 			light.Diffuse = ColorEx.White;
 			light.Specular = ColorEx.White;
+            light.AttenuationQuadratic = 0.01f;
+            light.AttenuationLinear = 0.1f;
 			light.CastShadows = true;
 
 			sceneManager.AmbientLight = ColorEx.Black;
@@ -139,7 +141,7 @@ namespace Snowflake {
 				sceneNode.Pitch(timeDelta * 0.070f);
 				sceneNode.Roll (timeDelta * 0.056718f);*/
 
-				light.Position = new Vector3(300 * Math.Cos(root.Timer.Milliseconds / -2000.0), 100, 300 * Math.Sin(root.Timer.Milliseconds / -2000.0));
+				light.Position = new Vector3(800, 800 * Math.Cos(root.Timer.Milliseconds / -2000.0), 800 * Math.Sin(root.Timer.Milliseconds / -2000.0));
 				//camera.Position = new Vector3 (500 * Math.Cos (root.Timer.Milliseconds / 5879.0), 500, 500 * Math.Sin (root.Timer.Milliseconds / 5879.0));
 				//camera.SetAutoTracking(true, sceneNode);
 			}

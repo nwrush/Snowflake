@@ -5,6 +5,7 @@ using Axiom.Math;
 using Axiom.Graphics;
 using Axiom.Input;
 using Axiom.Platforms.OpenTK;
+using Axiom.Overlays;
 
 namespace Snowflake {
 	class MainClass {
@@ -12,12 +13,13 @@ namespace Snowflake {
 		Root root;
 		RenderWindow window;
 		SceneManager sceneManager;
+		OverlayManager overlayManager;
 		OpenTKPlatformManager platformManager;
 
 		InputReader input;
 		Camera camera;
 		Viewport viewport;
-		Light light;
+		Light sun;
 
 		SceneNode sceneNode;
 		SceneNode world;
@@ -39,6 +41,7 @@ namespace Snowflake {
 			window = root.CreateRenderWindow("TestRenderWindow", 800, 600, false);
 
 			platformManager = new OpenTKPlatformManager();
+			overlayManager = OverlayManager.Instance;
 			input = platformManager.CreateInputReader();
 			input.Initialize(window, true, true, false, false);
 
@@ -56,15 +59,23 @@ namespace Snowflake {
 			viewport = window.AddViewport(camera);
 			viewport.BackgroundColor = ColorEx.Black;
 
-			light = sceneManager.CreateLight("light1");
-			light.Type = LightType.Point;
-			light.Position = new Vector3(0, 500, 100);
-			light.Direction = new Vector3(0, -1, 0.5);
-			light.Diffuse = ColorEx.White;
-			light.Specular = ColorEx.White;
-            light.AttenuationQuadratic = 0.01f;
-            light.AttenuationLinear = 0.1f;
-			light.CastShadows = true;
+			sun = sceneManager.CreateLight("sun");
+			sun.Type = LightType.Point;
+			sun.Position = new Vector3(0, 500, 100);
+			sun.Direction = new Vector3(0, -1, 0.5);
+			sun.Diffuse = new ColorEx(0.98f, 0.95f, 0.9f);
+			sun.Specular = ColorEx.White;
+            //sun.AttenuationQuadratic = 0.01f;
+            //sun.AttenuationLinear = 0.1f;
+			sun.CastShadows = true;
+
+			Light sky = sceneManager.CreateLight ("sky");
+			sky.Type = LightType.Directional;
+			sky.Position = new Vector3(0, 2000, 0);
+			sky.Direction = new Vector3(0, -1, 0);
+			sky.Diffuse = new ColorEx(0.05f, 0.075f, 0.10f);
+			sky.Specular = ColorEx.Black;
+			sky.CastShadows = true;
 
 			sceneManager.AmbientLight = ColorEx.Black;
 			//sceneManager.ShadowTechnique = ShadowTechnique.StencilAdditive;
@@ -141,9 +152,11 @@ namespace Snowflake {
 				sceneNode.Pitch(timeDelta * 0.070f);
 				sceneNode.Roll (timeDelta * 0.056718f);*/
 
-				light.Position = new Vector3(800, 800 * Math.Cos(root.Timer.Milliseconds / -2000.0), 800 * Math.Sin(root.Timer.Milliseconds / -2000.0));
+				sun.Position = new Vector3(300 * Math.Cos(root.Timer.Milliseconds / -2000.0), 300 * Math.Sin(root.Timer.Milliseconds / -2000.0), -300);
+				//sun.AttenuationQuadratic = Math.Max (0, sun.Position.y / 300.0f);
 				//camera.Position = new Vector3 (500 * Math.Cos (root.Timer.Milliseconds / 5879.0), 500, 500 * Math.Sin (root.Timer.Milliseconds / 5879.0));
 				//camera.SetAutoTracking(true, sceneNode);
+
 			}
 		}
 

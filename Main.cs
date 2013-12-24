@@ -10,12 +10,6 @@ using Axiom.Overlays;
 namespace Snowflake {
 	class MainClass {
 
-		Root root;
-		RenderWindow window;
-		SceneManager sceneManager;
-		OverlayManager overlayManager;
-		OpenTKPlatformManager platformManager;
-
 		InputReader input;
 		Camera camera;
 		Viewport viewport;
@@ -30,36 +24,36 @@ namespace Snowflake {
 		bool rotating = true;
 
 		public void init() {
-			root = new Root("test.log");
+			GV.Root = new Root("test.log");
 
-			root.RenderSystem = root.RenderSystems["OpenGL"];
-			root.FrameStarted += OnFrameStarted;
+			GV.Root.RenderSystem = GV.Root.RenderSystems["OpenGL"];
+			GV.Root.FrameStarted += OnFrameStarted;
 
 			ResourceGroupManager.Instance.AddResourceLocation("media", "Folder");
 
-			window = root.Initialize(false);
-			window = root.CreateRenderWindow("TestRenderWindow", 800, 600, false);
+			GV.Window = GV.Root.Initialize(false);
+			GV.Window = GV.Root.CreateRenderWindow("TestRenderGV.Window", 800, 600, false);
 
-			platformManager = new OpenTKPlatformManager();
-			overlayManager = OverlayManager.Instance;
-			input = platformManager.CreateInputReader();
-			input.Initialize(window, true, true, false, false);
+			GV.PlatformManager = new OpenTKPlatformManager();
+			GV.OverlayManager = OverlayManager.Instance;
+			input = GV.PlatformManager.CreateInputReader();
+			input.Initialize(GV.Window, true, true, false, false);
 
 			TextureManager.Instance.DefaultMipmapCount = 5;
 			ResourceGroupManager.Instance.InitializeAllResourceGroups();
 
-			sceneManager = root.CreateSceneManager(SceneType.Generic);
+			GV.SceneManager = GV.Root.CreateSceneManager(SceneType.Generic);
 
-			camera = sceneManager.CreateCamera("TestCamera");
+			camera = GV.SceneManager.CreateCamera("TestCamera");
 			camera.Position = new Vector3(0, 500, -500);
 			camera.LookAt(new Vector3(0, 0, 0));
 			camera.Near = 5;
 			camera.AutoAspectRatio = true;
 
-			viewport = window.AddViewport(camera);
+			viewport = GV.Window.AddViewport(camera);
 			viewport.BackgroundColor = ColorEx.Black;
 
-			sun = sceneManager.CreateLight("sun");
+			sun = GV.SceneManager.CreateLight("sun");
 			sun.Type = LightType.Point;
 			sun.Position = new Vector3(0, 500, 100);
 			sun.Direction = new Vector3(0, -1, 0.5);
@@ -69,7 +63,7 @@ namespace Snowflake {
             //sun.AttenuationLinear = 0.1f;
 			sun.CastShadows = true;
 
-			Light sky = sceneManager.CreateLight ("sky");
+			Light sky = GV.SceneManager.CreateLight ("sky");
 			sky.Type = LightType.Directional;
 			sky.Position = new Vector3(0, 2000, 0);
 			sky.Direction = new Vector3(0, -1, 0);
@@ -77,31 +71,31 @@ namespace Snowflake {
 			sky.Specular = ColorEx.Black;
 			sky.CastShadows = true;
 
-			sceneManager.AmbientLight = ColorEx.Black;
-			//sceneManager.ShadowTechnique = ShadowTechnique.StencilAdditive;
-			//sceneManager.ActiveCompositorChain
+			GV.SceneManager.AmbientLight = ColorEx.Black;
+			//GV.SceneManager.ShadowTechnique = ShadowTechnique.StencilAdditive;
+			//GV.SceneManager.ActiveCompositorChain
 		}
 
 		public void createScene() {
-			entity = sceneManager.CreateEntity("TestEntity", PrefabEntity.Cube);
+			entity = GV.SceneManager.CreateEntity("TestEntity", PrefabEntity.Cube);
 			entity.CastShadows = true;
 
-			sceneNode = sceneManager.RootSceneNode.CreateChildSceneNode();
+			sceneNode = GV.SceneManager.RootSceneNode.CreateChildSceneNode();
 			sceneNode.AttachObject(entity);
 			sceneNode.Translate(new Vector3(120, 0, 0));
 			sceneNode.Yaw(45);
 			//sceneNode.Pitch(45);
 
-			Entity ent = sceneManager.CreateEntity("ninja", "ninja.mesh");
+			Entity ent = GV.SceneManager.CreateEntity("ninja", "ninja.mesh");
 			ent.CastShadows = true;
-			sceneManager.RootSceneNode.CreateChildSceneNode().AttachObject(ent);
+			GV.SceneManager.RootSceneNode.CreateChildSceneNode().AttachObject(ent);
 
 			Plane plane = new Plane(Vector3.UnitY, 0);
 			MeshManager.Instance.CreatePlane("ground", ResourceGroupManager.DefaultResourceGroupName, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UnitZ);
 
-			ground = sceneManager.CreateEntity("GroundEntity", "ground");
+			ground = GV.SceneManager.CreateEntity("GroundEntity", "ground");
 			ground.MaterialName = "Grass";
-			world = sceneManager.RootSceneNode.CreateChildSceneNode();
+			world = GV.SceneManager.RootSceneNode.CreateChildSceneNode();
 			world.AttachObject(ground);
 			world.Translate(new Vector3(0, -75, 0));
 		}
@@ -114,8 +108,8 @@ namespace Snowflake {
 				}
 			} catch (NullReferenceException e) {
 				Console.WriteLine(e.Message);
-				root.Shutdown();
-				root.Dispose();
+				GV.Root.Shutdown();
+				GV.Root.Dispose();
 				return;
 			}
 			if (input.IsMousePressed(MouseButtons.Right)) {
@@ -144,7 +138,7 @@ namespace Snowflake {
 			}
 
 			/*timeLast = timeNow;
-			timeNow = root.Timer.Milliseconds;
+			timeNow = GV.Root.Timer.Milliseconds;
 			timeDelta = timeNow - timeLast;*/
 
 			if (rotating) {
@@ -152,9 +146,9 @@ namespace Snowflake {
 				sceneNode.Pitch(timeDelta * 0.070f);
 				sceneNode.Roll (timeDelta * 0.056718f);*/
 
-				sun.Position = new Vector3(300 * Math.Cos(root.Timer.Milliseconds / -2000.0), 300 * Math.Sin(root.Timer.Milliseconds / -2000.0), -300);
+				sun.Position = new Vector3(300 * Math.Cos(GV.Root.Timer.Milliseconds / -2000.0), 300 * Math.Sin(GV.Root.Timer.Milliseconds / -2000.0), -300);
 				//sun.AttenuationQuadratic = Math.Max (0, sun.Position.y / 300.0f);
-				//camera.Position = new Vector3 (500 * Math.Cos (root.Timer.Milliseconds / 5879.0), 500, 500 * Math.Sin (root.Timer.Milliseconds / 5879.0));
+				//camera.Position = new Vector3 (500 * Math.Cos (GV.Root.Timer.Milliseconds / 5879.0), 500, 500 * Math.Sin (GV.Root.Timer.Milliseconds / 5879.0));
 				//camera.SetAutoTracking(true, sceneNode);
 
 			}
@@ -166,7 +160,7 @@ namespace Snowflake {
 			main.init();
 			main.createScene();
 			Console.WriteLine("start rendering...");
-			main.root.StartRendering();
+			GV.Root.StartRendering();
 		}
 	}
 }

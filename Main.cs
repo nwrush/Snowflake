@@ -19,7 +19,7 @@ namespace Snowflake {
 		Entity ground;
 
 		//long timeLast, timeNow, timeDelta;
-		bool rotating = false;
+		bool rotating = true;
 
 		public void init() {
 			GV.Root = new Root("test.log");
@@ -139,7 +139,7 @@ namespace Snowflake {
 				sceneNode.Pitch(timeDelta * 0.070f);
 				sceneNode.Roll (timeDelta * 0.056718f);*/
 
-				sun.Position = new Vector3(1000 * Math.Cos(GV.Root.Timer.Milliseconds / -20000.0), 1000 * Math.Sin(GV.Root.Timer.Milliseconds / -20000.0), -300);
+				sun.Position = new Vector3(1000 * Math.Cos(GV.Root.Timer.Milliseconds / -2000.0), 1000 * Math.Sin(GV.Root.Timer.Milliseconds / -2000.0), -300);
 				//sun.AttenuationQuadratic = Math.Max (0, sun.Position.y / 300.0f);
 				//camera.Position = new Vector3 (500 * Math.Cos (GV.Root.Timer.Milliseconds / 5879.0), 500, 500 * Math.Sin (GV.Root.Timer.Milliseconds / 5879.0));
 				//camera.SetAutoTracking(true, sceneNode);

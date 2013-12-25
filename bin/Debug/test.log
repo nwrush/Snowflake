@@ -1,336 +1,335 @@
-[04:29:47] *********Axiom 3D Engine Log *************
+[09:30:45] *********Axiom 3D Engine Log *************
 Copyright Copyright ? 2003-2012 Axiom Rendering Engine Project Team.
 Version: 0.8.3376.12322
 Operating System: Unix 3.11.0.12
 .Net Framework: 4.0.30319.1
 
-[04:29:47] *-*-* Axiom Initializing
-[04:29:47] ArchiveFactory for archive type ZipFile registered.
-[04:29:47] ArchiveFactory for archive type Folder registered.
-[04:29:47] Registering ResourceManager for type HighLevelGpuProgram
-[04:29:47] Creating resource group General
-[04:29:47] Creating resource group Internal
-[04:29:47] Creating resource group Bootstrap
-[04:29:47] Creating resource group AutoDetect
-[04:29:47] SceneManagerFactory for type 'DefaultSceneManager' registered
-[04:29:47] Registering ScriptLoader for patterns *.program *.material 
-[04:29:47] Registering ResourceManager for type Material
-[04:29:47] Registering ResourceManager for type Mesh
-[04:29:47] Registering ResourceManager for type Skeleton
-[04:29:47] Registering ScriptLoader for patterns *.particle 
-[04:29:48] Registering ScriptLoader for patterns *.fontdef 
-[04:29:48] Registering ResourceManager for type Font
-[04:29:48] Registering ScriptLoader for patterns *.overlay 
-[04:29:48] OverlayElementFactory for type 'BorderPanel' registered.
-[04:29:48] OverlayElementFactory for type 'TextArea' registered.
-[04:29:48] OverlayElementFactory for type 'Panel' registered.
-[04:29:48] Registering ScriptLoader for patterns *.compositor 
-[04:29:48] Registering ResourceManager for type Compositor
-[04:29:48] Registering ScriptLoader for patterns *.os 
-[04:29:48] Could not load file or assembly '/home/achronister/Documents/Git/Snowflake/bin/Debug/DevIL.dll' or one of its dependencies. An attempt was made to load a program with an incorrect format.
-[04:29:48] Loaded plugin: Axiom DevIL Codecs Plugin
-[04:29:48] [ Warning ] No Freeimage found.
-[04:29:48] Loaded plugin: Axiom FreeImage Codecs Plugin
-[04:29:48] Axiom OpenGL (OpenTK) Rendering Subsystem created.
-[04:29:48] OpenGL : RenderSystem Option: Display Frequency = N/A
-[04:29:48] OpenGL : RenderSystem Option: Color Depth = 24
-[04:29:48] Loaded plugin: Axiom OpenGL (OpenTK) Rendering Subsystem
-[04:29:48] Factory EntityFactory registered for MovableObjectType 'Entity'.
-[04:29:48] Factory LightFactory registered for MovableObjectType 'Light'.
-[04:29:48] Factory BillboardSetFactory registered for MovableObjectType 'BillboardSet'.
-[04:29:48] Factory ManualObjectFactory registered for MovableObjectType 'ManualObject'.
-[04:29:48] Factory BillboardChainFactory registered for MovableObjectType 'BillboardChain'.
-[04:29:48] Factory RibbonTrailFactory registered for MovableObjectType 'RibbonTrail'.
-[04:29:48] Factory MovableTextFactory registered for MovableObjectType 'MovableText'.
-[04:29:48] Added resource location 'media' of type 'Folder' to resource group 'General'
-[04:29:48] CPU Identifier & Features
-[04:29:48] -------------------------
-[04:29:48] CPU Identification not available
-[04:29:48]  *     SSE1: False
-[04:29:48]  *     SSE2: False
-[04:29:48]  *     SSE3: False
-[04:29:48]  *    SSSE3: False
-[04:29:48]  *    SSSE3: False
-[04:29:48]  *    SSSE3: False
-[04:29:48]  *    SSSE3: False
-[04:29:48] -------------------------
-[04:29:48] *** Starting OpenTKGL Subsystem ***
-[04:29:49] ***************************
-[04:29:49] *** GL Renderer Started ***
-[04:29:49] ***************************
-[04:29:49] Vendor: X.Org
-[04:29:49] Video Board: Gallium 0.4 on AMD PALM
-[04:29:49] Version: 3.0 Mesa 9.2.1
-[04:29:49] Extensions supported: 
-[04:29:49] GL_ARB_multisample
-[04:29:49] GL_EXT_abgr
-[04:29:49] GL_EXT_bgra
-[04:29:49] GL_EXT_blend_color
-[04:29:49] GL_EXT_blend_minmax
-[04:29:49] GL_EXT_blend_subtract
-[04:29:49] GL_EXT_copy_texture
-[04:29:49] GL_EXT_polygon_offset
-[04:29:49] GL_EXT_subtexture
-[04:29:49] GL_EXT_texture_object
-[04:29:49] GL_EXT_vertex_array
-[04:29:49] GL_EXT_compiled_vertex_array
-[04:29:49] GL_EXT_texture
-[04:29:49] GL_EXT_texture3D
-[04:29:49] GL_IBM_rasterpos_clip
-[04:29:49] GL_ARB_point_parameters
-[04:29:49] GL_EXT_draw_range_elements
-[04:29:49] GL_EXT_packed_pixels
-[04:29:49] GL_EXT_point_parameters
-[04:29:49] GL_EXT_rescale_normal
-[04:29:49] GL_EXT_separate_specular_color
-[04:29:49] GL_EXT_texture_edge_clamp
-[04:29:49] GL_SGIS_generate_mipmap
-[04:29:49] GL_SGIS_texture_border_clamp
-[04:29:49] GL_SGIS_texture_edge_clamp
-[04:29:49] GL_SGIS_texture_lod
-[04:29:49] GL_ARB_framebuffer_sRGB
-[04:29:49] GL_ARB_multitexture
-[04:29:49] GL_EXT_framebuffer_sRGB
-[04:29:49] GL_IBM_multimode_draw_arrays
-[04:29:49] GL_IBM_texture_mirrored_repeat
-[04:29:49] GL_ARB_texture_cube_map
-[04:29:49] GL_ARB_texture_env_add
-[04:29:49] GL_ARB_transpose_matrix
-[04:29:49] GL_EXT_blend_func_separate
-[04:29:49] GL_EXT_fog_coord
-[04:29:49] GL_EXT_multi_draw_arrays
-[04:29:49] GL_EXT_secondary_color
-[04:29:49] GL_EXT_texture_env_add
-[04:29:49] GL_EXT_texture_filter_anisotropic
-[04:29:49] GL_EXT_texture_lod_bias
-[04:29:49] GL_INGR_blend_func_separate
-[04:29:49] GL_NV_blend_square
-[04:29:49] GL_NV_light_max_exponent
-[04:29:49] GL_NV_texgen_reflection
-[04:29:49] GL_NV_texture_env_combine4
-[04:29:49] GL_SUN_multi_draw_arrays
-[04:29:49] GL_ARB_texture_border_clamp
-[04:29:49] GL_ARB_texture_compression
-[04:29:49] GL_EXT_framebuffer_object
-[04:29:49] GL_EXT_texture_env_combine
-[04:29:49] GL_EXT_texture_env_dot3
-[04:29:49] GL_MESA_window_pos
-[04:29:49] GL_NV_packed_depth_stencil
-[04:29:49] GL_NV_texture_rectangle
-[04:29:49] GL_ARB_depth_texture
-[04:29:49] GL_ARB_occlusion_query
-[04:29:49] GL_ARB_shadow
-[04:29:49] GL_ARB_texture_env_combine
-[04:29:49] GL_ARB_texture_env_crossbar
-[04:29:49] GL_ARB_texture_env_dot3
-[04:29:49] GL_ARB_texture_mirrored_repeat
-[04:29:49] GL_ARB_window_pos
-[04:29:49] GL_EXT_stencil_two_side
-[04:29:49] GL_EXT_texture_cube_map
-[04:29:49] GL_NV_depth_clamp
-[04:29:49] GL_NV_fog_distance
-[04:29:49] GL_APPLE_packed_pixels
-[04:29:49] GL_APPLE_vertex_array_object
-[04:29:49] GL_ARB_draw_buffers
-[04:29:49] GL_ARB_fragment_program
-[04:29:49] GL_ARB_fragment_shader
-[04:29:49] GL_ARB_shader_objects
-[04:29:49] GL_ARB_vertex_program
-[04:29:49] GL_ARB_vertex_shader
-[04:29:49] GL_ATI_draw_buffers
-[04:29:49] GL_ATI_texture_env_combine3
-[04:29:49] GL_ATI_texture_float
-[04:29:49] GL_EXT_shadow_funcs
-[04:29:49] GL_EXT_stencil_wrap
-[04:29:49] GL_MESA_pack_invert
-[04:29:49] GL_NV_primitive_restart
-[04:29:49] GL_ARB_depth_clamp
-[04:29:49] GL_ARB_fragment_program_shadow
-[04:29:49] GL_ARB_half_float_pixel
-[04:29:49] GL_ARB_occlusion_query2
-[04:29:49] GL_ARB_point_sprite
-[04:29:49] GL_ARB_shading_language_100
-[04:29:49] GL_ARB_sync
-[04:29:49] GL_ARB_texture_non_power_of_two
-[04:29:49] GL_ARB_vertex_buffer_object
-[04:29:49] GL_ATI_blend_equation_separate
-[04:29:49] GL_EXT_blend_equation_separate
-[04:29:49] GL_OES_read_format
-[04:29:49] GL_ARB_color_buffer_float
-[04:29:49] GL_ARB_pixel_buffer_object
-[04:29:49] GL_ARB_texture_compression_rgtc
-[04:29:49] GL_ARB_texture_float
-[04:29:49] GL_ARB_texture_rectangle
-[04:29:49] GL_ATI_texture_compression_3dc
-[04:29:49] GL_EXT_packed_float
-[04:29:49] GL_EXT_pixel_buffer_object
-[04:29:49] GL_EXT_texture_compression_rgtc
-[04:29:49] GL_EXT_texture_mirror_clamp
-[04:29:49] GL_EXT_texture_rectangle
-[04:29:49] GL_EXT_texture_sRGB
-[04:29:49] GL_EXT_texture_shared_exponent
-[04:29:49] GL_ARB_framebuffer_object
-[04:29:49] GL_EXT_framebuffer_blit
-[04:29:49] GL_EXT_framebuffer_multisample
-[04:29:49] GL_EXT_packed_depth_stencil
-[04:29:49] GL_ARB_vertex_array_object
-[04:29:49] GL_ATI_separate_stencil
-[04:29:49] GL_ATI_texture_mirror_once
-[04:29:49] GL_EXT_draw_buffers2
-[04:29:49] GL_EXT_draw_instanced
-[04:29:49] GL_EXT_gpu_program_parameters
-[04:29:49] GL_EXT_texture_array
-[04:29:49] GL_EXT_texture_compression_latc
-[04:29:49] GL_EXT_texture_integer
-[04:29:49] GL_EXT_texture_sRGB_decode
-[04:29:49] GL_EXT_timer_query
-[04:29:49] GL_OES_EGL_image
-[04:29:49] GL_MESA_texture_array
-[04:29:49] GL_ARB_copy_buffer
-[04:29:49] GL_ARB_depth_buffer_float
-[04:29:49] GL_ARB_draw_instanced
-[04:29:49] GL_ARB_half_float_vertex
-[04:29:49] GL_ARB_instanced_arrays
-[04:29:49] GL_ARB_map_buffer_range
-[04:29:49] GL_ARB_texture_rg
-[04:29:49] GL_ARB_texture_swizzle
-[04:29:49] GL_ARB_vertex_array_bgra
-[04:29:49] GL_EXT_texture_swizzle
-[04:29:49] GL_EXT_vertex_array_bgra
-[04:29:49] GL_NV_conditional_render
-[04:29:49] GL_AMD_conservative_depth
-[04:29:49] GL_AMD_draw_buffers_blend
-[04:29:49] GL_AMD_seamless_cubemap_per_texture
-[04:29:49] GL_AMD_shader_stencil_export
-[04:29:49] GL_ARB_ES2_compatibility
-[04:29:49] GL_ARB_blend_func_extended
-[04:29:49] GL_ARB_debug_output
-[04:29:49] GL_ARB_draw_buffers_blend
-[04:29:49] GL_ARB_draw_elements_base_vertex
-[04:29:49] GL_ARB_explicit_attrib_location
-[04:29:49] GL_ARB_fragment_coord_conventions
-[04:29:49] GL_ARB_provoking_vertex
-[04:29:49] GL_ARB_sampler_objects
-[04:29:49] GL_ARB_seamless_cube_map
-[04:29:49] GL_ARB_shader_stencil_export
-[04:29:49] GL_ARB_shader_texture_lod
-[04:29:49] GL_ARB_texture_cube_map_array
-[04:29:49] GL_ARB_texture_multisample
-[04:29:49] GL_ARB_texture_rgb10_a2ui
-[04:29:49] GL_ARB_uniform_buffer_object
-[04:29:49] GL_ARB_vertex_type_2_10_10_10_rev
-[04:29:49] GL_EXT_provoking_vertex
-[04:29:49] GL_EXT_texture_snorm
-[04:29:49] GL_MESA_texture_signed_rgba
-[04:29:49] GL_NV_texture_barrier
-[04:29:49] GL_ARB_get_program_binary
-[04:29:49] GL_ARB_robustness
-[04:29:49] GL_ARB_shader_bit_encoding
-[04:29:49] GL_ARB_timer_query
-[04:29:49] GL_ARB_transform_feedback2
-[04:29:49] GL_ARB_transform_feedback3
-[04:29:49] GL_ARB_base_instance
-[04:29:49] GL_ARB_conservative_depth
-[04:29:49] GL_ARB_internalformat_query
-[04:29:49] GL_ARB_map_buffer_alignment
-[04:29:49] GL_ARB_shading_language_420pack
-[04:29:49] GL_ARB_shading_language_packing
-[04:29:49] GL_ARB_texture_storage
-[04:29:49] GL_ARB_transform_feedback_instanced
-[04:29:49] GL_EXT_transform_feedback
-[04:29:49] GL_ARB_invalidate_subdata
-[04:29:49] GL_ARB_texture_storage_multisample
-[04:29:49] 
-[04:29:49] GLSL support detected
-[04:29:49] GL: Using GL_EXT_framebuffer_object for rendering to textures (best)
-[04:29:49] 	FBO PF_UNKNOWN depth/stencil support: D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_L8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_L16 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_A8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_BYTE_LA depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_R5G6B5 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_B5G6R5 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_A4R4G4B4 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_A1R5G5B5 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_R8G8B8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_B8G8R8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_A8R8G8B8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_B8G8R8A8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_A2R10G10B10 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_A2B10G10R10 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_FLOAT16_RGB depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_FLOAT16_RGBA depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_FLOAT32_RGB depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_FLOAT32_RGBA depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_X8R8G8B8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_X8B8G8R8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_SHORT_RGBA depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_R3G3B2 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_FLOAT16_R depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_FLOAT32_R depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_SHORT_GR depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_FLOAT16_GR depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_FLOAT32_GR depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] 	FBO PF_SHORT_RGB depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
-[04:29:49] [GL] : Valid FBO targets PF_UNKNOWN PF_L8 PF_L16 PF_A8 PF_BYTE_LA PF_R5G6B5 PF_B5G6R5 PF_A4R4G4B4 PF_A1R5G5B5 PF_R8G8B8 PF_B8G8R8 PF_A8R8G8B8 PF_B8G8R8A8 PF_A2R10G10B10 PF_A2B10G10R10 PF_FLOAT16_RGB PF_FLOAT16_RGBA PF_FLOAT32_RGB PF_FLOAT32_RGBA PF_X8R8G8B8 PF_X8B8G8R8 PF_SHORT_RGBA PF_R3G3B2 PF_FLOAT16_R PF_FLOAT32_R PF_SHORT_GR PF_FLOAT16_GR PF_FLOAT32_GR PF_SHORT_RGB 
-[04:29:49] ---RenderSystem capabilities---
-[04:29:49] 	-GPU Vendor: Unknown
-[04:29:49] 	-Device Name: 
-[04:29:49] 	-Driver Version: 0.0.0.0
-[04:29:49] 	-Available texture units: 16
-[04:29:49] 	-Maximum lights available: 8
-[04:29:49] 	-Hardware generation of mip-maps: yes
-[04:29:49] 	-Texture blending: yes
-[04:29:49] 	-Anisotropic texture filtering: yes
-[04:29:49] 	-Dot product texture operation: yes
-[04:29:49] 	-Cube Mapping: yes
-[04:29:49] 	-Hardware stencil buffer: yes
-[04:29:49] 		-Stencil depth: 8 bits
-[04:29:49] 		-Two sided stencil support: yes
-[04:29:49] 		-Wrap stencil values: yes
-[04:29:49] 	-Hardware vertex/index buffers: yes
-[04:29:49] 	-Vertex programs: yes
-[04:29:49] 		-Max vertex program version: arbvp1
-[04:29:49] 	-Fragment programs: yes
-[04:29:49] 		-Max fragment program version: arbfp1
-[04:29:49] 	-Texture compression: yes
-[04:29:49] 		-DXT: no
-[04:29:49] 		-VTC: no
-[04:29:49] 	-Scissor rectangle: yes
-[04:29:49] 	-Hardware Occlusion Query: yes
-[04:29:49] 	-User clip planes: yes
-[04:29:49] 	-VertexElementType.UBYTE4: yes
-[04:29:49] 	-Infinite far plane projection: yes
-[04:29:49] 	-Max Point Size: 16384 
-[04:29:49] 	-Vertex texture fetch: yes 
-[04:29:49] 		-Max vertex textures: 16
-[04:29:49] 		-Vertex textures shared: yes
-[04:29:49] Registering ResourceManager for type Texture
-[04:29:49] Particle Renderer type 'billboard' registered.
-[04:29:50] Initializing all resource groups:
-[04:29:50] Initializing resource group AutoDetect.
-[04:29:50] Parsing scripts for resource group AutoDetect
-[04:29:50] Finished parsing scripts for resource group AutoDetect
-[04:29:50] 	AutoDetect initialized.
-[04:29:50] Initializing resource group Bootstrap.
-[04:29:50] Parsing scripts for resource group Bootstrap
-[04:29:50] Finished parsing scripts for resource group Bootstrap
-[04:29:50] 	Bootstrap initialized.
-[04:29:50] Initializing resource group General.
-[04:29:50] Parsing scripts for resource group General
-[04:29:50] Parsing script Ninja.material
-[04:29:50] Parsing script grass.material
-[04:29:50] Parsing script road.material
-[04:29:50] Finished parsing scripts for resource group General
-[04:29:50] 	General initialized.
-[04:29:50] Initializing resource group Internal.
-[04:29:50] Parsing scripts for resource group Internal
-[04:29:50] Finished parsing scripts for resource group Internal
-[04:29:50] 	Internal initialized.
-[04:29:50] Creating viewport rendering from camera 'MainCamera', relative dimensions L:0,T:0,W:1,H:1, Z-Order:0
-[04:29:50] Viewport for camera 'MainCamera' - actual dimensions L:0,T:0,W:800,H:600, AR:1.333333
-[04:29:51] Texture: grass.tga: Loading 1 faces( PF_A8B8G8R8, 512x512x1 ) with 5 hardware generated mipmaps from an Image.
+[09:30:46] *-*-* Axiom Initializing
+[09:30:46] ArchiveFactory for archive type ZipFile registered.
+[09:30:46] ArchiveFactory for archive type Folder registered.
+[09:30:46] Registering ResourceManager for type HighLevelGpuProgram
+[09:30:46] Creating resource group General
+[09:30:46] Creating resource group Internal
+[09:30:46] Creating resource group Bootstrap
+[09:30:46] Creating resource group AutoDetect
+[09:30:46] SceneManagerFactory for type 'DefaultSceneManager' registered
+[09:30:46] Registering ScriptLoader for patterns *.program *.material 
+[09:30:46] Registering ResourceManager for type Material
+[09:30:46] Registering ResourceManager for type Mesh
+[09:30:46] Registering ResourceManager for type Skeleton
+[09:30:46] Registering ScriptLoader for patterns *.particle 
+[09:30:46] Registering ScriptLoader for patterns *.fontdef 
+[09:30:46] Registering ResourceManager for type Font
+[09:30:46] Registering ScriptLoader for patterns *.overlay 
+[09:30:46] OverlayElementFactory for type 'BorderPanel' registered.
+[09:30:46] OverlayElementFactory for type 'TextArea' registered.
+[09:30:46] OverlayElementFactory for type 'Panel' registered.
+[09:30:46] Registering ScriptLoader for patterns *.compositor 
+[09:30:46] Registering ResourceManager for type Compositor
+[09:30:46] Registering ScriptLoader for patterns *.os 
+[09:30:46] Could not load file or assembly '/home/achronister/Documents/Git/Snowflake/bin/Debug/DevIL.dll' or one of its dependencies. An attempt was made to load a program with an incorrect format.
+[09:30:46] Loaded plugin: Axiom DevIL Codecs Plugin
+[09:30:46] [ Warning ] No Freeimage found.
+[09:30:46] Loaded plugin: Axiom FreeImage Codecs Plugin
+[09:30:46] Axiom OpenGL (OpenTK) Rendering Subsystem created.
+[09:30:46] OpenGL : RenderSystem Option: Display Frequency = N/A
+[09:30:46] OpenGL : RenderSystem Option: Color Depth = 24
+[09:30:46] Loaded plugin: Axiom OpenGL (OpenTK) Rendering Subsystem
+[09:30:46] Factory EntityFactory registered for MovableObjectType 'Entity'.
+[09:30:46] Factory LightFactory registered for MovableObjectType 'Light'.
+[09:30:46] Factory BillboardSetFactory registered for MovableObjectType 'BillboardSet'.
+[09:30:46] Factory ManualObjectFactory registered for MovableObjectType 'ManualObject'.
+[09:30:46] Factory BillboardChainFactory registered for MovableObjectType 'BillboardChain'.
+[09:30:46] Factory RibbonTrailFactory registered for MovableObjectType 'RibbonTrail'.
+[09:30:46] Factory MovableTextFactory registered for MovableObjectType 'MovableText'.
+[09:30:47] Added resource location 'media' of type 'Folder' to resource group 'General'
+[09:30:47] CPU Identifier & Features
+[09:30:47] -------------------------
+[09:30:47] CPU Identification not available
+[09:30:47]  *     SSE1: False
+[09:30:47]  *     SSE2: False
+[09:30:47]  *     SSE3: False
+[09:30:47]  *    SSSE3: False
+[09:30:47]  *    SSSE3: False
+[09:30:47]  *    SSSE3: False
+[09:30:47]  *    SSSE3: False
+[09:30:47] -------------------------
+[09:30:47] *** Starting OpenTKGL Subsystem ***
+[09:30:47] ***************************
+[09:30:47] *** GL Renderer Started ***
+[09:30:47] ***************************
+[09:30:47] Vendor: X.Org
+[09:30:47] Video Board: Gallium 0.4 on AMD PALM
+[09:30:47] Version: 3.0 Mesa 9.2.1
+[09:30:47] Extensions supported: 
+[09:30:47] GL_ARB_multisample
+[09:30:47] GL_EXT_abgr
+[09:30:47] GL_EXT_bgra
+[09:30:47] GL_EXT_blend_color
+[09:30:47] GL_EXT_blend_minmax
+[09:30:47] GL_EXT_blend_subtract
+[09:30:47] GL_EXT_copy_texture
+[09:30:47] GL_EXT_polygon_offset
+[09:30:47] GL_EXT_subtexture
+[09:30:47] GL_EXT_texture_object
+[09:30:47] GL_EXT_vertex_array
+[09:30:47] GL_EXT_compiled_vertex_array
+[09:30:47] GL_EXT_texture
+[09:30:47] GL_EXT_texture3D
+[09:30:47] GL_IBM_rasterpos_clip
+[09:30:47] GL_ARB_point_parameters
+[09:30:47] GL_EXT_draw_range_elements
+[09:30:47] GL_EXT_packed_pixels
+[09:30:47] GL_EXT_point_parameters
+[09:30:47] GL_EXT_rescale_normal
+[09:30:47] GL_EXT_separate_specular_color
+[09:30:47] GL_EXT_texture_edge_clamp
+[09:30:47] GL_SGIS_generate_mipmap
+[09:30:47] GL_SGIS_texture_border_clamp
+[09:30:47] GL_SGIS_texture_edge_clamp
+[09:30:47] GL_SGIS_texture_lod
+[09:30:47] GL_ARB_framebuffer_sRGB
+[09:30:47] GL_ARB_multitexture
+[09:30:47] GL_EXT_framebuffer_sRGB
+[09:30:47] GL_IBM_multimode_draw_arrays
+[09:30:47] GL_IBM_texture_mirrored_repeat
+[09:30:47] GL_ARB_texture_cube_map
+[09:30:47] GL_ARB_texture_env_add
+[09:30:47] GL_ARB_transpose_matrix
+[09:30:47] GL_EXT_blend_func_separate
+[09:30:47] GL_EXT_fog_coord
+[09:30:47] GL_EXT_multi_draw_arrays
+[09:30:47] GL_EXT_secondary_color
+[09:30:47] GL_EXT_texture_env_add
+[09:30:47] GL_EXT_texture_filter_anisotropic
+[09:30:47] GL_EXT_texture_lod_bias
+[09:30:47] GL_INGR_blend_func_separate
+[09:30:47] GL_NV_blend_square
+[09:30:47] GL_NV_light_max_exponent
+[09:30:47] GL_NV_texgen_reflection
+[09:30:47] GL_NV_texture_env_combine4
+[09:30:47] GL_SUN_multi_draw_arrays
+[09:30:47] GL_ARB_texture_border_clamp
+[09:30:47] GL_ARB_texture_compression
+[09:30:47] GL_EXT_framebuffer_object
+[09:30:47] GL_EXT_texture_env_combine
+[09:30:47] GL_EXT_texture_env_dot3
+[09:30:47] GL_MESA_window_pos
+[09:30:47] GL_NV_packed_depth_stencil
+[09:30:47] GL_NV_texture_rectangle
+[09:30:47] GL_ARB_depth_texture
+[09:30:47] GL_ARB_occlusion_query
+[09:30:47] GL_ARB_shadow
+[09:30:47] GL_ARB_texture_env_combine
+[09:30:47] GL_ARB_texture_env_crossbar
+[09:30:47] GL_ARB_texture_env_dot3
+[09:30:47] GL_ARB_texture_mirrored_repeat
+[09:30:47] GL_ARB_window_pos
+[09:30:47] GL_EXT_stencil_two_side
+[09:30:47] GL_EXT_texture_cube_map
+[09:30:47] GL_NV_depth_clamp
+[09:30:47] GL_NV_fog_distance
+[09:30:47] GL_APPLE_packed_pixels
+[09:30:47] GL_APPLE_vertex_array_object
+[09:30:47] GL_ARB_draw_buffers
+[09:30:47] GL_ARB_fragment_program
+[09:30:47] GL_ARB_fragment_shader
+[09:30:47] GL_ARB_shader_objects
+[09:30:47] GL_ARB_vertex_program
+[09:30:47] GL_ARB_vertex_shader
+[09:30:47] GL_ATI_draw_buffers
+[09:30:47] GL_ATI_texture_env_combine3
+[09:30:47] GL_ATI_texture_float
+[09:30:47] GL_EXT_shadow_funcs
+[09:30:47] GL_EXT_stencil_wrap
+[09:30:47] GL_MESA_pack_invert
+[09:30:47] GL_NV_primitive_restart
+[09:30:47] GL_ARB_depth_clamp
+[09:30:47] GL_ARB_fragment_program_shadow
+[09:30:47] GL_ARB_half_float_pixel
+[09:30:47] GL_ARB_occlusion_query2
+[09:30:47] GL_ARB_point_sprite
+[09:30:47] GL_ARB_shading_language_100
+[09:30:47] GL_ARB_sync
+[09:30:47] GL_ARB_texture_non_power_of_two
+[09:30:47] GL_ARB_vertex_buffer_object
+[09:30:47] GL_ATI_blend_equation_separate
+[09:30:47] GL_EXT_blend_equation_separate
+[09:30:47] GL_OES_read_format
+[09:30:47] GL_ARB_color_buffer_float
+[09:30:47] GL_ARB_pixel_buffer_object
+[09:30:47] GL_ARB_texture_compression_rgtc
+[09:30:47] GL_ARB_texture_float
+[09:30:47] GL_ARB_texture_rectangle
+[09:30:47] GL_ATI_texture_compression_3dc
+[09:30:47] GL_EXT_packed_float
+[09:30:47] GL_EXT_pixel_buffer_object
+[09:30:47] GL_EXT_texture_compression_rgtc
+[09:30:47] GL_EXT_texture_mirror_clamp
+[09:30:47] GL_EXT_texture_rectangle
+[09:30:47] GL_EXT_texture_sRGB
+[09:30:47] GL_EXT_texture_shared_exponent
+[09:30:47] GL_ARB_framebuffer_object
+[09:30:47] GL_EXT_framebuffer_blit
+[09:30:47] GL_EXT_framebuffer_multisample
+[09:30:47] GL_EXT_packed_depth_stencil
+[09:30:47] GL_ARB_vertex_array_object
+[09:30:47] GL_ATI_separate_stencil
+[09:30:47] GL_ATI_texture_mirror_once
+[09:30:47] GL_EXT_draw_buffers2
+[09:30:47] GL_EXT_draw_instanced
+[09:30:47] GL_EXT_gpu_program_parameters
+[09:30:47] GL_EXT_texture_array
+[09:30:47] GL_EXT_texture_compression_latc
+[09:30:47] GL_EXT_texture_integer
+[09:30:47] GL_EXT_texture_sRGB_decode
+[09:30:47] GL_EXT_timer_query
+[09:30:47] GL_OES_EGL_image
+[09:30:47] GL_MESA_texture_array
+[09:30:47] GL_ARB_copy_buffer
+[09:30:47] GL_ARB_depth_buffer_float
+[09:30:47] GL_ARB_draw_instanced
+[09:30:47] GL_ARB_half_float_vertex
+[09:30:47] GL_ARB_instanced_arrays
+[09:30:47] GL_ARB_map_buffer_range
+[09:30:47] GL_ARB_texture_rg
+[09:30:47] GL_ARB_texture_swizzle
+[09:30:47] GL_ARB_vertex_array_bgra
+[09:30:47] GL_EXT_texture_swizzle
+[09:30:47] GL_EXT_vertex_array_bgra
+[09:30:47] GL_NV_conditional_render
+[09:30:47] GL_AMD_conservative_depth
+[09:30:47] GL_AMD_draw_buffers_blend
+[09:30:47] GL_AMD_seamless_cubemap_per_texture
+[09:30:47] GL_AMD_shader_stencil_export
+[09:30:47] GL_ARB_ES2_compatibility
+[09:30:47] GL_ARB_blend_func_extended
+[09:30:47] GL_ARB_debug_output
+[09:30:47] GL_ARB_draw_buffers_blend
+[09:30:47] GL_ARB_draw_elements_base_vertex
+[09:30:47] GL_ARB_explicit_attrib_location
+[09:30:47] GL_ARB_fragment_coord_conventions
+[09:30:47] GL_ARB_provoking_vertex
+[09:30:47] GL_ARB_sampler_objects
+[09:30:47] GL_ARB_seamless_cube_map
+[09:30:47] GL_ARB_shader_stencil_export
+[09:30:47] GL_ARB_shader_texture_lod
+[09:30:47] GL_ARB_texture_cube_map_array
+[09:30:47] GL_ARB_texture_multisample
+[09:30:47] GL_ARB_texture_rgb10_a2ui
+[09:30:47] GL_ARB_uniform_buffer_object
+[09:30:47] GL_ARB_vertex_type_2_10_10_10_rev
+[09:30:47] GL_EXT_provoking_vertex
+[09:30:47] GL_EXT_texture_snorm
+[09:30:47] GL_MESA_texture_signed_rgba
+[09:30:47] GL_NV_texture_barrier
+[09:30:47] GL_ARB_get_program_binary
+[09:30:47] GL_ARB_robustness
+[09:30:47] GL_ARB_shader_bit_encoding
+[09:30:47] GL_ARB_timer_query
+[09:30:47] GL_ARB_transform_feedback2
+[09:30:47] GL_ARB_transform_feedback3
+[09:30:47] GL_ARB_base_instance
+[09:30:47] GL_ARB_conservative_depth
+[09:30:47] GL_ARB_internalformat_query
+[09:30:47] GL_ARB_map_buffer_alignment
+[09:30:47] GL_ARB_shading_language_420pack
+[09:30:47] GL_ARB_shading_language_packing
+[09:30:47] GL_ARB_texture_storage
+[09:30:47] GL_ARB_transform_feedback_instanced
+[09:30:47] GL_EXT_transform_feedback
+[09:30:47] GL_ARB_invalidate_subdata
+[09:30:47] GL_ARB_texture_storage_multisample
+[09:30:47] 
+[09:30:47] GLSL support detected
+[09:30:47] GL: Using GL_EXT_framebuffer_object for rendering to textures (best)
+[09:30:47] 	FBO PF_UNKNOWN depth/stencil support: D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_L8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_L16 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_A8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_BYTE_LA depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_R5G6B5 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_B5G6R5 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_A4R4G4B4 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_A1R5G5B5 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_R8G8B8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_B8G8R8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_A8R8G8B8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_B8G8R8A8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_A2R10G10B10 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_A2B10G10R10 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_FLOAT16_RGB depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_FLOAT16_RGBA depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_FLOAT32_RGB depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_FLOAT32_RGBA depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_X8R8G8B8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_X8B8G8R8 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_SHORT_RGBA depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_R3G3B2 depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_FLOAT16_R depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_FLOAT32_R depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_SHORT_GR depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_FLOAT16_GR depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_FLOAT32_GR depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] 	FBO PF_SHORT_RGB depth/stencil support: D0S0 D0S1 D0S4 D0S8 D0S16 D16S0 D24S0 D32S0 Packed-D24S8 
+[09:30:47] [GL] : Valid FBO targets PF_UNKNOWN PF_L8 PF_L16 PF_A8 PF_BYTE_LA PF_R5G6B5 PF_B5G6R5 PF_A4R4G4B4 PF_A1R5G5B5 PF_R8G8B8 PF_B8G8R8 PF_A8R8G8B8 PF_B8G8R8A8 PF_A2R10G10B10 PF_A2B10G10R10 PF_FLOAT16_RGB PF_FLOAT16_RGBA PF_FLOAT32_RGB PF_FLOAT32_RGBA PF_X8R8G8B8 PF_X8B8G8R8 PF_SHORT_RGBA PF_R3G3B2 PF_FLOAT16_R PF_FLOAT32_R PF_SHORT_GR PF_FLOAT16_GR PF_FLOAT32_GR PF_SHORT_RGB 
+[09:30:47] ---RenderSystem capabilities---
+[09:30:47] 	-GPU Vendor: Unknown
+[09:30:47] 	-Device Name: 
+[09:30:47] 	-Driver Version: 0.0.0.0
+[09:30:47] 	-Available texture units: 16
+[09:30:47] 	-Maximum lights available: 8
+[09:30:47] 	-Hardware generation of mip-maps: yes
+[09:30:47] 	-Texture blending: yes
+[09:30:47] 	-Anisotropic texture filtering: yes
+[09:30:47] 	-Dot product texture operation: yes
+[09:30:47] 	-Cube Mapping: yes
+[09:30:47] 	-Hardware stencil buffer: yes
+[09:30:47] 		-Stencil depth: 8 bits
+[09:30:47] 		-Two sided stencil support: yes
+[09:30:47] 		-Wrap stencil values: yes
+[09:30:47] 	-Hardware vertex/index buffers: yes
+[09:30:47] 	-Vertex programs: yes
+[09:30:47] 		-Max vertex program version: arbvp1
+[09:30:47] 	-Fragment programs: yes
+[09:30:47] 		-Max fragment program version: arbfp1
+[09:30:47] 	-Texture compression: yes
+[09:30:47] 		-DXT: no
+[09:30:47] 		-VTC: no
+[09:30:47] 	-Scissor rectangle: yes
+[09:30:47] 	-Hardware Occlusion Query: yes
+[09:30:47] 	-User clip planes: yes
+[09:30:47] 	-VertexElementType.UBYTE4: yes
+[09:30:47] 	-Infinite far plane projection: yes
+[09:30:47] 	-Max Point Size: 16384 
+[09:30:47] 	-Vertex texture fetch: yes 
+[09:30:47] 		-Max vertex textures: 16
+[09:30:47] 		-Vertex textures shared: yes
+[09:30:47] Registering ResourceManager for type Texture
+[09:30:48] Particle Renderer type 'billboard' registered.
+[09:30:49] Initializing all resource groups:
+[09:30:49] Initializing resource group AutoDetect.
+[09:30:49] Parsing scripts for resource group AutoDetect
+[09:30:49] Finished parsing scripts for resource group AutoDetect
+[09:30:49] 	AutoDetect initialized.
+[09:30:49] Initializing resource group Bootstrap.
+[09:30:49] Parsing scripts for resource group Bootstrap
+[09:30:49] Finished parsing scripts for resource group Bootstrap
+[09:30:49] 	Bootstrap initialized.
+[09:30:49] Initializing resource group General.
+[09:30:49] Parsing scripts for resource group General
+[09:30:49] Parsing script Ninja.material
+[09:30:49] Parsing script grass.material
+[09:30:49] Parsing script road.material
+[09:30:49] Finished parsing scripts for resource group General
+[09:30:49] 	General initialized.
+[09:30:49] Initializing resource group Internal.
+[09:30:49] Parsing scripts for resource group Internal
+[09:30:49] Finished parsing scripts for resource group Internal
+[09:30:49] 	Internal initialized.
+[09:30:49] Creating viewport rendering from camera 'MainCamera', relative dimensions L:0,T:0,W:1,H:1, Z-Order:0
+[09:30:49] Viewport for camera 'MainCamera' - actual dimensions L:0,T:0,W:800,H:600, AR:1.333333
+[09:30:49] Texture: grass.tga: Loading 1 faces( PF_A8B8G8R8, 512x512x1 ) with 5 hardware generated mipmaps from an Image.
 	 Internal format is PF_A8R8G8B8 , 512x512x1.
-[04:29:51] Texture: road.tga: Loading 1 faces( PF_A8B8G8R8, 512x512x1 ) with 5 hardware generated mipmaps from an Image.
+[09:30:49] Texture: road.tga: Loading 1 faces( PF_A8B8G8R8, 512x512x1 ) with 5 hardware generated mipmaps from an Image.
 	 Internal format is PF_A8R8G8B8 , 512x512x1.
-[04:29:56] *-*-* Axiom Shutdown Complete.

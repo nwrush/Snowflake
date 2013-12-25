@@ -7,8 +7,8 @@ using Snowflake.Buildings;
 namespace Snowflake {
     public class Plot {
 		//Universal plot size constant - use until we move away from a rectangular grid system.
-		public const int Width = 100;
-		public const int Height = 100;
+		public const int Width = 120;
+		public const int Height = 120;
 
 		public const int RoadSize = 15;
 

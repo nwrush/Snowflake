@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace Snowflake.Buildings {
-    public class PowerBuilding : Building, CommercialBuilding {
+    public class PowerBuilding : CommercialBuilding {
 
         public float PowerOutputVolts; //Different types output different voltages, and this can be changed depending on how far the power needs to go
         public float PowerOutputKWH; //Standard measure of power output, not all may be used

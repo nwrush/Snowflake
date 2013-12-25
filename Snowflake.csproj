@@ -42,11 +42,19 @@
     <Reference Include="Axiom.RenderSystems.OpenGL">
       <HintPath>ref\Net35\Axiom.RenderSystems.OpenGL.dll</HintPath>
     </Reference>
-    <Reference Include="System.XML" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Building.cs" />
+    <Compile Include="CityManager.cs" />
+    <Compile Include="GV.cs" />
+    <Compile Include="Plot.cs" />
+    <Compile Include="Resource.cs" />
+    <Compile Include="Buildings\CommercialBuilding.cs" />
+    <Compile Include="Buildings\PowerBuilding.cs" />
+    <Compile Include="Buildings\ResidentialBuilding.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

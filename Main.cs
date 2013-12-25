@@ -15,13 +15,11 @@ namespace Snowflake {
 		Viewport viewport;
 		Light sun;
 
-		SceneNode sceneNode;
 		SceneNode world;
-		Entity entity;
 		Entity ground;
 
 		//long timeLast, timeNow, timeDelta;
-		bool rotating = true;
+		bool rotating = false;
 
 		public void init() {
 			GV.Root = new Root("test.log");
@@ -32,7 +30,7 @@ namespace Snowflake {
 			ResourceGroupManager.Instance.AddResourceLocation("media", "Folder");
 
 			GV.Window = GV.Root.Initialize(false);
-			GV.Window = GV.Root.CreateRenderWindow("TestRenderGV.Window", 800, 600, false);
+			GV.Window = GV.Root.CreateRenderWindow("Sustain", 800, 600, false);
 
 			GV.PlatformManager = new OpenTKPlatformManager();
 			GV.OverlayManager = OverlayManager.Instance;
@@ -44,7 +42,7 @@ namespace Snowflake {
 
 			GV.SceneManager = GV.Root.CreateSceneManager(SceneType.Generic);
 
-			camera = GV.SceneManager.CreateCamera("TestCamera");
+			camera = GV.SceneManager.CreateCamera("MainCamera");
 			camera.Position = new Vector3(0, 500, -500);
 			camera.LookAt(new Vector3(0, 0, 0));
 			camera.Near = 5;
@@ -53,9 +51,9 @@ namespace Snowflake {
 			viewport = GV.Window.AddViewport(camera);
 			viewport.BackgroundColor = ColorEx.Black;
 
-			sun = GV.SceneManager.CreateLight("sun");
+			sun = GV.SceneManager.CreateLight("Sun");
 			sun.Type = LightType.Point;
-			sun.Position = new Vector3(0, 500, 100);
+			sun.Position = new Vector3(0, 1000, 100);
 			sun.Direction = new Vector3(0, -1, 0.5);
 			sun.Diffuse = new ColorEx(0.98f, 0.95f, 0.9f);
 			sun.Specular = ColorEx.White;
@@ -76,28 +74,23 @@ namespace Snowflake {
 			//GV.SceneManager.ActiveCompositorChain
 		}
 
-		public void createScene() {
-			entity = GV.SceneManager.CreateEntity("TestEntity", PrefabEntity.Cube);
-			entity.CastShadows = true;
+		public void createScene ()
+		{
 
-			sceneNode = GV.SceneManager.RootSceneNode.CreateChildSceneNode();
-			sceneNode.AttachObject(entity);
-			sceneNode.Translate(new Vector3(120, 0, 0));
-			sceneNode.Yaw(45);
-			//sceneNode.Pitch(45);
+			Plane plane = new Plane (Vector3.UnitY, 0);
+			MeshManager.Instance.CreatePlane ("ground", ResourceGroupManager.DefaultResourceGroupName, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UnitZ);
 
-			Entity ent = GV.SceneManager.CreateEntity("ninja", "ninja.mesh");
-			ent.CastShadows = true;
-			GV.SceneManager.RootSceneNode.CreateChildSceneNode().AttachObject(ent);
-
-			Plane plane = new Plane(Vector3.UnitY, 0);
-			MeshManager.Instance.CreatePlane("ground", ResourceGroupManager.DefaultResourceGroupName, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UnitZ);
-
-			ground = GV.SceneManager.CreateEntity("GroundEntity", "ground");
+			ground = GV.SceneManager.CreateEntity ("GroundEntity", "ground");
 			ground.MaterialName = "Grass";
-			world = GV.SceneManager.RootSceneNode.CreateChildSceneNode();
-			world.AttachObject(ground);
-			world.Translate(new Vector3(0, -75, 0));
+			world = GV.SceneManager.RootSceneNode.CreateChildSceneNode ();
+			world.AttachObject (ground);
+			world.Translate(new Vector3(0, -1, 0));
+
+			for (int x = 0; x < 10; x++) {
+				CityManager.Plots.Add (new Plot(x, x));
+			}
+
+			CityManager.CreateScene();
 		}
 
 
@@ -116,7 +109,7 @@ namespace Snowflake {
 
 			}
 			if (input.IsKeyPressed(KeyCodes.Space) || input.IsMousePressed(MouseButtons.Right)) {
-				Console.WriteLine("mouse button pressed");
+				//Console.WriteLine("mouse button pressed");
 				camera.Position = new Vector3(camera.Position.x + input.RelativeMouseX,
 											   camera.Position.y, camera.Position.z + input.RelativeMouseY);
 			}
@@ -146,12 +139,14 @@ namespace Snowflake {
 				sceneNode.Pitch(timeDelta * 0.070f);
 				sceneNode.Roll (timeDelta * 0.056718f);*/
 
-				sun.Position = new Vector3(300 * Math.Cos(GV.Root.Timer.Milliseconds / -2000.0), 300 * Math.Sin(GV.Root.Timer.Milliseconds / -2000.0), -300);
+				sun.Position = new Vector3(1000 * Math.Cos(GV.Root.Timer.Milliseconds / -20000.0), 1000 * Math.Sin(GV.Root.Timer.Milliseconds / -20000.0), -300);
 				//sun.AttenuationQuadratic = Math.Max (0, sun.Position.y / 300.0f);
 				//camera.Position = new Vector3 (500 * Math.Cos (GV.Root.Timer.Milliseconds / 5879.0), 500, 500 * Math.Sin (GV.Root.Timer.Milliseconds / 5879.0));
 				//camera.SetAutoTracking(true, sceneNode);
 
 			}
+
+			CityManager.Update();
 		}
 
 

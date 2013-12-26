@@ -1,0 +1,933 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Axiom.Framework</name>
+    </assembly>
+    <members>
+        <member name="M:Axiom.Framework.AxiomEnvironment.Initialize">
+            <summary>
+            
+            </summary>
+            <param name="standalone"></param>
+            <param name="log"></param>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.AxiomConfigurationSection">
+            <summary>
+            The AxiomConfigurationSection Configuration Section.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.AxiomConfigurationSection.AxiomConfigurationSectionSectionName">
+            <summary>
+            The XML name of the AxiomConfigurationSection Configuration Section.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.AxiomConfigurationSection.XmlnsPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.AxiomConfigurationSection.Xmlns"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.AxiomConfigurationSection.LogFilenamePropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.AxiomConfigurationSection.LogFilename"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.AxiomConfigurationSection.PluginsPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.AxiomConfigurationSection.Plugins"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.AxiomConfigurationSection.ResourceLocationsPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.AxiomConfigurationSection.ResourceLocations"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.AxiomConfigurationSection.RenderSystemsPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.AxiomConfigurationSection.RenderSystems"/> property.
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.AxiomConfigurationSection.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the element is read-only.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.AxiomConfigurationSection.Instance">
+            <summary>
+            Gets the AxiomConfigurationSection instance.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.AxiomConfigurationSection.Xmlns">
+            <summary>
+            Gets the XML namespace of this Configuration Section.
+            </summary>
+            <remarks>
+            This property makes sure that if the configuration file contains the XML namespace,
+            the parser doesn't throw an exception because it encounters the unknown "xmlns" attribute.
+            </remarks>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.AxiomConfigurationSection.LogFilename">
+            <summary>
+            Gets or sets the LogFilename.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.AxiomConfigurationSection.Plugins">
+            <summary>
+            Gets or sets the Plugins.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.AxiomConfigurationSection.ResourceLocations">
+            <summary>
+            Gets or sets the ResourceLocations.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.AxiomConfigurationSection.RenderSystems">
+            <summary>
+            Gets or sets the RenderSystems.
+            </summary>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.PluginElement">
+            <summary>
+            The PluginElement Configuration Element.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.PluginElement.PathPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.PluginElement.Path"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.PluginElement.EnabledPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.PluginElement.Enabled"/> property.
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.PluginElement.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the element is read-only.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.PluginElement.Path">
+            <summary>
+            Gets or sets the Path.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.PluginElement.Enabled">
+            <summary>
+            Gets or sets the Enabled.
+            </summary>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.PluginsElementCollection">
+            <summary>
+            A collection of PluginElement instances.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.PluginsElementCollection.PluginElementPropertyName">
+            <summary>
+            The XML name of the individual <see cref="T:Axiom.Framework.Configuration.PluginElement"/> instances in this collection.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.PluginsElementCollection.AutoScanPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.PluginsElementCollection.AutoScan"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.PluginsElementCollection.PathPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.PluginsElementCollection.Path"/> property.
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.PluginsElementCollection.IsElementName(System.String)">
+            <summary>
+            Indicates whether the specified <see cref="T:System.Configuration.ConfigurationElement"/> exists in the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="elementName">The name of the element to verify.</param>
+            <returns>
+            <see langword="true"/> if the element exists in the collection; otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.PluginsElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            Gets the element key for the specified configuration element.
+            </summary>
+            <param name="element">The <see cref="T:System.Configuration.ConfigurationElement"/> to return the key for.</param>
+            <returns>
+            An <see cref="T:System.Object"/> that acts as the key for the specified <see cref="T:System.Configuration.ConfigurationElement"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.PluginsElementCollection.CreateNewElement">
+            <summary>
+            Creates a new <see cref="T:Axiom.Framework.Configuration.PluginElement"/>.
+            </summary>
+            <returns>
+            A new <see cref="T:Axiom.Framework.Configuration.PluginElement"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.PluginsElementCollection.Add(Axiom.Framework.Configuration.PluginElement)">
+            <summary>
+            Adds the specified <see cref="T:Axiom.Framework.Configuration.PluginElement"/> to the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="pluginElement">The <see cref="T:Axiom.Framework.Configuration.PluginElement"/> to add.</param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.PluginsElementCollection.Remove(Axiom.Framework.Configuration.PluginElement)">
+            <summary>
+            Removes the specified <see cref="T:Axiom.Framework.Configuration.PluginElement"/> from the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="pluginElement">The <see cref="T:Axiom.Framework.Configuration.PluginElement"/> to remove.</param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.PluginsElementCollection.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the element is read-only.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.PluginsElementCollection.CollectionType">
+            <summary>
+            Gets the type of the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <returns>The <see cref="T:System.Configuration.ConfigurationElementCollectionType"/> of this collection.</returns>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.PluginsElementCollection.ElementName">
+            <summary>
+            Gets the name used to identify this collection of elements
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.PluginsElementCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:Axiom.Framework.Configuration.PluginElement"/> at the specified index.
+            </summary>
+            <param name="index">The index of the <see cref="T:Axiom.Framework.Configuration.PluginElement"/> to retrieve.</param>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.PluginsElementCollection.Item(System.Object)">
+            <summary>
+            Gets the <see cref="T:Axiom.Framework.Configuration.PluginElement"/> with the specified key.
+            </summary>
+            <param name="path">The key of the <see cref="T:Axiom.Framework.Configuration.PluginElement"/> to retrieve.</param>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.PluginsElementCollection.AutoScan">
+            <summary>
+            Gets or sets the AutoScan.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.PluginsElementCollection.Path">
+            <summary>
+            Gets or sets the Path.
+            </summary>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.ResourceLocationElementCollection">
+            <summary>
+            A collection of ResourceLocationElement instances.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.ResourceLocationElementCollection.ResourceLocationElementPropertyName">
+            <summary>
+            The XML name of the individual <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/> instances in this collection.
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ResourceLocationElementCollection.IsElementName(System.String)">
+            <summary>
+            Indicates whether the specified <see cref="T:System.Configuration.ConfigurationElement"/> exists in the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="elementName">The name of the element to verify.</param>
+            <returns>
+            <see langword="true"/> if the element exists in the collection; otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ResourceLocationElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            Gets the element key for the specified configuration element.
+            </summary>
+            <param name="element">The <see cref="T:System.Configuration.ConfigurationElement"/> to return the key for.</param>
+            <returns>
+            An <see cref="T:System.Object"/> that acts as the key for the specified <see cref="T:System.Configuration.ConfigurationElement"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ResourceLocationElementCollection.CreateNewElement">
+            <summary>
+            Creates a new <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/>.
+            </summary>
+            <returns>
+            A new <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ResourceLocationElementCollection.Add(Axiom.Framework.Configuration.ResourceLocationElement)">
+            <summary>
+            Adds the specified <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/> to the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="resourceLocation">The <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/> to add.</param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ResourceLocationElementCollection.Remove(Axiom.Framework.Configuration.ResourceLocationElement)">
+            <summary>
+            Removes the specified <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/> from the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="resourceLocation">The <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/> to remove.</param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ResourceLocationElementCollection.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the element is read-only.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ResourceLocationElementCollection.CollectionType">
+            <summary>
+            Gets the type of the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <returns>The <see cref="T:System.Configuration.ConfigurationElementCollectionType"/> of this collection.</returns>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ResourceLocationElementCollection.ElementName">
+            <summary>
+            Gets the name used to identify this collection of elements
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ResourceLocationElementCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/> at the specified index.
+            </summary>
+            <param name="index">The index of the <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/> to retrieve.</param>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ResourceLocationElementCollection.Item(System.Object)">
+            <summary>
+            Gets the <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/> with the specified key.
+            </summary>
+            <param name="path">The key of the <see cref="T:Axiom.Framework.Configuration.ResourceLocationElement"/> to retrieve.</param>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.RenderSystemElementCollection">
+            <summary>
+            A collection of RenderSystem instances.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.RenderSystemElementCollection.RenderSystemPropertyName">
+            <summary>
+            The XML name of the individual <see cref="T:Axiom.Framework.Configuration.RenderSystem"/> instances in this collection.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.RenderSystemElementCollection.DefaultRenderSystemPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.RenderSystemElementCollection.DefaultRenderSystem"/> property.
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemElementCollection.IsElementName(System.String)">
+            <summary>
+            Indicates whether the specified <see cref="T:System.Configuration.ConfigurationElement"/> exists in the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="elementName">The name of the element to verify.</param>
+            <returns>
+            <see langword="true"/> if the element exists in the collection; otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            Gets the element key for the specified configuration element.
+            </summary>
+            <param name="element">The <see cref="T:System.Configuration.ConfigurationElement"/> to return the key for.</param>
+            <returns>
+            An <see cref="T:System.Object"/> that acts as the key for the specified <see cref="T:System.Configuration.ConfigurationElement"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemElementCollection.CreateNewElement">
+            <summary>
+            Creates a new <see cref="T:Axiom.Framework.Configuration.RenderSystem"/>.
+            </summary>
+            <returns>
+            A new <see cref="T:Axiom.Framework.Configuration.RenderSystem"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemElementCollection.Add(Axiom.Framework.Configuration.RenderSystem)">
+            <summary>
+            Adds the specified <see cref="T:Axiom.Framework.Configuration.RenderSystem"/> to the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="renderSystem">The <see cref="T:Axiom.Framework.Configuration.RenderSystem"/> to add.</param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemElementCollection.Remove(Axiom.Framework.Configuration.RenderSystem)">
+            <summary>
+            Removes the specified <see cref="T:Axiom.Framework.Configuration.RenderSystem"/> from the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="renderSystem">The <see cref="T:Axiom.Framework.Configuration.RenderSystem"/> to remove.</param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemElementCollection.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the element is read-only.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemElementCollection.CollectionType">
+            <summary>
+            Gets the type of the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <returns>The <see cref="T:System.Configuration.ConfigurationElementCollectionType"/> of this collection.</returns>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemElementCollection.ElementName">
+            <summary>
+            Gets the name used to identify this collection of elements
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemElementCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:Axiom.Framework.Configuration.RenderSystem"/> at the specified index.
+            </summary>
+            <param name="index">The index of the <see cref="T:Axiom.Framework.Configuration.RenderSystem"/> to retrieve.</param>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemElementCollection.Item(System.Object)">
+            <summary>
+            Gets the <see cref="T:Axiom.Framework.Configuration.RenderSystem"/> with the specified key.
+            </summary>
+            <param name="name">The key of the <see cref="T:Axiom.Framework.Configuration.RenderSystem"/> to retrieve.</param>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemElementCollection.DefaultRenderSystem">
+            <summary>
+            Gets or sets the DefaultRenderSystem.
+            </summary>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.ResourceLocationElement">
+            <summary>
+            The ResourceLocationElement Configuration Element.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.ResourceLocationElement.PathPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.ResourceLocationElement.Path"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.ResourceLocationElement.TypePropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.ResourceLocationElement.Type"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.ResourceLocationElement.RecursePropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.ResourceLocationElement.Recurse"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.ResourceLocationElement.GroupPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.ResourceLocationElement.Group"/> property.
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ResourceLocationElement.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the element is read-only.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ResourceLocationElement.Path">
+            <summary>
+            Gets or sets the Path.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ResourceLocationElement.Type">
+            <summary>
+            Gets or sets the Type.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ResourceLocationElement.Recurse">
+            <summary>
+            Gets or sets the Recurse.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ResourceLocationElement.Group">
+            <summary>
+            Gets or sets the Group.
+            </summary>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.RenderSystem">
+            <summary>
+            The RenderSystem Configuration Element.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.RenderSystem.NamePropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.RenderSystem.Name"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.RenderSystem.OptionsPropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.RenderSystem.Options"/> property.
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystem.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the element is read-only.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystem.Name">
+            <summary>
+            Gets or sets the Name.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystem.Options">
+            <summary>
+            Gets or sets the Options.
+            </summary>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.RenderSystemOptionElementCollection">
+            <summary>
+            A collection of RenderSystemOption instances.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.RenderSystemOptionPropertyName">
+            <summary>
+            The XML name of the individual <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/> instances in this collection.
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.IsElementName(System.String)">
+            <summary>
+            Indicates whether the specified <see cref="T:System.Configuration.ConfigurationElement"/> exists in the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="elementName">The name of the element to verify.</param>
+            <returns>
+            <see langword="true"/> if the element exists in the collection; otherwise, <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.GetElementKey(System.Configuration.ConfigurationElement)">
+            <summary>
+            Gets the element key for the specified configuration element.
+            </summary>
+            <param name="element">The <see cref="T:System.Configuration.ConfigurationElement"/> to return the key for.</param>
+            <returns>
+            An <see cref="T:System.Object"/> that acts as the key for the specified <see cref="T:System.Configuration.ConfigurationElement"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.CreateNewElement">
+            <summary>
+            Creates a new <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/>.
+            </summary>
+            <returns>
+            A new <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/>.
+            </returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.Add(Axiom.Framework.Configuration.RenderSystemOption)">
+            <summary>
+            Adds the specified <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/> to the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="option">The <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/> to add.</param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.Remove(Axiom.Framework.Configuration.RenderSystemOption)">
+            <summary>
+            Removes the specified <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/> from the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <param name="option">The <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/> to remove.</param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the element is read-only.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.CollectionType">
+            <summary>
+            Gets the type of the <see cref="T:System.Configuration.ConfigurationElementCollection"/>.
+            </summary>
+            <returns>The <see cref="T:System.Configuration.ConfigurationElementCollectionType"/> of this collection.</returns>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.ElementName">
+            <summary>
+            Gets the name used to identify this collection of elements
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/> at the specified index.
+            </summary>
+            <param name="index">The index of the <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/> to retrieve.</param>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemOptionElementCollection.Item(System.Object)">
+            <summary>
+            Gets the <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/> with the specified key.
+            </summary>
+            <param name="name">The key of the <see cref="T:Axiom.Framework.Configuration.RenderSystemOption"/> to retrieve.</param>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.RenderSystemOption">
+            <summary>
+            The RenderSystemOption Configuration Element.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.RenderSystemOption.NamePropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.RenderSystemOption.Name"/> property.
+            </summary>
+        </member>
+        <member name="F:Axiom.Framework.Configuration.RenderSystemOption.ValuePropertyName">
+            <summary>
+            The XML name of the <see cref="P:Axiom.Framework.Configuration.RenderSystemOption.Value"/> property.
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.RenderSystemOption.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the element is read-only.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemOption.Name">
+            <summary>
+            Gets or sets the Name.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.RenderSystemOption.Value">
+            <summary>
+            Gets or sets the Value.
+            </summary>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.ConfigurationDialogFactory">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ConfigurationDialogFactory.CreateConfigurationDialog(Axiom.Core.Root,Axiom.Core.ResourceGroupManager)">
+            <summary>
+            Create an instance of the ConfigurationDialog
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.ConfigurationManagerBase">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.IConfigurationManager">
+            <summary>
+            Provides basic interface for loading and storing engine configuration
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.IConfigurationManager.RestoreConfiguration(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.IConfigurationManager.SaveConfiguration(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.IConfigurationManager.SaveConfiguration(Axiom.Core.Root,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+            <param name="defaultRenderer"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.IConfigurationManager.ShowConfigDialog(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="mRoot"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.IConfigurationManager.LogFilename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ConfigurationManagerBase.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="configurationFilename"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ConfigurationManagerBase.RestoreConfiguration(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ConfigurationManagerBase.SaveConfiguration(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ConfigurationManagerBase.SaveConfiguration(Axiom.Core.Root,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+            <param name="defaultRenderer"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.ConfigurationManagerBase.ShowConfigDialog(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ConfigurationManagerBase.ConfigurationFile">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.ConfigurationManagerBase.LogFilename">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationDialogFactory.CreateConfigurationDialog(Axiom.Core.Root,Axiom.Core.ResourceGroupManager)">
+            <summary>
+            Create an instance of the ConfigurationDialog
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.DefaultConfigurationManager">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.#ctor(Axiom.Framework.Configuration.IConfigurationDialogFactory)">
+            <summary>
+            
+            </summary>
+            <param name="dialog"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="configurationFile"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.#ctor(Axiom.Framework.Configuration.IConfigurationDialogFactory,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="dialog"></param>
+            <param name="configurationFile"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="configurationFile"></param>
+            <param name="sectionName"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.#ctor(Axiom.Framework.Configuration.IConfigurationDialogFactory,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="dialog"></param>
+            <param name="configurationFile"></param>
+            <param name="sectionName"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.RestoreConfiguration(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.SaveConfiguration(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.SaveConfiguration(Axiom.Core.Root,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+            <param name="defaultRenderer"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.DefaultConfigurationManager.ShowConfigDialog(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.DialogResult">
+            <summary>
+            
+            </summary>	
+        </member>
+        <member name="T:Axiom.Framework.Configuration.IConfigurationDialog">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.IConfigurationDialog.Show">
+            <summary>
+            Display the dialog of configuration options
+            </summary>
+            <returns>
+            A <see cref="T:Axiom.Framework.Configuration.DialogResult"/>
+            </returns>
+        </member>
+        <member name="P:Axiom.Framework.Configuration.IConfigurationDialog.RenderSystem">
+            <summary>
+            Gets the selected rendersystem (and all the values of options set for it)
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.XBoxConfigurationManager.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.XBoxConfigurationManager.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="configurationFile"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.XBoxConfigurationManager.RestoreConfiguration(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.XBoxConfigurationManager.SaveConfiguration(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.XBoxConfigurationManager.SaveConfiguration(Axiom.Core.Root,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+            <param name="defaultRenderer"></param>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.XBoxConfigurationManager.ShowConfigDialog(Axiom.Core.Root)">
+            <summary>
+            
+            </summary>
+            <param name="engine"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Axiom.Framework.Exceptions.IErrorDialog">
+            <summary>
+            Interface for a display of error
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Exceptions.IErrorDialog.Show(System.Exception)">
+            <summary>
+            Causes the exception to be displayed on the screen
+            </summary>
+            <param name="exception">The exception to display</param>
+        </member>
+        <member name="T:Axiom.Framework.Configuration.WinFormConfigurationDialog">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Configuration.WinFormConfigurationDialog.System#Windows#Forms#IMessageFilter#PreFilterMessage(System.Windows.Forms.Message@)">
+            <summary>
+            Filters out a message before it is dispatched.
+            </summary>
+            <returns>
+            true to filter the message and stop it from being dispatched; false to allow the message to continue to the next filter or control.
+            </returns>
+            <param name="msg">The message to be dispatched. You cannot modify this message. 
+            </param><filterpriority>1</filterpriority>
+        </member>
+        <member name="T:Axiom.Framework.Exceptions.WinFormErrorDialog">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Exceptions.WinFormErrorDialog.PreFilterMessage(System.Windows.Forms.Message@)">
+            <summary>
+            Filters out a message before it is dispatched.
+            </summary>
+            <returns>
+            true to filter the message and stop it from being dispatched; false to allow the message to continue to the next filter or control.
+            </returns>
+            <param name="msg">The message to be dispatched. You cannot modify this message.</param>
+            <filterpriority>1</filterpriority>
+        </member>
+        <member name="M:Axiom.Framework.Exceptions.WinFormErrorDialog.Show(System.Exception)">
+            <summary>
+            Causes the exception to be displayed on the screen
+            </summary>
+            <param name="exception">The exception to display</param>
+        </member>
+        <member name="M:Axiom.Framework.Game.dispose(System.Boolean)">
+             <summary>
+             Class level dispose method
+             </summary>
+             <remarks>
+             When implementing this method in an inherited class the following template should be used;
+             protected override void dispose( bool disposeManagedResources )
+             {
+             	if ( !IsDisposed )
+             	{
+             		if ( disposeManagedResources )
+             		{
+             			// Dispose managed resources.
+             		}
+             
+             		// If there are unmanaged resources to release, 
+             		// they need to be released here.
+             	}
+            
+             	// If it is available, make the call to the
+             	// base class's Dispose(Boolean) method
+             	base.dispose( disposeManagedResources );
+             }
+             </remarks>
+             <param name="disposeManagedResources">True if Unmanaged resources should be released.</param>
+        </member>
+        <member name="M:Axiom.Framework.Game.Dispose">
+            <summary>
+            Call to when class is no longer needed 
+            </summary>
+        </member>
+        <member name="M:Axiom.Framework.Game.WindowMoved(Axiom.Graphics.RenderWindow)">
+            <summary>
+            Window has moved position
+            </summary>
+            <param name="rw">The RenderWindow which created this event</param>
+        </member>
+        <member name="M:Axiom.Framework.Game.WindowResized(Axiom.Graphics.RenderWindow)">
+            <summary>
+            Window has resized
+            </summary>
+            <param name="rw">The RenderWindow which created this event</param>
+        </member>
+        <member name="M:Axiom.Framework.Game.WindowClosed(Axiom.Graphics.RenderWindow)">
+            <summary>
+            Window has closed
+            </summary>
+            <param name="rw">The RenderWindow which created this event</param>
+        </member>
+        <member name="M:Axiom.Framework.Game.WindowFocusChange(Axiom.Graphics.RenderWindow)">
+            <summary>
+            Window lost/regained the focus
+            </summary>
+            <param name="rw">The RenderWindow which created this event</param>
+        </member>
+        <member name="P:Axiom.Framework.Game.IsDisposed">
+            <summary>
+            Determines if this instance has been disposed of already.
+            </summary>
+        </member>
+        <member name="T:Axiom.Framework.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Axiom.Framework.Properties.Resources.Axiom_Error_Footer">
+             <summary>
+               Looks up a localized string similar to If you cannot resolve this issue yourself, please report it through the web site at http://www.axiom3d.net.
+            
+            If you report the error, please include details of your hardware setup, and attach a copy of the &apos;axiom.log&apos; file which you will find in the local folder..
+             </summary>
+        </member>
+        <member name="P:Axiom.Framework.Properties.Resources.Axiom_Error_Header">
+             <summary>
+               Looks up a localized string similar to The Axiom engine has encountered an error from which it cannot recover.
+            The last message was:.
+             </summary>
+        </member>
+        <member name="P:Axiom.Framework.Properties.Resources.Axiom_Error_Title">
+            <summary>
+              Looks up a localized string similar to Axiom Exception Report.
+            </summary>
+        </member>
+    </members>
+</doc>

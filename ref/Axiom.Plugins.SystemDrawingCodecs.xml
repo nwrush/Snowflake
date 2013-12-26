@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Axiom.Plugins.SystemDrawingCodecs</name>
+    </assembly>
+    <members>
+        <member name="M:Axiom.Plugins.SystemDrawingCodecs.Plugin.Initialize">
+            <summary>
+            Perform any tasks the plugin needs to perform on full system initialization.
+            </summary>
+            <remarks>
+            An implementation must be supplied for this method. It is called
+            just after the system is fully initialized (either after Root.Initialize
+            if a window is created then, or after the first window is created)
+            and therefore all rendersystem functionality is available at this
+            time. You can use this hook to create any resources which are
+            dependent on a rendersystem or have rendersystem-specific implementations.
+            </remarks>
+        </member>
+        <member name="M:Axiom.Plugins.SystemDrawingCodecs.Plugin.Shutdown">
+            <summary>
+            Perform any tasks the plugin needs to perform when the system is shut down.
+            </summary>
+            <remarks>
+            An implementation must be supplied for this method.
+            This method is called just before key parts of the system are unloaded,
+            such as rendersystems being shut down. You should use this hook to free up
+            resources and decouple custom objects from the Axiom system, whilst all the
+            instances of other plugins (e.g. rendersystems) still exist.
+            </remarks>
+        </member>
+        <member name="P:Axiom.Plugins.SystemDrawingCodecs.Plugin.Name">
+            <summary>
+            Unique name for the plugin
+            </summary>
+        </member>
+        <member name="T:Axiom.Plugins.SystemDrawingCodecs.SDImageCodec">
+            <summary>
+            System.Drawing base implementation of Axiom's ImageCodec
+            </summary>
+        </member>
+        <member name="M:Axiom.Plugins.SystemDrawingCodecs.SDImageCodec.EncodeToFile(System.IO.Stream,System.String,System.Object)">
+            <summary>
+                Encodes data to a file.
+            </summary>
+            <param name="input">Stream containing data to write.</param>
+            <param name="fileName">Filename to output to.</param>
+            <param name="codecData">Extra data to use in order to describe the codec data.</param>
+        </member>
+        <member name="M:Axiom.Plugins.SystemDrawingCodecs.SDImageCodec.Decode(System.IO.Stream,System.IO.Stream,System.Object[])">
+            <summary>
+               Codes the data from the input chunk into the output chunk.
+            </summary>
+            <param name="input">Input stream (encoded data).</param>
+            <param name="output">Output stream (decoded data).</param>
+            <param name="args">Variable number of extra arguments.</param>
+            <returns>
+               An object that holds data specific to the media format which this codec deal with.
+               For example, an image codec might return a structure that has image related details,
+               such as height, width, etc.
+            </returns>
+        </member>
+        <member name="T:Axiom.Plugins.SystemDrawingCodecs.SDImageLoader">
+            <summary>
+            Provides loading mechanism for filetypes vis <see cref="T:Axiom.Plugins.SystemDrawingCodecs.SDImageCodec"/>
+            </summary>
+        </member>
+        <member name="M:Axiom.Plugins.SystemDrawingCodecs.SDImageLoader.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="extension">the file extension that this will load.</param>
+        </member>
+        <member name="M:Axiom.Plugins.SystemDrawingCodecs.SDImageLoader.Encode(System.IO.Stream,System.IO.Stream,System.Object[])">
+            <summary>
+               Encodes the data in the input stream and saves the result in the output stream.
+            </summary>
+            <param name="input">Input stream (decoded data).</param>
+            <param name="output">Output stream (encoded data).</param>
+            <param name="args">Variable number of extra arguments.</param>
+        </member>
+        <member name="P:Axiom.Plugins.SystemDrawingCodecs.SDImageLoader.Extension">
+            <summary>
+            The file extension
+            </summary>
+        </member>
+        <member name="P:Axiom.Plugins.SystemDrawingCodecs.SDImageLoader.Type">
+            <summary>
+               Gets the type of data that this codec is meant to handle, typically a file extension.
+            </summary>
+        </member>
+    </members>
+</doc>

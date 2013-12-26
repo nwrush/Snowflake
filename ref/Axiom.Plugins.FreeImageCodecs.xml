@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Axiom.Plugins.FreeImageCodecs</name>
+    </assembly>
+    <members>
+        <member name="T:Axiom.Plugins.FreeImageCodecs.FreeImageCodec">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Plugins.FreeImageCodecs.FreeImageCodec.Shutdown">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Plugins.FreeImageCodecs.FreeImageCodec.Decode(System.IO.Stream,System.IO.Stream,System.Object[])">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <param name="output"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Axiom.Plugins.FreeImageCodecs.FreeImageCodec.Encode(System.IO.Stream,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <param name="codecData"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Axiom.Plugins.FreeImageCodecs.FreeImageCodec.EncodeToFile(System.IO.Stream,System.String,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="input"></param>
+            <param name="fileName"></param>
+            <param name="codecData"></param>
+        </member>
+        <member name="M:Axiom.Plugins.FreeImageCodecs.FreeImageCodec.FreeImageSaveErrorHandler(FreeImageAPI.FREE_IMAGE_FORMAT,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fif"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:Axiom.Plugins.FreeImageCodecs.FreeImageCodec.Type">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Axiom.Plugins.FreeImageCodecs.Plugin.Initialize">
+            <summary>
+               Called when the plugin is started.
+            </summary>
+        </member>
+        <member name="M:Axiom.Plugins.FreeImageCodecs.Plugin.Shutdown">
+            <summary>
+               Called when the plugin is stopped.
+            </summary>
+        </member>
+    </members>
+</doc>

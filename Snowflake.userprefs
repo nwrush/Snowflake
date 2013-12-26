@@ -1,0 +1,12 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../Axiom/src/trunk/Source/Samples/Axiom.Samples.Browser/SampleBrowser.cs">
+    <Files>
+      <File FileName="../../Axiom/src/trunk/Source/Samples/Axiom.Samples.Browser/SampleBrowser.cs" Line="461" Column="6" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

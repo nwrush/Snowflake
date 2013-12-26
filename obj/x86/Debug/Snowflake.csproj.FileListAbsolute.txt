@@ -15,3 +15,16 @@ C:\Users\Andy\Documents\GitHub\Snowflake\obj\x86\Debug\Snowflake.exe
 C:\Users\Andy\Documents\GitHub\Snowflake\obj\x86\Debug\Snowflake.pdb
 C:\Users\Nikko\Documents\Dev\Snowflake\obj\x86\Debug\Snowflake.exe
 C:\Users\Nikko\Documents\Dev\Snowflake\obj\x86\Debug\Snowflake.pdb
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\Snowflake.exe
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\Snowflake.pdb
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\Axiom.dll
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\Axiom.Platforms.OpenTK.dll
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\Axiom.RenderSystems.OpenGL.dll
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\OpenTK.dll
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\OpenTK.GLControl.dll
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\OpenTK.Compatibility.dll
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\Axiom.pdb
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\Axiom.Platforms.OpenTK.pdb
+C:\Users\Nikko\Documents\Dev\Snowflake\bin\Debug\Axiom.RenderSystems.OpenGL.pdb
+C:\Users\Nikko\Documents\Dev\Snowflake\obj\x86\Debug\Snowflake.csprojResolveAssemblyReference.cache

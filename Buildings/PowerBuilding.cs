@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 
+using Mogre;
+
 namespace Snowflake.Buildings {
     public class PowerBuilding : CommercialBuilding {
 

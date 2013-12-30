@@ -27,14 +27,15 @@ namespace Snowflake {
         //Are we part of a city?
         public bool Incorporated = false;
 
-        public Plot(int x, int y) {
+        public Plot(int x, int y, bool flag = false) {
             this.PlotX = x;
             this.PlotY = y;
 
             Buildings = new List<Building>();
             Resources = new List<Resource>();
 
-            this.AddBuilding(new PowerBuilding());
+            //temp flag for debugging models
+            if (!flag) { this.AddBuilding(new PowerBuilding()); }
         }
 
         public void Initialize(SceneManager sm) {

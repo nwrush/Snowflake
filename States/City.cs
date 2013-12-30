@@ -77,6 +77,8 @@ namespace Snowflake.States
         engine.SceneMgr.RootSceneNode.AttachObject(sun);
         engine.SceneMgr.RootSceneNode.AttachObject(sky);
 
+        engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
+
         Plane plane = new Plane(Vector3.UNIT_Y, 0);
         MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UNIT_Z);
 

@@ -21,7 +21,6 @@ x64/
 *.meta
 *.obj
 *.pch
-#*.pdb
 *.pgc
 *.pgd
 *.rsp
@@ -34,6 +33,10 @@ x64/
 *.vspscc
 *.vssscc
 .builds
+
+*.pdb
+*.exe
+*.cache
 
 # Visual C++ cache files
 ipch/

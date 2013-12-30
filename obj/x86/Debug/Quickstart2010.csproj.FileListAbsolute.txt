@@ -1,5 +1,0 @@
-E:\Dev\mogrequickstart\Quickstart2010\Quickstart2010\bin\Debug\Quickstart2010.exe
-E:\Dev\mogrequickstart\Quickstart2010\Quickstart2010\bin\Debug\Quickstart2010.pdb
-E:\Dev\mogrequickstart\Quickstart2010\Quickstart2010\obj\x86\Debug\Quickstart2010.csprojResolveAssemblyReference.cache
-E:\Dev\mogrequickstart\Quickstart2010\Quickstart2010\obj\x86\Debug\Quickstart2010.exe
-E:\Dev\mogrequickstart\Quickstart2010\Quickstart2010\obj\x86\Debug\Quickstart2010.pdb

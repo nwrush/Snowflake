@@ -3,3 +3,8 @@ E:\Dev\Git\Snowflake2\bin\Debug\Snowflake.pdb
 E:\Dev\Git\Snowflake2\obj\x86\Debug\Snowflake.csprojResolveAssemblyReference.cache
 E:\Dev\Git\Snowflake2\obj\x86\Debug\Snowflake.exe
 E:\Dev\Git\Snowflake2\obj\x86\Debug\Snowflake.pdb
+C:\Users\Andy\Documents\GitHub\Snowflake\bin\Debug\Snowflake.exe
+C:\Users\Andy\Documents\GitHub\Snowflake\bin\Debug\Snowflake.pdb
+C:\Users\Andy\Documents\GitHub\Snowflake\obj\x86\Debug\Snowflake.csprojResolveAssemblyReference.cache
+C:\Users\Andy\Documents\GitHub\Snowflake\obj\x86\Debug\Snowflake.exe
+C:\Users\Andy\Documents\GitHub\Snowflake\obj\x86\Debug\Snowflake.pdb

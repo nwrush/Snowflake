@@ -60,7 +60,7 @@ namespace Snowflake {
                 SceneNode RoadNode = sm.RootSceneNode.CreateChildSceneNode();
                 RoadNode.AttachObject(road);
                 RoadNode.Translate(new Vector3(Plot.Width / 2 + (MaxX - MinX) * 0.5f * Plot.Width, 0, 3 * Plot.Height / 2 + y * Plot.Height));
-                RoadNode.Yaw(90);
+                RoadNode.Yaw(Mogre.Math.PI / 2.0f);
             }
         }
 

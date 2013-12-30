@@ -1,261 +1,217 @@
-00:33:48: Creating resource group General
-00:33:48: Creating resource group Internal
-00:33:48: Creating resource group Autodetect
-00:33:48: SceneManagerFactory for type 'DefaultSceneManager' registered.
-00:33:48: Registering ResourceManager for type Material
-00:33:48: Registering ResourceManager for type Mesh
-00:33:48: Registering ResourceManager for type Skeleton
-00:33:48: MovableObjectFactory for type 'ParticleSystem' registered.
-00:33:48: OverlayElementFactory for type Panel registered.
-00:33:48: OverlayElementFactory for type BorderPanel registered.
-00:33:48: OverlayElementFactory for type TextArea registered.
-00:33:48: Registering ResourceManager for type Font
-00:33:48: ArchiveFactory for archive type FileSystem registered.
-00:33:48: ArchiveFactory for archive type Zip registered.
-00:33:48: DDS codec registering
-00:33:48: FreeImage version: 3.13.1
-00:33:48: This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details
-00:33:48: Supported formats: bmp,ico,jpg,jif,jpeg,jpe,jng,koa,iff,lbm,mng,pbm,pbm,pcd,pcx,pgm,pgm,png,ppm,ppm,ras,tga,targa,tif,tiff,wap,wbmp,wbm,psd,cut,xbm,xpm,gif,hdr,g3,sgi,exr,j2k,j2c,jp2,pfm,pct,pict,pic,bay,bmq,cr2,crw,cs1,dc2,dcr,dng,erf,fff,hdr,k25,kdc,mdc,mos,mrw,nef,orf,pef,pxn,raf,raw,rdc,sr2,srf,arw,3fr,cine,ia,kc2,mef,nrw,qtk,rw2,sti,drf,dsc,ptx,cap,iiq,rwz
-00:33:48: PVRTC codec registering
-00:33:48: Registering ResourceManager for type HighLevelGpuProgram
-00:33:48: Registering ResourceManager for type Compositor
-00:33:48: MovableObjectFactory for type 'Entity' registered.
-00:33:48: MovableObjectFactory for type 'Light' registered.
-00:33:48: MovableObjectFactory for type 'BillboardSet' registered.
-00:33:48: MovableObjectFactory for type 'ManualObject' registered.
-00:33:48: MovableObjectFactory for type 'BillboardChain' registered.
-00:33:48: MovableObjectFactory for type 'RibbonTrail' registered.
-00:33:48: Loading library .\RenderSystem_Direct3D9_d
-00:33:48: Installing plugin: D3D9 RenderSystem
-00:33:48: D3D9 : Direct3D9 Rendering Subsystem created.
-00:33:48: D3D9: Driver Detection Starts
-00:33:48: D3D9: Driver Detection Ends
-00:33:48: Plugin successfully installed
-00:33:48: Loading library .\Plugin_ParticleFX_d
-00:33:48: Installing plugin: ParticleFX
-00:33:48: Particle Emitter Type 'Point' registered
-00:33:48: Particle Emitter Type 'Box' registered
-00:33:48: Particle Emitter Type 'Ellipsoid' registered
-00:33:48: Particle Emitter Type 'Cylinder' registered
-00:33:48: Particle Emitter Type 'Ring' registered
-00:33:48: Particle Emitter Type 'HollowEllipsoid' registered
-00:33:48: Particle Affector Type 'LinearForce' registered
-00:33:48: Particle Affector Type 'ColourFader' registered
-00:33:48: Particle Affector Type 'ColourFader2' registered
-00:33:48: Particle Affector Type 'ColourImage' registered
-00:33:48: Particle Affector Type 'ColourInterpolator' registered
-00:33:48: Particle Affector Type 'Scaler' registered
-00:33:48: Particle Affector Type 'Rotator' registered
-00:33:48: Particle Affector Type 'DirectionRandomiser' registered
-00:33:48: Particle Affector Type 'DeflectorPlane' registered
-00:33:48: Plugin successfully installed
-00:33:48: Loading library .\Plugin_OctreeSceneManager_d
-00:33:48: Installing plugin: Octree & Terrain Scene Manager
-00:33:48: Plugin successfully installed
-00:33:48: Loading library .\Plugin_CgProgramManager_d
-00:33:48: Installing plugin: Cg Program Manager
-00:33:48: Plugin successfully installed
-00:33:48: *-*-* OGRE Initialising
-00:33:48: *-*-* Version 1.7.3 (Cthugha)
-00:33:48: CPU Identifier & Features
-00:33:48: -------------------------
-00:33:48:  *   CPU ID: GenuineIntel: Pentium(R) Dual-Core CPU       T4400  @ 2.20GHz
-00:33:48:  *      SSE: yes
-00:33:48:  *     SSE2: yes
-00:33:48:  *     SSE3: yes
-00:33:48:  *      MMX: yes
-00:33:48:  *   MMXEXT: yes
-00:33:48:  *    3DNOW: no
-00:33:48:  * 3DNOWEXT: no
-00:33:48:  *     CMOV: yes
-00:33:48:  *      TSC: yes
-00:33:48:  *      FPU: yes
-00:33:48:  *      PRO: yes
-00:33:48:  *       HT: no
-00:33:48: -------------------------
-00:33:48: D3D9 : Subsystem Initialising
-00:33:48: Registering ResourceManager for type Texture
-00:33:48: Registering ResourceManager for type GpuProgram
-00:33:48: ***************************************
-00:33:48: *** D3D9 : Subsystem Initialised OK ***
-00:33:48: ***************************************
-00:33:49: D3D9RenderSystem::_createRenderWindow "Mogre Quickstart 2010", 800x600 windowed  miscParams: vsync=true 
-00:33:49: D3D9 : Created D3D9 Rendering Window 'Mogre Quickstart 2010' : 800x600, 32bpp
-00:33:49: D3D9: Vertex texture format supported - PF_L8
-00:33:49: D3D9: Vertex texture format supported - PF_L16
-00:33:49: D3D9: Vertex texture format supported - PF_A8
-00:33:49: D3D9: Vertex texture format supported - PF_A4L4
-00:33:49: D3D9: Vertex texture format supported - PF_BYTE_LA
-00:33:49: D3D9: Vertex texture format supported - PF_R5G6B5
-00:33:49: D3D9: Vertex texture format supported - PF_B5G6R5
-00:33:49: D3D9: Vertex texture format supported - PF_A4R4G4B4
-00:33:49: D3D9: Vertex texture format supported - PF_A1R5G5B5
-00:33:49: D3D9: Vertex texture format supported - PF_A8R8G8B8
-00:33:49: D3D9: Vertex texture format supported - PF_B8G8R8A8
-00:33:49: D3D9: Vertex texture format supported - PF_A2R10G10B10
-00:33:49: D3D9: Vertex texture format supported - PF_DXT1
-00:33:49: D3D9: Vertex texture format supported - PF_DXT2
-00:33:49: D3D9: Vertex texture format supported - PF_DXT3
-00:33:49: D3D9: Vertex texture format supported - PF_DXT4
-00:33:49: D3D9: Vertex texture format supported - PF_DXT5
-00:33:49: D3D9: Vertex texture format supported - PF_FLOAT16_RGB
-00:33:49: D3D9: Vertex texture format supported - PF_FLOAT16_RGBA
-00:33:49: D3D9: Vertex texture format supported - PF_FLOAT32_RGB
-00:33:49: D3D9: Vertex texture format supported - PF_FLOAT32_RGBA
-00:33:49: D3D9: Vertex texture format supported - PF_X8R8G8B8
-00:33:49: D3D9: Vertex texture format supported - PF_R8G8B8A8
-00:33:49: D3D9: Vertex texture format supported - PF_DEPTH
-00:33:49: D3D9: Vertex texture format supported - PF_SHORT_RGBA
-00:33:49: D3D9: Vertex texture format supported - PF_FLOAT16_R
-00:33:49: D3D9: Vertex texture format supported - PF_FLOAT32_R
-00:33:49: D3D9: Vertex texture format supported - PF_SHORT_GR
-00:33:49: D3D9: Vertex texture format supported - PF_FLOAT16_GR
-00:33:49: D3D9: Vertex texture format supported - PF_FLOAT32_GR
-00:33:49: D3D9: Vertex texture format supported - PF_SHORT_RGB
-00:33:49: D3D9: Vertex texture format supported - PF_PVRTC_RGB2
-00:33:49: D3D9: Vertex texture format supported - PF_PVRTC_RGBA2
-00:33:49: D3D9: Vertex texture format supported - PF_PVRTC_RGB4
-00:33:49: D3D9: Vertex texture format supported - PF_PVRTC_RGBA4
-00:33:49: RenderSystem capabilities
-00:33:49: -------------------------
-00:33:49: RenderSystem Name: Direct3D9 Rendering Subsystem
-00:33:49: GPU Vendor: intel
-00:33:49: Device Name: Monitor-1-Mobile Intel(R) 4 Series Express Chipset Family
-00:33:49: Driver Version: 9.18.7.4
-00:33:49:  * Fixed function pipeline: yes
-00:33:49:  * Hardware generation of mipmaps: yes
-00:33:49:  * Texture blending: yes
-00:33:49:  * Anisotropic texture filtering: yes
-00:33:49:  * Dot product texture operation: yes
-00:33:49:  * Cube mapping: yes
-00:33:49:  * Hardware stencil buffer: yes
-00:33:49:    - Stencil depth: 8
-00:33:49:    - Two sided stencil support: yes
-00:33:49:    - Wrap stencil values: yes
-00:33:49:  * Hardware vertex / index buffers: yes
-00:33:49:  * Vertex programs: yes
-00:33:49:  * Number of floating-point constants for vertex programs: 256
-00:33:49:  * Number of integer constants for vertex programs: 16
-00:33:49:  * Number of boolean constants for vertex programs: 16
-00:33:49:  * Fragment programs: yes
-00:33:49:  * Number of floating-point constants for fragment programs: 224
-00:33:49:  * Number of integer constants for fragment programs: 16
-00:33:49:  * Number of boolean constants for fragment programs: 16
-00:33:49:  * Geometry programs: no
-00:33:49:  * Number of floating-point constants for geometry programs: 0
-00:33:49:  * Number of integer constants for geometry programs: 0
-00:33:49:  * Number of boolean constants for geometry programs: 0
-00:33:49:  * Supported Shader Profiles: hlsl ps_1_1 ps_1_2 ps_1_3 ps_1_4 ps_2_0 ps_2_a ps_2_b ps_2_x ps_3_0 vs_1_1 vs_2_0 vs_2_a vs_2_x vs_3_0
-00:33:49:  * Texture Compression: yes
-00:33:49:    - DXT: yes
-00:33:49:    - VTC: no
-00:33:49:    - PVRTC: no
-00:33:49:  * Scissor Rectangle: yes
-00:33:49:  * Hardware Occlusion Query: yes
-00:33:49:  * User clip planes: yes
-00:33:49:  * VET_UBYTE4 vertex element type: yes
-00:33:49:  * Infinite far plane projection: yes
-00:33:49:  * Hardware render-to-texture: yes
-00:33:49:  * Floating point textures: yes
-00:33:49:  * Non-power-of-two textures: yes (limited)
-00:33:49:  * Volume textures: yes
-00:33:49:  * Multiple Render Targets: 4
-00:33:49:    - With different bit depths: yes
-00:33:49:  * Point Sprites: yes
-00:33:49:  * Extended point parameters: yes
-00:33:49:  * Max Point Size: 10
-00:33:49:  * Vertex texture fetch: yes
-00:33:49:  * Number of world matrices: 0
-00:33:49:  * Number of texture units: 8
-00:33:49:  * Stencil buffer depth: 8
-00:33:49:  * Number of vertex blend matrices: 0
-00:33:49:    - Max vertex textures: 4
-00:33:49:    - Vertex textures shared: no
-00:33:49:  * Render to Vertex Buffer : no
-00:33:49:  * DirectX per stage constants: yes
-00:33:49: DefaultWorkQueue('Root') initialising on thread main.
-00:33:49: Particle Renderer Type 'billboard' registered
-00:33:49: SceneManagerFactory for type 'OctreeSceneManager' registered.
-00:33:49: SceneManagerFactory for type 'TerrainSceneManager' registered.
-00:33:49: Creating resource group Bootstrap
-00:33:49: Added resource location '../Media/OgreCore.zip' of type 'Zip' to resource group 'Bootstrap' with recursive option
-00:33:49: Creating resource group Default
-00:33:50: Added resource location '../Media/textures' of type 'FileSystem' to resource group 'Default' with recursive option
-00:33:50: Added resource location '../Media/materials' of type 'FileSystem' to resource group 'Default' with recursive option
-00:33:50: Added resource location '../Media/models' of type 'FileSystem' to resource group 'Default' with recursive option
-00:33:50: Initialising resource group Default
-00:33:50: Parsing scripts for resource group Default
-00:33:50: Parsing script grass.material
-00:33:50: Parsing script Ninja.material
-00:33:50: Parsing script Ogre.material
-00:33:50: Finished parsing scripts for resource group Default
-00:33:50: Loading resource group 'Default' - Resources: 1 World Geometry: 1
-00:33:50: Texture: grass.tga: Loading 1 faces(PF_A8R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,512x512x1.
-00:33:50: Texture: nskingr.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
-00:33:50: Texture: spheremap.png: Loading 1 faces(PF_R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,256x256x1.
-00:33:50: Texture: GreenSkin.jpg: Loading 1 faces(PF_R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,256x256x1.
-00:33:50: D3D9 : ***** Dimensions altered by the render system
-00:33:50: D3D9 : ***** Source image dimensions : 96x96
-00:33:50: D3D9 : ***** Texture dimensions : 128x128
-00:33:50: Texture: tusk.jpg: Loading 1 faces(PF_R8G8B8,96x96x1) with 7 generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-00:33:50: Finished loading resource group Default
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X-2 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X-1 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X0 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X1 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X2 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X3 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X4 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X5 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X6 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X7 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X8 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_X9 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_Y-2 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_Y-1 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_Y0 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_Y1 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_Y2 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_Y3 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_Y4 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:50: Can't assign material Road to SubEntity of RoadEnt_Y5 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:51: Can't assign material Road to SubEntity of RoadEnt_Y6 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:51: Can't assign material Road to SubEntity of RoadEnt_Y7 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:51: Can't assign material Road to SubEntity of RoadEnt_Y8 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:33:51: Can't assign material Road to SubEntity of RoadEnt_Y9 because this Material does not exist. Have you forgotten to define it in a .material script?
-00:34:16: Unloading resource group Default
-00:34:16: Finished unloading resource group Default
-00:34:16: Clearing resource group Autodetect
-00:34:16: Finished clearing resource group Autodetect
-00:34:16: Clearing resource group Bootstrap
-00:34:16: Finished clearing resource group Bootstrap
-00:34:16: Clearing resource group Default
-00:34:16: Finished clearing resource group Default
-00:34:16: Clearing resource group General
-00:34:16: Finished clearing resource group General
-00:34:16: Clearing resource group Internal
-00:34:16: Finished clearing resource group Internal
-00:34:16: DefaultWorkQueue('Root') shutting down on thread main.
-00:34:16: *-*-* OGRE Shutdown
-00:34:16: Unregistering ResourceManager for type Compositor
-00:34:16: Unregistering ResourceManager for type Font
-00:34:16: Unregistering ResourceManager for type Skeleton
-00:34:16: Unregistering ResourceManager for type Mesh
-00:34:16: Unregistering ResourceManager for type HighLevelGpuProgram
-00:34:16: Uninstalling plugin: Cg Program Manager
-00:34:16: Plugin successfully uninstalled
-00:34:16: Unloading library .\Plugin_CgProgramManager_d
-00:34:16: Uninstalling plugin: Octree & Terrain Scene Manager
-00:34:16: Plugin successfully uninstalled
-00:34:16: Unloading library .\Plugin_OctreeSceneManager_d
-00:34:16: Uninstalling plugin: ParticleFX
-00:34:16: Plugin successfully uninstalled
-00:34:16: Unloading library .\Plugin_ParticleFX_d
-00:34:16: Uninstalling plugin: D3D9 RenderSystem
-00:34:16: D3D9 : Shutting down cleanly.
-00:34:16: Unregistering ResourceManager for type Texture
-00:34:16: Unregistering ResourceManager for type GpuProgram
-00:34:16: D3D9 : Direct3D9 Rendering Subsystem destroyed.
-00:34:16: Plugin successfully uninstalled
-00:34:16: Unloading library .\RenderSystem_Direct3D9_d
-00:34:16: Unregistering ResourceManager for type Material
+00:51:36: Creating resource group General
+00:51:36: Creating resource group Internal
+00:51:36: Creating resource group Autodetect
+00:51:36: SceneManagerFactory for type 'DefaultSceneManager' registered.
+00:51:36: Registering ResourceManager for type Material
+00:51:36: Registering ResourceManager for type Mesh
+00:51:36: Registering ResourceManager for type Skeleton
+00:51:36: MovableObjectFactory for type 'ParticleSystem' registered.
+00:51:36: OverlayElementFactory for type Panel registered.
+00:51:36: OverlayElementFactory for type BorderPanel registered.
+00:51:36: OverlayElementFactory for type TextArea registered.
+00:51:36: Registering ResourceManager for type Font
+00:51:36: ArchiveFactory for archive type FileSystem registered.
+00:51:36: ArchiveFactory for archive type Zip registered.
+00:51:36: DDS codec registering
+00:51:36: FreeImage version: 3.13.1
+00:51:36: This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details
+00:51:36: Supported formats: bmp,ico,jpg,jif,jpeg,jpe,jng,koa,iff,lbm,mng,pbm,pbm,pcd,pcx,pgm,pgm,png,ppm,ppm,ras,tga,targa,tif,tiff,wap,wbmp,wbm,psd,cut,xbm,xpm,gif,hdr,g3,sgi,exr,j2k,j2c,jp2,pfm,pct,pict,pic,bay,bmq,cr2,crw,cs1,dc2,dcr,dng,erf,fff,hdr,k25,kdc,mdc,mos,mrw,nef,orf,pef,pxn,raf,raw,rdc,sr2,srf,arw,3fr,cine,ia,kc2,mef,nrw,qtk,rw2,sti,drf,dsc,ptx,cap,iiq,rwz
+00:51:36: PVRTC codec registering
+00:51:36: Registering ResourceManager for type HighLevelGpuProgram
+00:51:36: Registering ResourceManager for type Compositor
+00:51:36: MovableObjectFactory for type 'Entity' registered.
+00:51:36: MovableObjectFactory for type 'Light' registered.
+00:51:36: MovableObjectFactory for type 'BillboardSet' registered.
+00:51:36: MovableObjectFactory for type 'ManualObject' registered.
+00:51:36: MovableObjectFactory for type 'BillboardChain' registered.
+00:51:36: MovableObjectFactory for type 'RibbonTrail' registered.
+00:51:36: Loading library .\RenderSystem_Direct3D9_d
+00:51:36: Installing plugin: D3D9 RenderSystem
+00:51:36: D3D9 : Direct3D9 Rendering Subsystem created.
+00:51:36: D3D9: Driver Detection Starts
+00:51:36: D3D9: Driver Detection Ends
+00:51:36: Plugin successfully installed
+00:51:36: Loading library .\Plugin_ParticleFX_d
+00:51:36: Installing plugin: ParticleFX
+00:51:36: Particle Emitter Type 'Point' registered
+00:51:36: Particle Emitter Type 'Box' registered
+00:51:36: Particle Emitter Type 'Ellipsoid' registered
+00:51:36: Particle Emitter Type 'Cylinder' registered
+00:51:36: Particle Emitter Type 'Ring' registered
+00:51:36: Particle Emitter Type 'HollowEllipsoid' registered
+00:51:36: Particle Affector Type 'LinearForce' registered
+00:51:36: Particle Affector Type 'ColourFader' registered
+00:51:36: Particle Affector Type 'ColourFader2' registered
+00:51:36: Particle Affector Type 'ColourImage' registered
+00:51:36: Particle Affector Type 'ColourInterpolator' registered
+00:51:36: Particle Affector Type 'Scaler' registered
+00:51:36: Particle Affector Type 'Rotator' registered
+00:51:36: Particle Affector Type 'DirectionRandomiser' registered
+00:51:36: Particle Affector Type 'DeflectorPlane' registered
+00:51:36: Plugin successfully installed
+00:51:36: Loading library .\Plugin_OctreeSceneManager_d
+00:51:36: Installing plugin: Octree & Terrain Scene Manager
+00:51:36: Plugin successfully installed
+00:51:36: Loading library .\Plugin_CgProgramManager_d
+00:51:36: Installing plugin: Cg Program Manager
+00:51:36: Plugin successfully installed
+00:51:36: *-*-* OGRE Initialising
+00:51:36: *-*-* Version 1.7.3 (Cthugha)
+00:51:36: CPU Identifier & Features
+00:51:36: -------------------------
+00:51:36:  *   CPU ID: GenuineIntel: Intel(R) Core(TM) i5-2500K CPU @ 3.30GHz
+00:51:36:  *      SSE: yes
+00:51:36:  *     SSE2: yes
+00:51:36:  *     SSE3: yes
+00:51:36:  *      MMX: yes
+00:51:36:  *   MMXEXT: yes
+00:51:36:  *    3DNOW: no
+00:51:36:  * 3DNOWEXT: no
+00:51:36:  *     CMOV: yes
+00:51:36:  *      TSC: yes
+00:51:36:  *      FPU: yes
+00:51:36:  *      PRO: yes
+00:51:36:  *       HT: no
+00:51:36: -------------------------
+00:51:36: D3D9 : Subsystem Initialising
+00:51:36: Registering ResourceManager for type Texture
+00:51:36: Registering ResourceManager for type GpuProgram
+00:51:36: ***************************************
+00:51:36: *** D3D9 : Subsystem Initialised OK ***
+00:51:36: ***************************************
+00:51:36: D3D9RenderSystem::_createRenderWindow "Mogre Quickstart 2010", 800x600 windowed  miscParams: vsync=true 
+00:51:36: D3D9 : Created D3D9 Rendering Window 'Mogre Quickstart 2010' : 800x600, 32bpp
+00:51:36: D3D9: Vertex texture format supported - PF_A8R8G8B8
+00:51:36: D3D9: Vertex texture format supported - PF_B8G8R8A8
+00:51:36: D3D9: Vertex texture format supported - PF_FLOAT16_RGB
+00:51:36: D3D9: Vertex texture format supported - PF_FLOAT16_RGBA
+00:51:37: D3D9: Vertex texture format supported - PF_FLOAT32_RGB
+00:51:37: D3D9: Vertex texture format supported - PF_FLOAT32_RGBA
+00:51:37: D3D9: Vertex texture format supported - PF_R8G8B8A8
+00:51:37: D3D9: Vertex texture format supported - PF_DEPTH
+00:51:37: D3D9: Vertex texture format supported - PF_FLOAT16_R
+00:51:37: D3D9: Vertex texture format supported - PF_FLOAT32_R
+00:51:37: D3D9: Vertex texture format supported - PF_FLOAT16_GR
+00:51:37: D3D9: Vertex texture format supported - PF_FLOAT32_GR
+00:51:37: D3D9: Vertex texture format supported - PF_PVRTC_RGB2
+00:51:37: D3D9: Vertex texture format supported - PF_PVRTC_RGBA2
+00:51:37: D3D9: Vertex texture format supported - PF_PVRTC_RGB4
+00:51:37: D3D9: Vertex texture format supported - PF_PVRTC_RGBA4
+00:51:37: RenderSystem capabilities
+00:51:37: -------------------------
+00:51:37: RenderSystem Name: Direct3D9 Rendering Subsystem
+00:51:37: GPU Vendor: nvidia
+00:51:37: Device Name: Monitor-1-NVIDIA GeForce GTX 650
+00:51:37: Driver Version: 9.18.13.1106
+00:51:37:  * Fixed function pipeline: yes
+00:51:37:  * Hardware generation of mipmaps: yes
+00:51:37:  * Texture blending: yes
+00:51:37:  * Anisotropic texture filtering: yes
+00:51:37:  * Dot product texture operation: yes
+00:51:37:  * Cube mapping: yes
+00:51:37:  * Hardware stencil buffer: yes
+00:51:37:    - Stencil depth: 8
+00:51:37:    - Two sided stencil support: yes
+00:51:37:    - Wrap stencil values: yes
+00:51:37:  * Hardware vertex / index buffers: yes
+00:51:37:  * Vertex programs: yes
+00:51:37:  * Number of floating-point constants for vertex programs: 256
+00:51:37:  * Number of integer constants for vertex programs: 16
+00:51:37:  * Number of boolean constants for vertex programs: 16
+00:51:37:  * Fragment programs: yes
+00:51:37:  * Number of floating-point constants for fragment programs: 224
+00:51:37:  * Number of integer constants for fragment programs: 16
+00:51:37:  * Number of boolean constants for fragment programs: 16
+00:51:37:  * Geometry programs: no
+00:51:37:  * Number of floating-point constants for geometry programs: 0
+00:51:37:  * Number of integer constants for geometry programs: 0
+00:51:37:  * Number of boolean constants for geometry programs: 0
+00:51:37:  * Supported Shader Profiles: hlsl ps_1_1 ps_1_2 ps_1_3 ps_1_4 ps_2_0 ps_2_a ps_2_b ps_2_x ps_3_0 vs_1_1 vs_2_0 vs_2_a vs_2_x vs_3_0
+00:51:37:  * Texture Compression: yes
+00:51:37:    - DXT: yes
+00:51:37:    - VTC: no
+00:51:37:    - PVRTC: no
+00:51:37:  * Scissor Rectangle: yes
+00:51:37:  * Hardware Occlusion Query: yes
+00:51:37:  * User clip planes: yes
+00:51:37:  * VET_UBYTE4 vertex element type: yes
+00:51:37:  * Infinite far plane projection: yes
+00:51:37:  * Hardware render-to-texture: yes
+00:51:37:  * Floating point textures: yes
+00:51:37:  * Non-power-of-two textures: yes
+00:51:37:  * Volume textures: yes
+00:51:37:  * Multiple Render Targets: 4
+00:51:37:    - With different bit depths: yes
+00:51:37:  * Point Sprites: yes
+00:51:37:  * Extended point parameters: yes
+00:51:37:  * Max Point Size: 10
+00:51:37:  * Vertex texture fetch: yes
+00:51:37:  * Number of world matrices: 0
+00:51:37:  * Number of texture units: 8
+00:51:37:  * Stencil buffer depth: 8
+00:51:37:  * Number of vertex blend matrices: 0
+00:51:37:    - Max vertex textures: 4
+00:51:37:    - Vertex textures shared: no
+00:51:37:  * Render to Vertex Buffer : no
+00:51:37:  * DirectX per stage constants: yes
+00:51:37: DefaultWorkQueue('Root') initialising on thread main.
+00:51:37: Particle Renderer Type 'billboard' registered
+00:51:37: SceneManagerFactory for type 'OctreeSceneManager' registered.
+00:51:37: SceneManagerFactory for type 'TerrainSceneManager' registered.
+00:51:37: Creating resource group Bootstrap
+00:51:37: Added resource location '../Media/OgreCore.zip' of type 'Zip' to resource group 'Bootstrap' with recursive option
+00:51:37: Creating resource group Default
+00:51:37: Added resource location '../Media/textures' of type 'FileSystem' to resource group 'Default' with recursive option
+00:51:37: Added resource location '../Media/materials' of type 'FileSystem' to resource group 'Default' with recursive option
+00:51:37: Added resource location '../Media/models' of type 'FileSystem' to resource group 'Default' with recursive option
+00:51:37: Initialising resource group Default
+00:51:37: Parsing scripts for resource group Default
+00:51:37: Parsing script grass.material
+00:51:37: Parsing script Ninja.material
+00:51:37: Parsing script Ogre.material
+00:51:37: Parsing script road.material
+00:51:37: Finished parsing scripts for resource group Default
+00:51:37: Loading resource group 'Default' - Resources: 1 World Geometry: 1
+00:51:37: Texture: grass.tga: Loading 1 faces(PF_A8R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,512x512x1.
+00:51:37: Texture: nskingr.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
+00:51:37: Texture: spheremap.png: Loading 1 faces(PF_R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,256x256x1.
+00:51:37: Texture: GreenSkin.jpg: Loading 1 faces(PF_R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,256x256x1.
+00:51:37: Texture: tusk.jpg: Loading 1 faces(PF_R8G8B8,96x96x1) with 6 generated mipmaps from Image. Internal format is PF_X8R8G8B8,96x96x1.
+00:51:37: Texture: road.tga: Loading 1 faces(PF_A8R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,512x512x1.
+00:51:37: Finished loading resource group Default
+00:51:41: Unloading resource group Default
+00:51:41: Finished unloading resource group Default
+00:51:41: Clearing resource group Autodetect
+00:51:41: Finished clearing resource group Autodetect
+00:51:41: Clearing resource group Bootstrap
+00:51:41: Finished clearing resource group Bootstrap
+00:51:41: Clearing resource group Default
+00:51:41: Finished clearing resource group Default
+00:51:41: Clearing resource group General
+00:51:41: Finished clearing resource group General
+00:51:41: Clearing resource group Internal
+00:51:41: Finished clearing resource group Internal
+00:51:41: DefaultWorkQueue('Root') shutting down on thread main.
+00:51:41: *-*-* OGRE Shutdown
+00:51:41: Unregistering ResourceManager for type Compositor
+00:51:41: Unregistering ResourceManager for type Font
+00:51:41: Unregistering ResourceManager for type Skeleton
+00:51:41: Unregistering ResourceManager for type Mesh
+00:51:41: Unregistering ResourceManager for type HighLevelGpuProgram
+00:51:41: Uninstalling plugin: Cg Program Manager
+00:51:41: Plugin successfully uninstalled
+00:51:41: Unloading library .\Plugin_CgProgramManager_d
+00:51:41: Uninstalling plugin: Octree & Terrain Scene Manager
+00:51:41: Plugin successfully uninstalled
+00:51:41: Unloading library .\Plugin_OctreeSceneManager_d
+00:51:41: Uninstalling plugin: ParticleFX
+00:51:41: Plugin successfully uninstalled
+00:51:41: Unloading library .\Plugin_ParticleFX_d
+00:51:41: Uninstalling plugin: D3D9 RenderSystem
+00:51:41: D3D9 : Shutting down cleanly.
+00:51:41: Unregistering ResourceManager for type Texture
+00:51:41: Unregistering ResourceManager for type GpuProgram
+00:51:41: D3D9 : Direct3D9 Rendering Subsystem destroyed.
+00:51:41: Plugin successfully uninstalled
+00:51:41: Unloading library .\RenderSystem_Direct3D9_d
+00:51:41: Unregistering ResourceManager for type Material

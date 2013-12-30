@@ -1,0 +1,13 @@
+material Road
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture road.tga
+			}
+		}
+	}
+}

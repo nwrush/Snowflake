@@ -1,0 +1,5 @@
+E:\Dev\Git\Snowflake2\bin\Debug\Snowflake.exe
+E:\Dev\Git\Snowflake2\bin\Debug\Snowflake.pdb
+E:\Dev\Git\Snowflake2\obj\x86\Debug\Snowflake.csprojResolveAssemblyReference.cache
+E:\Dev\Git\Snowflake2\obj\x86\Debug\Snowflake.exe
+E:\Dev\Git\Snowflake2\obj\x86\Debug\Snowflake.pdb

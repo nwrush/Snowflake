@@ -9,7 +9,7 @@
   </SpellChecker>
 <HelpConfigurations selected="HelpFile">
   <HelpConfiguration name="HelpFile">
-    <OutputPath>C:\Users\Andy\Documents\GitHub\Snowflake\Help</OutputPath>
+    <OutputPath>E:\Dev\Git\Snowflake\Help</OutputPath>
     <ImageFolderPath />
     <HtmlFormats>
       <HtmlHelp>true</HtmlHelp>

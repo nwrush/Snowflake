@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 
 using Snowflake.Buildings;
+using Snowflake.Modules;
+
+using Mogre;
 
 namespace Snowflake {
     public class Plot {
@@ -32,7 +35,12 @@ namespace Snowflake {
             Resources = new List<Resource>();
 
             this.AddBuilding(new PowerBuilding());
-            this.Buildings[0].Initialize();
+        }
+
+        public void Initialize(SceneManager sm) {
+            foreach (Building b in this.Buildings) {
+                b.Initialize(sm);
+            }
         }
 
         public void AddBuilding(Building b) {

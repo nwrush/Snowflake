@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BA9062F0-9875-4370-A6BA-A3A4DAFDF4AA}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{6A286245-E004-447F-A3B2-4E62472653F0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Snowflake</RootNamespace>
     <AssemblyName>Snowflake</AssemblyName>
@@ -23,6 +23,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -32,34 +34,47 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Snowflake.MainClass</StartupObject>
+    <StartupObject>Snowflake.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Mogre">
-      <HintPath>ref\Mogre.dll</HintPath>
+    <Reference Include="Mogre, Version=1.7.1.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\Mogre.dll</HintPath>
+      <Private>False</Private>
     </Reference>
-    <Reference Include="MOIS">
-      <HintPath>ref\MOIS.dll</HintPath>
+    <Reference Include="MOIS, Version=1.1.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\MOIS.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Building.cs" />
+    <Compile Include="Buildings\CommercialBuilding.cs" />
+    <Compile Include="Buildings\PowerBuilding.cs" />
+    <Compile Include="Buildings\ResidentialBuilding.cs" />
     <Compile Include="CityManager.cs" />
-    <Compile Include="Building\CommercialBuilding.cs" />
-    <Compile Include="GV.cs" />
-    <Compile Include="Main.cs" />
+    <Compile Include="Modules\MoisManager.cs" />
+    <Compile Include="Modules\OgreEventArgs.cs" />
+    <Compile Include="Modules\OgreManager.cs" />
+    <Compile Include="Modules\ResourceConfig.cs" />
+    <Compile Include="Modules\ResourceManager.cs" />
+    <Compile Include="Modules\State.cs" />
+    <Compile Include="Modules\StateManager.cs" />
     <Compile Include="Plot.cs" />
-    <Compile Include="Building\PowerBuilding.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Building\ResidentialBuilding.cs" />
     <Compile Include="Resource.cs" />
+    <Compile Include="States\City.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,6 +4,8 @@ using System.Text;
 
 using Mogre;
 
+using Snowflake.Modules;
+
 namespace Snowflake {
     public class CityManager {
         public static List<Plot> Plots = new List<Plot>();
@@ -12,17 +14,18 @@ namespace Snowflake {
 
         public static SceneNode CityNode;
 
-        public static void CreateScene() {
+        public static void CreateScene(SceneManager sm) {
             //Set up city bounds and create road planes.
 
             MinX = MinY = MaxX = MaxY = 0;
             foreach (Plot p in Plots) {
                 ReviseBounds(p);
 
+                p.Initialize(sm);
                 p.Incorporated = true;
             }
 
-            CreateRoads();
+            CreateRoads(sm);
         }
 
         private static void ReviseBounds(Plot p) {
@@ -35,15 +38,15 @@ namespace Snowflake {
             //Then do stuff with roads
         }
 
-        private static void CreateRoads() {
+        private static void CreateRoads(SceneManager sm) {
             for (int x = MinX - 2; x < MaxX + 1; x++) {
                 Plane plane = new Plane(Vector3.UNIT_Y, 0);
                 MeshManager.Singleton.CreatePlane("road_x" + x.ToString(), ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, Plot.RoadSize, (MaxX - MinX + 2) * Plot.Height, 4, 40, true, 1, 1, 5, Vector3.UNIT_Z);
 
-                Entity road = GV.SceneManager.CreateEntity("RoadEnt_X" + x.ToString(), "road_x" + x.ToString());
+                Entity road = sm.CreateEntity("RoadEnt_X" + x.ToString(), "road_x" + x.ToString());
                 road.SetMaterialName("Road");
 
-                SceneNode RoadNode = GV.SceneManager.RootSceneNode.CreateChildSceneNode();
+                SceneNode RoadNode = sm.RootSceneNode.CreateChildSceneNode();
                 RoadNode.AttachObject(road);
                 RoadNode.Translate(new Vector3(3 * Plot.Width / 2 + x * Plot.Width, 0, Plot.Height / 2 + (MaxY - MinY) * 0.5f * Plot.Height));
             }
@@ -51,10 +54,10 @@ namespace Snowflake {
                 Plane plane = new Plane(Vector3.UNIT_Y, 0);
                 MeshManager.Singleton.CreatePlane("road_y" + y.ToString(), ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, Plot.RoadSize, (MaxX - MinX + 2) * Plot.Height, 4, 40, true, 1, 1, 5, Vector3.UNIT_Z);
 
-                Entity road = GV.SceneManager.CreateEntity("RoadEnt_Y" + y.ToString(), "road_y" + y.ToString());
+                Entity road = sm.CreateEntity("RoadEnt_Y" + y.ToString(), "road_y" + y.ToString());
                 road.SetMaterialName("Road");
 
-                SceneNode RoadNode = GV.SceneManager.RootSceneNode.CreateChildSceneNode();
+                SceneNode RoadNode = sm.RootSceneNode.CreateChildSceneNode();
                 RoadNode.AttachObject(road);
                 RoadNode.Translate(new Vector3(Plot.Width / 2 + (MaxX - MinX) * 0.5f * Plot.Width, 0, 3 * Plot.Height / 2 + y * Plot.Height));
                 RoadNode.Yaw(90);

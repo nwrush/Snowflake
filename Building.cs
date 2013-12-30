@@ -18,18 +18,18 @@ namespace Snowflake {
             this.Name = this.GetHashCode().ToString();
         }
 
-        public virtual void Initialize() {
-            CreateEntities();
-            AttachNode();
+        public virtual void Initialize(SceneManager sm) {
+            CreateEntities(sm);
+            AttachNode(sm);
             TranslateIntoPosition();
         }
 
-        public virtual void CreateEntities() {
-            this.entities.Add(GV.SceneManager.CreateEntity(this.Name, SceneManager.PrefabType.PT_CUBE));
+        public virtual void CreateEntities(SceneManager sm) {
+            this.entities.Add(sm.CreateEntity(this.Name, SceneManager.PrefabType.PT_CUBE));
         }
-        public virtual void AttachNode() {
+        public virtual void AttachNode(SceneManager sm) {
             if (node == null) {
-                node = GV.SceneManager.RootSceneNode.CreateChildSceneNode();
+                node = sm.RootSceneNode.CreateChildSceneNode();
             }
             foreach (Entity e in this.entities) {
                 node.AttachObject(e);

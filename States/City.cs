@@ -14,12 +14,10 @@ namespace Snowflake.States
   {
     //////////////////////////////////////////////////////////////////////////
     private StateManager mStateMgr;
+    private WeatherManager mWeatherMgr;
 
     private Entity ground;
     private SceneNode world;
-
-    private Light sun;
-    private Light sky;
 
     public static float Time = 0.0f;
 
@@ -29,7 +27,7 @@ namespace Snowflake.States
     public City()
     {
       mStateMgr = null;
-      
+      mWeatherMgr = null;
     }
 
     /************************************************************************/
@@ -42,6 +40,8 @@ namespace Snowflake.States
 
         // get reference to the ogre manager
         OgreManager engine = mStateMgr.Engine;
+
+        mWeatherMgr = new WeatherManager();
 
         createScene(engine);
 
@@ -59,26 +59,7 @@ namespace Snowflake.States
         engine.Camera.FarClipDistance = 2048;
         engine.Camera.AutoAspectRatio = true;
 
-        sun = engine.SceneMgr.CreateLight("Sun");
-        sun.Type = Light.LightTypes.LT_POINT;
-        sun.Position = new Vector3(0, 1000, 100);
-        sun.Direction = new Vector3(0, -1, 0.5f);
-        sun.DiffuseColour = new ColourValue(0.98f, 0.95f, 0.9f);
-        sun.SpecularColour = ColourValue.White;
-        //sun.AttenuationQuadratic = 0.01f;
-        //sun.AttenuationLinear = 0.1f;
-        sun.CastShadows = true;
-
-        sky = engine.SceneMgr.CreateLight("sky");
-        sky.Type = Light.LightTypes.LT_DIRECTIONAL;
-        sky.Position = new Vector3(0, 2000, 0);
-        sky.Direction = new Vector3(0, -1, 0);
-        sky.DiffuseColour = new ColourValue(0.05f, 0.075f, 0.10f);
-        sky.SpecularColour = ColourValue.Black;
-        sky.CastShadows = true;
-
-        engine.SceneMgr.RootSceneNode.AttachObject(sun);
-        engine.SceneMgr.RootSceneNode.AttachObject(sky);
+        mWeatherMgr.CreateScene(engine.SceneMgr);
 
         Plane plane = new Plane(Vector3.UNIT_Y, 0);
         MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UNIT_Z);

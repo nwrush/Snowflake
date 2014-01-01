@@ -44,11 +44,13 @@ namespace Snowflake.States
         mWeatherMgr = new WeatherManager();
 
         createScene(engine);
+        createUI();
 
       // OK
       return true;
     }
 
+    //Set up camera and world meshes (consider moving to separate class as per Nikko's advice?)
     public void createScene(OgreManager engine) {
 
         engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
@@ -80,6 +82,21 @@ namespace Snowflake.States
         CityManager.Plots.Add(p);
 
         CityManager.CreateScene(engine.SceneMgr);
+    }
+
+    //Set up overlays for user interface
+    public void createUI() {
+        Overlay overlay = OverlayManager.Singleton.Create("UI");
+        OverlayElement panel = OverlayManager.Singleton.CreateOverlayElement("Panel", "PanelElement");
+        panel.MaterialName = "Panel";
+        panel.MetricsMode = GuiMetricsMode.GMM_PIXELS;
+        panel.Top = 10;
+        panel.Left = 10;
+        panel.Width = 250;
+        panel.Height = 150;
+
+        overlay.Add2D((OverlayContainer)panel);
+        overlay.Show();
     }
 
     /************************************************************************/
@@ -124,10 +141,8 @@ namespace Snowflake.States
                                            engine.Camera.Position.y, engine.Camera.Position.z - 5);
         }
 
-        Time += 0.1f;
-        sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time / -20.0), 1000 * (float)System.Math.Sin(Time / -20.0), -300);
-
         CityManager.Update();
+        mWeatherMgr.Update();
 
         // check if the escape key was pressed
         if (mStateMgr.Input.WasKeyPressed(MOIS.KeyCode.KC_ESCAPE)) {

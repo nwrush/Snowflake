@@ -4,6 +4,8 @@ using System.Text;
 
 using Mogre;
 
+using Snowflake.States;
+
 namespace Snowflake {
     public class WeatherManager {
 
@@ -41,6 +43,9 @@ namespace Snowflake {
 
         public void Update() {
             timer -= 1;
+
+            City.Time += 0.1f;
+            sun.Position = new Vector3(1000 * (float)System.Math.Cos(City.Time / -20.0), 1000 * (float)System.Math.Sin(City.Time / -20.0), -300);
         }
 
         public void SwitchWeather(Weather w) {
@@ -50,6 +55,7 @@ namespace Snowflake {
             switch (CurrentWeather) {
                 case Weather.Null:
                     CurrentWeather = Weather.Sunny;
+                    break;
                 case Weather.Sunny:
                     break;
 

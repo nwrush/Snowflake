@@ -1,0 +1,13 @@
+material Panel
+{
+	technique
+	{
+		pass
+		{
+			texture_unit
+			{
+				texture panel.png
+			}
+		}
+	}
+}

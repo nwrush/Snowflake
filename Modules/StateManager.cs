@@ -68,9 +68,11 @@ namespace Snowflake.Modules
             if (!mInput.Startup(mEngine.WindowHandle, (int)mEngine.Window.Width, (int)mEngine.Window.Height))
                 return false;
 
-            //try to initialize the Miyagi Mogre plugin
+            //try to initialize the Miyagi Mogre plugin and then create relevant skin information things
             const string PluginPath = @".\";
             this.mGuiSystem.PluginManager.LoadPlugin(Path.Combine(PluginPath, "Miyagi.Plugin.Input.Mois.dll"), this.mInput.Keyboard, this.mInput.Mouse);
+
+            ResourceManager.Create(mGuiSystem);
 
             // can't start up the state manager again if it's already running
             if (mCurrentState != null || mNewState != null)
@@ -91,6 +93,8 @@ namespace Snowflake.Modules
         {
             // shutdown the MOIS input manager
             mInput.Shutdown();
+
+            mGuiSystem.Dispose();
 
             // if a state is active, shut down the state to clean up
             if (mCurrentState != null)
@@ -130,6 +134,9 @@ namespace Snowflake.Modules
                 // if the state has changed, clear all input states for this frame
                 mInput.Clear();
             }
+
+            //Update the GUI
+            mGuiSystem.Update();
 
             // if a state is active, update the active state
             if (mCurrentState != null)

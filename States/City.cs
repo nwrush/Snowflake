@@ -106,7 +106,8 @@ namespace Snowflake.States
         overlay.Add2D((OverlayContainer)panel);
         overlay.Show();*/
 
-        GUI gui = new GUI();
+        Modules.GameConsole c = new Modules.GameConsole();
+        c.CreateGui(this.mStateMgr.GuiSystem);
     }
 
     /************************************************************************/

@@ -58,6 +58,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Building.cs" />
@@ -66,6 +69,7 @@
     <Compile Include="Buildings\PowerBuilding.cs" />
     <Compile Include="Buildings\ResidentialBuilding.cs" />
     <Compile Include="CityManager.cs" />
+    <Compile Include="Modules\GameConsole.cs" />
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />
     <Compile Include="Modules\OgreManager.cs" />

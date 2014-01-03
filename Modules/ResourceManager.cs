@@ -1,8 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Drawing;
 
 using Mogre;
+
+using Font = Miyagi.Common.Resources.Font;
+using Miyagi.Common;
+using Miyagi.Common.Resources;
+using RectangleF = Miyagi.Common.Data.RectangleF;
 
 namespace Snowflake.Modules
 {
@@ -291,6 +298,74 @@ namespace Snowflake.Modules
             return res;
         }
 
+        //Imported from Miyagi Examples//////////////
+        public static Dictionary<string, Font> Fonts
+        {
+            get;
+            private set;
+        }
+
+        public static Dictionary<string, Skin> Skins
+        {
+            get;
+            private set;
+        }
+
+        public static void Create(MiyagiSystem system)
+        {
+            CreateFonts(system);
+            CreateSkins();
+        }
+
+        private static void CreateFonts(MiyagiSystem system)
+        {
+            const string FontPath = @"../Media/Fonts/";
+            var fonts = new[]
+                        {
+                            // load ttf definitions from xml file
+                            TrueTypeFont.CreateFromXml(Path.Combine(FontPath, "TrueTypeFonts.xml"), system)
+                                .Cast<Font>().ToDictionary(f => f.Name),
+                            // load image font definitions from xml file
+                            ImageFont.CreateFromXml(Path.Combine(FontPath, "ImageFonts.xml"), system)
+                                .Cast<Font>().ToDictionary(f => f.Name)
+                        };
+
+            Fonts = fonts.SelectMany(dict => dict)
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+            var font = TrueTypeFont.Create(system, "DejaVuSans", Path.Combine(FontPath, "DejaVuSans.ttf"), 12, 96, FontStyle.Regular);
+            Fonts.Add(font.Name, font);
+
+            // set BlueHighway as default font
+            Font.Default = Fonts["BlueHighway"];
+        }
+
+        private static void CreateSkins()
+        {
+            // auto create Skins
+            var skins = new List<Skin>();
+
+            skins.AddRange(Skin.CreateFromXml(@"../Media/GUI/skins.xml", null));
+            skins.AddRange(Skin.CreateFromXml(@"../Media/Cursor/CursorSkin.xml", null));
+
+            // manual create Skins
+            var logo = new Skin("Logo");
+            var rect = RectangleF.FromLTRB(0, 0, 1, 1);
+            var frame1 = new TextureFrame("Logo1.png", rect, 1000);
+            var frame2 = new TextureFrame("Logo2.png", rect, 800);
+            var frame3 = new TextureFrame("Logo3.png", rect, 600);
+            var frame4 = new TextureFrame("Logo4.png", rect, 400);
+            var frame5 = new TextureFrame("Logo5.png", rect, 200);
+
+            logo.SubSkins["Logo"] = new Miyagi.Common.Resources.Texture(frame1, frame2, frame3, frame4, frame5)
+                                      {
+                                          FrameAnimationMode = FrameAnimationMode.ForwardBackwardLoop
+                                      };
+
+            skins.Add(logo);
+
+            Skins = skins.ToDictionary(s => s.Name);
+        }
     } // class
 
 } // namespace

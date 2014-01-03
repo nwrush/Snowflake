@@ -69,7 +69,7 @@ namespace Snowflake.Modules
                 return false;
 
             //try to initialize the Miyagi Mogre plugin
-            const string PluginPath = @"./";
+            const string PluginPath = @".\";
             this.mGuiSystem.PluginManager.LoadPlugin(Path.Combine(PluginPath, "Miyagi.Plugin.Input.Mois.dll"), this.mInput.Keyboard, this.mInput.Mouse);
 
             // can't start up the state manager again if it's already running

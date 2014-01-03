@@ -11,3 +11,18 @@ material Panel
 		}
 	}
 }
+
+material Panel_L_100x600
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			texture_unit
+			{
+				texture panel_l_100x600.png
+			}
+		}
+	}
+}

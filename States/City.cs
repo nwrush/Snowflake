@@ -88,15 +88,16 @@ namespace Snowflake.States
     public void createUI() {
         Overlay overlay = OverlayManager.Singleton.Create("UI");
         OverlayElement panel = OverlayManager.Singleton.CreateOverlayElement("Panel", "PanelElement");
-        panel.MaterialName = "Panel";
+        panel.MaterialName = "Panel_L_100x600";
         panel.MetricsMode = GuiMetricsMode.GMM_PIXELS;
-        panel.Top = 10;
-        panel.Left = 10;
-        panel.Width = 250;
-        panel.Height = 150;
+        //panel.HorizontalAlignment = GuiHorizontalAlignment.GHA_CENTER;
+        panel.Top = mStateMgr.Engine.Window.Height - 110;
+        panel.Left = mStateMgr.Engine.Window.Width / 2 - 300;
+        panel.Width = 600;
+        panel.Height = 100;
 
-        //overlay.Add2D((OverlayContainer)panel);
-        //overlay.Show();
+        overlay.Add2D((OverlayContainer)panel);
+        overlay.Show();
     }
 
     /************************************************************************/

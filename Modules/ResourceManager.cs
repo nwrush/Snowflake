@@ -10,6 +10,9 @@ using Font = Miyagi.Common.Resources.Font;
 using Miyagi.Common;
 using Miyagi.Common.Resources;
 using RectangleF = Miyagi.Common.Data.RectangleF;
+using Size = Miyagi.Common.Data.Size;
+using Point = Miyagi.Common.Data.Point;
+using Miyagi.UI;
 
 namespace Snowflake.Modules
 {
@@ -315,6 +318,7 @@ namespace Snowflake.Modules
         {
             CreateFonts(system);
             CreateSkins();
+            CreateCursor(system.GUIManager);
         }
 
         private static void CreateFonts(MiyagiSystem system)
@@ -366,6 +370,17 @@ namespace Snowflake.Modules
 
             Skins = skins.ToDictionary(s => s.Name);
         }
+
+        public static void CreateCursor(GUIManager guiMgr) {
+            guiMgr.Cursor = new Cursor(Skins["CursorSkin"], new Size(16, 16), Point.Empty, true);
+            guiMgr.Cursor.SetHotspot(CursorMode.ResizeLeft, new Point(8, 8));
+            guiMgr.Cursor.SetHotspot(CursorMode.ResizeTop, new Point(8, 8));
+            guiMgr.Cursor.SetHotspot(CursorMode.ResizeTopLeft, new Point(8, 8));
+            guiMgr.Cursor.SetHotspot(CursorMode.ResizeTopRight, new Point(8, 8));
+            guiMgr.Cursor.SetHotspot(CursorMode.TextInput, new Point(8, 8));
+            guiMgr.Cursor.SetHotspot(CursorMode.BlockDrop, new Point(8, 8));
+        }
+
     } // class
 
 } // namespace

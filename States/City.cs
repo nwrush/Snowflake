@@ -95,8 +95,8 @@ namespace Snowflake.States
         panel.Width = 250;
         panel.Height = 150;
 
-        overlay.Add2D((OverlayContainer)panel);
-        overlay.Show();
+        //overlay.Add2D((OverlayContainer)panel);
+        //overlay.Show();
     }
 
     /************************************************************************/

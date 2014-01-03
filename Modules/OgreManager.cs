@@ -97,7 +97,7 @@ namespace Snowflake.Modules
             parm["vsync"] = "true";
 
             // create window and get the native window handle (needed for MOIS)
-            mWindow = mRoot.CreateRenderWindow("Mogre Quickstart 2010", 800, 600, false, parm);
+            mWindow = mRoot.CreateRenderWindow("Project Sustain", Program.WINDOW_WIDTH, Program.WINDOW_HEIGHT, false, parm);
             mWindow.GetCustomAttribute("WINDOW", out mWindowHandle);
 
             // create scene manager

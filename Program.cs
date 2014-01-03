@@ -13,6 +13,10 @@ namespace Snowflake
         private static OgreManager mEngine;
         private static StateManager mStateMgr;
 
+        //temp window width and height variables - figure out a way to dynamically set with a config menu
+        public const int WINDOW_WIDTH = 1366;
+        public const int WINDOW_HEIGHT = 768;
+
         /************************************************************************/
         /* program starts here                                                  */
         /************************************************************************/

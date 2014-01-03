@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Reflection;
+using System.IO;
+
+using Miyagi.Common;
 
 namespace Snowflake.Modules
 {
@@ -11,6 +14,7 @@ namespace Snowflake.Modules
         //////////////////////////////////////////////////////////////////////////
         private OgreManager mEngine;
         private MoisManager mInput;
+        private MiyagiSystem mGuiSystem; //might make a wrapper for this later
 
         //////////////////////////////////////////////////////////////////////////
         private State mCurrentState;
@@ -29,6 +33,10 @@ namespace Snowflake.Modules
             get { return mInput; }
         }
 
+        public MiyagiSystem GuiSystem {
+            get { return mGuiSystem; }
+        }
+
         // flag to indicate that state manager is in shutdown state //////////////
         public bool ShuttingDown
         {
@@ -42,6 +50,7 @@ namespace Snowflake.Modules
         {
             mEngine = _engine;
             mInput = new MoisManager();
+            mGuiSystem = new MiyagiSystem("Mogre");
             mCurrentState = null;
             mNewState = null;
             mShutdown = false;
@@ -58,6 +67,10 @@ namespace Snowflake.Modules
             // try to initialize the MOIS input manager
             if (!mInput.Startup(mEngine.WindowHandle, (int)mEngine.Window.Width, (int)mEngine.Window.Height))
                 return false;
+
+            //try to initialize the Miyagi Mogre plugin
+            const string PluginPath = @"./";
+            this.mGuiSystem.PluginManager.LoadPlugin(Path.Combine(PluginPath, "Miyagi.Plugin.Input.Mois.dll"), this.mInput.Keyboard, this.mInput.Mouse);
 
             // can't start up the state manager again if it's already running
             if (mCurrentState != null || mNewState != null)

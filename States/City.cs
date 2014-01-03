@@ -5,6 +5,13 @@ using Mogre;
 using Snowflake.Modules;
 using Snowflake.Buildings;
 
+using Miyagi.Common;
+using Miyagi.Common.Data;
+using Miyagi.UI;
+using Miyagi.UI.Controls;
+
+using Vector3 = Mogre.Vector3;
+
 namespace Snowflake.States
 {
   /*************************************************************************************/
@@ -86,7 +93,7 @@ namespace Snowflake.States
 
     //Set up overlays for user interface
     public void createUI() {
-        Overlay overlay = OverlayManager.Singleton.Create("UI");
+        /*Overlay overlay = OverlayManager.Singleton.Create("UI");
         OverlayElement panel = OverlayManager.Singleton.CreateOverlayElement("Panel", "PanelElement");
         panel.MaterialName = "Panel_L_100x600";
         panel.MetricsMode = GuiMetricsMode.GMM_PIXELS;
@@ -97,7 +104,9 @@ namespace Snowflake.States
         panel.Height = 100;
 
         overlay.Add2D((OverlayContainer)panel);
-        overlay.Show();
+        overlay.Show();*/
+
+        GUI gui = new GUI();
     }
 
     /************************************************************************/

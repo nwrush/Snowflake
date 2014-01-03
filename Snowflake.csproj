@@ -41,6 +41,10 @@
     <StartupObject>Snowflake.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Miyagi, Version=1.2.1.40984, Culture=neutral, PublicKeyToken=418dc626d1eb4589, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Release\Miyagi.dll</HintPath>
+    </Reference>
     <Reference Include="Mogre, Version=1.7.1.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Release\Mogre.dll</HintPath>

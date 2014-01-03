@@ -39,6 +39,10 @@ namespace Snowflake.Modules
         public int MouseReleasedPosX { get { return (int)mMouseReleasedPos.x; } }
         public int MouseReleasedPosY { get { return (int)mMouseReleasedPos.y; } }
 
+        //get Keyboard and Mouse instances
+        public Keyboard Keyboard { get { return mKeyboard; } }
+        public Mouse Mouse { get { return mMouse; } }
+
         /************************************************************************/
         /* constructor                                                          */
         /************************************************************************/

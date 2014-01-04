@@ -1,0 +1,14 @@
+material Park
+{
+	technique
+	{
+		pass
+		{
+		
+			texture_unit
+			{
+				texture grass.tga
+			}
+		}
+	}
+}

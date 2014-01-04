@@ -17,7 +17,7 @@ namespace Snowflake.States
   /*************************************************************************************/
   /* program state for rendering the city (pretty comments courtesy of the quick start */
   /*************************************************************************************/
-  public class City : State
+  public class CityState : State
   {
     //////////////////////////////////////////////////////////////////////////
     private StateManager mStateMgr;
@@ -31,7 +31,7 @@ namespace Snowflake.States
     /************************************************************************/
     /* constructor                                                          */
     /************************************************************************/
-    public City()
+    public CityState()
     {
       mStateMgr = null;
       mWeatherMgr = null;

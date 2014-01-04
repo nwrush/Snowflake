@@ -33,7 +33,7 @@ namespace Snowflake
             Program prg = new Program();
 
             // try to initialize Ogre and the state manager
-            if (mEngine.Startup() && mStateMgr.Startup(typeof(City)))
+            if (mEngine.Startup() && mStateMgr.Startup(typeof(CityState)))
             {
                 // create objects in scene
                 prg.CreateScene();

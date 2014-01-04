@@ -44,8 +44,8 @@ namespace Snowflake {
         public void Update() {
             timer -= 1;
 
-            City.Time += 0.1f;
-            sun.Position = new Vector3(1000 * (float)System.Math.Cos(City.Time / -20.0), 1000 * (float)System.Math.Sin(City.Time / -20.0), -300);
+            CityState.Time += 0.1f;
+            sun.Position = new Vector3(1000 * (float)System.Math.Cos(CityState.Time / -20.0), 1000 * (float)System.Math.Sin(CityState.Time / -20.0), -300);
         }
 
         public void SwitchWeather(Weather w) {

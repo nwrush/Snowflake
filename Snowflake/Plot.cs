@@ -19,7 +19,7 @@ namespace Snowflake {
         public List<Building> Buildings;
         public List<Resource> Resources;
 
-        //PlotX and Y coordinate (in the City grid)
+        //PlotX and Y coordinate (in the CityState grid)
         //Child buildings read this to 
         public int PlotX;
         public int PlotY;

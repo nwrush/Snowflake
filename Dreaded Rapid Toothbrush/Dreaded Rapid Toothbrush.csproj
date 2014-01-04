@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Mogre">
+      <HintPath>..\Snowflake\bin\Debug\Mogre.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Building.cs" />
+    <Compile Include="Buildings\CommercialBuilding.cs" />
+    <Compile Include="Buildings\ParkBuilding.cs" />
+    <Compile Include="Buildings\PowerBuilding.cs" />
+    <Compile Include="Buildings\ResidentialBuilding.cs" />
+    <Compile Include="City.cs" />
+    <Compile Include="Plot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

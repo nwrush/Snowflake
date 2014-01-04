@@ -17,16 +17,31 @@ namespace Snowflake.Modules {
 
             var gui = new GUI();
 
-            this.panel1 = new Panel("Panel1") {
+            Panel parentPanel = new Panel("GC_ParentPanel") {
                 TabStop = false,
                 TabIndex = 0,
                 Throwable = true,
-                Size = new Size(768, 300),
+                Size = new Size(516, 416),
+                Movable = true,
+                Location = new Point(10, 10),
+                MinSize = new Size(4, 4),
+                ResizeThreshold = new Thickness(4),
+                BorderStyle = {
+                    Thickness = new Thickness(4, 24, 4, 4)
+                },
+                Skin = ResourceManager.Skins["PanelSkin"]
+            };
+            this.panel1 = new Panel("GC_OutputPanel") {
+                TabStop = false,
+                TabIndex = 0,
+                Throwable = true,
+                Size = new Size(516, 360),
+                Movable = false,
+                ResizeMode = ResizeModes.None,
                 Location = new Point(0, 0),
                 MinSize = new Size(0, 0),
-                ResizeThreshold = new Thickness(0),
                 BorderStyle = {
-                    Thickness = new Thickness(8, 16, 8, 8)
+                    Thickness = new Thickness(1, 1, 1, 1)
                 },
                 HScrollBarStyle = {
                     Extent = 16,
@@ -47,9 +62,9 @@ namespace Snowflake.Modules {
                 Skin = ResourceManager.Skins["PanelSkin"]
             };
 
-            var textBox1 = new TextBox("TextBox1") {
-                Size = new Size(768, 32),
-                Location = new Point(0, 300),
+            var textBox1 = new TextBox("GC_Entrybox") {
+                Size = new Size(508, 32),
+                Location = new Point(0, 360),
                 Padding = new Thickness(9, 0, 8, 0),
                 TextStyle = {
                     ForegroundColour = Colours.White
@@ -64,15 +79,20 @@ namespace Snowflake.Modules {
                 ClearTextOnSubmit = true
             };
             textBox1.Submit += this.TextBox1Submit;
+            parentPanel.Controls.Add(textBox1);
+            parentPanel.Controls.Add(panel1);
 
-            Console.WriteLine("Adding textbox and panel to gui");
-            gui.Controls.Add(textBox1);
-            gui.Controls.Add(panel1);
+            Console.WriteLine("Creating Console");
+            gui.Controls.Add(parentPanel);
 
             // add the GUI to the GUIManager
             system.GUIManager.GUIs.Add(gui);
 
-            AddLabel("> TEST");
+            AddLabel("TEST");
+        }
+
+        public void WriteLine(string text) {
+            this.AddLabel(text);
         }
 
         private void AddLabel(string text) {

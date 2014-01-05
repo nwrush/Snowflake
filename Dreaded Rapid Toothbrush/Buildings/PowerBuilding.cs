@@ -4,7 +4,7 @@ using System.Text;
 
 using Mogre;
 
-namespace Snowflake.Buildings {
+namespace DRT.Buildings {
     public class PowerBuilding : CommercialBuilding {
 
         public float PowerOutputVolts; //Different types output different voltages, and this can be changed depending on how far the power needs to go

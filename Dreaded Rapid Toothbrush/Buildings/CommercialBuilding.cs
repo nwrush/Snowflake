@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Snowflake.Buildings {
+namespace DRT.Buildings {
     public abstract class CommercialBuilding : Building {
         public int Employees; //Current number of workers. Should be MinJobs < Employees < MaxJobs
         protected int MaxJobs; //Job capacity - don't hire more than this.

@@ -95,6 +95,7 @@ namespace Snowflake.Modules
             // optional parameters
             NameValuePairList parm = new NameValuePairList();
             parm["vsync"] = "true";
+            parm["FSAA"] = "4";
 
             // create window and get the native window handle (needed for MOIS)
             mWindow = mRoot.CreateRenderWindow("Project Sustain", Program.WINDOW_WIDTH, Program.WINDOW_HEIGHT, false, parm);

@@ -143,8 +143,10 @@ namespace Snowflake.Modules
             ClearMousePressed();
             ClearMouseMove();
 
-            mKeyboard.Capture();
-            mMouse.Capture();
+            if (mKeyboard != null && mMouse != null) {
+                mKeyboard.Capture();
+                mMouse.Capture();
+            }
         }
 
         /************************************************************************/

@@ -4,6 +4,7 @@ using System.Text;
 
 using Miyagi.Common;
 using Miyagi.Common.Data;
+using Miyagi.Common.Events;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 
@@ -12,12 +13,13 @@ namespace Snowflake.Modules {
 
         private int labelY;
         private Panel panel1;
+        private Panel parentPanel;
 
         public void CreateGui(MiyagiSystem system) {
 
             var gui = new GUI();
 
-            Panel parentPanel = new Panel("GC_ParentPanel") {
+            parentPanel = new Panel("GC_ParentPanel") {
                 TabStop = false,
                 TabIndex = 0,
                 Throwable = true,
@@ -29,7 +31,7 @@ namespace Snowflake.Modules {
                 BorderStyle = {
                     Thickness = new Thickness(4, 24, 4, 4)
                 },
-                Skin = ResourceManager.Skins["PanelSkin"]
+                Skin = ResourceManager.Skins["WindowSkin"]
             };
             this.panel1 = new Panel("GC_OutputPanel") {
                 TabStop = false,
@@ -78,7 +80,17 @@ namespace Snowflake.Modules {
                 Skin = ResourceManager.Skins["ButtonSkin"],
                 ClearTextOnSubmit = true
             };
-            textBox1.Submit += this.TextBox1Submit;
+
+            textBox1.Submit += (object sender, ValueEventArgs<string> e) => { this.AddLabel(((TextBox)sender).Text); };
+            textBox1.GotFocus += (object sender, EventArgs e) => { StateManager.SupressGameControl = true; };
+            textBox1.LostFocus += (object sender, EventArgs e) => { StateManager.SupressGameControl = false; };
+
+            parentPanel.ClientSizeChanged += (object sender, EventArgs e) => {
+                textBox1.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
+                textBox1.Bottom = parentPanel.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
+                panel1.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
+                panel1.Height = parentPanel.Height - textBox1.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
+            };
             parentPanel.Controls.Add(textBox1);
             parentPanel.Controls.Add(panel1);
 
@@ -89,7 +101,18 @@ namespace Snowflake.Modules {
             system.GUIManager.GUIs.Add(gui);
 
             AddLabel("TEST");
+            this.Hide();
         }
+
+        public void Show() {
+            this.parentPanel.Visible = true;
+        }
+
+        public void Hide() {
+            this.parentPanel.Visible = false;
+        }
+
+        public bool Visible { get { return this.parentPanel.Visible; } set { this.parentPanel.Visible = value; } }
 
         public void WriteLine(string text) {
             this.AddLabel(text);
@@ -98,7 +121,7 @@ namespace Snowflake.Modules {
         private void AddLabel(string text) {
             var label = new Label {
                 Location = new Point(0, labelY),
-                Text = text,
+                Text = "> " + text,
                 AutoSize = true,
                 MaxSize = new Size(275, 300)
             };
@@ -107,11 +130,6 @@ namespace Snowflake.Modules {
             this.labelY += label.Size.Height;
             this.panel1.ScrollToBottom();
         }
-
-        private void TextBox1Submit(object sender, Miyagi.Common.Events.ValueEventArgs<string> e) {
-            this.AddLabel(((TextBox)sender).Text);
-        }
-
 
     }
 }

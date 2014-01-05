@@ -341,7 +341,7 @@ namespace Snowflake.Modules
             Fonts.Add(font.Name, font);
 
             // set BlueHighway as default font
-            Font.Default = Fonts["BlueHighway"];
+            Font.Default = Fonts["Courier"];
         }
 
         private static void CreateSkins()
@@ -351,22 +351,6 @@ namespace Snowflake.Modules
 
             skins.AddRange(Skin.CreateFromXml(@"../Media/GUI/skins.xml", null));
             skins.AddRange(Skin.CreateFromXml(@"../Media/Cursor/CursorSkin.xml", null));
-
-            // manual create Skins
-            var logo = new Skin("Logo");
-            var rect = RectangleF.FromLTRB(0, 0, 1, 1);
-            var frame1 = new TextureFrame("Logo1.png", rect, 1000);
-            var frame2 = new TextureFrame("Logo2.png", rect, 800);
-            var frame3 = new TextureFrame("Logo3.png", rect, 600);
-            var frame4 = new TextureFrame("Logo4.png", rect, 400);
-            var frame5 = new TextureFrame("Logo5.png", rect, 200);
-
-            logo.SubSkins["Logo"] = new Miyagi.Common.Resources.Texture(frame1, frame2, frame3, frame4, frame5)
-                                      {
-                                          FrameAnimationMode = FrameAnimationMode.ForwardBackwardLoop
-                                      };
-
-            skins.Add(logo);
 
             Skins = skins.ToDictionary(s => s.Name);
         }

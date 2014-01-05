@@ -21,6 +21,8 @@ namespace Snowflake.Modules
         private Type mNewState;
         private bool mShutdown;
 
+        public static bool SupressGameControl = false;
+
         // reference to the Ogre engine manager //////////////////////////////////
         public OgreManager Engine
         {

@@ -12,4 +12,10 @@
     <Resolution>96</Resolution>
     <Size>12</Size>
   </TrueTypeFont>
+  <TrueTypeFont Name="Courier">
+    <FileName>..\media\fonts\cour.ttf</FileName>
+    <FontStyle>Regular</FontStyle>
+    <Resolution>96</Resolution>
+    <Size>10</Size>
+  </TrueTypeFont>
 </TrueTypeFonts>

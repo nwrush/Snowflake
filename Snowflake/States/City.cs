@@ -26,6 +26,8 @@ namespace Snowflake.States
     private Entity ground;
     private SceneNode world;
 
+    private Modules.GameConsole GameConsole;
+
     public static float Time = 0.0f;
 
     /************************************************************************/
@@ -89,25 +91,13 @@ namespace Snowflake.States
         CityManager.Plots.Add(p);
 
         CityManager.CreateScene(engine.SceneMgr);
+
+        GameConsole = new Modules.GameConsole();
     }
 
     //Set up overlays for user interface
     public void createUI() {
-        /*Overlay overlay = OverlayManager.Singleton.Create("UI");
-        OverlayElement panel = OverlayManager.Singleton.CreateOverlayElement("Panel", "PanelElement");
-        panel.MaterialName = "Panel_L_100x600";
-        panel.MetricsMode = GuiMetricsMode.GMM_PIXELS;
-        //panel.HorizontalAlignment = GuiHorizontalAlignment.GHA_CENTER;
-        panel.Top = mStateMgr.Engine.Window.Height - 110;
-        panel.Left = mStateMgr.Engine.Window.Width / 2 - 300;
-        panel.Width = 600;
-        panel.Height = 100;
-
-        overlay.Add2D((OverlayContainer)panel);
-        overlay.Show();*/
-
-        Modules.GameConsole c = new Modules.GameConsole();
-        c.CreateGui(this.mStateMgr.GuiSystem);
+        GameConsole.CreateGui(this.mStateMgr.GuiSystem);
     }
 
     /************************************************************************/
@@ -129,27 +119,43 @@ namespace Snowflake.States
 
         // get reference to the ogre manager
         OgreManager engine = mStateMgr.Engine;
-        
-        if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_SPACE) || mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right)) {
-            //Console.WriteLine("mouse button pressed");
-            engine.Camera.Position = new Vector3(engine.Camera.Position.x + mStateMgr.Input.MouseMoveX,
-                                           engine.Camera.Position.y, engine.Camera.Position.z + mStateMgr.Input.MouseMoveY);
-        }
-        if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
-            engine.Camera.Position = new Vector3(engine.Camera.Position.x + 5,
-                                           engine.Camera.Position.y, engine.Camera.Position.z);
-        }
-        if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
-            engine.Camera.Position = new Vector3(engine.Camera.Position.x - 5,
-                                           engine.Camera.Position.y, engine.Camera.Position.z);
-        }
-        if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
-            engine.Camera.Position = new Vector3(engine.Camera.Position.x,
-                                           engine.Camera.Position.y, engine.Camera.Position.z + 5);
-        }
-        if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
-            engine.Camera.Position = new Vector3(engine.Camera.Position.x,
-                                           engine.Camera.Position.y, engine.Camera.Position.z - 5);
+
+        //If we're not typing into a form or something...
+        if (!StateManager.SupressGameControl) {
+            //Mouse drag control
+            if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_SPACE) || mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right)) {
+                //Console.WriteLine("mouse button pressed");
+                engine.Camera.Position = new Vector3(engine.Camera.Position.x + mStateMgr.Input.MouseMoveX,
+                                               engine.Camera.Position.y, engine.Camera.Position.z + mStateMgr.Input.MouseMoveY);
+                mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);
+            }
+            //Mouse click - 3D selection
+            if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
+
+            }
+
+            //WASD Control
+            if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
+                engine.Camera.Position = new Vector3(engine.Camera.Position.x + 5,
+                                               engine.Camera.Position.y, engine.Camera.Position.z);
+            }
+            if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
+                engine.Camera.Position = new Vector3(engine.Camera.Position.x - 5,
+                                               engine.Camera.Position.y, engine.Camera.Position.z);
+            }
+            if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
+                engine.Camera.Position = new Vector3(engine.Camera.Position.x,
+                                               engine.Camera.Position.y, engine.Camera.Position.z + 5);
+            }
+            if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
+                engine.Camera.Position = new Vector3(engine.Camera.Position.x,
+                                               engine.Camera.Position.y, engine.Camera.Position.z - 5);
+            }
+
+            //Toggle the console with `
+            if (mStateMgr.Input.WasKeyPressed(MOIS.KeyCode.KC_GRAVE)) {
+                GameConsole.Visible = !GameConsole.Visible;
+            }
         }
 
         CityManager.Update();

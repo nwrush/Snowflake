@@ -18,15 +18,19 @@ namespace Snowflake {
             this.Name = this.GetHashCode().ToString();
         }
 
+        //Initialize this building - create the entities, attach them to the scene node, and then move the building into its position on the grid.
         public virtual void Initialize(SceneManager sm) {
             CreateEntities(sm);
             AttachNode(sm);
             TranslateIntoPosition();
         }
 
+        //Create the entities for this building - load models, materials, etc and position them.
         public virtual void CreateEntities(SceneManager sm) {
             this.entities.Add(sm.CreateEntity(this.Name, SceneManager.PrefabType.PT_CUBE));
         }
+        
+        //Create the scene node for this building which all of the entities will be attached to.
         public virtual void AttachNode(SceneManager sm) {
             if (node == null) {
                 node = sm.RootSceneNode.CreateChildSceneNode();
@@ -35,10 +39,18 @@ namespace Snowflake {
                 node.AttachObject(e);
             }
         }
+
+        //Move the building into its position on the grid, determined by its parent plot's x and y values and the standard width and height of the plot.
         protected virtual void TranslateIntoPosition() {
             if (this.Plot != null) {
                 node.Translate(new Vector3(this.Plot.PlotX * Plot.Width, 0, this.Plot.PlotY * Plot.Height));
             }
+        }
+        public virtual void Select() {
+            //Code to run when this building is selected by the player
+        }
+        public virtual void Deselect() {
+            //Code to run when this building is deselected by the player
         }
 
         public virtual void Update() {

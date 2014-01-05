@@ -13,6 +13,12 @@ namespace DRT {
             this.population = 0;
             this.name = name;
             this.cityPlots = new Plot[xSize, ySize];
+            this.cityPlots=createGrid(this.cityPlots);
+        }
+        private static Plot[,] createGrid(Plot[,] p){
+            
+
+            return p;
         }
     }
 }

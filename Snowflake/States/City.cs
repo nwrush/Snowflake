@@ -131,7 +131,7 @@ namespace Snowflake.States
             }
             //Mouse click - 3D selection
             if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
-
+                GetSelectionOrigin(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY), mStateMgr.Engine.Camera);
             }
 
             //WASD Control
@@ -166,6 +166,16 @@ namespace Snowflake.States
             // quit the application
             mStateMgr.RequestShutdown();
         }
+    }
+
+    //returns the Point of selection in 3D space, given the 2D click point on the screen and a reference frustum
+    public Vector3 GetSelectionOrigin(Point p, Frustum cam) {
+        //Store w and h because long variable names
+        int w = mStateMgr.Engine.Window.GetViewport(0).ActualWidth;
+        int h = mStateMgr.Engine.Window.GetViewport(0).ActualHeight;
+        
+        //get p relative to center of screen, as a number from -1 to 1
+        PointF rel = new PointF((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f));
     }
 
   } // class

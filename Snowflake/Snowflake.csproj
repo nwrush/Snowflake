@@ -64,6 +64,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Building.cs" />
+    <Compile Include="Buildings\CommercialBuilding.cs" />
+    <Compile Include="Buildings\ParkBuilding.cs" />
+    <Compile Include="Buildings\PowerBuilding.cs" />
+    <Compile Include="Buildings\ResidentialBuilding.cs" />
     <Compile Include="CityManager.cs" />
     <Compile Include="Modules\GameConsole.cs" />
     <Compile Include="Modules\MoisManager.cs" />

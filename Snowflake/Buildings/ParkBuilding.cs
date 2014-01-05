@@ -4,7 +4,7 @@ using System.Text;
 
 using Mogre;
 
-namespace DRT.Buildings {
+namespace Snowflake.Buildings {
     public class ParkBuilding : Building {
 
         public override void CreateEntities(SceneManager sm) {

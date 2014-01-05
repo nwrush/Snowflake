@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DRT.Buildings {
+namespace Snowflake.Buildings {
     public class ResidentialBuilding : Building {
         public ResidenceType Type;
     }

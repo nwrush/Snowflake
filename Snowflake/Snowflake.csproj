@@ -73,7 +73,6 @@
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />
     <Compile Include="Modules\OgreManager.cs" />
-    <Compile Include="Modules\ResourceConfig.cs" />
     <Compile Include="Modules\ResourceManager.cs" />
     <Compile Include="Modules\State.cs" />
     <Compile Include="Modules\StateManager.cs" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace DRT {
-    public class Class1 {
+    class Plot {
+        private List<int> l;
     }
 }

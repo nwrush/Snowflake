@@ -61,7 +61,7 @@ namespace Snowflake {
         public virtual void ConsumeResources() {
             throw new NotImplementedException();
             //Override this method for resource consumption
-            //For example, a PowerBuilding would check if the parent plot has any Resources of the relevant type of fuel (for example Coal) 
+            //For example, a PowerBuilding would check if the parent plot has any Resource of the relevant type of fuel (for example Coal) 
             //and Deplete accordingly, then manipulate some internal variables and output Electricity in the ProduceResources method and
             //Smog in the ProducePollution method.
         }

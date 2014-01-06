@@ -15,7 +15,7 @@ namespace Snowflake {
 
         public const int RoadSize = 15;
 
-        //Plots contain Buildings and Resources. Usually, a plot will only have one Building.
+        //Plots contain Buildings and Resource. Usually, a plot will only have one Building.
         public List<Building> Buildings;
         public List<Resource> Resources;
 

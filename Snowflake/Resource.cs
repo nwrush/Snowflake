@@ -20,7 +20,7 @@ namespace Snowflake {
     }
 
     //What kind of resource. Amount of resource on a plot is calculated by summing up the sums of all available resources on the plot. Might have 3 deposits of 6000 tons of coal or whatever.
-    //Resources can be partially mined by using Deplete
+    //Resource can be partially mined by using Deplete
     //For renewable resources, Deplete and Replentish represent variable volume of increase.
     public enum ResourceType {
         Coal,

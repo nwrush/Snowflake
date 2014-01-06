@@ -5,6 +5,10 @@ using System.Text;
 
 namespace DRT {
     class Plot {
-        private List<int> l;
+        private List<Resource> resource;
+
+        public Plot() {
+
+        }
     }
 }

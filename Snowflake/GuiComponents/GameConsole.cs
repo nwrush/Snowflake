@@ -8,7 +8,9 @@ using Miyagi.Common.Events;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 
-namespace Snowflake.Modules {
+using Snowflake.Modules;
+
+namespace Snowflake.GuiComponents {
     public class GameConsole {
 
         private int labelY;
@@ -77,7 +79,7 @@ namespace Snowflake.Modules {
                         Colour = Colours.White
                     }
                 },
-                Skin = ResourceManager.Skins["ButtonSkin"],
+                Skin = ResourceManager.Skins["TextBoxSkin"],
                 ClearTextOnSubmit = true
             };
 

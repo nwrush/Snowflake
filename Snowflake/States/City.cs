@@ -4,6 +4,7 @@ using Mogre;
 
 using Snowflake.Modules;
 using Snowflake.Buildings;
+using Snowflake.GuiComponents;
 
 using Miyagi.Common;
 using Miyagi.Common.Data;
@@ -26,7 +27,7 @@ namespace Snowflake.States
     private Entity ground;
     private SceneNode world;
 
-    private Modules.GameConsole GameConsole;
+    private GameConsole GameConsole;
 
     public static float Time = 0.0f;
 
@@ -92,7 +93,7 @@ namespace Snowflake.States
 
         CityManager.CreateScene(engine.SceneMgr);
 
-        GameConsole = new Modules.GameConsole();
+        GameConsole = new GameConsole();
     }
 
     //Set up overlays for user interface
@@ -176,6 +177,7 @@ namespace Snowflake.States
         
         //get p relative to center of screen, as a number from -1 to 1
         PointF rel = new PointF((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f));
+        return Vector3.ZERO;
     }
 
   } // class

@@ -69,7 +69,7 @@
     <Compile Include="Buildings\PowerBuilding.cs" />
     <Compile Include="Buildings\ResidentialBuilding.cs" />
     <Compile Include="CityManager.cs" />
-    <Compile Include="Modules\GameConsole.cs" />
+    <Compile Include="GuiComponents\GameConsole.cs" />
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />
     <Compile Include="Modules\OgreManager.cs" />

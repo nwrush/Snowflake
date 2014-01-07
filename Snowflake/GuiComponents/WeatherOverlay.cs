@@ -11,13 +11,13 @@ using Miyagi.UI.Controls;
 using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents {
-    public class WeatherOverlay {
+    public class WeatherOverlay : GuiComponent {
 
         private Panel icon;
 
-        public void CreateGui(MiyagiSystem system) {
+        public override void CreateGui(MiyagiSystem system) {
 
-            var gui = new GUI();
+            base.CreateGui(system);
 
             icon = new Panel("WO_Icon") {
                 Size = new Size(64, 64),

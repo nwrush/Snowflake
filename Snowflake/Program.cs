@@ -17,6 +17,9 @@ namespace Snowflake
         public const int WINDOW_WIDTH = 1366;
         public const int WINDOW_HEIGHT = 768;
 
+        public const int MAJOR_VERSION = 0;
+        public const int MINOR_VERSION = 1;
+
         /************************************************************************/
         /* program starts here                                                  */
         /************************************************************************/

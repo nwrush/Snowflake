@@ -11,15 +11,23 @@ using Miyagi.UI.Controls;
 using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents {
-    public class GameConsole {
+    public class GameConsole : GuiComponent {
 
         private int labelY;
         private Panel outputPanel;
         private Panel parentPanel;
 
-        public void CreateGui(MiyagiSystem system) {
+        private Dictionary<string, ConsoleCommand> commands;
+        public delegate void ConsoleCommand(params string[] args);
 
-            var gui = new GUI();
+        public GameConsole() {
+            commands = new Dictionary<string, ConsoleCommand>();
+            commands.Add("echo", (string[] args) => { foreach(string s in args) { Echo(s); } });
+            commands.Add("version", (string[] args) => { Echo("Version: v" + Program.MAJOR_VERSION + "." + Program.MINOR_VERSION); });
+        }
+
+        public override void CreateGui(MiyagiSystem system) {
+            base.CreateGui(system);
 
             parentPanel = new Panel("GC_ParentPanel") {
                 TabStop = false,
@@ -80,10 +88,10 @@ namespace Snowflake.GuiComponents {
                     }
                 },
                 Skin = ResourceManager.Skins["TextBoxSkin"],
-                ClearTextOnSubmit = true
+                ClearTextOnSubmit = true,
             };
 
-            textBox1.Submit += (object sender, ValueEventArgs<string> e) => { this.AddLabel(((TextBox)sender).Text); };
+            textBox1.Submit += (object sender, ValueEventArgs<string> e) => { this.Command(((TextBox)sender).Text); };
             textBox1.GotFocus += (object sender, EventArgs e) => { StateManager.SupressGameControl = true; };
             textBox1.LostFocus += (object sender, EventArgs e) => { StateManager.SupressGameControl = false; };
 
@@ -102,30 +110,43 @@ namespace Snowflake.GuiComponents {
             // add the GUI to the GUIManager
             system.GUIManager.GUIs.Add(gui);
 
-            AddLabel("TEST");
             this.Hide();
         }
 
+        /// <summary>
+        /// Appearify the console
+        /// </summary>
         public void Show() {
             this.parentPanel.Visible = true;
         }
-
+        /// <summary>
+        /// Disappearify the console
+        /// </summary>
         public void Hide() {
             this.parentPanel.Visible = false;
         }
-
+        /// <summary>
+        /// Returns whether or not the console is currently visible
+        /// </summary>
         public bool Visible { get { return this.parentPanel.Visible; } set { this.parentPanel.Visible = value; } }
 
-        public void WriteLine(string text) {
+        /// <summary>
+        /// Writes a line of text to the console (Alias for Echo)
+        /// </summary>
+        /// <param name="text">Text to write</param>
+        public void WriteLine(string text) { Echo(text); }
+        /// <summary>
+        /// Writes a line of text to the console
+        /// </summary>
+        /// <param name="text"></param>
+        public void Echo(string text) {
             this.AddLabel(text);
         }
-
         private void AddLabel(string text) {
             var label = new Label {
                 Location = new Point(0, labelY),
                 Text = "> " + text,
-                AutoSize = true,
-                MaxSize = new Size(275, 300)
+                AutoSize = true
             };
             label.SuccessfulHitTest += (s, e) => e.Cancel = true;
             this.outputPanel.Controls.Add(label);
@@ -133,5 +154,45 @@ namespace Snowflake.GuiComponents {
             this.outputPanel.ScrollToBottom();
         }
 
+        /// <summary>
+        /// Appends text to the last written line
+        /// </summary>
+        /// <param name="text">Text to append</param>
+        public void Write(string text) { AmendLast(text); }
+        private void AmendLast(string text) {
+            ((Label)this.outputPanel.Controls[this.outputPanel.Controls.Count - 1]).Text += text;
+        }
+
+        /// <summary>
+        /// Registers a command that the console can execute
+        /// </summary>
+        /// <param name="commandName">The name of the command</param>
+        /// <param name="command">The ConsoleCommand delegate to run when the command is typed</param>
+        public void AddCommand(string commandName, ConsoleCommand command) {
+            commands.Add(commandName, command);
+        }
+
+        /// <summary>
+        /// Execute a command, echoing the command and its args to the console first
+        /// </summary>
+        /// <param name="command">Command to execute</param>
+        public void Command(string command) { Echo(command); ExecuteCommand(command); }
+        /// <summary>
+        /// Execute a command without echoing it or its args (unless the command to run does so)
+        /// </summary>
+        /// <param name="input">Command to execute formatted as [CommandName] [Arg1] [Arg2] etc.</param>
+        public void ExecuteCommand(string input) {
+            string[] command = input.Split(' ');
+            string commandName = command[0];
+            string[] args = new string[command.Length - 1];
+            Array.Copy(command, 1, args, 0, command.Length - 1); 
+
+            if (commands.ContainsKey(commandName)) {
+                commands[commandName].Invoke(args);
+            }
+            else {
+                this.WriteLine("The command \""+commandName+"\" does not exist!");
+            }
+        }
     }
 }

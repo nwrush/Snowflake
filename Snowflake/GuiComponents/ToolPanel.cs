@@ -12,12 +12,11 @@ using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents {
     //Menu for holding tools and stuff
-    public class ToolPanel {
+    public class ToolPanel : GuiComponent {
         private Panel parentPanel;
 
         public void CreateGui(MiyagiSystem system) {
-
-            var gui = new GUI();
+            base.CreateGui(system);
 
             //store game width and height
             int gw = system.RenderManager.MainViewport.Size.Width;

@@ -54,18 +54,39 @@ namespace Snowflake {
         }
 
         public void Update() {
-            timer -= 1;
-
+            
             CityState.Time += 0.1f;
             sun.Position = new Vector3(1000 * (float)System.Math.Cos(CityState.Time / -20.0), 1000 * (float)System.Math.Sin(CityState.Time / -20.0), -300);
 
             if (timer <= 0) {
-                timer = randomizer.Next(1000);
                 SwitchWeather((Weather)Enum.GetValues(typeof(Weather)).GetValue(randomizer.Next(1, Enum.GetValues(typeof(Weather)).Length)));
+            }
+            else {
+                timer -= 1;
             }
         }
 
+        private void ResetTimer() {
+            timer = randomizer.Next(1000);
+        }
+        
+        /// <summary>
+        ///Switches to the specified weather state, 
+        ///*not yet* performing necessary transitions
+        ///and resetting the timer
+        /// </summary>
+        /// <param name="w">Weather to switch to</param>
         public void SwitchWeather(Weather w) {
+            ForceWeather(w);
+            ResetTimer();
+        }
+
+        /// <summary>
+        ///Forces the specified weather state without
+        ///resetting the timer.
+        /// </summary>
+        /// <param name="w">Weather to force</param>
+        public void ForceWeather(Weather w) {
             PastWeather.Add(w);
             CurrentWeather = w;
 
@@ -80,7 +101,7 @@ namespace Snowflake {
 
             overlay.SetWeatherIcon(w);
         }
-
+        
         public void SetWeatherOverlay(WeatherOverlay wo) {
             this.overlay = wo;
         }

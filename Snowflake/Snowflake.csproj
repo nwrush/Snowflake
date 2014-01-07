@@ -70,6 +70,7 @@
     <Compile Include="Buildings\ResidentialBuilding.cs" />
     <Compile Include="CityManager.cs" />
     <Compile Include="GuiComponents\GameConsole.cs" />
+    <Compile Include="GuiComponents\GuiComponent.cs" />
     <Compile Include="GuiComponents\ToolPanel.cs" />
     <Compile Include="GuiComponents\WeatherOverlay.cs" />
     <Compile Include="Modules\MoisManager.cs" />
@@ -83,7 +84,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.cs" />
-    <Compile Include="States\City.cs" />
+    <Compile Include="States\CityState.cs" />
     <Compile Include="WeatherManager.cs" />
   </ItemGroup>
   <ItemGroup>

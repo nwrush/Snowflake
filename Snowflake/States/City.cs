@@ -98,6 +98,7 @@ namespace Snowflake.States
         GameConsole = new GameConsole();
         Tools = new ToolPanel();
         WeatherOverlay = new WeatherOverlay();
+        mWeatherMgr.SetWeatherOverlay(WeatherOverlay);
     }
 
     //Set up overlays for user interface

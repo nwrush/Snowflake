@@ -5,6 +5,7 @@ using System.Text;
 using Mogre;
 
 using Snowflake.States;
+using Snowflake.GuiComponents;
 
 namespace Snowflake {
     public class WeatherManager {
@@ -16,8 +17,16 @@ namespace Snowflake {
         private Light sun;
         private Light sky;
 
+        private Random randomizer;
         private int timer;
         private DateTime currentTime;
+
+        private WeatherOverlay overlay;
+
+        public WeatherManager() {
+            randomizer = new Random();
+            PastWeather = new List<Weather>();
+        }
 
         public void CreateScene(SceneManager sm) {
             sun = sm.CreateLight("Sun");
@@ -40,6 +49,8 @@ namespace Snowflake {
 
             sm.RootSceneNode.AttachObject(sun);
             sm.RootSceneNode.AttachObject(sky);
+
+            timer = randomizer.Next(1000);
         }
 
         public void Update() {
@@ -47,6 +58,11 @@ namespace Snowflake {
 
             CityState.Time += 0.1f;
             sun.Position = new Vector3(1000 * (float)System.Math.Cos(CityState.Time / -20.0), 1000 * (float)System.Math.Sin(CityState.Time / -20.0), -300);
+
+            if (timer <= 0) {
+                timer = randomizer.Next(1000);
+                SwitchWeather((Weather)Enum.GetValues(typeof(Weather)).GetValue(randomizer.Next(1, Enum.GetValues(typeof(Weather)).Length)));
+            }
         }
 
         public void SwitchWeather(Weather w) {
@@ -61,6 +77,12 @@ namespace Snowflake {
                     break;
 
             }
+
+            overlay.SetWeatherIcon(w);
+        }
+
+        public void SetWeatherOverlay(WeatherOverlay wo) {
+            this.overlay = wo;
         }
     }
 
@@ -74,3 +96,4 @@ namespace Snowflake {
         Foggy
     }
 }
+

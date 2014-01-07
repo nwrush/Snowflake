@@ -12,17 +12,19 @@ using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents {
     public class WeatherOverlay {
-        
+
+        private Panel icon;
+
         public void CreateGui(MiyagiSystem system) {
 
             var gui = new GUI();
 
-            Panel icon = new Panel("WO_Icon") {
+            icon = new Panel("WO_Icon") {
                 Size = new Size(64, 64),
                 Location = new Point(50, 40),
                 ResizeMode = ResizeModes.None
             };
-            icon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons.Cloudy"]);
+            icon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons.Sunny"]);
 
             Label text = new Label("WO_Label") {
                 Location = new Point(10, 10),
@@ -39,6 +41,13 @@ namespace Snowflake.GuiComponents {
 
             // add the GUI to the GUIManager
             system.GUIManager.GUIs.Add(gui);
+        }
+
+        public void SetWeatherIcon(Weather weather) {
+            Console.WriteLine(weather.ToString());
+            if (ResourceManager.Skins["WeatherIcons"].IsSubSkinDefined("WeatherIcons."+weather.ToString())) {
+                icon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons."+weather.ToString()]);
+            }
         }
     }
 }

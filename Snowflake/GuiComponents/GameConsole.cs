@@ -14,7 +14,7 @@ namespace Snowflake.GuiComponents {
     public class GameConsole {
 
         private int labelY;
-        private Panel panel1;
+        private Panel outputPanel;
         private Panel parentPanel;
 
         public void CreateGui(MiyagiSystem system) {
@@ -35,7 +35,7 @@ namespace Snowflake.GuiComponents {
                 },
                 Skin = ResourceManager.Skins["WindowSkin"]
             };
-            this.panel1 = new Panel("GC_OutputPanel") {
+            this.outputPanel = new Panel("GC_OutputPanel") {
                 TabStop = false,
                 TabIndex = 0,
                 Throwable = true,
@@ -71,12 +71,12 @@ namespace Snowflake.GuiComponents {
                 Location = new Point(0, 360),
                 Padding = new Thickness(9, 0, 8, 0),
                 TextStyle = {
-                    ForegroundColour = Colours.White
+                    ForegroundColour = Colours.Black
                 },
                 TextBoxStyle = {
                     CaretStyle = {
                         Size = new Size(2, 16),
-                        Colour = Colours.White
+                        Colour = Colours.Black
                     }
                 },
                 Skin = ResourceManager.Skins["TextBoxSkin"],
@@ -90,11 +90,11 @@ namespace Snowflake.GuiComponents {
             parentPanel.ClientSizeChanged += (object sender, EventArgs e) => {
                 textBox1.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
                 textBox1.Bottom = parentPanel.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
-                panel1.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
-                panel1.Height = parentPanel.Height - textBox1.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
+                outputPanel.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
+                outputPanel.Height = parentPanel.Height - textBox1.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
             };
             parentPanel.Controls.Add(textBox1);
-            parentPanel.Controls.Add(panel1);
+            parentPanel.Controls.Add(outputPanel);
 
             Console.WriteLine("Creating Console");
             gui.Controls.Add(parentPanel);
@@ -128,9 +128,9 @@ namespace Snowflake.GuiComponents {
                 MaxSize = new Size(275, 300)
             };
             label.SuccessfulHitTest += (s, e) => e.Cancel = true;
-            this.panel1.Controls.Add(label);
+            this.outputPanel.Controls.Add(label);
             this.labelY += label.Size.Height;
-            this.panel1.ScrollToBottom();
+            this.outputPanel.ScrollToBottom();
         }
 
     }

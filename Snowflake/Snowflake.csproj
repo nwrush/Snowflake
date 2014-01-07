@@ -70,6 +70,8 @@
     <Compile Include="Buildings\ResidentialBuilding.cs" />
     <Compile Include="CityManager.cs" />
     <Compile Include="GuiComponents\GameConsole.cs" />
+    <Compile Include="GuiComponents\ToolPanel.cs" />
+    <Compile Include="GuiComponents\WeatherOverlay.cs" />
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />
     <Compile Include="Modules\OgreManager.cs" />

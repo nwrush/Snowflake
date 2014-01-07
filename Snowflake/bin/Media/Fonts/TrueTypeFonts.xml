@@ -18,4 +18,10 @@
     <Resolution>96</Resolution>
     <Size>10</Size>
   </TrueTypeFont>
+  <TrueTypeFont Name="Expressway">
+    <FileName>..\media\fonts\expressway.ttf</FileName>
+    <FontStyle>Regular</FontStyle>
+    <Resolution>96</Resolution>
+    <Size>12</Size>
+  </TrueTypeFont>
 </TrueTypeFonts>

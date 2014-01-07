@@ -28,6 +28,8 @@ namespace Snowflake.States
     private SceneNode world;
 
     private GameConsole GameConsole;
+    private ToolPanel Tools;
+    private WeatherOverlay WeatherOverlay;
 
     public static float Time = 0.0f;
 
@@ -94,11 +96,15 @@ namespace Snowflake.States
         CityManager.CreateScene(engine.SceneMgr);
 
         GameConsole = new GameConsole();
+        Tools = new ToolPanel();
+        WeatherOverlay = new WeatherOverlay();
     }
 
     //Set up overlays for user interface
     public void createUI() {
         GameConsole.CreateGui(this.mStateMgr.GuiSystem);
+        Tools.CreateGui(this.mStateMgr.GuiSystem);
+        WeatherOverlay.CreateGui(this.mStateMgr.GuiSystem);
     }
 
     /************************************************************************/

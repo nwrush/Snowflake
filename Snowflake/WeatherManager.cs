@@ -17,6 +17,7 @@ namespace Snowflake {
         private Light sky;
 
         private int timer;
+        private DateTime currentTime;
 
         public void CreateScene(SceneManager sm) {
             sun = sm.CreateLight("Sun");

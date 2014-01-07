@@ -350,6 +350,7 @@ namespace Snowflake.Modules
             var skins = new List<Skin>();
 
             skins.AddRange(Skin.CreateFromXml(@"../Media/GUI/skins.xml", null));
+            skins.AddRange(Skin.CreateFromXml(@"../Media/GUI/Icons.xml", null));
             skins.AddRange(Skin.CreateFromXml(@"../Media/Cursor/CursorSkin.xml", null));
 
             Skins = skins.ToDictionary(s => s.Name);

@@ -20,6 +20,8 @@ namespace Snowflake
         public const int MAJOR_VERSION = 0;
         public const int MINOR_VERSION = 1;
 
+        public const bool USE_FSAA = true;
+
         /************************************************************************/
         /* program starts here                                                  */
         /************************************************************************/

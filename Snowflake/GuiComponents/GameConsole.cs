@@ -34,7 +34,7 @@ namespace Snowflake.GuiComponents {
                 Throwable = true,
                 Size = new Size(516, 416),
                 Movable = true,
-                Location = new Point(10, 10),
+                Location = new Point(200, 100),
                 MinSize = new Size(4, 4),
                 ResizeThreshold = new Thickness(4),
                 BorderStyle = {
@@ -201,6 +201,23 @@ namespace Snowflake.GuiComponents {
         private void builtins() {
             commands.Add("echo", (string[] args) => { foreach (string s in args) { Echo(s); } });
             commands.Add("version", (string[] args) => { Echo("Version: v" + Program.MAJOR_VERSION + "." + Program.MINOR_VERSION); });
+        }
+
+        /// <summary>
+        /// Removes all registered commands.
+        /// Use if many commands might have dependencies that are no longer available.
+        /// </summary>
+        public void Reset() {
+            this.commands.Clear();
+            builtins();
+        }
+        /// <summary>
+        /// Remove a specific registered command.
+        /// Use if a command might have dependencies that are no longer available.
+        /// </summary>
+        /// <param name="commandName">Command to remove</param>
+        public void RemoveCommand(string commandName) {
+            this.commands.Remove(commandName);
         }
     }
 }

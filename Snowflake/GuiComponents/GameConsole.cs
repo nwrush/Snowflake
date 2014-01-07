@@ -22,8 +22,7 @@ namespace Snowflake.GuiComponents {
 
         public GameConsole() {
             commands = new Dictionary<string, ConsoleCommand>();
-            commands.Add("echo", (string[] args) => { foreach(string s in args) { Echo(s); } });
-            commands.Add("version", (string[] args) => { Echo("Version: v" + Program.MAJOR_VERSION + "." + Program.MINOR_VERSION); });
+
         }
 
         public override void CreateGui(MiyagiSystem system) {
@@ -193,6 +192,15 @@ namespace Snowflake.GuiComponents {
             else {
                 this.WriteLine("The command \""+commandName+"\" does not exist!");
             }
+        }
+
+        /// <summary>
+        /// Setup builtin (no dependency on instances of other classes) ccommands.
+        /// Commands that are predicated on the existence of other classes are defined elsewhere.
+        /// </summary>
+        private void builtins() {
+            commands.Add("echo", (string[] args) => { foreach (string s in args) { Echo(s); } });
+            commands.Add("version", (string[] args) => { Echo("Version: v" + Program.MAJOR_VERSION + "." + Program.MINOR_VERSION); });
         }
     }
 }

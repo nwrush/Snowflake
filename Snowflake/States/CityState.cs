@@ -20,7 +20,7 @@ namespace Snowflake.States
   /*************************************************************************************/
   public class CityState : State
   {
-    //////////////////////////////////////////////////////////////////////////
+    
     private StateManager mStateMgr;
     private WeatherManager mWeatherMgr;
 
@@ -33,18 +33,20 @@ namespace Snowflake.States
 
     public static float Time = 0.0f;
 
-    /************************************************************************/
-    /* constructor                                                          */
-    /************************************************************************/
+    /// <summary>
+    /// Constructor
+    /// </summary>
     public CityState()
     {
       mStateMgr = null;
       mWeatherMgr = null;
     }
 
-    /************************************************************************/
-    /* start up                                                             */
-    /************************************************************************/
+    /// <summary>
+    /// Start up the state
+    /// </summary>
+    /// <param name="_mgr">State manager for this state</param>
+    /// <returns></returns>
     public override bool Startup( StateManager _mgr )
     {
         // store reference to the state manager
@@ -55,14 +57,22 @@ namespace Snowflake.States
 
         mWeatherMgr = new WeatherManager();
 
+        GameConsole = new GameConsole();
+        Tools = new ToolPanel();
+        WeatherOverlay = new WeatherOverlay();
+
         createScene(engine);
         createUI();
+        createCommands();
 
       // OK
       return true;
     }
 
-    //Set up camera and world meshes (consider moving to separate class as per Nikko's advice?)
+    /// <summary>
+    /// Set up camera and world meshes (consider moving to separate class as per Nikko's advice?)
+    /// </summary>
+    /// <param name="engine"></param>
     public void createScene(OgreManager engine) {
 
         engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
@@ -94,31 +104,57 @@ namespace Snowflake.States
         CityManager.Plots.Add(p);
 
         CityManager.CreateScene(engine.SceneMgr);
-
-        GameConsole = new GameConsole();
-        Tools = new ToolPanel();
-        WeatherOverlay = new WeatherOverlay();
-        mWeatherMgr.SetWeatherOverlay(WeatherOverlay);
     }
 
-    //Set up overlays for user interface
+    /// <summary>
+    /// Set up overlays for user interface
+    /// </summary>
     public void createUI() {
         GameConsole.CreateGui(this.mStateMgr.GuiSystem);
         Tools.CreateGui(this.mStateMgr.GuiSystem);
+
         WeatherOverlay.CreateGui(this.mStateMgr.GuiSystem);
+        mWeatherMgr.SetWeatherOverlay(WeatherOverlay);
     }
 
-    /************************************************************************/
-    /* shut down                                                            */
-    /************************************************************************/
+      /// <summary>
+      /// Register the console commands 
+      /// </summary>
+    private void createCommands() {
+        GameConsole.AddCommand("sw", (string[] args) => {
+            if (args.Length == 0 || (args.Length > 0  && args[0].Trim() == String.Empty)) { GameConsole.WriteLine("Usage: sw [weathertype]"); return; }
+            Weather w;
+            Enum.TryParse<Weather>(args[0], out w);
+            if (w != Weather.Null) {
+                mWeatherMgr.SwitchWeather(w);
+                GameConsole.WriteLine("Switching weather to " + args[0]);
+            }
+            else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
+        });
+        GameConsole.AddCommand("fw", (string[] args) => {
+            if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { GameConsole.WriteLine("Usage: fw [weathertype]"); return; }
+            Weather w;
+            Enum.TryParse<Weather>(args[0], out w);
+            if (w != Weather.Null) {
+                mWeatherMgr.ForceWeather(w);
+                GameConsole.WriteLine("Forcing weather to " + args[0]);
+            }
+            else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
+        });
+    }
+
+    /// <summary>
+    /// Shut down the state
+    /// </summary>
     public override void Shutdown()
     {
       
     }
 
-    /************************************************************************/
-    /* update                                                               */
-    /************************************************************************/
+    /// <summary>
+    /// Update the game
+    /// </summary>
+    /// <param name="_frameTime"></param>
     public override void Update( long _frameTime )
     {
         // check if the state was initialized before

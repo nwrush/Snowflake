@@ -83,11 +83,15 @@ namespace Snowflake.GuiComponents {
                 TextBoxStyle = {
                     CaretStyle = {
                         Size = new Size(2, 16),
-                        Colour = Colours.Black
+                        Colour = Colours.Black,
                     }
                 },
-                Skin = ResourceManager.Skins["TextBoxSkin"],
+                BorderStyle = {
+                    Thickness = new Thickness(2, 2, 2, 2),
+                },
+                Skin = ResourceManager.Skins["PanelSkin"],
                 ClearTextOnSubmit = true,
+                DefocusOnSubmit = false
             };
 
             textBox1.Submit += (object sender, ValueEventArgs<string> e) => { this.Command(((TextBox)sender).Text); };
@@ -99,6 +103,10 @@ namespace Snowflake.GuiComponents {
                 textBox1.Bottom = parentPanel.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
                 outputPanel.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
                 outputPanel.Height = parentPanel.Height - textBox1.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
+
+                foreach (Control c in outputPanel.Controls) {
+                    c.MaxSize = new Size(outputPanel.Width, outputPanel.Height);
+                }
             };
             parentPanel.Controls.Add(textBox1);
             parentPanel.Controls.Add(outputPanel);
@@ -108,6 +116,9 @@ namespace Snowflake.GuiComponents {
 
             // add the GUI to the GUIManager
             system.GUIManager.GUIs.Add(gui);
+            
+            //Add default commands
+            builtins();
 
             this.Hide();
         }
@@ -199,7 +210,7 @@ namespace Snowflake.GuiComponents {
         /// Commands that are predicated on the existence of other classes are defined elsewhere.
         /// </summary>
         private void builtins() {
-            commands.Add("echo", (string[] args) => { foreach (string s in args) { Echo(s); } });
+            commands.Add("echo", (string[] args) => { Echo(String.Join(" ", args)); });
             commands.Add("version", (string[] args) => { Echo("Version: v" + Program.MAJOR_VERSION + "." + Program.MINOR_VERSION); });
         }
 

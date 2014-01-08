@@ -15,7 +15,7 @@ namespace Snowflake {
         public Weather NextWeather;
 
         private Light sun;
-        private Light sky;
+        private Light ambient;
 
         private Random randomizer;
         private float timer;
@@ -23,12 +23,17 @@ namespace Snowflake {
         public float Timescale = 1.0f;
         public DateTime FormattedTime;
 
+        //Relative length of days, hours, and minutes, according to a tick of 1.0.
+        private const float DayLength = 2400.0f;
+        private const float HourLength = 100.0f;
+        private const float MinuteLength = 1.6666667f;
+
         private WeatherOverlay overlay;
 
         public WeatherManager() {
             randomizer = new Random();
             PastWeather = new List<Weather>();
-            FormattedTime = DateTime.Now;
+            FormattedTime = new DateTime(2014, 01, 01, 18, 0, 0);
         }
 
         public void CreateScene(SceneManager sm) {
@@ -42,16 +47,16 @@ namespace Snowflake {
             //sun.AttenuationLinear = 0.1f;
             sun.CastShadows = true;
 
-            sky = sm.CreateLight("sky");
-            sky.Type = Light.LightTypes.LT_DIRECTIONAL;
-            sky.Position = new Vector3(0, 2000, 0);
-            sky.Direction = new Vector3(0, -1, 0);
-            sky.DiffuseColour = new ColourValue(0.05f, 0.075f, 0.10f);
-            sky.SpecularColour = ColourValue.Black;
-            sky.CastShadows = true;
+            ambient = sm.CreateLight("ambient");
+            ambient.Type = Light.LightTypes.LT_DIRECTIONAL;
+            ambient.Position = new Vector3(0, 2000, 0);
+            ambient.Direction = new Vector3(0, -1, 0);
+            ambient.DiffuseColour = new ColourValue(0.05f, 0.075f, 0.10f);
+            ambient.SpecularColour = ColourValue.Black;
+            ambient.CastShadows = true;
 
             sm.RootSceneNode.AttachObject(sun);
-            sm.RootSceneNode.AttachObject(sky);
+            sm.RootSceneNode.AttachObject(ambient);
 
             timer = randomizer.Next(1000);
         }
@@ -59,8 +64,9 @@ namespace Snowflake {
         public void Update() {
             
             Time += Timescale;
-            
-            sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time / -200.0), 1000 * (float)System.Math.Sin(Time / -200.0), -300);
+            UpdateFormatTime(0, 0, 1 / MinuteLength);
+
+            sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time * -(2 * System.Math.PI / DayLength)), 1000 * (float)System.Math.Sin(Time * -(2 * System.Math.PI / DayLength)), -300);
 
             if (timer <= 0) {
                 SwitchWeather((Weather)Enum.GetValues(typeof(Weather)).GetValue(randomizer.Next(1, Enum.GetValues(typeof(Weather)).Length)));
@@ -68,6 +74,13 @@ namespace Snowflake {
             else {
                 timer -= Timescale;
             }
+        }
+
+        private void UpdateFormatTime(double days = 0, double hours = 0, double minutes = 0) {
+            FormattedTime = FormattedTime.AddDays(days);
+            FormattedTime = FormattedTime.AddHours(hours);
+            FormattedTime = FormattedTime.AddMinutes(minutes);
+            this.overlay.UpdateTimeLabel(FormattedTime);
         }
 
         private void ResetTimer() {

@@ -42,11 +42,14 @@ namespace Snowflake.Modules
             // initialize default resource group
             InitGroup("Default");
 
-            // preload default resource group
-            LoadGroup("Default");
 
             // OK
             return true;
+        }
+
+        internal void Load() {
+            // preload default resource group
+            LoadGroup("Default");
         }
 
         /************************************************************************/

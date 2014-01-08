@@ -4,13 +4,11 @@ using System.IO;
 
 using Mogre;
 
-namespace Snowflake.Modules
-{
+namespace Snowflake.Modules {
     /************************************************************************/
     /* ogre manager                                                         */
     /************************************************************************/
-    public class OgreManager
-    {
+    public class OgreManager {
         //////////////////////////////////////////////////////////////////////////
         private Root mRoot;
         private RenderWindow mWindow;
@@ -22,32 +20,27 @@ namespace Snowflake.Modules
         private IntPtr mWindowHandle;
 
         // flag is true if rendering is currently active /////////////////////////
-        public bool RenderingActive
-        {
+        public bool RenderingActive {
             get { return mRenderingActive; }
         }
 
         // reference to Ogre render window ///////////////////////////////////////
-        public RenderWindow Window
-        {
+        public RenderWindow Window {
             get { return mWindow; }
         }
 
         // reference to Ogre render window ///////////////////////////////////////
-        public IntPtr WindowHandle
-        {
+        public IntPtr WindowHandle {
             get { return mWindowHandle; }
         }
 
         // reference to scene manager ////////////////////////////////////////////
-        public SceneManager SceneMgr
-        {
+        public SceneManager SceneMgr {
             get { return mSceneMgr; }
         }
 
         // reference to camera ///////////////////////////////////////////////////
-        public Camera Camera
-        {
+        public Camera Camera {
             get { return mCamera; }
         }
 
@@ -58,8 +51,7 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* constructor                                                          */
         /************************************************************************/
-        internal OgreManager()
-        {
+        internal OgreManager() {
             mRoot = null;
             mWindow = null;
             mSceneMgr = null;
@@ -73,8 +65,7 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* start up ogre manager                                                */
         /************************************************************************/
-        internal bool Startup()
-        {
+        internal bool Startup() {
             // check if already initialized
             if (mRoot != null)
                 return false;
@@ -82,23 +73,18 @@ namespace Snowflake.Modules
             // create ogre root
             mRoot = new Root("plugins.cfg", "settings.cfg", "mogre.log");
 
-            // set directx render system
-            RenderSystem renderSys = mRoot.GetRenderSystemByName("Direct3D9 Rendering Subsystem");
-            mRoot.RenderSystem = renderSys;
+            // create resource manager and initialize it
+            mResourceMgr = new ResourceManager();
+            if (!mResourceMgr.Startup("../resources.cfg"))
+                return false;
+
+            if (!Configure()) { return false; }
 
             // register event to get notified when application lost or regained focus
             mRoot.RenderSystem.EventOccurred += OnRenderSystemEventOccurred;
 
-            // initialize engine
-            mRoot.Initialise(false);
-
-            // optional parameters
-            NameValuePairList parm = new NameValuePairList();
-            parm["vsync"] = "true";
-            if (Program.USE_FSAA) { parm["FSAA"] = "4"; }
-
             // create window and get the native window handle (needed for MOIS)
-            mWindow = mRoot.CreateRenderWindow("Project Sustain", Program.WINDOW_WIDTH, Program.WINDOW_HEIGHT, false, parm);
+            mWindow = mRoot.CreateRenderWindow("Project Sustain", Program.WINDOW_WIDTH, Program.WINDOW_HEIGHT, false);
             mWindow.GetCustomAttribute("WINDOW", out mWindowHandle);
 
             // create scene manager
@@ -113,10 +99,7 @@ namespace Snowflake.Modules
             // create default viewport
             mViewport = mWindow.AddViewport(mCamera);
 
-            // create resource manager and initialize it
-            mResourceMgr = new ResourceManager();
-            if (!mResourceMgr.Startup("../resources.cfg"))
-                return false;
+            mResourceMgr.Load();
 
             // set rendering active flag
             mRenderingActive = true;
@@ -125,21 +108,38 @@ namespace Snowflake.Modules
             return true;
         }
 
+        internal bool Configure() {
+            // Show the configuration dialog and initialise the system
+            // You can skip this and use root.restoreConfig() to load configuration
+            // settings if you were sure there are valid ones saved in ogre.cfg
+            if (!mRoot.RestoreConfig()) {
+                if (mRoot.ShowConfigDialog()) {
+
+                    mRoot.Initialise(false);
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+            else {
+                mRoot.Initialise(false);
+                return true;
+            }
+        }
+
         /************************************************************************/
         /* shut down ogre manager                                               */
         /************************************************************************/
-        internal void Shutdown()
-        {
+        internal void Shutdown() {
             // shutdown resource manager
-            if (mResourceMgr != null)
-            {
+            if (mResourceMgr != null) {
                 mResourceMgr.Shutdown();
                 mResourceMgr = null;
             }
 
             // shutdown ogre root
-            if (mRoot != null)
-            {
+            if (mRoot != null && mRoot.RenderSystem != null) {
                 // deregister event to get notified when application lost or regained focus
                 mRoot.RenderSystem.EventOccurred -= OnRenderSystemEventOccurred;
 
@@ -160,8 +160,7 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* update ogre manager, also processes the systems event queue          */
         /************************************************************************/
-        internal void Update()
-        {
+        internal void Update() {
             // check if ogre manager is initialized
             if (mRoot == null)
                 return;
@@ -177,14 +176,12 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* handle device lost and device restored events                        */
         /************************************************************************/
-        private void OnRenderSystemEventOccurred(string eventName, Const_NameValuePairList parameters)
-        {
+        private void OnRenderSystemEventOccurred(string eventName, Const_NameValuePairList parameters) {
             EventHandler<OgreEventArgs> evt = null;
             OgreEventArgs args;
 
             // check which event occured
-            switch (eventName)
-            {
+            switch (eventName) {
                 // direct 3D device lost
                 case "DeviceLost":
                     // don't set mRenderingActive to false here, because ogre will try to restore the
@@ -226,21 +223,18 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* create a simple object just consisting of a scenenode with a mesh    */
         /************************************************************************/
-        internal SceneNode CreateSimpleObject(string _name, string _mesh)
-        {
+        internal SceneNode CreateSimpleObject(string _name, string _mesh) {
             // if scene manager already has an object with the requested name, fail to create it again
             if (mSceneMgr.HasEntity(_name) || mSceneMgr.HasSceneNode(_name))
                 return null;
 
             // create entity and scenenode for the object
             Entity entity;
-            try
-            {
+            try {
                 // try to create entity from mesh
                 entity = mSceneMgr.CreateEntity(_name, _mesh);
             }
-            catch
-            {
+            catch {
                 // failed to create entity
                 return null;
             }
@@ -258,11 +252,9 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* destroy an object                                                    */
         /************************************************************************/
-        internal void DestroyObject(SceneNode _node)
-        {
+        internal void DestroyObject(SceneNode _node) {
             // check if object has a parent node...
-            if (_node.Parent != null)
-            {
+            if (_node.Parent != null) {
                 // ...if so, remove it from its parent node first
                 _node.Parent.RemoveChild(_node);
             }
@@ -294,11 +286,9 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* add an object to the scene                                           */
         /************************************************************************/
-        internal void AddObjectToScene(SceneNode _node)
-        {
+        internal void AddObjectToScene(SceneNode _node) {
             // check if object is already has a parent
-            if (_node.Parent != null)
-            {
+            if (_node.Parent != null) {
                 // check if object is in scene already, then we are done
                 if (_node.Parent == mSceneMgr.RootSceneNode)
                     return;
@@ -314,11 +304,9 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* add an object to another object as child                             */
         /************************************************************************/
-        internal void AddObjectToObject(SceneNode _node, SceneNode _newParent)
-        {
+        internal void AddObjectToObject(SceneNode _node, SceneNode _newParent) {
             // check if object is already has a parent
-            if (_node.Parent != null)
-            {
+            if (_node.Parent != null) {
                 // check if object is in scene already, then we are done
                 if (_node.Parent == _newParent)
                     return;
@@ -334,11 +322,9 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* remove object from scene                                             */
         /************************************************************************/
-        internal void RemoveObjectFromScene(SceneNode _node)
-        {
+        internal void RemoveObjectFromScene(SceneNode _node) {
             // if object is attached to a node
-            if (_node.Parent != null)
-            {
+            if (_node.Parent != null) {
                 // remove object from its parent
                 _node.Parent.RemoveChild(_node);
             }

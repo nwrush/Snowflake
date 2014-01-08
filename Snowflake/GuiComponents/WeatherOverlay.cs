@@ -43,11 +43,20 @@ namespace Snowflake.GuiComponents {
             system.GUIManager.GUIs.Add(gui);
         }
 
+        /// <summary>
+        /// Set the weather icon to the specified Weather condition
+        /// Time of day is automatically compensated for
+        /// </summary>
+        /// <param name="weather">Weather to set the icon to </param>
         public void SetWeatherIcon(Weather weather) {
             Console.WriteLine(weather.ToString());
             if (ResourceManager.Skins["WeatherIcons"].IsSubSkinDefined("WeatherIcons."+weather.ToString())) {
                 icon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons."+weather.ToString()]);
             }
+        }
+
+        public void UpdateTimeLabel() {
+            
         }
     }
 }

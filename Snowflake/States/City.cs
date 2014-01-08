@@ -20,7 +20,7 @@ namespace Snowflake.States
   /*************************************************************************************/
   public class CityState : State
   {
-    
+    //////////////////////////////////////////////////////////////////////////
     private StateManager mStateMgr;
     private WeatherManager mWeatherMgr;
 
@@ -28,23 +28,21 @@ namespace Snowflake.States
     private SceneNode world;
 
     private GameConsole GameConsole;
-    private ToolPanel Tools;
-    private WeatherOverlay WeatherOverlay;
 
-    /// <summary>
-    /// Constructor
-    /// </summary>
+    public static float Time = 0.0f;
+
+    /************************************************************************/
+    /* constructor                                                          */
+    /************************************************************************/
     public CityState()
     {
       mStateMgr = null;
       mWeatherMgr = null;
     }
 
-    /// <summary>
-    /// Start up the state
-    /// </summary>
-    /// <param name="_mgr">State manager for this state</param>
-    /// <returns></returns>
+    /************************************************************************/
+    /* start up                                                             */
+    /************************************************************************/
     public override bool Startup( StateManager _mgr )
     {
         // store reference to the state manager
@@ -55,22 +53,14 @@ namespace Snowflake.States
 
         mWeatherMgr = new WeatherManager();
 
-        GameConsole = new GameConsole();
-        Tools = new ToolPanel();
-        WeatherOverlay = new WeatherOverlay();
-
         createScene(engine);
         createUI();
-        createCommands();
 
       // OK
       return true;
     }
 
-    /// <summary>
-    /// Set up camera and world meshes (consider moving to separate class as per Nikko's advice?)
-    /// </summary>
-    /// <param name="engine"></param>
+    //Set up camera and world meshes (consider moving to separate class as per Nikko's advice?)
     public void createScene(OgreManager engine) {
 
         engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
@@ -102,69 +92,26 @@ namespace Snowflake.States
         CityManager.Plots.Add(p);
 
         CityManager.CreateScene(engine.SceneMgr);
+
+        GameConsole = new GameConsole();
     }
 
-    /// <summary>
-    /// Set up overlays for user interface
-    /// </summary>
+    //Set up overlays for user interface
     public void createUI() {
         GameConsole.CreateGui(this.mStateMgr.GuiSystem);
-        Tools.CreateGui(this.mStateMgr.GuiSystem);
-
-        WeatherOverlay.CreateGui(this.mStateMgr.GuiSystem);
-        mWeatherMgr.SetWeatherOverlay(WeatherOverlay);
     }
 
-      /// <summary>
-      /// Register the console commands 
-      /// </summary>
-    private void createCommands() {
-        GameConsole.AddCommand("sw", (string[] args) => {
-            if (args.Length == 0 || (args.Length > 0  && args[0].Trim() == String.Empty)) { GameConsole.WriteLine("Usage: sw [weathertype]"); return; }
-            Weather w;
-            Enum.TryParse<Weather>(args[0], out w);
-            if (w != Weather.Null) {
-                mWeatherMgr.SwitchWeather(w);
-                GameConsole.WriteLine("Switching weather to " + args[0]);
-            }
-            else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
-        });
-        GameConsole.AddCommand("fw", (string[] args) => {
-            if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { GameConsole.WriteLine("Usage: fw [weathertype]"); return; }
-            Weather w;
-            Enum.TryParse<Weather>(args[0], out w);
-            if (w != Weather.Null) {
-                mWeatherMgr.ForceWeather(w);
-                GameConsole.WriteLine("Forcing weather to " + args[0]);
-            }
-            else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
-        });
-        GameConsole.AddCommand("timescale", (string[] args) => {
-            if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { GameConsole.WriteLine("Usage: timescale [n], default 1.0"); return; }
-            float timescale;
-            if (Single.TryParse(args[0], out timescale)) {
-                mWeatherMgr.Timescale = timescale;
-            }
-            else {
-                GameConsole.WriteLine("Please enter a valid number!");
-            }
-        });
-        GameConsole.AddCommand("quit", (string[] args) => { mStateMgr.RequestShutdown(); });
-        GameConsole.AddCommand("exit", (string[] args) => { mStateMgr.RequestShutdown(); });
-    }
-
-    /// <summary>
-    /// Shut down the state
-    /// </summary>
+    /************************************************************************/
+    /* shut down                                                            */
+    /************************************************************************/
     public override void Shutdown()
     {
       
     }
 
-    /// <summary>
-    /// Update the game
-    /// </summary>
-    /// <param name="_frameTime"></param>
+    /************************************************************************/
+    /* update                                                               */
+    /************************************************************************/
     public override void Update( long _frameTime )
     {
         // check if the state was initialized before
@@ -216,7 +163,7 @@ namespace Snowflake.States
         mWeatherMgr.Update();
 
         // check if the escape key was pressed
-        if (mStateMgr.Input.WasKeyPressed(MOIS.KeyCode.KC_EQUALS)) {
+        if (mStateMgr.Input.WasKeyPressed(MOIS.KeyCode.KC_ESCAPE)) {
             // quit the application
             mStateMgr.RequestShutdown();
         }

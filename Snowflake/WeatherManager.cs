@@ -18,14 +18,17 @@ namespace Snowflake {
         private Light sky;
 
         private Random randomizer;
-        private int timer;
-        private DateTime currentTime;
+        private float timer;
+        public float Time = 0.0f;
+        public float Timescale = 1.0f;
+        public DateTime FormattedTime;
 
         private WeatherOverlay overlay;
 
         public WeatherManager() {
             randomizer = new Random();
             PastWeather = new List<Weather>();
+            FormattedTime = DateTime.Now;
         }
 
         public void CreateScene(SceneManager sm) {
@@ -55,19 +58,20 @@ namespace Snowflake {
 
         public void Update() {
             
-            CityState.Time += 0.1f;
-            sun.Position = new Vector3(1000 * (float)System.Math.Cos(CityState.Time / -20.0), 1000 * (float)System.Math.Sin(CityState.Time / -20.0), -300);
+            Time += Timescale;
+            
+            sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time / -200.0), 1000 * (float)System.Math.Sin(Time / -200.0), -300);
 
             if (timer <= 0) {
                 SwitchWeather((Weather)Enum.GetValues(typeof(Weather)).GetValue(randomizer.Next(1, Enum.GetValues(typeof(Weather)).Length)));
             }
             else {
-                timer -= 1;
+                timer -= Timescale;
             }
         }
 
         private void ResetTimer() {
-            timer = randomizer.Next(1000);
+            timer = randomizer.Next(800, 1600);
         }
         
         /// <summary>

@@ -16,6 +16,7 @@ namespace Snowflake.GuiComponents {
         private int labelY;
         private Panel outputPanel;
         private Panel parentPanel;
+        private TextBox entryBox;
 
         private Dictionary<string, ConsoleCommand> commands;
         public delegate void ConsoleCommand(params string[] args);
@@ -73,7 +74,7 @@ namespace Snowflake.GuiComponents {
                 Skin = ResourceManager.Skins["PanelSkin"]
             };
 
-            var textBox1 = new TextBox("GC_Entrybox") {
+            entryBox = new TextBox("GC_Entrybox") {
                 Size = new Size(508, 32),
                 Location = new Point(0, 360),
                 Padding = new Thickness(9, 0, 8, 0),
@@ -94,21 +95,22 @@ namespace Snowflake.GuiComponents {
                 DefocusOnSubmit = false
             };
 
-            textBox1.Submit += (object sender, ValueEventArgs<string> e) => { this.Command(((TextBox)sender).Text); };
-            textBox1.GotFocus += (object sender, EventArgs e) => { StateManager.SupressGameControl = true; };
-            textBox1.LostFocus += (object sender, EventArgs e) => { StateManager.SupressGameControl = false; };
+            entryBox.Submit += (object sender, ValueEventArgs<string> e) => { this.Command(((TextBox)sender).Text); };
+            entryBox.GotFocus += (object sender, EventArgs e) => { StateManager.SupressGameControl = true; };
+            entryBox.LostFocus += (object sender, EventArgs e) => { StateManager.SupressGameControl = false; };
+            entryBox.AutoCompleteSource = this.commands.Keys;
 
             parentPanel.ClientSizeChanged += (object sender, EventArgs e) => {
-                textBox1.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
-                textBox1.Bottom = parentPanel.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
+                entryBox.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
+                entryBox.Bottom = parentPanel.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
                 outputPanel.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
-                outputPanel.Height = parentPanel.Height - textBox1.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
+                outputPanel.Height = parentPanel.Height - entryBox.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
 
                 foreach (Control c in outputPanel.Controls) {
                     c.MaxSize = new Size(outputPanel.Width, outputPanel.Height);
                 }
             };
-            parentPanel.Controls.Add(textBox1);
+            parentPanel.Controls.Add(entryBox);
             parentPanel.Controls.Add(outputPanel);
 
             Console.WriteLine("Creating Console");
@@ -128,6 +130,7 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         public void Show() {
             this.parentPanel.Visible = true;
+            this.parentPanel.GUI.MiyagiSystem.GUIManager.FocusedControl = this.entryBox;
         }
         /// <summary>
         /// Disappearify the console
@@ -138,7 +141,13 @@ namespace Snowflake.GuiComponents {
         /// <summary>
         /// Returns whether or not the console is currently visible
         /// </summary>
-        public bool Visible { get { return this.parentPanel.Visible; } set { this.parentPanel.Visible = value; } }
+        public bool Visible { 
+            get { return this.parentPanel.Visible; } 
+            set { 
+                this.parentPanel.Visible = value;
+                if (value == true) { this.parentPanel.GUI.MiyagiSystem.GUIManager.FocusedControl = this.entryBox; }
+            } 
+        }
 
         /// <summary>
         /// Writes a line of text to the console (Alias for Echo)

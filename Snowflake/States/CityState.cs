@@ -24,10 +24,12 @@ namespace Snowflake.States {
 
         private Entity ground;
         private SceneNode world;
+        private SceneNode focalPoint;
 
         private GameConsole GameConsole;
         private ToolPanel Tools;
         private WeatherOverlay WeatherOverlay;
+        private Label DebugText;
 
         /// <summary>
         /// Constructor
@@ -68,14 +70,15 @@ namespace Snowflake.States {
         /// </summary>
         /// <param name="engine"></param>
         public void createScene(OgreManager engine) {
-
             engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
 
-            engine.Camera.Position = new Vector3(0, 500, -500);
-            engine.Camera.LookAt(new Vector3(0, 0, 0));
+            focalPoint = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("focalPoint");
+            focalPoint.Position = new Vector3(0, 0, 0);
+
             engine.Camera.NearClipDistance = 5;
             engine.Camera.FarClipDistance = 2048;
             engine.Camera.AutoAspectRatio = true;
+            engine.Camera.SetAutoTracking(true, focalPoint);
 
             mWeatherMgr.CreateScene(engine.SceneMgr);
 
@@ -109,6 +112,18 @@ namespace Snowflake.States {
 
             WeatherOverlay.CreateGui(this.mStateMgr.GuiSystem);
             mWeatherMgr.SetWeatherOverlay(WeatherOverlay);
+
+            DebugText = new Label("Debug")
+            {
+                Location = new Point(500, 10),
+                TextStyle = new Miyagi.UI.Controls.Styles.TextStyle
+                {
+                    ForegroundColour = Colours.White
+                }
+            };
+            GUI debugGUI = new GUI();
+            debugGUI.Controls.Add(DebugText);
+            this.mStateMgr.GuiSystem.GUIManager.GUIs.Add(debugGUI);
         }
 
         /// <summary>
@@ -165,6 +180,9 @@ namespace Snowflake.States {
             if (mStateMgr == null)
                 return;
 
+            Radian angle = focalPoint.Orientation.Yaw;
+            mStateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + 500 * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + 500 * Mogre.Math.Sin(angle));
+
             HandleInput(mStateMgr);
 
             CityManager.Update();
@@ -182,11 +200,16 @@ namespace Snowflake.States {
             //If we're not typing into a form or something...
             if (!StateManager.SupressGameControl) {
                 //Mouse drag control
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_SPACE) || mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right)) {
+                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
                     //Console.WriteLine("mouse button pressed");
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x + mStateMgr.Input.MouseMoveX,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z + mStateMgr.Input.MouseMoveY);
+                    focalPoint.Position = new Vector3(focalPoint.Position.x + mStateMgr.Input.MouseMoveX,
+                                                   focalPoint.Position.y, focalPoint.Position.z + mStateMgr.Input.MouseMoveY);
                     mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);
+                }
+                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right))
+                {
+                    this.DebugText.Text = "Moving by " + ((Radian)System.Math.Sign(mStateMgr.Input.MouseMoveX) * 0.1f).ToString();
+                    focalPoint.Rotate(Vector3.UNIT_Y, (Radian)System.Math.Sign(mStateMgr.Input.MouseMoveX) * 0.1f);
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
@@ -195,20 +218,20 @@ namespace Snowflake.States {
 
                 //WASD Control
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x + 5,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z);
+                    focalPoint.Position = new Vector3(focalPoint.Position.x + 5,
+                                                   focalPoint.Position.y, focalPoint.Position.z);
                 }
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x - 5,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z);
+                    focalPoint.Position = new Vector3(focalPoint.Position.x - 5,
+                                                   focalPoint.Position.y, focalPoint.Position.z);
                 }
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z + 5);
+                    focalPoint.Position = new Vector3(focalPoint.Position.x,
+                                                   focalPoint.Position.y, focalPoint.Position.z + 5);
                 }
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z - 5);
+                    focalPoint.Position = new Vector3(focalPoint.Position.x,
+                                                   focalPoint.Position.y, focalPoint.Position.z - 5);
                 }
 
                 //Toggle the console with `

@@ -113,13 +113,25 @@ namespace Snowflake.Modules {
             // You can skip this and use root.restoreConfig() to load configuration
             // settings if you were sure there are valid ones saved in ogre.cfg
             if (!mRoot.RestoreConfig()) {
-                if (mRoot.ShowConfigDialog()) {
+                try
+                {
+                    if (mRoot.ShowConfigDialog())
+                    {
 
+                        mRoot.Initialise(false);
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    mRoot.RenderSystem = mRoot.GetRenderSystemByName("Direct3D9 Rendering Subsystem");
                     mRoot.Initialise(false);
                     return true;
-                }
-                else {
-                    return false;
                 }
             }
             else {

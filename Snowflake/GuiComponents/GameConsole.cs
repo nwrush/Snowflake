@@ -19,7 +19,6 @@ namespace Snowflake.GuiComponents {
         private TextBox entryBox;
 
         private Dictionary<string, ConsoleCommand> commands;
-        public delegate void ConsoleCommand(params string[] args);
 
         public GameConsole() {
             commands = new Dictionary<string, ConsoleCommand>();
@@ -219,8 +218,37 @@ namespace Snowflake.GuiComponents {
         /// Commands that are predicated on the existence of other classes are defined elsewhere.
         /// </summary>
         private void builtins() {
-            commands.Add("echo", (string[] args) => { Echo(String.Join(" ", args)); });
-            commands.Add("version", (string[] args) => { Echo("Version: v" + Program.MAJOR_VERSION + "." + Program.MINOR_VERSION); });
+            commands.Add("echo", new ConsoleCommand((string[] args) => { 
+                Echo(String.Join(" ", args)); 
+            }, "Echoes the specified text."));
+
+            commands.Add("version", new ConsoleCommand((string[] args) => { 
+                Echo("Version: v" + Program.MAJOR_VERSION + "." + Program.MINOR_VERSION); 
+            }, "Outputs the current game version."));
+
+            commands.Add("list", new ConsoleCommand((string[] args) => {
+                foreach (KeyValuePair<string, ConsoleCommand> kvp in commands) {
+                    Echo(kvp.Key + ": " + kvp.Value.Description);
+                }
+            }, "Shows a list of all registered commands."));
+
+            commands.Add("info", new ConsoleCommand((string[] args) => {
+                if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { Echo("No command specified!"); return; }
+                if (commands.ContainsKey(args[0])) {
+                    Echo(commands[args[0]].Description);
+                }
+                else { Echo("No such command!"); }
+            }, "Prints the description of the specified command."));
+            commands.Add("help", new ConsoleCommand((string[] args) => {
+                if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { Echo("Use \"list\" to see a list of all available commands."); return; }
+                else {
+                    foreach (string arg in args) {
+                        if (commands.ContainsKey(arg)) {
+                            Echo(arg+": " + commands[arg].Description);
+                        }
+                    }
+                }
+            }, "Shows help information."));
         }
 
         /// <summary>
@@ -238,6 +266,27 @@ namespace Snowflake.GuiComponents {
         /// <param name="commandName">Command to remove</param>
         public void RemoveCommand(string commandName) {
             this.commands.Remove(commandName);
+        }
+    }
+
+    public class ConsoleCommand {
+
+        public delegate void Command(params string[] args);
+
+        public string Description;
+        public string Usage;
+        public Command Action;
+
+        public ConsoleCommand(Command action) : this(action, "") { }
+        public ConsoleCommand(Command action, string desc) : this(action, desc, "") { }
+        public ConsoleCommand(Command action, string desc, string usage) {
+            this.Action = action;
+            this.Description = desc;
+            this.Usage = usage;
+        }
+
+        public void Invoke(string[] args) {
+            this.Action.Invoke(args);
         }
     }
 }

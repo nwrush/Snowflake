@@ -14,6 +14,10 @@ namespace Snowflake.GuiComponents {
     public class WeatherOverlay : GuiComponent {
 
         private Panel icon;
+        private Label text;
+
+        //Todo: replace with actual localization.
+        private string[] Months = new string[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
         public override void CreateGui(MiyagiSystem system) {
 
@@ -26,14 +30,14 @@ namespace Snowflake.GuiComponents {
             };
             icon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons.Sunny"]);
 
-            Label text = new Label("WO_Label") {
+            text = new Label("WO_Label") {
                 Location = new Point(10, 10),
                 AutoSize = true,
                 TextStyle = {
                     ForegroundColour = Colours.White,
                     Font = ResourceManager.Fonts["Expressway"]
                 },
-                Text = "Monday, January 6th, 2014"
+                Text = "<Undefined>"
             };
 
             gui.Controls.Add(icon);
@@ -55,8 +59,12 @@ namespace Snowflake.GuiComponents {
             }
         }
 
-        public void UpdateTimeLabel() {
-            
+        /// <summary>
+        /// Update this overlay's time label with the new datetime.
+        /// </summary>
+        /// <param name="newTime">The new date and time</param>
+        public void UpdateTimeLabel(DateTime newTime) {
+            this.text.Text = newTime.DayOfWeek + ", " + newTime.Day + " " + Months[newTime.Month - 1] + ", " + newTime.Year + " - " + newTime.Hour + ":" + newTime.Minute;
         }
     }
 }

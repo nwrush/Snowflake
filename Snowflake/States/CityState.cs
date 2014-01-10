@@ -206,7 +206,9 @@ namespace Snowflake.States {
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
-                    GetSelectionOrigin(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY), mStateMgr.Engine.Camera);
+                    Vector3 origin = GetSelectionOrigin(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY), mStateMgr.Engine.Camera);
+                    Ray r = new Ray(origin, engine.Camera.Direction);
+                    //Uhhh...now do something with that nice ray of sunshine
                 }
 
                 //WASD Control
@@ -244,6 +246,7 @@ namespace Snowflake.States {
 
             //get p relative to center of screen, as a number from -1 to 1
             PointF rel = new PointF((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f));
+
             return Vector3.ZERO;
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DRT {
+namespace Ark {
     public class City {
         private int population{get; set;}
         private string name{get; set;}
@@ -21,6 +21,13 @@ namespace DRT {
                     p[r, c] = new Plot(r, c);
                 }
             }
+        }
+
+        public override string ToString() {
+            //string sb = this.name;
+            string sb=" is size ("+this.cityPlots.GetLength(0)+","+this.cityPlots.GetLength(1)+")"+
+                ", and has a population of "+this.population+".";
+            return sb;
         }
     }
 }

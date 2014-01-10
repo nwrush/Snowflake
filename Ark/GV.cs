@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DRT.Resources {
-    class Energy {
-
+namespace Ark {
+    class GV {
     }
 }

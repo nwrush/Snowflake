@@ -101,9 +101,12 @@
     <Compile Include="WeatherManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dreaded Rapid Toothbrush\Dreaded Rapid Toothbrush.csproj">
-      <Project>{3DAF57D8-5795-49B1-930A-307801368EBB}</Project>
-      <Name>Dreaded Rapid Toothbrush</Name>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ark\Ark.csproj">
+      <Project>{3daf57d8-5795-49b1-930a-307801368ebb}</Project>
+      <Name>Ark</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

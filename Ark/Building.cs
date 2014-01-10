@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace DRT {
+namespace Ark {
     abstract class Building {
         Zone.Type zone;
 

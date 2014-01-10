@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DRT.Exceptions;
+using Ark.Exceptions;
 
-namespace DRT {
+namespace Ark {
     abstract class Resource {
         public enum resourceType {
             Material,

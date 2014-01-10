@@ -1,4 +1,4 @@
-﻿namespace DRT {
+﻿namespace Ark {
     public struct ResourceVal {
         private const int MAXVAL = 100;
         private int val;

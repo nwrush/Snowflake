@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Ark {
-    class GV {
+namespace Haswell.Resources {
+    class Energy {
+
     }
 }

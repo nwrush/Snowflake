@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snowflake", "Snowflake\Snow
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TEST", "TEST\TEST.csproj", "{127330B3-45A9-4275-BEF6-26CE466E6896}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ark", "Ark\Ark.csproj", "{3DAF57D8-5795-49B1-930A-307801368EBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Haswell", "Haswell\Haswell.csproj", "{3DAF57D8-5795-49B1-930A-307801368EBB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

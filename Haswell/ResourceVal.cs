@@ -1,4 +1,4 @@
-﻿namespace Ark {
+﻿namespace Haswell {
     public struct ResourceVal {
         private const int MAXVAL = 100;
         private int val;

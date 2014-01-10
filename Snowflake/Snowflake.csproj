@@ -104,9 +104,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Ark\Ark.csproj">
+    <ProjectReference Include="..\Haswell\Haswell.csproj">
       <Project>{3daf57d8-5795-49b1-930a-307801368ebb}</Project>
-      <Name>Ark</Name>
+      <Name>Haswell</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

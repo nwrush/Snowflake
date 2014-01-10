@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Ark.Exceptions;
+using Haswell.Exceptions;
 
-namespace Ark {
+namespace Haswell {
     abstract class Resource {
         public enum resourceType {
             Material,

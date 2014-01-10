@@ -33,7 +33,7 @@ namespace Snowflake {
         public WeatherManager() {
             randomizer = new Random();
             PastWeather = new List<Weather>();
-            FormattedTime = new DateTime(2014, 01, 01, 18, 0, 0);
+            FormattedTime = new DateTime(2014, 01, 01, 6, 0, 0);
         }
 
         public void CreateScene(SceneManager sm) {

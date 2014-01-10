@@ -12,8 +12,6 @@ namespace Snowflake.Buildings {
 
         public float Pollution; //Temp, figure out a better way to represent pollution. Maybe a Pollution class with different types and descriptions?
 
-        private float _consumption; //Resource consumption this tick
-
         public override void ConsumeResources() {
             foreach (Resource r in this.Plot.Resources) {
                 //if (r.Type 

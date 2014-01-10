@@ -14,9 +14,10 @@ using Miyagi.UI.Controls;
 using Vector3 = Mogre.Vector3;
 
 namespace Snowflake.States {
-    /*************************************************************************************/
-    /* program state for rendering the city (pretty comments courtesy of the quick start */
-    /*************************************************************************************/
+    
+    /// <summary>
+    /// Program state for playing the game in the city
+    /// </summary>
     public class CityState : State {
 
         private StateManager mStateMgr;
@@ -25,11 +26,11 @@ namespace Snowflake.States {
         private Entity ground;
         private SceneNode world;
         private SceneNode focalPoint;
+        private float angle;
 
         private GameConsole GameConsole;
         private ToolPanel Tools;
         private WeatherOverlay WeatherOverlay;
-        private Label DebugText;
 
         /// <summary>
         /// Constructor
@@ -112,18 +113,6 @@ namespace Snowflake.States {
 
             WeatherOverlay.CreateGui(this.mStateMgr.GuiSystem);
             mWeatherMgr.SetWeatherOverlay(WeatherOverlay);
-
-            DebugText = new Label("Debug")
-            {
-                Location = new Point(500, 10),
-                TextStyle = new Miyagi.UI.Controls.Styles.TextStyle
-                {
-                    ForegroundColour = Colours.White
-                }
-            };
-            GUI debugGUI = new GUI();
-            debugGUI.Controls.Add(DebugText);
-            this.mStateMgr.GuiSystem.GUIManager.GUIs.Add(debugGUI);
         }
 
         /// <summary>
@@ -162,6 +151,7 @@ namespace Snowflake.States {
             }, "Sets the timestep of the game to the specified value."));
             GameConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { mStateMgr.RequestShutdown(); }, "Quits the game."));
             GameConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { mStateMgr.RequestShutdown(); }, "Exits the game."));
+            GameConsole.AddCommand("angle", new ConsoleCommand((string[] args) => { GameConsole.WriteLine(Mogre.Math.RadiansToDegrees(angle).ToString() + ", vector: " + new Vector2(Mogre.Math.Cos(angle), Mogre.Math.Sin(angle)).ToString()); }));
         }
 
         /// <summary>
@@ -180,9 +170,7 @@ namespace Snowflake.States {
             if (mStateMgr == null)
                 return;
 
-            Radian angle = focalPoint.Orientation.Yaw;
-            mStateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + 500 * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + 500 * Mogre.Math.Sin(angle));
-
+            mStateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + -500 * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -500 * Mogre.Math.Sin(angle));
             HandleInput(mStateMgr);
 
             CityManager.Update();
@@ -199,17 +187,19 @@ namespace Snowflake.States {
 
             //If we're not typing into a form or something...
             if (!StateManager.SupressGameControl) {
+
+                Vector2 dir = new Vector2(Mogre.Math.Cos(angle), Mogre.Math.Sin(angle)) * 5;
+
                 //Mouse drag control
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
                     //Console.WriteLine("mouse button pressed");
-                    focalPoint.Position = new Vector3(focalPoint.Position.x + mStateMgr.Input.MouseMoveX,
-                                                   focalPoint.Position.y, focalPoint.Position.z + mStateMgr.Input.MouseMoveY);
+                    focalPoint.Translate(new Vector3(mStateMgr.Input.MouseMoveX * dir.x, 0, mStateMgr.Input.MouseMoveY * dir.y));
                     mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);
                 }
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right))
                 {
-                    this.DebugText.Text = "Moving by " + ((Radian)System.Math.Sign(mStateMgr.Input.MouseMoveX) * 0.1f).ToString();
-                    focalPoint.Rotate(Vector3.UNIT_Y, (Radian)System.Math.Sign(mStateMgr.Input.MouseMoveX) * 0.1f);
+                    angle += mStateMgr.Input.MouseMoveX * 0.01f;
+                    //GameConsole.WriteLine(focalPoint.Orientation.Yaw.ValueRadians.ToString());
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
@@ -217,21 +207,17 @@ namespace Snowflake.States {
                 }
 
                 //WASD Control
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
-                    focalPoint.Position = new Vector3(focalPoint.Position.x + 5,
-                                                   focalPoint.Position.y, focalPoint.Position.z);
+                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
+                    focalPoint.Translate(new Vector3(5 * Mogre.Math.Sin(angle), 0, -5 * Mogre.Math.Cos(angle)));
                 }
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
-                    focalPoint.Position = new Vector3(focalPoint.Position.x - 5,
-                                                   focalPoint.Position.y, focalPoint.Position.z);
-                }
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
-                    focalPoint.Position = new Vector3(focalPoint.Position.x,
-                                                   focalPoint.Position.y, focalPoint.Position.z + 5);
+                    focalPoint.Translate(new Vector3(5 * Mogre.Math.Cos(angle), 0, 5 * Mogre.Math.Sin(angle)));
                 }
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
-                    focalPoint.Position = new Vector3(focalPoint.Position.x,
-                                                   focalPoint.Position.y, focalPoint.Position.z - 5);
+                    focalPoint.Translate(new Vector3(-5 * Mogre.Math.Sin(angle), 0, 5 * Mogre.Math.Cos(angle)));
+                }
+                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
+                    focalPoint.Position = new Vector3(-5 * Mogre.Math.Cos(angle), 0, -5 * Mogre.Math.Sin(angle));
                 }
 
                 //Toggle the console with `

@@ -192,18 +192,17 @@ namespace Snowflake.States {
             //If we're not typing into a form or something...
             if (!StateManager.SupressGameControl) {
 
-                Vector2 dir = new Vector2(Mogre.Math.Cos(angle), Mogre.Math.Sin(angle)) * 5;
-
                 //Mouse drag control
-                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
-                    //Console.WriteLine("mouse button pressed");
-                    focalPoint.Translate(new Vector3(mStateMgr.Input.MouseMoveX * dir.x, 0, mStateMgr.Input.MouseMoveY * dir.y));
+                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
+
+                    Vector2 mouseMoveRotated = Utils3D.RotateVector2(new Vector2(mStateMgr.Input.MouseMoveX, mStateMgr.Input.MouseMoveY), angle);
+                    focalPoint.Translate(new Vector3(mouseMoveRotated.y, 0, mouseMoveRotated.x));
                     mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);
                 }
+                //Mouse rotate control
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right))
                 {
                     angle += mStateMgr.Input.MouseMoveX * 0.01f;
-                    //GameConsole.WriteLine(focalPoint.Orientation.Yaw.ValueRadians.ToString());
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {

@@ -1744,9 +1744,9 @@
       </SubSkin>
     </SubSkins>
   </Skin>
-  <Skin Name="BlackPanel">
+  <Skin Name="BlackPanelSkin">
     <SubSkins>
-      <SubSkin Name="BlackPanel20">
+      <SubSkin Name="BlackPanelSkin20">
         <Frames>
           <Frame>
             <FileName>texture.png</FileName>
@@ -1766,7 +1766,7 @@
           <Y>0</Y>
         </ScrollVector>
       </SubSkin>
-      <SubSkin Name="BlackPanel40">
+      <SubSkin Name="BlackPanelSkin40">
         <Frames>
           <Frame>
             <FileName>texture.png</FileName>
@@ -1786,7 +1786,7 @@
           <Y>0</Y>
         </ScrollVector>
       </SubSkin>
-      <SubSkin Name="BlackPanel60">
+      <SubSkin Name="BlackPanelSkin60">
         <Frames>
           <Frame>
             <FileName>texture.png</FileName>
@@ -1806,7 +1806,7 @@
           <Y>0</Y>
         </ScrollVector>
       </SubSkin>
-      <SubSkin Name="BlackPanel80">
+      <SubSkin Name="BlackPanelSkin80">
         <Frames>
           <Frame>
             <FileName>texture.png</FileName>
@@ -1826,13 +1826,13 @@
           <Y>0</Y>
         </ScrollVector>
       </SubSkin>
-      <SubSkin Name="BlackPanel">
+      <SubSkin Name="BlackPanelSkin">
         <Frames>
           <Frame>
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.375</X>
+              <X>0.25</X>
               <Y>0.75</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>

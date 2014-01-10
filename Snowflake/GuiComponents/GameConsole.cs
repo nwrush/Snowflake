@@ -169,7 +169,10 @@ namespace Snowflake.GuiComponents {
             var label = new Label {
                 Location = new Point(0, labelY),
                 Text = "> " + text,
-                AutoSize = true
+                AutoSize = true,
+                TextStyle = new TextStyle() {
+                    Font = ResourceManager.Fonts["Courier"]
+                }
             };
             label.SuccessfulHitTest += (s, e) => e.Cancel = true;
             this.outputPanel.Controls.Add(label);

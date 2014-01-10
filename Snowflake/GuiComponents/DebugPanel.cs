@@ -24,14 +24,14 @@ namespace Snowflake.GuiComponents {
             int gh = system.RenderManager.MainViewport.Size.Height;
 
             parentPanel = new Panel("DP_parent") {
-                Skin = ResourceManager.Skins["PanelSkin"],
+                Skin = ResourceManager.Skins["BlackPanelSkin"],
                 Size = new Size(200, 100),
                 Location = new Point(gw - 220, 20),
                 ResizeMode = ResizeModes.None
             };
             fps = new Label("DP_fps") {
                 TextStyle = new TextStyle() {
-                    ForegroundColour = Colours.Black
+                    ForegroundColour = Colours.White
                 },
                 Location = new Point(5, 5),
                 MaxSize = new Size(190, 45),
@@ -39,7 +39,7 @@ namespace Snowflake.GuiComponents {
             };
             debugText = new Label("DP_debugtext") {
                 TextStyle = new TextStyle() {
-                    ForegroundColour = Colours.Black,
+                    ForegroundColour = Colours.White,
                 },
                 Location = new Point(5, 50),
                 MaxSize = new Size(190, 45),
@@ -47,11 +47,15 @@ namespace Snowflake.GuiComponents {
                 Text = "Debug: "
             };
 
+            parentPanel.SetBackgroundTexture(parentPanel.Skin.SubSkins["BlackPanelSkin40"]);
+
             parentPanel.Controls.Add(fps);
             parentPanel.Controls.Add(debugText);
             this.gui.Controls.Add(parentPanel);
 
             system.GUIManager.GUIs.Add(gui);
+
+            this.Visible = false;
         }
 
         /// <summary>

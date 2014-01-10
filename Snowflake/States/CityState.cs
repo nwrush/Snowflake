@@ -207,17 +207,17 @@ namespace Snowflake.States {
                 }
 
                 //WASD Control
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
+                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
                     focalPoint.Translate(new Vector3(5 * Mogre.Math.Sin(angle), 0, -5 * Mogre.Math.Cos(angle)));
                 }
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
+                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
                     focalPoint.Translate(new Vector3(5 * Mogre.Math.Cos(angle), 0, 5 * Mogre.Math.Sin(angle)));
                 }
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
+                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
                     focalPoint.Translate(new Vector3(-5 * Mogre.Math.Sin(angle), 0, 5 * Mogre.Math.Cos(angle)));
                 }
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
-                    focalPoint.Position = new Vector3(-5 * Mogre.Math.Cos(angle), 0, -5 * Mogre.Math.Sin(angle));
+                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
+                    focalPoint.Translate(new Vector3(-5 * Mogre.Math.Cos(angle), 0, -5 * Mogre.Math.Sin(angle)));
                 }
 
                 //Toggle the console with `

@@ -90,10 +90,13 @@ namespace Snowflake
         /************************************************************************/
         /* update objects in the scene                                          */
         /************************************************************************/
+        private long _frametime = 0;
         public void UpdateScene()
         {
+            DateTime before = DateTime.Now;
             // update the state manager, this will automatically update the active state
-            mStateMgr.Update(0);
+            mStateMgr.Update(_frametime);
+            _frametime = DateTime.Now.Ticks - before.Ticks;
         }
 
         /************************************************************************/

@@ -10,10 +10,12 @@ namespace DRT {
         public enum resourceType {
             Material,
             Energy,
-            OtherStuff
+            OtherStuff,
+            None
         };
 
         private resourceType type;
+        
         public Resource() {
             this.type = resourceType.OtherStuff;
         }

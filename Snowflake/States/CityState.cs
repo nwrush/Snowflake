@@ -154,7 +154,7 @@ namespace Snowflake.States {
             }, "Sets the timestep of the game to the specified value."));
             GameConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { mStateMgr.RequestShutdown(); }, "Quits the game."));
             GameConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { mStateMgr.RequestShutdown(); }, "Exits the game."));
-            GameConsole.AddCommand("angle", new ConsoleCommand((string[] args) => { GameConsole.WriteLine(Mogre.Math.RadiansToDegrees(angle).ToString() + ", vector: " + new Vector2(Mogre.Math.Cos(angle), Mogre.Math.Sin(angle)).ToString()); }));
+            GameConsole.AddCommand("debug", new ConsoleCommand((string[] args) => { DebugPanel.Visible = !DebugPanel.Visible; }, "Toggles the debug panel."));
         }
 
         /// <summary>

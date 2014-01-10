@@ -54,12 +54,36 @@ namespace Snowflake.GuiComponents {
             system.GUIManager.GUIs.Add(gui);
         }
 
+        /// <summary>
+        /// Returns whether or not the panel is currently visible
+        /// </summary>
+        public bool Visible {
+            get { return this.parentPanel.Visible; }
+            set { this.parentPanel.Visible = value; }
+        }
+
+        /// <summary>
+        /// Sets the "Debug:" field to the specified string, for debug purposes
+        /// </summary>
+        /// <param name="text">Text to set</param>
         public void SetDebugText(string text) {
             this.debugText.Text = "Debug:" + text;
         }
+        /// <summary>
+        /// Appends the specified string to the "Debug: " field
+        /// </summary>
+        /// <param name="text">Text to append</param>
         public void Write(string text) { this.debugText.Text += text; }
+        /// <summary>
+        /// Appends the specified string to the "Debug: " field after a newline
+        /// </summary>
+        /// <param name="text">Text to add</param>
         public void WriteLine(string text) { this.debugText.Text += "\n" + text; }
 
+        /// <summary>
+        /// Updates the FPS indicator
+        /// </summary>
+        /// <param name="frametime">The elapsed DateTime.ticks since last update</param>
         public void UpdateFPS(long frametime) {
             if (frametime != 0) {
                 float ticksPerMillisecond = 10000.0f;

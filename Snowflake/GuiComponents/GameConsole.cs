@@ -7,6 +7,7 @@ using Miyagi.Common.Data;
 using Miyagi.Common.Events;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
+using Miyagi.UI.Controls.Styles;
 
 using Snowflake.Modules;
 
@@ -70,7 +71,10 @@ namespace Snowflake.GuiComponents {
                         }
                     }
                 },
-                Skin = ResourceManager.Skins["PanelSkin"]
+                Skin = ResourceManager.Skins["PanelSkin"],
+                TextStyle = new TextStyle() {
+                    Font = ResourceManager.Fonts["Courier"]
+                }
             };
 
             entryBox = new TextBox("GC_Entrybox") {
@@ -78,7 +82,8 @@ namespace Snowflake.GuiComponents {
                 Location = new Point(0, 360),
                 Padding = new Thickness(9, 0, 8, 0),
                 TextStyle = {
-                    ForegroundColour = Colours.Black
+                    ForegroundColour = Colours.Black,
+                    Font = ResourceManager.Fonts["Courier"]
                 },
                 TextBoxStyle = {
                     CaretStyle = {

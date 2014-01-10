@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dreaded Rapid Toothbrush", "Dreaded Rapid Toothbrush\Dreaded Rapid Toothbrush.csproj", "{3DAF57D8-5795-49B1-930A-307801368EBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snowflake", "Snowflake\Snowflake.csproj", "{6A286245-E004-447F-A3B2-4E62472653F0}"
@@ -55,7 +53,6 @@ Global
 		{127330B3-45A9-4275-BEF6-26CE466E6896}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{127330B3-45A9-4275-BEF6-26CE466E6896}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{127330B3-45A9-4275-BEF6-26CE466E6896}.Debug|x86.ActiveCfg = Debug|x86
-		{127330B3-45A9-4275-BEF6-26CE466E6896}.Debug|x86.Build.0 = Debug|x86
 		{127330B3-45A9-4275-BEF6-26CE466E6896}.Release|Any CPU.ActiveCfg = Release|x86
 		{127330B3-45A9-4275-BEF6-26CE466E6896}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{127330B3-45A9-4275-BEF6-26CE466E6896}.Release|Mixed Platforms.Build.0 = Release|x86

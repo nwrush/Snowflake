@@ -31,6 +31,7 @@ namespace Snowflake.States {
         private GameConsole GameConsole;
         private ToolPanel Tools;
         private WeatherOverlay WeatherOverlay;
+        private DebugPanel DebugPanel;
 
         /// <summary>
         /// Constructor
@@ -57,6 +58,7 @@ namespace Snowflake.States {
             GameConsole = new GameConsole();
             Tools = new ToolPanel();
             WeatherOverlay = new WeatherOverlay();
+            DebugPanel = new DebugPanel();
 
             createScene(engine);
             createUI();
@@ -110,6 +112,7 @@ namespace Snowflake.States {
         public void createUI() {
             GameConsole.CreateGui(this.mStateMgr.GuiSystem);
             Tools.CreateGui(this.mStateMgr.GuiSystem);
+            DebugPanel.CreateGui(this.mStateMgr.GuiSystem);
 
             WeatherOverlay.CreateGui(this.mStateMgr.GuiSystem);
             mWeatherMgr.SetWeatherOverlay(WeatherOverlay);
@@ -175,6 +178,7 @@ namespace Snowflake.States {
 
             CityManager.Update();
             mWeatherMgr.Update();
+            DebugPanel.UpdateFPS(_frameTime);
         }
 
         /// <summary>

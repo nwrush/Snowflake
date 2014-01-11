@@ -8,8 +8,8 @@
     <ProjectGuid>{3DAF57D8-5795-49B1-930A-307801368EBB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Ark</RootNamespace>
-    <AssemblyName>Ark</AssemblyName>
+    <RootNamespace>Haswell</RootNamespace>
+    <AssemblyName>Haswell</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

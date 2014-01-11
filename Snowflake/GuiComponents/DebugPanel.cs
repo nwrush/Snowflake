@@ -17,6 +17,13 @@ namespace Snowflake.GuiComponents {
         private Label debugText;
         private Panel parentPanel;
 
+        private Queue<long> _lastFrametimes;
+
+        public DebugPanel()
+        {
+            _lastFrametimes = new Queue<long>();
+        }
+
         public override void CreateGui(MiyagiSystem system) {
             base.CreateGui(system);
 
@@ -90,12 +97,13 @@ namespace Snowflake.GuiComponents {
         /// <param name="frametime">The elapsed DateTime.ticks since last update</param>
         public void UpdateFPS(long frametime) {
             if (frametime != 0) {
-                float ticksPerMillisecond = 10000.0f;
                 float millisecondsPerSecond = 1000.0f;
-                float frameSeconds = (frametime / ticksPerMillisecond) / millisecondsPerSecond;
+                float frameSeconds = (frametime) / millisecondsPerSecond / 10.0f;
                 float framesPerSecond = 1.0f / frameSeconds;
                 fps.Text = Math.Round(framesPerSecond, 5).ToString() + " fps";
             }
+            _lastFrametimes.Enqueue(frametime);
+            if (_lastFrametimes.Count > 30) { _lastFrametimes.Dequeue(); }
         }
     }
 }

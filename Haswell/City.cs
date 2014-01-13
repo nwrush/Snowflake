@@ -5,15 +5,19 @@ using System.Text;
 
 namespace Haswell {
     public class City {
+
         private int population{get; set;}
         private string name{get; set;}
         private Plot[,] cityPlots;
+        List<Pipe> pipes;
 
         public City(string name,int xSize, int ySize) {
             this.population = 0;
             this.name = name;
             this.cityPlots = new Plot[xSize, ySize];
             createGrid(this.cityPlots);
+
+            this.pipes = new List<Pipe>();
         }
         private static void createGrid(Plot[,] p){
             for (int r = 0; r < p.GetLength(0); r++) {

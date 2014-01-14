@@ -14,9 +14,10 @@ using Miyagi.UI.Controls;
 using Vector3 = Mogre.Vector3;
 
 namespace Snowflake.States {
-    /*************************************************************************************/
-    /* program state for rendering the city (pretty comments courtesy of the quick start */
-    /*************************************************************************************/
+    
+    /// <summary>
+    /// Program state for playing the game in the city
+    /// </summary>
     public class CityState : State {
 
         private StateManager mStateMgr;
@@ -24,10 +25,13 @@ namespace Snowflake.States {
 
         private Entity ground;
         private SceneNode world;
+        private SceneNode focalPoint;
+        private float angle;
 
         private GameConsole GameConsole;
         private ToolPanel Tools;
         private WeatherOverlay WeatherOverlay;
+        private DebugPanel DebugPanel;
 
         /// <summary>
         /// Constructor
@@ -54,6 +58,7 @@ namespace Snowflake.States {
             GameConsole = new GameConsole();
             Tools = new ToolPanel();
             WeatherOverlay = new WeatherOverlay();
+            DebugPanel = new DebugPanel();
 
             createScene(engine);
             createUI();
@@ -68,14 +73,15 @@ namespace Snowflake.States {
         /// </summary>
         /// <param name="engine"></param>
         public void createScene(OgreManager engine) {
-
             engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
 
-            engine.Camera.Position = new Vector3(0, 500, -500);
-            engine.Camera.LookAt(new Vector3(0, 0, 0));
+            focalPoint = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("focalPoint");
+            focalPoint.Position = new Vector3(0, 0, 0);
+
             engine.Camera.NearClipDistance = 5;
             engine.Camera.FarClipDistance = 2048;
             engine.Camera.AutoAspectRatio = true;
+            engine.Camera.SetAutoTracking(true, focalPoint);
 
             mWeatherMgr.CreateScene(engine.SceneMgr);
 
@@ -106,6 +112,7 @@ namespace Snowflake.States {
         public void createUI() {
             GameConsole.CreateGui(this.mStateMgr.GuiSystem);
             Tools.CreateGui(this.mStateMgr.GuiSystem);
+            DebugPanel.CreateGui(this.mStateMgr.GuiSystem);
 
             WeatherOverlay.CreateGui(this.mStateMgr.GuiSystem);
             mWeatherMgr.SetWeatherOverlay(WeatherOverlay);
@@ -147,6 +154,7 @@ namespace Snowflake.States {
             }, "Sets the timestep of the game to the specified value."));
             GameConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { mStateMgr.RequestShutdown(); }, "Quits the game."));
             GameConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { mStateMgr.RequestShutdown(); }, "Exits the game."));
+            GameConsole.AddCommand("debug", new ConsoleCommand((string[] args) => { DebugPanel.Visible = !DebugPanel.Visible; }, "Toggles the debug panel."));
         }
 
         /// <summary>
@@ -165,10 +173,12 @@ namespace Snowflake.States {
             if (mStateMgr == null)
                 return;
 
+            mStateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + -500 * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -500 * Mogre.Math.Sin(angle));
             HandleInput(mStateMgr);
 
             CityManager.Update();
             mWeatherMgr.Update();
+            DebugPanel.UpdateFPS(_frameTime);
         }
 
         /// <summary>
@@ -181,34 +191,38 @@ namespace Snowflake.States {
 
             //If we're not typing into a form or something...
             if (!StateManager.SupressGameControl) {
+
                 //Mouse drag control
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_SPACE) || mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right)) {
-                    //Console.WriteLine("mouse button pressed");
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x + mStateMgr.Input.MouseMoveX,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z + mStateMgr.Input.MouseMoveY);
+                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
+
+                    Vector2 mouseMoveRotated = Utils3D.RotateVector2(new Vector2(mStateMgr.Input.MouseMoveX, mStateMgr.Input.MouseMoveY), angle);
+                    focalPoint.Translate(new Vector3(mouseMoveRotated.y, 0, mouseMoveRotated.x));
                     mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);
+                }
+                //Mouse rotate control
+                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right))
+                {
+                    angle += mStateMgr.Input.MouseMoveX * 0.01f;
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
-                    GetSelectionOrigin(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY), mStateMgr.Engine.Camera);
+                    Vector3 origin = GetSelectionOrigin(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY), mStateMgr.Engine.Camera);
+                    Ray r = new Ray(origin, engine.Camera.Direction);
+                    //Uhhh...now do something with that nice ray of sunshine
                 }
 
                 //WASD Control
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x + 5,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z);
-                }
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x - 5,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z);
+                    focalPoint.Translate(new Vector3(5 * Mogre.Math.Sin(angle), 0, -5 * Mogre.Math.Cos(angle)));
                 }
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z + 5);
+                    focalPoint.Translate(new Vector3(5 * Mogre.Math.Cos(angle), 0, 5 * Mogre.Math.Sin(angle)));
+                }
+                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
+                    focalPoint.Translate(new Vector3(-5 * Mogre.Math.Sin(angle), 0, 5 * Mogre.Math.Cos(angle)));
                 }
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
-                    engine.Camera.Position = new Vector3(engine.Camera.Position.x,
-                                                   engine.Camera.Position.y, engine.Camera.Position.z - 5);
+                    focalPoint.Translate(new Vector3(-5 * Mogre.Math.Cos(angle), 0, -5 * Mogre.Math.Sin(angle)));
                 }
 
                 //Toggle the console with `
@@ -232,6 +246,7 @@ namespace Snowflake.States {
 
             //get p relative to center of screen, as a number from -1 to 1
             PointF rel = new PointF((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f));
+
             return Vector3.ZERO;
         }
 

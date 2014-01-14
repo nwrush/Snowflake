@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 using Mogre;
 
@@ -90,10 +91,18 @@ namespace Snowflake
         /************************************************************************/
         /* update objects in the scene                                          */
         /************************************************************************/
+        private long _frametime = 0;
+        private Stopwatch _stopwatch;
         public void UpdateScene()
         {
+            if (_stopwatch == null) { _stopwatch = new Stopwatch(); }
+            _stopwatch.Start();
             // update the state manager, this will automatically update the active state
-            mStateMgr.Update(0);
+            mStateMgr.Update(_frametime);
+
+            _stopwatch.Stop();
+            _frametime = _stopwatch.ElapsedTicks;
+            _stopwatch.Reset();
         }
 
         /************************************************************************/

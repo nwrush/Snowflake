@@ -340,11 +340,8 @@ namespace Snowflake.Modules
             Fonts = fonts.SelectMany(dict => dict)
                 .ToDictionary(pair => pair.Key, pair => pair.Value);
 
-            var font = TrueTypeFont.Create(system, "DejaVuSans", Path.Combine(FontPath, "DejaVuSans.ttf"), 12, 96, FontStyle.Regular);
-            Fonts.Add(font.Name, font);
-
             // set BlueHighway as default font
-            Font.Default = Fonts["Courier"];
+            Font.Default = Fonts["Expressway"];
         }
 
         private static void CreateSkins()

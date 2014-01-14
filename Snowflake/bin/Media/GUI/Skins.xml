@@ -92,7 +92,7 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.25</X>
+              <X>0.125</X>
               <Y>0.625</Y>
               <Width>0.125</Width>
               <Height>0.125</Height>
@@ -112,7 +112,7 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.25</X>
+              <X>0.125</X>
               <Y>0.5</Y>
               <Width>0.125</Width>
               <Height>0.125</Height>
@@ -133,7 +133,7 @@
             <Duration>0</Duration>
             <UV>
               <X>0.25</X>
-              <Y>0.75</Y>
+              <Y>0.5</Y>
               <Width>0.125</Width>
               <Height>0.125</Height>
             </UV>
@@ -153,7 +153,7 @@
             <Duration>0</Duration>
             <UV>
               <X>0.25</X>
-              <Y>0.875</Y>
+              <Y>0.625</Y>
               <Width>0.125</Width>
               <Height>0.125</Height>
             </UV>
@@ -425,7 +425,7 @@
             <Duration>0</Duration>
             <UV>
               <X>0</X>
-              <Y>0.5009766</Y>
+              <Y>0.5</Y>
               <Width>0.03125</Width>
               <Height>0.25</Height>
             </UV>
@@ -689,7 +689,7 @@
             <Duration>0</Duration>
             <UV>
               <X>0</X>
-              <Y>0.5009766</Y>
+              <Y>0.5</Y>
               <Width>0.03125</Width>
               <Height>0.25</Height>
             </UV>
@@ -877,7 +877,7 @@
             <Duration>0</Duration>
             <UV>
               <X>0</X>
-              <Y>0.5009766</Y>
+              <Y>0.5</Y>
               <Width>0.03125</Width>
               <Height>0.25</Height>
             </UV>
@@ -1041,7 +1041,7 @@
             <Duration>0</Duration>
             <UV>
               <X>0</X>
-              <Y>0.5009766</Y>
+              <Y>0.5</Y>
               <Width>0.03125</Width>
               <Height>0.25</Height>
             </UV>
@@ -1145,7 +1145,7 @@
             <Duration>0</Duration>
             <UV>
               <X>0</X>
-              <Y>0.5009766</Y>
+              <Y>0.5</Y>
               <Width>0.03125</Width>
               <Height>0.25</Height>
             </UV>
@@ -1277,7 +1277,7 @@
             <Duration>0</Duration>
             <UV>
               <X>0</X>
-              <Y>0.5009766</Y>
+              <Y>0.5</Y>
               <Width>0.03125</Width>
               <Height>0.25</Height>
             </UV>
@@ -1649,7 +1649,7 @@
             <Duration>0</Duration>
             <UV>
               <X>0</X>
-              <Y>0.5009766</Y>
+              <Y>0.5</Y>
               <Width>0.03125</Width>
               <Height>0.25</Height>
             </UV>
@@ -1732,6 +1732,110 @@
               <Y>0.159179688</Y>
               <Width>0.03125</Width>
               <Height>0.03125</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+    </SubSkins>
+  </Skin>
+  <Skin Name="BlackPanelSkin">
+    <SubSkins>
+      <SubSkin Name="BlackPanelSkin20">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0</X>
+              <Y>0.75</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="BlackPanelSkin40">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.0625</X>
+              <Y>0.75</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="BlackPanelSkin60">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.125</X>
+              <Y>0.75</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="BlackPanelSkin80">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.3125</X>
+              <Y>0.75</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="BlackPanelSkin">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.25</X>
+              <Y>0.75</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
             </UV>
           </Frame>
         </Frames>

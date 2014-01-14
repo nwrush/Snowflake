@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using DRT.Exceptions;
+using Haswell.Exceptions;
 
-namespace DRT {
+namespace Haswell {
     abstract class Resource {
         public enum resourceType {
             Material,
             Energy,
-            OtherStuff
+            OtherStuff,
+            None
         };
 
         private resourceType type;
+        
         public Resource() {
             this.type = resourceType.OtherStuff;
         }

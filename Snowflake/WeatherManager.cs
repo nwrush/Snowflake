@@ -33,7 +33,7 @@ namespace Snowflake {
         public WeatherManager() {
             randomizer = new Random();
             PastWeather = new List<Weather>();
-            FormattedTime = new DateTime(2014, 01, 01, 18, 0, 0);
+            FormattedTime = new DateTime(2014, 01, 01, 6, 0, 0);
         }
 
         public void CreateScene(SceneManager sm) {
@@ -66,7 +66,7 @@ namespace Snowflake {
             Time += Timescale;
             UpdateFormatTime(0, 0, 1 / MinuteLength);
 
-            sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time * -(2 * System.Math.PI / DayLength)), 1000 * (float)System.Math.Sin(Time * -(2 * System.Math.PI / DayLength)), -300);
+            sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength)), 1000 * (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength)), -300);
 
             if (timer <= 0) {
                 SwitchWeather((Weather)Enum.GetValues(typeof(Weather)).GetValue(randomizer.Next(1, Enum.GetValues(typeof(Weather)).Length)));

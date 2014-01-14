@@ -15,7 +15,7 @@ namespace Snowflake.GuiComponents {
     public class ToolPanel : GuiComponent {
         private Panel parentPanel;
 
-        public void CreateGui(MiyagiSystem system) {
+        public override void CreateGui(MiyagiSystem system) {
             base.CreateGui(system);
 
             //store game width and height

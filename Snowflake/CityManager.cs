@@ -5,6 +5,7 @@ using System.Text;
 using Mogre;
 
 using Snowflake.Modules;
+using Snowflake.Buildings;
 
 namespace Snowflake {
     public class CityManager {
@@ -32,6 +33,8 @@ namespace Snowflake {
             world.AttachObject(ground);
             world.Translate(new Vector3(0, -1, 0));
 
+            CreateTestScene();
+
             //Create road planes
             MinX = MinY = MaxX = MaxY = 0;
             foreach (Plot p in Plots) {
@@ -42,6 +45,17 @@ namespace Snowflake {
             }
 
             CreateRoads(sm);
+        }
+
+        private void CreateTestScene() {
+            for (int x = 0; x < 10; x++) {
+                Plots.Add(new Plot(x, x));
+            }
+
+            //test custom model
+            Plot p = new Plot(1, 3, true);
+            p.AddBuilding(new ParkBuilding());
+            Plots.Add(p);
         }
 
         private void ReviseBounds(Plot p) {
@@ -81,6 +95,9 @@ namespace Snowflake {
         }
 
         public void Update() {
+
+
+
             //Each tick, check if each plot is incorporated into the city. If so, update
             //Otherwise, incorporate it and revise the city bounds.
 

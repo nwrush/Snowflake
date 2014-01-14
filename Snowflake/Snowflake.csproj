@@ -95,7 +95,7 @@
     <Compile Include="Plot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="States\CityState.cs" />
+    <Compile Include="States\GameState.cs" />
     <Compile Include="Utils3D.cs" />
     <Compile Include="WeatherManager.cs" />
   </ItemGroup>

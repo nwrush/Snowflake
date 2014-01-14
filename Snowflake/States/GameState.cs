@@ -3,7 +3,6 @@
 using Mogre;
 
 using Snowflake.Modules;
-using Snowflake.Buildings;
 using Snowflake.GuiComponents;
 
 using Miyagi.Common;
@@ -53,6 +52,7 @@ namespace Snowflake.States {
             // get reference to the ogre manager
             OgreManager engine = StateMgr.Engine;
 
+            //Instantiate everything
             WeatherMgr = new WeatherManager();
             CityMgr = new CityManager();
 
@@ -61,6 +61,7 @@ namespace Snowflake.States {
             WeatherOverlay = new WeatherOverlay();
             DebugPanel = new DebugPanel();
 
+            //Initialize everything
             createScene(engine);
             createUI();
             createCommands();
@@ -70,12 +71,19 @@ namespace Snowflake.States {
         }
 
         /// <summary>
-        /// Set up camera and world meshes (consider moving to separate class as per Nikko's advice?)
+        /// Set up camera and call other createScene methods
         /// </summary>
         /// <param name="engine"></param>
         public void createScene(OgreManager engine) {
             engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
 
+
+
+            WeatherMgr.CreateScene(engine.SceneMgr);
+            CityMgr.CreateScene(engine.SceneMgr);
+        }
+
+        private void setupCamera(OgreManager engine) {
             focalPoint = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("focalPoint");
             focalPoint.Position = new Vector3(0, 0, 0);
 
@@ -83,19 +91,6 @@ namespace Snowflake.States {
             engine.Camera.FarClipDistance = 2048;
             engine.Camera.AutoAspectRatio = true;
             engine.Camera.SetAutoTracking(true, focalPoint);
-
-            WeatherMgr.CreateScene(engine.SceneMgr);
-
-            for (int x = 0; x < 10; x++) {
-                CityMgr.Plots.Add(new Plot(x, x));
-            }
-
-            //test custom model
-            Plot p = new Plot(1, 3, true);
-            p.AddBuilding(new ParkBuilding());
-            CityMgr.Plots.Add(p);
-
-            CityMgr.CreateScene(engine.SceneMgr);
         }
 
         /// <summary>

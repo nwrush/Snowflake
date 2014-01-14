@@ -43,8 +43,6 @@ namespace Snowflake {
             sun.Direction = new Vector3(0, -1, 0.5f);
             sun.DiffuseColour = new ColourValue(0.98f, 0.95f, 0.9f);
             sun.SpecularColour = ColourValue.White;
-            //sun.AttenuationQuadratic = 0.01f;
-            //sun.AttenuationLinear = 0.1f;
             sun.CastShadows = true;
 
             ambient = sm.CreateLight("ambient");
@@ -67,6 +65,11 @@ namespace Snowflake {
             UpdateFormatTime(0, 0, Timescale / MinuteLength);
 
             sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength)), 1000 * (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength)), -300);
+
+            //brightness
+            float multiplier = (float)System.Math.Max(0.0, System.Math.Pow(sun.Position.y / 1000, 3));
+            sun.DiffuseColour = new ColourValue(0.98f * multiplier, 0.95f * multiplier, 0.9f * multiplier);
+
 
             if (timer <= 0) {
                 SwitchWeather((Weather)Enum.GetValues(typeof(Weather)).GetValue(randomizer.Next(1, Enum.GetValues(typeof(Weather)).Length)));

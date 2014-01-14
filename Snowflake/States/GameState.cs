@@ -61,7 +61,7 @@ namespace Snowflake.States {
             WeatherOverlay = new WeatherOverlay();
             DebugPanel = new DebugPanel();
 
-            //Initialize everything
+            //Initialize everythings
             createScene(engine);
             createUI();
             createCommands();
@@ -77,7 +77,9 @@ namespace Snowflake.States {
         public void createScene(OgreManager engine) {
             engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
 
+            setupCamera(engine);
 
+            Utils3D.DrawLine(engine.SceneMgr, new Vector3(0, 0, 0), new Vector3(0, 500, 0));
 
             WeatherMgr.CreateScene(engine.SceneMgr);
             CityMgr.CreateScene(engine.SceneMgr);
@@ -196,10 +198,11 @@ namespace Snowflake.States {
                     angle += mStateMgr.Input.MouseMoveX * 0.01f;
                 }
                 //Mouse click - 3D selection
-                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
+                if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
                     Vector3 origin = GetSelectionOrigin(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY), mStateMgr.Engine.Camera);
                     Ray r = new Ray(origin, engine.Camera.Direction);
                     //Uhhh...now do something with that nice ray of sunshine
+                    Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 99);
                 }
 
                 //WASD Control

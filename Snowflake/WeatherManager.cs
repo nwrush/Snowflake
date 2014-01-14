@@ -49,7 +49,7 @@ namespace Snowflake {
             ambient.Type = Light.LightTypes.LT_DIRECTIONAL;
             ambient.Position = new Vector3(0, 2000, 0);
             ambient.Direction = new Vector3(0, -1, 0);
-            ambient.DiffuseColour = new ColourValue(0.05f, 0.075f, 0.10f);
+            ambient.DiffuseColour = new ColourValue(0.005f, 0.0075f, 0.010f);
             ambient.SpecularColour = ColourValue.Black;
             ambient.CastShadows = true;
 

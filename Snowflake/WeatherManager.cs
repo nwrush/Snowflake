@@ -64,7 +64,7 @@ namespace Snowflake {
         public void Update() {
             
             Time += Timescale;
-            UpdateFormatTime(0, 0, 1 / MinuteLength);
+            UpdateFormatTime(0, 0, Timescale / MinuteLength);
 
             sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength)), 1000 * (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength)), -300);
 

@@ -8,7 +8,8 @@ namespace TEST {
     class Program {
         static void Main(string[] args) {
             City TEST = new City("TEST", 500, 500);
-            Haswell.Haswell.Update();
+            GameState gs = Haswell.Haswell.Update();
+            Console.ReadKey();
         }
     }
 }

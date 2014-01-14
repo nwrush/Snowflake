@@ -6,9 +6,20 @@ using System.Threading;
 using System.Diagnostics;
 
 namespace Haswell {
+    /// <summary>
+    /// Controls the Game logic and holds "global" variables and functions
+    /// Game shouold only make calls to this class
+    /// </summary>
     public class Haswell {
-        private static GameState lastFrame=null;
-        private static GameState currentFrame=null;
+        private static GameState lastFrame;
+        private static GameState currentFrame;
+        private static City activeCity;
+
+        public static void init(string name) {
+            lastFrame = null;
+            currentFrame=null;
+            activeCity = new City(name);
+        }
 
         public static GameState Update() {
             GameState returnState = lastFrame;
@@ -17,7 +28,7 @@ namespace Haswell {
             } catch (Exception e) {
                 LogError(e);
             }
-            return returnState;
+            return new GameState(new long());
         }
 
         private static void LogError(Exception e) {

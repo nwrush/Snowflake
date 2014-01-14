@@ -9,6 +9,9 @@ namespace Snowflake.Modules {
     /* ogre manager                                                         */
     /************************************************************************/
     public class OgreManager {
+
+        public static OgreManager Singleton;
+
         //////////////////////////////////////////////////////////////////////////
         private Root mRoot;
         private RenderWindow mWindow;
@@ -60,6 +63,7 @@ namespace Snowflake.Modules {
             mRenderingActive = false;
             mResourceMgr = null;
             mWindowHandle = IntPtr.Zero;
+            Singleton = this;
         }
 
         /************************************************************************/

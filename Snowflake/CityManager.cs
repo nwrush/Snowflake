@@ -8,15 +8,31 @@ using Snowflake.Modules;
 
 namespace Snowflake {
     public class CityManager {
-        public static List<Plot> Plots = new List<Plot>();
+        public List<Plot> Plots = new List<Plot>();
 
-        private static int MaxX, MaxY, MinX, MinY;
+        private int MaxX, MaxY, MinX, MinY;
 
-        public static SceneNode CityNode;
+        public SceneNode CityNode;
+        private Entity ground;
+        private SceneNode world;
 
-        public static void CreateScene(SceneManager sm) {
-            //Set up city bounds and create road planes.
+        /// <summary>
+        /// Sets up city terrain and creates road planes.
+        /// </summary>
+        /// <param name="sm">Scenemanager to create scene in</param>
+        public void CreateScene(SceneManager sm) {
 
+            //set up terrain
+            Plane plane = new Plane(Vector3.UNIT_Y, 0);
+            MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UNIT_Z);
+
+            ground = sm.CreateEntity("GroundEntity", "ground");
+            ground.SetMaterialName("Grass");
+            world = sm.RootSceneNode.CreateChildSceneNode();
+            world.AttachObject(ground);
+            world.Translate(new Vector3(0, -1, 0));
+
+            //Create road planes
             MinX = MinY = MaxX = MaxY = 0;
             foreach (Plot p in Plots) {
                 ReviseBounds(p);
@@ -28,7 +44,7 @@ namespace Snowflake {
             CreateRoads(sm);
         }
 
-        private static void ReviseBounds(Plot p) {
+        private void ReviseBounds(Plot p) {
             //Update the min and max x and y coords of plots in this city
             MinX = System.Math.Min(MinX, p.PlotX);
             MaxX = System.Math.Max(MaxX, p.PlotX);
@@ -38,7 +54,7 @@ namespace Snowflake {
             //Then do stuff with roads
         }
 
-        private static void CreateRoads(SceneManager sm) {
+        private void CreateRoads(SceneManager sm) {
             for (int x = MinX - 2; x < MaxX + 1; x++) {
                 Plane plane = new Plane(Vector3.UNIT_Y, 0);
                 MeshManager.Singleton.CreatePlane("road_x" + x.ToString(), ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, Plot.RoadSize, (MaxX - MinX + 2) * Plot.Height, 4, 40, true, 1, 1, 5, Vector3.UNIT_Z);
@@ -64,7 +80,7 @@ namespace Snowflake {
             }
         }
 
-        public static void Update() {
+        public void Update() {
             //Each tick, check if each plot is incorporated into the city. If so, update
             //Otherwise, incorporate it and revise the city bounds.
 

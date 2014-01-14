@@ -18,13 +18,12 @@ namespace Snowflake.States {
     /// <summary>
     /// Program state for playing the game in the city
     /// </summary>
-    public class CityState : State {
+    public class GameState : State {
 
-        private StateManager mStateMgr;
-        private WeatherManager mWeatherMgr;
+        private StateManager StateMgr;
+        private WeatherManager WeatherMgr;
+        private CityManager CityMgr;
 
-        private Entity ground;
-        private SceneNode world;
         private SceneNode focalPoint;
         private float angle;
 
@@ -36,9 +35,10 @@ namespace Snowflake.States {
         /// <summary>
         /// Constructor
         /// </summary>
-        public CityState() {
-            mStateMgr = null;
-            mWeatherMgr = null;
+        public GameState() {
+            StateMgr = null;
+            WeatherMgr = null;
+            CityMgr = null;
         }
 
         /// <summary>
@@ -48,12 +48,13 @@ namespace Snowflake.States {
         /// <returns></returns>
         public override bool Startup(StateManager _mgr) {
             // store reference to the state manager
-            mStateMgr = _mgr;
+            StateMgr = _mgr;
 
             // get reference to the ogre manager
-            OgreManager engine = mStateMgr.Engine;
+            OgreManager engine = StateMgr.Engine;
 
-            mWeatherMgr = new WeatherManager();
+            WeatherMgr = new WeatherManager();
+            CityMgr = new CityManager();
 
             GameConsole = new GameConsole();
             Tools = new ToolPanel();
@@ -83,39 +84,30 @@ namespace Snowflake.States {
             engine.Camera.AutoAspectRatio = true;
             engine.Camera.SetAutoTracking(true, focalPoint);
 
-            mWeatherMgr.CreateScene(engine.SceneMgr);
-
-            Plane plane = new Plane(Vector3.UNIT_Y, 0);
-            MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UNIT_Z);
-
-            ground = engine.SceneMgr.CreateEntity("GroundEntity", "ground");
-            ground.SetMaterialName("Grass");
-            world = engine.SceneMgr.RootSceneNode.CreateChildSceneNode();
-            world.AttachObject(ground);
-            world.Translate(new Vector3(0, -1, 0));
+            WeatherMgr.CreateScene(engine.SceneMgr);
 
             for (int x = 0; x < 10; x++) {
-                CityManager.Plots.Add(new Plot(x, x));
+                CityMgr.Plots.Add(new Plot(x, x));
             }
 
             //test custom model
             Plot p = new Plot(1, 3, true);
             p.AddBuilding(new ParkBuilding());
-            CityManager.Plots.Add(p);
+            CityMgr.Plots.Add(p);
 
-            CityManager.CreateScene(engine.SceneMgr);
+            CityMgr.CreateScene(engine.SceneMgr);
         }
 
         /// <summary>
         /// Set up overlays for user interface
         /// </summary>
         public void createUI() {
-            GameConsole.CreateGui(this.mStateMgr.GuiSystem);
-            Tools.CreateGui(this.mStateMgr.GuiSystem);
-            DebugPanel.CreateGui(this.mStateMgr.GuiSystem);
+            GameConsole.CreateGui(this.StateMgr.GuiSystem);
+            Tools.CreateGui(this.StateMgr.GuiSystem);
+            DebugPanel.CreateGui(this.StateMgr.GuiSystem);
 
-            WeatherOverlay.CreateGui(this.mStateMgr.GuiSystem);
-            mWeatherMgr.SetWeatherOverlay(WeatherOverlay);
+            WeatherOverlay.CreateGui(this.StateMgr.GuiSystem);
+            WeatherMgr.SetWeatherOverlay(WeatherOverlay);
         }
 
         /// <summary>
@@ -127,7 +119,7 @@ namespace Snowflake.States {
                 Weather w;
                 Enum.TryParse<Weather>(args[0], out w);
                 if (w != Weather.Null) {
-                    mWeatherMgr.SwitchWeather(w);
+                    WeatherMgr.SwitchWeather(w);
                     GameConsole.WriteLine("Switching weather to " + args[0]);
                 }
                 else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
@@ -137,7 +129,7 @@ namespace Snowflake.States {
                 Weather w;
                 Enum.TryParse<Weather>(args[0], out w);
                 if (w != Weather.Null) {
-                    mWeatherMgr.ForceWeather(w);
+                    WeatherMgr.ForceWeather(w);
                     GameConsole.WriteLine("Forcing weather to " + args[0]);
                 }
                 else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
@@ -146,14 +138,14 @@ namespace Snowflake.States {
                 if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { GameConsole.WriteLine("Usage: timescale [n], default 1.0"); return; }
                 float timescale;
                 if (Single.TryParse(args[0], out timescale)) {
-                    mWeatherMgr.Timescale = timescale;
+                    WeatherMgr.Timescale = timescale;
                 }
                 else {
                     GameConsole.WriteLine("Please enter a valid number!");
                 }
             }, "Sets the timestep of the game to the specified value."));
-            GameConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { mStateMgr.RequestShutdown(); }, "Quits the game."));
-            GameConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { mStateMgr.RequestShutdown(); }, "Exits the game."));
+            GameConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Quits the game."));
+            GameConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Exits the game."));
             GameConsole.AddCommand("debug", new ConsoleCommand((string[] args) => { DebugPanel.Visible = !DebugPanel.Visible; }, "Toggles the debug panel."));
         }
 
@@ -170,14 +162,14 @@ namespace Snowflake.States {
         /// <param name="_frameTime"></param>
         public override void Update(long _frameTime) {
             // check if the state was initialized before
-            if (mStateMgr == null)
+            if (StateMgr == null)
                 return;
 
-            mStateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + -500 * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -500 * Mogre.Math.Sin(angle));
-            HandleInput(mStateMgr);
+            StateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + -500 * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -500 * Mogre.Math.Sin(angle));
+            HandleInput(StateMgr);
 
-            CityManager.Update();
-            mWeatherMgr.Update();
+            CityMgr.Update();
+            WeatherMgr.Update();
             DebugPanel.UpdateFPS(_frameTime);
         }
 
@@ -241,8 +233,8 @@ namespace Snowflake.States {
         //returns the Point of selection in 3D space, given the 2D click point on the screen and a reference frustum
         public Vector3 GetSelectionOrigin(Point p, Frustum cam) {
             //Store w and h because long variable names
-            int w = mStateMgr.Engine.Window.GetViewport(0).ActualWidth;
-            int h = mStateMgr.Engine.Window.GetViewport(0).ActualHeight;
+            int w = StateMgr.Engine.Window.GetViewport(0).ActualWidth;
+            int h = StateMgr.Engine.Window.GetViewport(0).ActualHeight;
 
             //get p relative to center of screen, as a number from -1 to 1
             PointF rel = new PointF((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f));

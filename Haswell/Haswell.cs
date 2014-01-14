@@ -7,16 +7,17 @@ using System.Diagnostics;
 
 namespace Haswell {
     public class Haswell {
-        private GameState lastFrame;
-        private GameState currentFrame;
+        private static GameState lastFrame=null;
+        private static GameState currentFrame=null;
 
         public static GameState Update() {
+            GameState returnState = lastFrame;
             try {
-                throw new ExecutionEngineException("This");
+                returnState = currentFrame;
             } catch (Exception e) {
                 LogError(e);
             }
-            return new GameState();
+            return returnState;
         }
 
         private static void LogError(Exception e) {

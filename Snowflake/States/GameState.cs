@@ -16,7 +16,7 @@ using Vector3 = Mogre.Vector3;
 namespace Snowflake.States {
     
     /// <summary>
-    /// Program state for playing the game in the city
+    /// Program state for playing the game
     /// </summary>
     public class GameState : State {
 
@@ -165,12 +165,16 @@ namespace Snowflake.States {
             if (StateMgr == null)
                 return;
 
-            StateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + -500 * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -500 * Mogre.Math.Sin(angle));
+            UpdateCameraPosition();
             HandleInput(StateMgr);
 
             CityMgr.Update();
             WeatherMgr.Update();
             DebugPanel.UpdateFPS(_frameTime);
+        }
+
+        private void UpdateCameraPosition() {
+            StateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + -500 * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -500 * Mogre.Math.Sin(angle));
         }
 
         /// <summary>
@@ -231,7 +235,7 @@ namespace Snowflake.States {
         }
 
         //returns the Point of selection in 3D space, given the 2D click point on the screen and a reference frustum
-        public Vector3 GetSelectionOrigin(Point p, Frustum cam) {
+        private Vector3 GetSelectionOrigin(Point p, Frustum cam) {
             //Store w and h because long variable names
             int w = StateMgr.Engine.Window.GetViewport(0).ActualWidth;
             int h = StateMgr.Engine.Window.GetViewport(0).ActualHeight;

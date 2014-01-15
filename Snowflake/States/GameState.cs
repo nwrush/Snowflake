@@ -199,10 +199,12 @@ namespace Snowflake.States {
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
-                    Vector3 origin = GetSelectionOrigin(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY), mStateMgr.Engine.Camera);
+                    Vector3 origin = engine.Camera.Position;
+                    Vector3 Direction = engine.Camera.Direction;
+                    Vector3 offset = new Vector3((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f), 0.0f);
                     Ray r = new Ray(origin, engine.Camera.Direction);
                     //Uhhh...now do something with that nice ray of sunshine
-                    Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 99);
+                    Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 9999);
                 }
 
                 //WASD Control
@@ -232,17 +234,6 @@ namespace Snowflake.States {
             }
         }
 
-        //returns the Point of selection in 3D space, given the 2D click point on the screen and a reference frustum
-        private Vector3 GetSelectionOrigin(Point p, Frustum cam) {
-            //Store w and h because long variable names
-            int w = StateMgr.Engine.Window.GetViewport(0).ActualWidth;
-            int h = StateMgr.Engine.Window.GetViewport(0).ActualHeight;
-
-            //get p relative to center of screen, as a number from -1 to 1
-            PointF rel = new PointF((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f));
-
-            return Vector3.ZERO;
-        }
 
     } // class
 

@@ -24,7 +24,6 @@ namespace Haswell {
         public static GameState Update() {
             GameState returnState = lastFrame;
             try {
-                
                 returnState = currentFrame;
             } catch (Exception e) {
                 LogError(e);

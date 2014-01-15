@@ -7,6 +7,8 @@ using Mogre;
 using Snowflake.Modules;
 using Snowflake.Buildings;
 
+using Haswell;
+
 namespace Snowflake {
     public class CityManager {
         public List<Plot> Plots = new List<Plot>();
@@ -23,16 +25,7 @@ namespace Snowflake {
         /// <param name="sm">Scenemanager to create scene in</param>
         public void CreateScene(SceneManager sm) {
 
-            //set up terrain
-            Plane plane = new Plane(Vector3.UNIT_Y, 0);
-            MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UNIT_Z);
-
-            ground = sm.CreateEntity("GroundEntity", "ground");
-            ground.SetMaterialName("Grass");
-            world = sm.RootSceneNode.CreateChildSceneNode();
-            world.AttachObject(ground);
-            world.Translate(new Vector3(0, -1, 0));
-
+            CreateTerrain(sm);
             CreateTestScene();
 
             //Create road planes
@@ -45,6 +38,21 @@ namespace Snowflake {
             }
 
             CreateRoads(sm);
+        }
+
+        /// <summary>
+        /// Set up terrain
+        /// </summary>
+        private void CreateTerrain(SceneManager sm) {
+           
+            Plane plane = new Plane(Vector3.UNIT_Y, 0);
+            MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UNIT_Z);
+
+            ground = sm.CreateEntity("GroundEntity", "ground");
+            ground.SetMaterialName("Grass");
+            world = sm.RootSceneNode.CreateChildSceneNode();
+            world.AttachObject(ground);
+            world.Translate(new Vector3(0, -1, 0));
         }
 
         private void CreateTestScene() {
@@ -65,9 +73,9 @@ namespace Snowflake {
             MinY = System.Math.Min(MinY, p.PlotY);
             MaxY = System.Math.Max(MaxY, p.PlotY);
 
-            //Then do stuff with roads
+            //Todo: fix stuff with roads after revising bounds
         }
-
+        
         private void CreateRoads(SceneManager sm) {
             for (int x = MinX - 2; x < MaxX + 1; x++) {
                 Plane plane = new Plane(Vector3.UNIT_Y, 0);
@@ -95,8 +103,8 @@ namespace Snowflake {
         }
 
         public void Update() {
-
-
+            
+            GameState now = Haswell.Haswell.Update();
 
             //Each tick, check if each plot is incorporated into the city. If so, update
             //Otherwise, incorporate it and revise the city bounds.

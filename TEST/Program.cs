@@ -7,7 +7,7 @@ using Haswell;
 namespace TEST {
     class Program {
         static void Main(string[] args) {
-            City TEST = new City("TEST", 500, 500);
+            City TEST = new City("TEST");
             GameState gs = Haswell.Haswell.Update();
             Console.ReadKey();
         }

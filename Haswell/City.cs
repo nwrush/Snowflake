@@ -8,7 +8,6 @@ namespace Haswell {
         //Getting an execuateble directly from someone is less sketchy-
         private int population { get; set; }
         private string name { get; set; }
-        //private Plot[,] cityPlots;
         private List<Plot> cityPlots;
         private List<Pipe> pipes;
 
@@ -35,11 +34,8 @@ namespace Haswell {
             }
         }
 
-        //public override string ToString() {
-        //    //string sb = this.name;
-        //    string sb = " is size (" + this.cityPlots.GetLength(0) + "," + this.cityPlots.GetLength(1) + ")" +
-        //        ", and has a population of " + this.population + ".";
-        //    return sb;
-        //}
+        public override string ToString() {
+            return "City " + this.name + ", with a population of " + this.population + ".";
+        }
     }
 }

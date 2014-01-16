@@ -201,8 +201,9 @@ namespace Snowflake.States {
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
                     Vector3 origin = engine.Camera.Position;
                     Vector3 Direction = engine.Camera.Direction;
-                    Vector3 offset = new Vector3((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f), 0.0f);
-                    Ray r = new Ray(origin, engine.Camera.Direction);
+                    PointF offset = GetSelectionOrigin(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY));
+
+                    Ray r = new Ray(origin, Direction);
                     //Uhhh...now do something with that nice ray of sunshine
                     Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 9999);
                 }
@@ -234,6 +235,20 @@ namespace Snowflake.States {
             }
         }
 
+        /// <summary>
+        /// Gets the specified point as a PointF relative to the origin, from 0 to 1.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private PointF GetSelectionOrigin(Point p) {
+            //Store w and h because long variable names
+            int w = StateMgr.Engine.Window.GetViewport(0).ActualWidth;
+            int h = StateMgr.Engine.Window.GetViewport(0).ActualHeight;
+
+            //get p relative to center of screen, as a number from -1 to 1
+            PointF rel = new PointF((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f));
+            return rel;
+        }
 
     } // class
 

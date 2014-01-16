@@ -4,12 +4,19 @@ material "sel_02_-_Default"
 	{
 		pass sel_02_-_Default_standard
 		{
+			lighting off
 			cull_hardware none
 			cull_software none
-			ambient 1 0.376471 0 1
-			diffuse 1 0.376471 0 1
-			specular 0 0 0 0 25.5
-			emissive 1 0.376471 0 1
+			scene_blend alpha_blend
+			depth_write off
+			
+			texture_unit gradient
+			{
+				texture selectionbox.png
+				scale 1 1.01
+                tex_coord_set 0
+                colour_op modulate
+			}
 		}
 	}
 }

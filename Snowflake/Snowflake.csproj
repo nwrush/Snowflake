@@ -80,6 +80,7 @@
     <Compile Include="Buildings\PowerBuilding.cs" />
     <Compile Include="Buildings\ResidentialBuilding.cs" />
     <Compile Include="CityManager.cs" />
+    <Compile Include="GameObjects.cs" />
     <Compile Include="GuiComponents\DebugPanel.cs" />
     <Compile Include="GuiComponents\GameConsole.cs" />
     <Compile Include="GuiComponents\GuiComponent.cs" />

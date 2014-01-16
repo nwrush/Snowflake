@@ -18,6 +18,7 @@ namespace Snowflake {
         }
 
         private static int numLines = 0;
+        public static ColourValue LineColour = ColourValue.Blue;
         public static SceneNode DrawLine(SceneManager mSceneMgr, Vector3 start, Vector3 end) {
             ManualObject line = mSceneMgr.CreateManualObject("line" + numLines);
             SceneNode lineNode = mSceneMgr.RootSceneNode.CreateChildSceneNode("line" + numLines + "_node");
@@ -25,9 +26,9 @@ namespace Snowflake {
             MaterialPtr lineMaterial = MaterialManager.Singleton.Create("line" + numLines + "_material", "Default");
             lineMaterial.ReceiveShadows = false;
             lineMaterial.SetLightingEnabled(true);
-            lineMaterial.SetDiffuse(0, 0, 1, 0);
-            lineMaterial.SetAmbient(0, 0, 1);
-            lineMaterial.SetSelfIllumination(0, 0, 1);
+            lineMaterial.SetDiffuse(LineColour.r, LineColour.g, LineColour.b, 0);
+            lineMaterial.SetAmbient(LineColour.r, LineColour.g, LineColour.b);
+            lineMaterial.SetSelfIllumination(LineColour.r, LineColour.g, LineColour.b);
 
             line.Begin("line" + numLines + "_material", RenderOperation.OperationTypes.OT_LINE_LIST);
             line.Position(start);
@@ -37,6 +38,9 @@ namespace Snowflake {
             lineNode.AttachObject(line);
             ++numLines;
             return lineNode;
+        }
+        public static SceneNode DrawRay(SceneManager mSceneMgr, Ray r) {
+            return DrawLine(mSceneMgr, r.Origin, r.Origin + r.Direction * 99999);
         }
     }
 }

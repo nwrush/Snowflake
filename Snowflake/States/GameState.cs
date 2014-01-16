@@ -202,7 +202,7 @@ namespace Snowflake.States {
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
 
                     //Uhhh...now do something with that nice ray of sunshine
-                    Utils3D.DrawLine(engine.SceneMgr, mouseRay.Origin, mouseRay.Origin + mouseRay.Direction * 9999);
+                    Utils3D.DrawRay(engine.SceneMgr, mouseRay);
                 }
                 DebugPanel.SetDebugText(engine.Camera.Position.ToString());
 

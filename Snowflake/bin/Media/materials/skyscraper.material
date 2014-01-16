@@ -1,0 +1,106 @@
+material "skyscraper03_-_Default"
+{
+	technique skyscraper03_-_Default_technique
+	{
+		pass skyscraper03_-_Default_standard
+		{
+			ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 1.062 1.062 1.062 1.18 66.3
+			emissive 0 0 0 1
+
+			texture_unit skyscraper03_-_Default_Diffuse#0
+			{
+				texture skyscraperskyscraperskyscraper_window.png
+				tex_coord_set 0
+				colour_op modulate
+				scale 0.0666667 0.04
+				scroll 7 -12
+			}
+		}
+	}
+}
+material "skyscraper02_-_Default"
+{
+	technique skyscraper02_-_Default_technique
+	{
+		pass skyscraper02_-_Default_Ambient
+		{
+			ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0.702 0.702 0.702 0.78 63.75
+			emissive 0 0 0 1
+
+			illumination_stage ambient
+			vertex_program_ref skyscrapervsAmbGEN0
+			{
+			}
+			fragment_program_ref skyscraperfpAmbGENDIFF0
+			{
+			}
+
+			texture_unit skyscraper02_-_Default_Diffuse#0
+			{
+				texture skyscraperConcrete.Precast_Structural_Concrete.Smooth.jpg
+				tex_coord_set 0
+				mipmap_bias -1
+				colour_op modulate
+			}
+		}
+		pass skyscraper02_-_Default_Light
+		{
+			ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0.702 0.702 0.702 0.78 63.75
+			emissive 0 0 0 1
+
+			scene_blend add
+
+			iteration once_per_light
+
+			illumination_stage per_light
+			depth_write off
+			vertex_program_ref skyscrapervsLightGENNORM0
+			{
+			}
+			fragment_program_ref skyscraperfpLightGENDIFF0NORM0
+			{
+				param_named normalMul float 0.3
+			}
+
+			texture_unit skyscraper02_-_Default_Diffuse#1
+			{
+				texture skyscraperConcrete.Precast_Structural_Concrete.Smooth.jpg
+				tex_coord_set 0
+				mipmap_bias -1
+				colour_op modulate
+			}
+
+			texture_unit skyscraper02_-_Default_Normal#2
+			{
+				texture skyscraperskyscraperConcrete.Precast_Structural_Concrete.Smooth.bump.jpg
+				tex_coord_set 0
+				mipmap_bias -1
+				colour_op modulate
+			}
+		}
+	}
+	technique skyscraper02_-_Default_basic_technique
+	{
+	scheme basic_mat
+		pass skyscraper02_-_Default_standard
+		{
+			ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0.702 0.702 0.702 0.78 63.75
+			emissive 0 0 0 1
+
+			texture_unit skyscraper02_-_Default_Diffuse#3
+			{
+				texture skyscraperConcrete.Precast_Structural_Concrete.Smooth.jpg
+				tex_coord_set 0
+				colour_op modulate
+			}
+		}
+	}
+}

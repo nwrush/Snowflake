@@ -1,0 +1,15 @@
+material "sel_02_-_Default"
+{
+	technique sel_02_-_Default_technique
+	{
+		pass sel_02_-_Default_standard
+		{
+			cull_hardware none
+			cull_software none
+			ambient 1 0.376471 0 1
+			diffuse 1 0.376471 0 1
+			specular 0 0 0 0 25.5
+			emissive 1 0.376471 0 1
+		}
+	}
+}

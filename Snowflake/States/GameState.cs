@@ -185,7 +185,7 @@ namespace Snowflake.States {
 
             //If we're not typing into a form or something...
             if (!StateManager.SupressGameControl) {
-
+                Ray mouseRay = GetSelectionRay(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
                 //Mouse drag control
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
 
@@ -201,10 +201,8 @@ namespace Snowflake.States {
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
 
-
-
                     //Uhhh...now do something with that nice ray of sunshine
-                    //Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 9999);
+                    Utils3D.DrawLine(engine.SceneMgr, mouseRay.Origin, mouseRay.Origin + mouseRay.Direction * 9999);
                 }
                 DebugPanel.SetDebugText(engine.Camera.Position.ToString());
 

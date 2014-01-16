@@ -171,12 +171,13 @@ namespace Snowflake.GuiComponents {
                 Text = "> " + text,
                 AutoSize = true,
                 TextStyle = new TextStyle() {
-                    Font = ResourceManager.Fonts["Courier"]
+                    Font = ResourceManager.Fonts["Courier"],
+                    Multiline = true
                 }
             };
             label.SuccessfulHitTest += (s, e) => e.Cancel = true;
             this.outputPanel.Controls.Add(label);
-            this.labelY += label.Size.Height;
+            this.labelY += 12;
             this.outputPanel.ScrollToBottom();
         }
 

@@ -11,6 +11,7 @@ using Miyagi.UI;
 using Miyagi.UI.Controls;
 
 using Vector3 = Mogre.Vector3;
+using Quaternion = Mogre.Quaternion;
 
 namespace Snowflake.States {
     
@@ -199,14 +200,13 @@ namespace Snowflake.States {
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
-                    Vector3 origin = engine.Camera.Position;
-                    Vector3 Direction = engine.Camera.Direction;
-                    PointF offset = GetSelectionOrigin(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY));
 
-                    Ray r = new Ray(origin, Direction);
+
+
                     //Uhhh...now do something with that nice ray of sunshine
-                    Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 9999);
+                    //Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 9999);
                 }
+                DebugPanel.SetDebugText(engine.Camera.Position.ToString());
 
                 //WASD Control
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
@@ -245,9 +245,13 @@ namespace Snowflake.States {
             int w = StateMgr.Engine.Window.GetViewport(0).ActualWidth;
             int h = StateMgr.Engine.Window.GetViewport(0).ActualHeight;
 
-            //get p relative to center of screen, as a number from -1 to 1
-            PointF rel = new PointF((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f));
-            return rel;
+            //get p relative to center of screen, as a number from 0 to 1
+            return new PointF(p.X / (float)w, p.Y / (float)h);
+        }
+
+        private Ray GetSelectionRay(int mousex, int mousey) {
+            PointF offset = GetSelectionOrigin(new Point(mousex, mousey));
+            return StateMgr.Engine.Camera.GetCameraToViewportRay(offset.X, offset.Y);
         }
 
     } // class

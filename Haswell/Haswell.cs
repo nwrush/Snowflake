@@ -22,12 +22,12 @@ namespace Haswell {
         }
 
         public static GameState Update() {
-            GameState returnState = lastFrame;
-            try {
-                returnState = currentFrame;
-            } catch (Exception e) {
-                LogError(e);
-            }
+            //GameState returnState = lastFrame;
+            //try {
+            //    returnState = currentFrame;
+            //} catch (Exception e) {
+            //    LogError(e);
+            //}
             return new GameState(new long());
         }
 

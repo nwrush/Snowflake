@@ -11,6 +11,7 @@ using Miyagi.UI;
 using Miyagi.UI.Controls;
 
 using Vector3 = Mogre.Vector3;
+using Quaternion = Mogre.Quaternion;
 
 namespace Snowflake.States {
     
@@ -184,7 +185,7 @@ namespace Snowflake.States {
 
             //If we're not typing into a form or something...
             if (!StateManager.SupressGameControl) {
-
+                Ray mouseRay = GetSelectionRay(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
                 //Mouse drag control
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
 
@@ -199,13 +200,11 @@ namespace Snowflake.States {
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
-                    Vector3 origin = engine.Camera.Position;
-                    Vector3 Direction = engine.Camera.Direction;
-                    Vector3 offset = new Vector3((p.X - (int)(w * 0.5)) / (w * 0.5f), (p.Y - (int)(h * 0.5)) / (h * 0.5f), 0.0f);
-                    Ray r = new Ray(origin, engine.Camera.Direction);
+
                     //Uhhh...now do something with that nice ray of sunshine
-                    Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 9999);
+                    Utils3D.DrawLine(engine.SceneMgr, mouseRay.Origin, mouseRay.Origin + mouseRay.Direction * 9999);
                 }
+                DebugPanel.SetDebugText(engine.Camera.Position.ToString());
 
                 //WASD Control
                 if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
@@ -234,6 +233,24 @@ namespace Snowflake.States {
             }
         }
 
+        /// <summary>
+        /// Gets the specified point as a PointF relative to the origin, from 0 to 1.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        private PointF GetSelectionOrigin(Point p) {
+            //Store w and h because long variable names
+            int w = StateMgr.Engine.Window.GetViewport(0).ActualWidth;
+            int h = StateMgr.Engine.Window.GetViewport(0).ActualHeight;
+
+            //get p relative to center of screen, as a number from 0 to 1
+            return new PointF(p.X / (float)w, p.Y / (float)h);
+        }
+
+        private Ray GetSelectionRay(int mousex, int mousey) {
+            PointF offset = GetSelectionOrigin(new Point(mousex, mousey));
+            return StateMgr.Engine.Camera.GetCameraToViewportRay(offset.X, offset.Y);
+        }
 
     } // class
 

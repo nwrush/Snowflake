@@ -205,7 +205,7 @@ namespace Snowflake.States {
 
                     Ray r = new Ray(origin, Direction);
                     //Uhhh...now do something with that nice ray of sunshine
-                    Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 99);
+                    Utils3D.DrawLine(engine.SceneMgr, r.Origin, r.Origin + r.Direction * 9999);
                 }
 
                 //WASD Control

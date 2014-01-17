@@ -1,13 +1,12 @@
-material Park
+material Particle/Cloud
 {
 	technique
 	{
 		pass
 		{
-		
 			texture_unit
 			{
-				texture grass.tga
+				texture cloud.png
 			}
 		}
 	}

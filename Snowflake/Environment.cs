@@ -8,11 +8,16 @@ using Snowflake.States;
 using Snowflake.GuiComponents;
 
 namespace Snowflake {
-    public class WeatherManager {
+    public class Environment {
 
         public List<Weather> PastWeather;
         public Weather CurrentWeather;
         public Weather NextWeather;
+
+        private ParticleSystem rainSystem;
+        private ParticleSystem fogSystem;
+        private ParticleSystem snowSystem;
+        private SceneNode particleNode;
 
         private Light sun;
         private Light ambient;
@@ -30,7 +35,7 @@ namespace Snowflake {
 
         private WeatherOverlay overlay;
 
-        public WeatherManager() {
+        public Environment() {
             randomizer = new Random();
             PastWeather = new List<Weather>();
             FormattedTime = new DateTime(2014, 01, 01, 6, 0, 0);
@@ -56,7 +61,11 @@ namespace Snowflake {
             sm.RootSceneNode.AttachObject(sun);
             sm.RootSceneNode.AttachObject(ambient);
 
-            timer = randomizer.Next(1000);
+            rainSystem = sm.CreateParticleSystem("Rain", "Weather/Rain");
+            particleNode = sm.RootSceneNode.CreateChildSceneNode("Weather");
+            particleNode.AttachObject(rainSystem);
+
+            timer = randomizer.Next(10000, 48000);
         }
 
         public void Update() {
@@ -87,7 +96,7 @@ namespace Snowflake {
         }
 
         private void ResetTimer() {
-            timer = randomizer.Next(800, 1600);
+            timer = randomizer.Next(10000, 48000);
         }
         
         /// <summary>

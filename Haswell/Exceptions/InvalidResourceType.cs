@@ -5,9 +5,13 @@ using System.Text;
 
 namespace Haswell.Exceptions {
     [Serializable]
-    class InvalidResourceTypeException :Exception{
-        public InvalidResourceTypeException() {
-            
-        }
+    public class InvalidResourceTypeException : Exception {
+        public InvalidResourceTypeException() { }
+        public InvalidResourceTypeException(string message) : base(message) { }
+        public InvalidResourceTypeException(string message, Exception inner) : base(message, inner) { }
+        protected InvalidResourceTypeException(
+          System.Runtime.Serialization.SerializationInfo info,
+          System.Runtime.Serialization.StreamingContext context)
+            : base(info, context) { }
     }
 }

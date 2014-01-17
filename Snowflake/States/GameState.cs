@@ -67,6 +67,9 @@ namespace Snowflake.States {
             createUI();
             createCommands();
 
+            CompositorManager.Singleton.AddCompositor(engine.Window.GetViewport(0), "Bloom");
+            CompositorManager.Singleton.SetCompositorEnabled(engine.Window.GetViewport(0), "Bloom", true);
+
             // OK
             return true;
         }
@@ -76,7 +79,7 @@ namespace Snowflake.States {
         /// </summary>
         /// <param name="engine"></param>
         public void createScene(OgreManager engine) {
-            engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
+            engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
 
             setupCamera(engine);
 
@@ -157,7 +160,8 @@ namespace Snowflake.States {
         /// Shut down the state
         /// </summary>
         public override void Shutdown() {
-
+            CompositorManager.Singleton.UnloadAll();
+            CompositorManager.Singleton.Dispose();
         }
 
         /// <summary>

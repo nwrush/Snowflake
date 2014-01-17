@@ -209,7 +209,7 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         /// <param name="input">Command to execute formatted as [CommandName] [Arg1] [Arg2] etc.</param>
         public void ExecuteCommand(string input) {
-            string[] command = input.Split(' ');
+            string[] command = input.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             string commandName = command[0];
             string[] args = new string[command.Length - 1];
             Array.Copy(command, 1, args, 0, command.Length - 1); 
@@ -242,14 +242,14 @@ namespace Snowflake.GuiComponents {
             }, "Shows a list of all registered commands."));
 
             commands.Add("info", new ConsoleCommand((string[] args) => {
-                if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { Echo("No command specified!"); return; }
+                if (args.Length == 0) { Echo("No command specified!"); return; }
                 if (commands.ContainsKey(args[0])) {
                     Echo(commands[args[0]].Description);
                 }
                 else { Echo("No such command!"); }
             }, "Prints the description of the specified command."));
             commands.Add("help", new ConsoleCommand((string[] args) => {
-                if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { Echo("Use \"list\" to see a list of all available commands."); return; }
+                if (args.Length == 0) { Echo("Use \"list\" to see a list of all available commands."); return; }
                 else {
                     foreach (string arg in args) {
                         if (commands.ContainsKey(arg)) {

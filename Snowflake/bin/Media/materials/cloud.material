@@ -1,0 +1,15 @@
+material Particle/Cloud
+{
+	technique
+	{
+		pass
+		{
+			scene_blend alpha_blend
+			depth_write off
+			texture_unit
+			{
+				texture cloud.png
+			}
+		}
+	}
+}

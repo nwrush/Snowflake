@@ -21,7 +21,7 @@ namespace Snowflake.States {
     public class GameState : State {
 
         private StateManager StateMgr;
-        private WeatherManager WeatherMgr;
+        private Environment WeatherMgr;
         private CityManager CityMgr;
 
         private SceneNode focalPoint;
@@ -54,7 +54,7 @@ namespace Snowflake.States {
             OgreManager engine = StateMgr.Engine;
 
             //Instantiate everything
-            WeatherMgr = new WeatherManager();
+            WeatherMgr = new Environment();
             CityMgr = new CityManager();
 
             GameConsole = new GameConsole();
@@ -76,7 +76,7 @@ namespace Snowflake.States {
         /// </summary>
         /// <param name="engine"></param>
         public void createScene(OgreManager engine) {
-            engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_ADDITIVE;
+            engine.SceneMgr.ShadowTechnique = ShadowTechnique.SHADOWTYPE_STENCIL_MODULATIVE;
 
             setupCamera(engine);
 
@@ -145,6 +145,12 @@ namespace Snowflake.States {
             GameConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Quits the game."));
             GameConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Exits the game."));
             GameConsole.AddCommand("debug", new ConsoleCommand((string[] args) => { DebugPanel.Visible = !DebugPanel.Visible; }, "Toggles the debug panel."));
+            GameConsole.AddCommand("wireframe", new ConsoleCommand((string[] args) => {
+                if (StateMgr.Engine.Camera.PolygonMode == PolygonMode.PM_WIREFRAME) {
+                    StateMgr.Engine.Camera.PolygonMode = PolygonMode.PM_SOLID;
+                }
+                else { StateMgr.Engine.Camera.PolygonMode = PolygonMode.PM_WIREFRAME; }
+            }, "Toggles rendering in wireframe mode."));
         }
 
         /// <summary>
@@ -167,7 +173,7 @@ namespace Snowflake.States {
             HandleInput(StateMgr);
 
             CityMgr.Update();
-            WeatherMgr.Update();
+            WeatherMgr.Update(StateMgr.Engine.SceneMgr);
             DebugPanel.UpdateFPS(_frameTime);
         }
 
@@ -247,6 +253,12 @@ namespace Snowflake.States {
             return new PointF(p.X / (float)w, p.Y / (float)h);
         }
 
+        /// <summary>
+        /// Returns a Ray in 3D space from the given mouse coordinates on the screen.
+        /// </summary>
+        /// <param name="mousex">X Position of the mouse</param>
+        /// <param name="mousey">Y Position of the mouse</param>
+        /// <returns></returns>
         private Ray GetSelectionRay(int mousex, int mousey) {
             PointF offset = GetSelectionOrigin(new Point(mousex, mousey));
             return StateMgr.Engine.Camera.GetCameraToViewportRay(offset.X, offset.Y);

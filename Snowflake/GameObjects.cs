@@ -5,6 +5,6 @@ using System.Text;
 
 namespace Snowflake {
     public class GameObjects {
-
+        
     }
 }

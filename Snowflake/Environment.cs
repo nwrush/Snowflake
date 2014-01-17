@@ -49,6 +49,7 @@ namespace Snowflake {
             sun.DiffuseColour = new ColourValue(0.98f, 0.95f, 0.9f);
             sun.SpecularColour = ColourValue.White;
             sun.CastShadows = true;
+            sun.PowerScale = 5.0f;
 
             ambient = sm.CreateLight("ambient");
             ambient.Type = Light.LightTypes.LT_DIRECTIONAL;
@@ -59,7 +60,7 @@ namespace Snowflake {
             ambient.CastShadows = true;
 
             sm.RootSceneNode.AttachObject(sun);
-            sm.RootSceneNode.AttachObject(ambient);
+            //sm.RootSceneNode.AttachObject(ambient);
 
             rainSystem = sm.CreateParticleSystem("Rain", "Weather/Rain");
             particleNode = sm.GetSceneNode("focalPoint").CreateChildSceneNode("Weather");
@@ -69,7 +70,7 @@ namespace Snowflake {
             timer = randomizer.Next(1000, 4800);
         }
 
-        public void Update() {
+        public void Update(SceneManager sm) {
             
             Time += Timescale;
             UpdateFormatTime(0, 0, Timescale / MinuteLength);
@@ -77,7 +78,9 @@ namespace Snowflake {
             sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength)), 1000 * (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength)), -300);
 
             //brightness
-            float multiplier = (float)System.Math.Max(0.0, System.Math.Pow(sun.Position.y / 1000, 3));
+            float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(sun.Position.y) * System.Math.Pow(sun.Position.y / 1000, (1.0 / 3.0)));
+            float shadowCoef = System.Math.Max(1.0f - multiplier, GetCloudiness() * 0.5f + 0.5f);
+            sm.ShadowColour = new ColourValue(shadowCoef, shadowCoef, shadowCoef);
             sun.DiffuseColour = new ColourValue(0.98f * multiplier, 0.95f * multiplier, 0.9f * multiplier);
 
             rainSystem.GetEmitter(0).Colour = new ColourValue(sun.DiffuseColour.b * 0.7f + 0.2f, sun.DiffuseColour.b * 0.7f + 0.2f, sun.DiffuseColour.b * 0.7f + 0.2f, 0.6f);
@@ -104,6 +107,14 @@ namespace Snowflake {
 
         private void ResetTimer() {
             timer = randomizer.Next(1000, 4800);
+        }
+
+        private float GetCloudiness() {
+            if (this.CurrentWeather == Weather.Cloudy) { return 0.9f; }
+            if (this.CurrentWeather == Weather.Foggy) { return 1.0f; }
+            if (this.CurrentWeather == Weather.Stormy) { return 0.95f; }
+            if (this.CurrentWeather == Weather.Windy) { return 0.5f; }
+            return 0.0f;
         }
         
         /// <summary>

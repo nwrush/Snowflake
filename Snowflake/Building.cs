@@ -27,8 +27,10 @@ namespace Snowflake {
 
         //Create the entities for this building - load models, materials, etc and position them.
         public virtual void CreateEntities(SceneManager sm) {
-            this.entities.Add(sm.CreateEntity(this.GetHashCode().ToString(), "skyscraperBox001.mesh"));
+            this.entities.Add(sm.CreateEntity(SceneManager.PrefabType.PT_CUBE));
             this.entities[0].CastShadows = true;
+            /*this.entities.Add(sm.CreateEntity(this.GetHashCode().ToString(), "skyscraperBox001.mesh"));
+            this.entities[0].CastShadows = true;*/
         }
         
         //Create the scene node for this building which all of the entities will be attached to.
@@ -39,7 +41,6 @@ namespace Snowflake {
             foreach (Entity e in this.entities) {
                 node.AttachObject(e);
             }
-            node.Scale(new Vector3(30, 30, 30));
         }
 
         //Move the building into its position on the grid, determined by its parent plot's x and y values and the standard width and height of the plot.

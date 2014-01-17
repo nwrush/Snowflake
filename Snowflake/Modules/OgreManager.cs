@@ -91,7 +91,7 @@ namespace Snowflake.Modules {
             mWindow = mRoot.CreateRenderWindow("Project Sustain", Program.WINDOW_WIDTH, Program.WINDOW_HEIGHT, false);
             mWindow.GetCustomAttribute("WINDOW", out mWindowHandle);
 
-            mResourceMgr.LoadGroup("PostLoad");
+            mResourceMgr.InitGroup("PostLoad");
 
             // create scene manager
             mSceneMgr = mRoot.CreateSceneManager(SceneType.ST_GENERIC, "DefaultSceneManager");
@@ -106,6 +106,7 @@ namespace Snowflake.Modules {
             mViewport = mWindow.AddViewport(mCamera);
 
             mResourceMgr.Load();
+            mResourceMgr.LoadGroup("PostLoad");
 
             // set rendering active flag
             mRenderingActive = true;

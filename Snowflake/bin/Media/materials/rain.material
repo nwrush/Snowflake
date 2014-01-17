@@ -1,14 +1,15 @@
-material Particle/Cloud
+material Particle/Rain
 {
 	technique
 	{
 		pass
 		{
+			lighting off
 			scene_blend alpha_blend
 			depth_write off
 			texture_unit
 			{
-				texture cloud.png
+				texture raindrop.png
 			}
 		}
 	}

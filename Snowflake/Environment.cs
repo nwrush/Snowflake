@@ -62,10 +62,11 @@ namespace Snowflake {
             sm.RootSceneNode.AttachObject(ambient);
 
             rainSystem = sm.CreateParticleSystem("Rain", "Weather/Rain");
-            particleNode = sm.RootSceneNode.CreateChildSceneNode("Weather");
+            particleNode = sm.GetSceneNode("focalPoint").CreateChildSceneNode("Weather");
             particleNode.AttachObject(rainSystem);
+            particleNode.Translate(new Vector3(0, 600, 0));
 
-            timer = randomizer.Next(10000, 48000);
+            timer = randomizer.Next(1000, 4800);
         }
 
         public void Update() {
@@ -79,7 +80,13 @@ namespace Snowflake {
             float multiplier = (float)System.Math.Max(0.0, System.Math.Pow(sun.Position.y / 1000, 3));
             sun.DiffuseColour = new ColourValue(0.98f * multiplier, 0.95f * multiplier, 0.9f * multiplier);
 
+            rainSystem.GetEmitter(0).Colour = new ColourValue(sun.DiffuseColour.b * 0.7f + 0.2f, sun.DiffuseColour.b * 0.7f + 0.2f, sun.DiffuseColour.b * 0.7f + 0.2f, 0.6f);
 
+            if (!(this.CurrentWeather == Weather.Rainy || this.CurrentWeather == Weather.Stormy) && rainSystem.GetEmitter(0).EmissionRate > 0) { rainSystem.GetEmitter(0).EmissionRate -= Timescale; }
+            if (this.CurrentWeather == Weather.Rainy && rainSystem.GetEmitter(0).EmissionRate < 800) { rainSystem.GetEmitter(0).EmissionRate += Timescale; }
+            if (this.CurrentWeather == Weather.Stormy && rainSystem.GetEmitter(0).EmissionRate < 1600) { rainSystem.GetEmitter(0).EmissionRate += Timescale; }
+
+            //Temp weather change code (ultimately will be handled in Nikko's code)
             if (timer <= 0) {
                 SwitchWeather((Weather)Enum.GetValues(typeof(Weather)).GetValue(randomizer.Next(1, Enum.GetValues(typeof(Weather)).Length)));
             }
@@ -96,7 +103,7 @@ namespace Snowflake {
         }
 
         private void ResetTimer() {
-            timer = randomizer.Next(10000, 48000);
+            timer = randomizer.Next(1000, 4800);
         }
         
         /// <summary>

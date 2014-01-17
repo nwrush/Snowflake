@@ -8,7 +8,7 @@ namespace TEST {
     class Program {
         static void Main(string[] args) {
             City TEST = new City("TEST");
-            GameState gs = Haswell.Haswell.Update();
+            GameState gs = Haswell.Haswell.Update(long.MaxValue);
             Console.ReadKey();
         }
     }

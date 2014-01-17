@@ -11,31 +11,41 @@ namespace Haswell {
     /// Game shouold only make calls to this class
     /// </summary>
     public class Haswell {
-        private static GameState lastFrame;
-        private static GameState currentFrame;
         private static City activeCity;
-
+         
         public static void init(string name) {
-            lastFrame = null;
-            currentFrame=null;
             activeCity = new City(name);
         }
 
-        public static GameState Update() {
+        public static GameState Update(long frametime) {
             //GameState returnState = lastFrame;
             //try {
             //    returnState = currentFrame;
             //} catch (Exception e) {
             //    LogError(e);
             //}
-            return new GameState(new long());
+            //try {
+            //    throw new NotImplementedException();
+            //} catch (Exception e) {
+            //    LogError(e);
+            //}
+            //return null;
+            throw new NotImplementedException();
         }
 
         private static void LogError(Exception e) {
-            String sb=e.Message+" "+e.StackTrace;
-            Debug.WriteLine(e.Message);
+            String msg = "\"" + e.Message + "\"";
+            msg += " " + "\"" + e.StackTrace + "\"";
             Process p = new Process();
-            Process.Start("ErrorLog.exe", sb);
+            Process.Start("ErrorLog.exe", msg);
+        }
+
+        public static City getActive(City c = null) {
+            if (c == null) {
+                activeCity = c;
+                return null;
+            }
+            return activeCity;
         }
     }
 }

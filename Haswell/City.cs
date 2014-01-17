@@ -8,14 +8,21 @@ namespace Haswell {
         //Getting an execuateble directly from someone is less sketchy-
         private int population { get; set; }
         private string name { get; set; }
-        private List<Plot> cityPlots;
+        private List<Plot> plotList;
         private List<Pipe> pipes;
 
-        [Obsolete("Don't pass a size")]
+        /// <summary>
+        /// Creates a city and initialize's it with the given sides
+        /// </summary>
+        /// <param name="name">Name of the city</param>
+        /// <param name="xSize">X-length of the city</param>
+        /// <param name="ySize">Y-length of the city</param>
         public City(string name, int xSize, int ySize) {
             this.population = 0;
             this.name = name;
-            this.cityPlots = new List<Plot>();
+
+            this.plotList = new List<Plot>();
+
 
             this.pipes = new List<Pipe>();
         }
@@ -23,9 +30,15 @@ namespace Haswell {
         /// Creates an infinite sized city, with the given name
         /// </summary>
         /// <param name="name">Name of the City to use</param>
-        public City(string name) {
-            this.name = name;
+        public City(string name):this(name,100,100) {
         }
+
+        protected void init(int xSize, int ySize) {
+            int totalPlots = xSize * ySize;
+            Plot[,] tmp=new Plot[xSize,ySize];
+            //for (int r=0; r<tmp.GetLength(0))
+        }
+
         private static void createGrid(Plot[,] p) {
             for (int r = 0; r < p.GetLength(0); r++) {
                 for (int c = 0; c < p.GetLength(1); c++) {

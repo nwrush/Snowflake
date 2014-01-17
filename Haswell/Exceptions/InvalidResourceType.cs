@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell.Exceptions {
+namespace Haswell {
     [Serializable]
     public class InvalidResourceTypeException : Exception {
         public InvalidResourceTypeException() { }

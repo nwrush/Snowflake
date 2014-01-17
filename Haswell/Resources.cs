@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Haswell.Exceptions;
-
 namespace Haswell {
     abstract class Resource {
         public enum resourceType {

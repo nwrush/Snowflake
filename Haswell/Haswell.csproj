@@ -52,11 +52,14 @@
   <ItemGroup>
     <Compile Include="Building.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="Exceptions\ElementAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\ElementNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidResourceType.cs" />
     <Compile Include="Exceptions\PlotOutOfRangeException.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GV.cs" />
     <Compile Include="Haswell.cs" />
+    <Compile Include="InfiniteGrid.cs" />
     <Compile Include="Pipe.cs" />
     <Compile Include="Plot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

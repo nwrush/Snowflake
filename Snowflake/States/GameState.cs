@@ -68,7 +68,7 @@ namespace Snowflake.States {
             createCommands();
 
             CompositorManager.Singleton.AddCompositor(engine.Window.GetViewport(0), "Bloom");
-            CompositorManager.Singleton.SetCompositorEnabled(engine.Window.GetViewport(0), "Bloom", true);
+            CompositorManager.Singleton.AddCompositor(engine.Window.GetViewport(0), "Radial Blur");
 
             // OK
             return true;
@@ -116,7 +116,7 @@ namespace Snowflake.States {
         /// </summary>
         private void createCommands() {
             GameConsole.AddCommand("sw", new ConsoleCommand((string[] args) => {
-                if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { GameConsole.WriteLine("Usage: sw [weathertype]"); return; }
+                if (args.Length == 0) { GameConsole.WriteLine("Usage: sw [weathertype]"); return; }
                 Weather w;
                 Enum.TryParse<Weather>(args[0], out w);
                 if (w != Weather.Null) {
@@ -126,7 +126,7 @@ namespace Snowflake.States {
                 else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
             }, "Sets the weather to the specified type, resetting the timer."));
             GameConsole.AddCommand("fw", new ConsoleCommand((string[] args) => {
-                if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { GameConsole.WriteLine("Usage: fw [weathertype]"); return; }
+                if (args.Length == 0) { GameConsole.WriteLine("Usage: fw [weathertype]"); return; }
                 Weather w;
                 Enum.TryParse<Weather>(args[0], out w);
                 if (w != Weather.Null) {
@@ -136,7 +136,7 @@ namespace Snowflake.States {
                 else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
             }, "Sets the weather to the specified type without resetting the timer."));
             GameConsole.AddCommand("timescale", new ConsoleCommand((string[] args) => {
-                if (args.Length == 0 || (args.Length > 0 && args[0].Trim() == String.Empty)) { GameConsole.WriteLine("Usage: timescale [n], default 1.0"); return; }
+                if (args.Length == 0) { GameConsole.WriteLine("Usage: timescale [n], default 1.0"); return; }
                 float timescale;
                 if (Single.TryParse(args[0], out timescale)) {
                     WeatherMgr.Timescale = timescale;
@@ -154,13 +154,28 @@ namespace Snowflake.States {
                 }
                 else { StateMgr.Engine.Camera.PolygonMode = PolygonMode.PM_WIREFRAME; }
             }, "Toggles rendering in wireframe mode."));
+            GameConsole.AddCommand("bloom", new ConsoleCommand((string[] args) => { 
+                bool enabled;
+                if (args.Length == 0) {
+                    enabled = !(CompositorManager.Singleton.GetCompositorChain(StateMgr.Engine.Window.GetViewport(0)).GetCompositor("Bloom")).Enabled;
+                }
+                else { enabled = (args[0] == "0" || args[0] == "false") ? true : false; }
+                CompositorManager.Singleton.SetCompositorEnabled(StateMgr.Engine.Window.GetViewport(0), "Bloom", enabled);
+            }, "Toggles the bloom shader."));
+            GameConsole.AddCommand("radialblur", new ConsoleCommand((string[] args) => {
+                bool enabled;
+                if (args.Length == 0) {
+                    enabled = !(CompositorManager.Singleton.GetCompositorChain(StateMgr.Engine.Window.GetViewport(0)).GetCompositor("Radial Blur")).Enabled;
+                }
+                else { enabled = (args[0] == "0" || args[0] == "false") ? true : false; }
+                CompositorManager.Singleton.SetCompositorEnabled(StateMgr.Engine.Window.GetViewport(0), "Radial Blur", enabled);
+            }, "Toggles the radial blur shader."));
         }
 
         /// <summary>
         /// Shut down the state
         /// </summary>
         public override void Shutdown() {
-            CompositorManager.Singleton.SetCompositorEnabled(StateMgr.Engine.Window.GetViewport(0), "Bloom", false);
             CompositorManager.Singleton.RemoveAll();
             CompositorManager.Singleton.UnloadAll();
             CompositorManager.Singleton.Dispose();

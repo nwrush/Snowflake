@@ -8,35 +8,19 @@ namespace Haswell {
         //Getting an execuateble directly from someone is less sketchy-
         private int population { get; set; }
         private string name { get; set; }
-        private List<Plot> plotList;
+        private InfiniteGrid grid;
         private List<Pipe> pipes;
 
         /// <summary>
         /// Creates a city and initialize's it with the given sides
         /// </summary>
         /// <param name="name">Name of the city</param>
-        /// <param name="xSize">X-length of the city</param>
-        /// <param name="ySize">Y-length of the city</param>
-        public City(string name, int xSize, int ySize) {
+        public City(string name) {
             this.population = 0;
             this.name = name;
-
-            this.plotList = new List<Plot>();
-
+            this.grid = new InfiniteGrid();
 
             this.pipes = new List<Pipe>();
-        }
-        /// <summary>
-        /// Creates an infinite sized city, with the given name
-        /// </summary>
-        /// <param name="name">Name of the City to use</param>
-        public City(string name):this(name,100,100) {
-        }
-
-        protected void init(int xSize, int ySize) {
-            int totalPlots = xSize * ySize;
-            Plot[,] tmp=new Plot[xSize,ySize];
-            //for (int r=0; r<tmp.GetLength(0))
         }
 
         private static void createGrid(Plot[,] p) {
@@ -49,6 +33,11 @@ namespace Haswell {
 
         public override string ToString() {
             return "City " + this.name + ", with a population of " + this.population + ".";
+        }
+        public InfiniteGrid Grid {
+            get {
+                return this.grid;
+            }
         }
     }
 }

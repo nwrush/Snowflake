@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace Haswell {
-    class InfiniteGrid:ICollection<Plot> {
+    class InfiniteGrid : ICollection<Plot> {
         List<Plot> elements;
-        private bool isReadOnly = false;
+
         public InfiniteGrid() {
             elements = new List<Plot>();
         }
@@ -29,10 +30,42 @@ namespace Haswell {
             }
             throw new ElementNotFoundException();
         }
+
+        public Plot[,] ToGrid() {
+            Plot[,] tmp = null;
+            makePlot(tmp);
+            populateGrid(tmp);
+            return tmp;
+        }
+
+        private void makePlot(Plot[,] t) {
+            int lowX = 0, lowY = 0, highX = 0, highY = 0;
+            foreach (Plot p in this.elements) {
+                if (p.X > highX)
+                    highX = p.X;
+                else if (p.X < lowX)
+                    lowX = p.X;
+
+                if (p.Y > highY)
+                    highY = p.Y;
+                else if (p.Y < lowY)
+                    lowY = p.Y;
+            }
+            t = new Plot[highX - lowX, highY - lowY];
+        }
+        private void populateGrid(Plot[,] t) {
+            foreach (Plot p in this.elements) {
+                t[p.X, p.Y] = p;
+            }
+        }
+
+        #region ICollection Stuff
         //ICollection
+        private bool isReadOnly = false;
+
         void ICollection<Plot>.Add(Plot e) {
             foreach (Plot p in elements) {
-                if (e==p) {
+                if (e == p) {
                     throw new StackOverflowException();
                 }
             }
@@ -45,7 +78,7 @@ namespace Haswell {
 
         bool ICollection<Plot>.Contains(Plot item) {
             foreach (Plot p in this.elements) {
-                if (item==p) {
+                if (item == p) {
                     return true;
                 }
             }
@@ -76,5 +109,6 @@ namespace Haswell {
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             return this.elements.GetEnumerator();
         }
+        #endregion
     }
 }

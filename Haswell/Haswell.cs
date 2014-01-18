@@ -12,6 +12,8 @@ namespace Haswell {
     /// </summary>
     public class Haswell {
         private static City activeCity;
+        private GameState previous;
+        private GameState current;
          
         public static void init(string name) {
             activeCity = new City(name);

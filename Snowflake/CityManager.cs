@@ -25,7 +25,7 @@ namespace Snowflake {
         public void CreateScene(SceneManager sm) {
 
             CreateTerrain(sm);
-            CreateFromModel(sm);
+            CreateCity(sm);
 
             //CreateRoads(sm);
         }
@@ -45,7 +45,7 @@ namespace Snowflake {
             world.Translate(new Vector3(0, -1, 0));
         }
 
-        private void CreateFromModel(SceneManager sm) {
+        private void CreateCity(SceneManager sm) {
             City c = Haswell.Haswell.getActive();
             
         }

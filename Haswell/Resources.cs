@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    abstract class Resource {
+    public abstract class Resource {
         public enum resourceType {
             Material,
             Energy,

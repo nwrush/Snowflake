@@ -87,6 +87,8 @@ namespace Snowflake {
         }
 
         public void Update(long frametime) {
+
+            GameState g = Haswell.Haswell.Update(frametime);
             
 
             //Each tick, check if each plot is incorporated into the city. If so, update

@@ -25,7 +25,7 @@ namespace Snowflake {
         public void CreateScene(SceneManager sm) {
 
             CreateTerrain(sm);
-            CreateTestScene();
+            CreateFromModel(sm);
 
             //CreateRoads(sm);
         }
@@ -45,7 +45,8 @@ namespace Snowflake {
             world.Translate(new Vector3(0, -1, 0));
         }
 
-        private void CreateTestScene() {
+        private void CreateFromModel(SceneManager sm) {
+            City c = Haswell.Haswell.getActive();
             
         }
 
@@ -85,9 +86,8 @@ namespace Snowflake {
             }
         }
 
-        public void Update() {
+        public void Update(long frametime) {
             
-            //GameState now = Haswell.Haswell.Update();
 
             //Each tick, check if each plot is incorporated into the city. If so, update
             //Otherwise, incorporate it and revise the city bounds.

@@ -32,6 +32,12 @@ material "skyscraper02_-_Default"
 			emissive 0 0 0 1
 
 			illumination_stage ambient
+			//vertex_program_ref skyscrapervsAmbGEN0
+			//{
+			//}
+			//fragment_program_ref skyscraperfpAmbGENDIFF0
+			//{
+			//}
 
 			texture_unit skyscraper02_-_Default_Diffuse#0
 			{
@@ -54,6 +60,13 @@ material "skyscraper02_-_Default"
 
 			illumination_stage per_light
 			depth_write off
+			//vertex_program_ref skyscrapervsLightGENNORM0
+			//{
+			//}
+			//fragment_program_ref skyscraperfpLightGENDIFF0NORM0
+			//{
+			//	param_named normalMul float 0.3
+			//}
 
 			texture_unit skyscraper02_-_Default_Diffuse#1
 			{

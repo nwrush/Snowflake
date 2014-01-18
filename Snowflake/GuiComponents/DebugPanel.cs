@@ -97,13 +97,18 @@ namespace Snowflake.GuiComponents {
         /// <param name="frametime">The elapsed DateTime.ticks since last update</param>
         public void UpdateFPS(long frametime) {
             if (frametime != 0) {
-                float millisecondsPerSecond = 1000.0f;
-                float frameSeconds = (frametime) / millisecondsPerSecond / 10.0f;
-                float framesPerSecond = 1.0f / frameSeconds;
-                fps.Text = Math.Round(framesPerSecond, 5).ToString() + " fps";
+                _lastFrametimes.Enqueue(frametime);
             }
-            _lastFrametimes.Enqueue(frametime);
-            if (_lastFrametimes.Count > 30) { _lastFrametimes.Dequeue(); }
+            if (_lastFrametimes.Count > 60) { _lastFrametimes.Dequeue(); }
+            if (_lastFrametimes.Count == 0) { return; }
+            long total = 0;
+            foreach (long l in _lastFrametimes) { total += l; }
+            long average = total / _lastFrametimes.Count;
+
+            float millisecondsPerSecond = 1000.0f;
+            float frameSeconds = (average) / millisecondsPerSecond / 100.0f;
+            float framesPerSecond = 1.0f / frameSeconds;
+            fps.Text = framesPerSecond.ToString().Substring(0, Math.Min(4, framesPerSecond.ToString().Length)) + " fps";
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    class Zone {
+    public class Zone {
         public enum Type {
             residential,
             commercial,

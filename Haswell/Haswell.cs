@@ -19,7 +19,7 @@ namespace Haswell {
             activeCity = new City(name);
         }
 
-        public static GameState Update(long frametime) {
+        public static void Update(long frametime) {
             //GameState returnState = lastFrame;
             //try {
             //    returnState = currentFrame;
@@ -35,6 +35,7 @@ namespace Haswell {
             throw new NotImplementedException();
         }
 
+        [Obsolete]
         private static void LogError(Exception e) {
             String msg = "\"" + e.Message + "\"";
             msg += " " + "\"" + e.StackTrace + "\"";
@@ -42,12 +43,10 @@ namespace Haswell {
             Process.Start("ErrorLog.exe", msg);
         }
 
-        public static City getActive(City c = null) {
-            if (c == null) {
-                activeCity = c;
-                return null;
+        public static City City {
+            get {
+                return activeCity;
             }
-            return activeCity;
         }
     }
 }

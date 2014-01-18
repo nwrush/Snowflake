@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace Haswell {
-    class InfiniteGrid : ICollection<Plot> {
+    public class InfiniteGrid : ICollection<Plot> {
         List<Plot> elements;
 
         public InfiniteGrid() {

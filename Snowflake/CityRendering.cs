@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Snowflake {
-    public class GameObjects {
+    public class CityRendering {
         
     }
 }

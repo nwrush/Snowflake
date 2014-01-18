@@ -18,7 +18,7 @@ namespace Snowflake.States {
     /// <summary>
     /// Program state for playing the game
     /// </summary>
-    public class GameState : State {
+    public class GameLoopState : State {
 
         private StateManager StateMgr;
         private Environment WeatherMgr;
@@ -35,7 +35,7 @@ namespace Snowflake.States {
         /// <summary>
         /// Constructor
         /// </summary>
-        public GameState() {
+        public GameLoopState() {
             StateMgr = null;
             WeatherMgr = null;
             CityMgr = null;

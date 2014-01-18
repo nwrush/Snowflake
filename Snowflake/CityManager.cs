@@ -5,13 +5,12 @@ using System.Text;
 using Mogre;
 
 using Snowflake.Modules;
-using Snowflake.Buildings;
 
 using Haswell;
 
 namespace Snowflake {
     public class CityManager {
-        public List<Plot> Plots = new List<Plot>();
+        
 
         private int MaxX, MaxY, MinX, MinY;
 
@@ -28,16 +27,7 @@ namespace Snowflake {
             CreateTerrain(sm);
             CreateTestScene();
 
-            //Create road planes
-            MinX = MinY = MaxX = MaxY = 0;
-            foreach (Plot p in Plots) {
-                ReviseBounds(p);
-
-                p.Initialize(sm);
-                p.Incorporated = true;
-            }
-
-            CreateRoads(sm);
+            //CreateRoads(sm);
         }
 
         /// <summary>
@@ -56,14 +46,7 @@ namespace Snowflake {
         }
 
         private void CreateTestScene() {
-            for (int x = 0; x < 10; x++) {
-                Plots.Add(new Plot(x, x));
-            }
-
-            //test custom model
-            Plot p = new Plot(1, 3, true);
-            p.AddBuilding(new ParkBuilding());
-            Plots.Add(p);
+            
         }
 
         private void ReviseBounds(Plot p) {
@@ -108,13 +91,7 @@ namespace Snowflake {
 
             //Each tick, check if each plot is incorporated into the city. If so, update
             //Otherwise, incorporate it and revise the city bounds.
-
-            foreach (Plot p in Plots) {
-                if (p.Incorporated) { p.Update(); } else {
-                    ReviseBounds(p);
-                    p.Incorporated = true;
-                }
-            }
+            
         }
     }
 }

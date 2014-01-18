@@ -160,6 +160,8 @@ namespace Snowflake.States {
         /// Shut down the state
         /// </summary>
         public override void Shutdown() {
+            CompositorManager.Singleton.SetCompositorEnabled(StateMgr.Engine.Window.GetViewport(0), "Bloom", false);
+            CompositorManager.Singleton.RemoveAll();
             CompositorManager.Singleton.UnloadAll();
             CompositorManager.Singleton.Dispose();
         }

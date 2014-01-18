@@ -210,6 +210,7 @@ namespace Snowflake.GuiComponents {
         /// <param name="input">Command to execute formatted as [CommandName] [Arg1] [Arg2] etc.</param>
         public void ExecuteCommand(string input) {
             string[] command = input.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            if (command.Length <= 0) { return; }
             string commandName = command[0];
             string[] args = new string[command.Length - 1];
             Array.Copy(command, 1, args, 0, command.Length - 1); 

@@ -3,22 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Mogre; 
+using Mogre;
+
+using Resource = Haswell.Resource;
 
 namespace Snowflake {
-    public abstract class CityRenderable {
+    /// <summary>
+    /// Abstract class for a thing you can put in the city.
+    /// </summary>
+    public abstract class Renderable {
 
         //phase out later
         public const int PlotWidth = 120;
         public const int PlotHeight = 120;
 
-        public SceneNode node { get; private set; }
-        private List<Entity> entities;
+        protected SceneNode node;
+        protected List<Entity> entities;
 
+        /// <summary>
+        /// The name of this resource (and its child scene node)
+        /// </summary>
         public string Name;
         public int PlotX { get; private set; }
         public int PlotY { get; private set; }
 
+        /// <summary>
+        /// Create the SceneNode and Entities associated with this renderable object.
+        /// When overriding, create Entities first, then call base.Create();
+        /// After that, you can manipulate the node as necessary.
+        /// </summary>
+        /// <param name="sm">Scenemanager to add the scenenode to</param>
         public virtual void Create(SceneManager sm) {
             node = sm.RootSceneNode.CreateChildSceneNode(this.Name);
             foreach (Entity e in this.entities) {
@@ -26,12 +40,60 @@ namespace Snowflake {
             }
         }
 
+        /// <summary>
+        /// Position this renderable on the city grid
+        /// </summary>
+        /// <param name="plotx">X Position in plot coords of this instance</param>
+        /// <param name="ploty">Y Position in plot coords of this instance</param>
         public void SetPosition(int plotx, int ploty) {
             PlotX = plotx;
             PlotY = ploty;
-            node
+            node.Translate(new Vector3(plotx * PlotWidth, 0, ploty * PlotHeight));
+        }
+
+        /// <summary>
+        /// Gets this renderable's scene node
+        /// </summary>
+        /// <returns></returns>
+        public SceneNode GetSceneNode() {
+            return this.node;
         }
     }
 
+    public class RenderableResource : Renderable {
+
+        private Resource data;
+
+        public RenderableResource(Resource data) {
+            this.data = data;
+        }
+
+        public override void Create(SceneManager sm) {
+            this.entities.Add(GetResourceEntity(this.data));
+            base.Create(sm);
+        }
+
+        public static Entity GetResourceEntity(Resource r) {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class RenderableBuilding : Renderable {
+
+        private Building data;
+
+        public RenderableBuilding(Building data) {
+            this.data = data;
+        }
+
+        public override void  Create(SceneManager sm) {
+            this.entities.Add(GetBuildingEntity(this.data));
+            base.Create(sm);
+        }
+
+        public static Entity GetBuildingEntity(Building b) {
+            throw new NotImplementedException();
+        }
+    }
     
 }

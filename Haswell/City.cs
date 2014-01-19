@@ -31,6 +31,15 @@ namespace Haswell {
             }
         }
 
+        /// <summary>
+        /// Called by Snowflake when the user requests the creation of a building
+        /// Throws an exception error if Building creation fails (e.g. Plot is already occupied)
+        /// </summary>
+        /// <returns>The created Building, if successful, null (throws error) otherwise.</returns>
+        public Building CreateBuilding() {
+            throw new NotImplementedException();
+        }
+
         public void Update(long gametime) {
             throw new NotImplementedException();
         }

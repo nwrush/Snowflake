@@ -18,6 +18,7 @@ namespace Haswell {
         }
 
         public static void Update(long frametime) {
+            activeCity.Update(frametime);
             //GameState returnState = lastFrame;
             //try {
             //    returnState = currentFrame;

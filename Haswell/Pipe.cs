@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    struct Pipe{
+    public struct Pipe{
         Plot start;
         Plot[] end;
         Resource type;

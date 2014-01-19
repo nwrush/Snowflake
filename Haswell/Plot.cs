@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    class Plot:IComparable<Plot> {
+    public class Plot:IComparable<Plot> {
         public enum Zone {
             residential,
             commercial,

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    abstract class Building {
+    public abstract class Building {
         Zone.Type zone;
 
         Resource.resourceType consumed;

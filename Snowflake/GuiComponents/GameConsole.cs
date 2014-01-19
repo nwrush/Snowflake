@@ -259,6 +259,9 @@ namespace Snowflake.GuiComponents {
                     }
                 }
             }, "Shows help information."));
+            commands.Add("crash", new ConsoleCommand((string[] args) => {
+                throw new Exception("User has crashed the game.");
+            }, "Crashes the game."));
         }
 
         /// <summary>

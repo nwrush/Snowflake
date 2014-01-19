@@ -104,7 +104,7 @@ namespace Snowflake {
 
         public void Update() {
             
-            //GameState now = Haswell.Haswell.Update();
+            //GameState now = Controller.Controller.Update();
 
             //Each tick, check if each plot is incorporated into the city. If so, update
             //Otherwise, incorporate it and revise the city bounds.

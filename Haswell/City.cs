@@ -31,6 +31,10 @@ namespace Haswell {
             }
         }
 
+        public void Update(long gametime) {
+            throw new NotImplementedException();
+        }
+
         public override string ToString() {
             return "City " + this.name + ", with a population of " + this.population + ".";
         }

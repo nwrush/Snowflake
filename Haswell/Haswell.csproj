@@ -57,7 +57,6 @@
     <Compile Include="Exceptions\ElementNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidResourceType.cs" />
     <Compile Include="Exceptions\PlotOutOfRangeException.cs" />
-    <Compile Include="GameState.cs" />
     <Compile Include="GV.cs" />
     <Compile Include="Haswell.cs" />
     <Compile Include="InfiniteGrid.cs" />

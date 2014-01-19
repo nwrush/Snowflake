@@ -88,12 +88,14 @@ namespace Snowflake {
         }
 
         public override void  Create(SceneManager sm) {
-            foreach (Entity e in GetBuildingEntities(this.data)) { this.entities.Add(e); }
+            foreach (Entity e in GetBuildingEntities(this.data, sm)) { this.entities.Add(e); }
             base.Create(sm);
         }
 
-        public static List<Entity> GetBuildingEntities(Building b) {
-            throw new NotImplementedException();
+        public static List<Entity> GetBuildingEntities(Building b, SceneManager sm) {
+            List<Entity> entList = new List<Entity>();
+            entList.Add(sm.CreateEntity(b.GetType().ToString() + "_" + b.GetHashCode(), "skyscraperBox001.mesh"));
+            return entList;
         }
     }
 

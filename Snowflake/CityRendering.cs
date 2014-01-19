@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Mogre;
+using Haswell;
 
 using Resource = Haswell.Resource;
 
@@ -69,11 +70,11 @@ namespace Snowflake {
         }
 
         public override void Create(SceneManager sm) {
-            this.entities.Add(GetResourceEntity(this.data));
+            foreach (Entity e in GetResourceEntities(this.data)) { this.entities.Add(e); }
             base.Create(sm);
         }
 
-        public static Entity GetResourceEntity(Resource r) {
+        public static List<Entity> GetResourceEntities(Resource r) {
             throw new NotImplementedException();
         }
     }
@@ -87,13 +88,30 @@ namespace Snowflake {
         }
 
         public override void  Create(SceneManager sm) {
-            this.entities.Add(GetBuildingEntity(this.data));
+            foreach (Entity e in GetBuildingEntities(this.data)) { this.entities.Add(e); }
             base.Create(sm);
         }
 
-        public static Entity GetBuildingEntity(Building b) {
+        public static List<Entity> GetBuildingEntities(Building b) {
             throw new NotImplementedException();
         }
     }
-    
+
+    public class RenderablePipe : Renderable {
+
+        private Pipe data;
+
+        public RenderablePipe(Pipe data) {
+            this.data = data;
+        }
+
+        public override void Create(SceneManager sm) {
+            foreach (Entity e in GetPipeEntities(this.data)) { this.entities.Add(e); }
+            base.Create(sm);
+        }
+
+        public static List<Entity> GetPipeEntities(Pipe b) {
+            throw new NotImplementedException();
+        }
+    }
 }

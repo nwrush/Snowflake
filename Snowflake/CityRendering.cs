@@ -90,6 +90,7 @@ namespace Snowflake {
         public override void  Create(SceneManager sm) {
             foreach (Entity e in GetBuildingEntities(this.data, sm)) { this.entities.Add(e); }
             base.Create(sm);
+            this.node.Scale(new Vector3(PlotWidth / 12.0f, 0, PlotHeight / 12.0f));
         }
 
         public static List<Entity> GetBuildingEntities(Building b, SceneManager sm) {

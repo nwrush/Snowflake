@@ -58,7 +58,7 @@
     <Compile Include="Exceptions\InvalidResourceType.cs" />
     <Compile Include="Exceptions\PlotOutOfRangeException.cs" />
     <Compile Include="GV.cs" />
-    <Compile Include="Haswell.cs" />
+    <Compile Include="Controller.cs" />
     <Compile Include="InfiniteGrid.cs" />
     <Compile Include="Pipe.cs" />
     <Compile Include="Plot.cs" />

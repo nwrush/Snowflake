@@ -66,8 +66,8 @@ namespace Snowflake {
         }
 
         public void Update(long frametime) {
-
-            Haswell.Haswell.Update(frametime);
+            
+            Haswell.Controller.Update(frametime);
 
             foreach (Renderable r in cityObjects) {
                 //Check if r needs updating, and if so:

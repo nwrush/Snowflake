@@ -10,10 +10,8 @@ namespace Haswell {
     /// Controls the Game logic and holds "global" variables and functions
     /// Game shouold only make calls to this class
     /// </summary>
-    public class Haswell {
+    public class Controller {
         private static City activeCity;
-        private GameState previous;
-        private GameState current;
          
         public static void init(string name) {
             activeCity = new City(name);

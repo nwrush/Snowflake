@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 using Mogre;
 
@@ -9,6 +10,8 @@ using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
+
+using MOIS;
 
 using Vector3 = Mogre.Vector3;
 using Quaternion = Mogre.Quaternion;
@@ -30,6 +33,7 @@ namespace Snowflake.States {
         private SceneNode selBox;
         private Entity selBoxEnt;
 
+        private GUI Gui;
         private GameConsole GameConsole;
         private ToolPanel Tools;
         private WeatherOverlay WeatherOverlay;
@@ -110,11 +114,14 @@ namespace Snowflake.States {
         /// Set up overlays for user interface
         /// </summary>
         public void createUI() {
-            GameConsole.CreateGui(this.StateMgr.GuiSystem);
-            Tools.CreateGui(this.StateMgr.GuiSystem);
-            DebugPanel.CreateGui(this.StateMgr.GuiSystem);
+            Gui = new GUI();
+            StateMgr.GuiSystem.GUIManager.GUIs.Add(Gui);
 
-            WeatherOverlay.CreateGui(this.StateMgr.GuiSystem);
+            GameConsole.CreateGui(Gui);
+            Tools.CreateGui(Gui);
+            DebugPanel.CreateGui(Gui);
+
+            WeatherOverlay.CreateGui(Gui);
             WeatherMgr.SetWeatherOverlay(WeatherOverlay);
         }
 
@@ -221,7 +228,7 @@ namespace Snowflake.States {
             if (!StateManager.SupressGameControl) {
                 Ray mouseRay = GetSelectionRay(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
 
-                Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
+                Mogre.Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
                 if (intersection.first) {
                     Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
                     intersectionPt = new Vector3((float)System.Math.Floor(intersectionPt.x / Renderable.PlotWidth) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f),
@@ -229,19 +236,21 @@ namespace Snowflake.States {
                                                 (float)System.Math.Floor(intersectionPt.z / Renderable.PlotHeight) * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
                     selBox.SetPosition(intersectionPt.x, intersectionPt.y, intersectionPt.z);
                 }
-
-                //Mouse drag control
+                
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
 
-                    Vector2 mouseMoveRotated = Utils3D.RotateVector2(new Vector2(mStateMgr.Input.MouseMoveX, mStateMgr.Input.MouseMoveY), angle);
-                    focalPoint.Translate(new Vector3(mouseMoveRotated.y, 0, mouseMoveRotated.x));
-                    mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);
-                }
-                //Mouse rotate control
-                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right))
-                {
+                    //Mouse rotate control
                     angle += mStateMgr.Input.MouseMoveX * 0.01f;
                     //mStateMgr.Input += mStateMgr.Input.MouseMoveX;
+
+                    //Mouse drag control
+                    /*Vector2 mouseMoveRotated = Utils3D.RotateVector2(new Vector2(mStateMgr.Input.MouseMoveX, mStateMgr.Input.MouseMoveY), angle);
+                    focalPoint.Translate(new Vector3(mouseMoveRotated.y, 0, mouseMoveRotated.x));
+                    mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);*/
+                }
+                
+                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right))
+                {
 
                 }
                 //Mouse click - 3D selection

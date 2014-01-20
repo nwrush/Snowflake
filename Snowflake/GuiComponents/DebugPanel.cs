@@ -12,7 +12,7 @@ using Miyagi.UI.Controls.Styles;
 using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents {
-    public class DebugPanel : GuiComponent {
+    public class DebugPanel : IGuiComponent {
         private Label fps;
         private Label debugText;
         private Panel parentPanel;
@@ -24,11 +24,10 @@ namespace Snowflake.GuiComponents {
             _lastFrametimes = new Queue<long>();
         }
 
-        public override void CreateGui(MiyagiSystem system) {
-            base.CreateGui(system);
+        public void CreateGui(GUI gui) {
 
-            int gw = system.RenderManager.MainViewport.Size.Width;
-            int gh = system.RenderManager.MainViewport.Size.Height;
+            int gw = gui.MiyagiSystem.RenderManager.MainViewport.Size.Width;
+            int gh = gui.MiyagiSystem.RenderManager.MainViewport.Size.Height;
 
             parentPanel = new Panel("DP_parent") {
                 Skin = ResourceManager.Skins["BlackPanelSkin"],
@@ -58,9 +57,7 @@ namespace Snowflake.GuiComponents {
 
             parentPanel.Controls.Add(fps);
             parentPanel.Controls.Add(debugText);
-            this.gui.Controls.Add(parentPanel);
-
-            system.GUIManager.GUIs.Add(gui);
+            gui.Controls.Add(parentPanel);
 
             this.Visible = false;
         }

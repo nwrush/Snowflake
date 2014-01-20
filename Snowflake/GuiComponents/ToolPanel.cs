@@ -12,15 +12,14 @@ using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents {
     //Menu for holding tools and stuff
-    public class ToolPanel : GuiComponent {
+    public class ToolPanel : IGuiComponent {
         private Panel parentPanel;
 
-        public override void CreateGui(MiyagiSystem system) {
-            base.CreateGui(system);
+        public void CreateGui(GUI gui) {
 
             //store game width and height
-            int gw = system.RenderManager.MainViewport.Size.Width;
-            int gh = system.RenderManager.MainViewport.Size.Height;
+            int gw = gui.MiyagiSystem.RenderManager.MainViewport.Size.Width;
+            int gh = gui.MiyagiSystem.RenderManager.MainViewport.Size.Height;
             
             parentPanel = new Panel("Tools_ParentPanel") {
                 TabStop = false,
@@ -55,9 +54,6 @@ namespace Snowflake.GuiComponents {
 
             Console.WriteLine("Creating Tools Menu");
             gui.Controls.Add(parentPanel);
-
-            // add the GUI to the GUIManager
-            system.GUIManager.GUIs.Add(gui);
         }
     }
 }

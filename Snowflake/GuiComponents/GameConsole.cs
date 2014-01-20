@@ -12,7 +12,7 @@ using Miyagi.UI.Controls.Styles;
 using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents {
-    public class GameConsole : GuiComponent {
+    public class GameConsole : IGuiComponent {
 
         private int labelY;
         private Panel outputPanel;
@@ -26,8 +26,7 @@ namespace Snowflake.GuiComponents {
 
         }
 
-        public override void CreateGui(MiyagiSystem system) {
-            base.CreateGui(system);
+        public void CreateGui(GUI gui) {
 
             parentPanel = new Panel("GC_ParentPanel") {
                 TabStop = false,
@@ -119,9 +118,6 @@ namespace Snowflake.GuiComponents {
 
             Console.WriteLine("Creating Console");
             gui.Controls.Add(parentPanel);
-
-            // add the GUI to the GUIManager
-            system.GUIManager.GUIs.Add(gui);
             
             //Add default commands
             builtins();

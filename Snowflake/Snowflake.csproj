@@ -70,15 +70,17 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CityManager.cs" />
     <Compile Include="CityRendering.cs" />
+    <Compile Include="GuiComponents\ContextMenu.cs" />
     <Compile Include="GuiComponents\DebugPanel.cs" />
     <Compile Include="GuiComponents\GameConsole.cs" />
-    <Compile Include="GuiComponents\GuiComponent.cs" />
+    <Compile Include="GuiComponents\IGuiComponent.cs" />
     <Compile Include="GuiComponents\ToolPanel.cs" />
     <Compile Include="GuiComponents\WeatherOverlay.cs" />
     <Compile Include="Modules\MoisManager.cs" />

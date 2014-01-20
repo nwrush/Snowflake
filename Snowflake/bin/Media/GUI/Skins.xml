@@ -84,6 +84,90 @@
       </SubSkin>
     </SubSkins>
   </Skin>
+  <Skin Name="ContextButtonSkin">
+    <SubSkins>
+      <SubSkin Name="ContextButtonSkin">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.5</X>
+              <Y>0.5</Y>
+              <Width>0.25</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="ContextButtonSkin.Disabled">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.5</X>
+              <Y>0.6875</Y>
+              <Width>0.25</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="ContextButtonSkin.MouseDown">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.5</X>
+              <Y>0.625</Y>
+              <Width>0.25</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="ContextButtonSkin.MouseEnter">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.5</X>
+              <Y>0.5625</Y>
+              <Width>0.25</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+    </SubSkins>
+  </Skin>
   <Skin Name="SquareButtonSkin">
     <SubSkins>
       <SubSkin Name="SquareButtonSkin">

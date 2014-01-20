@@ -41,7 +41,13 @@ namespace Snowflake.GuiComponents {
         public void AddControl(Control c) {
             int height = 0;
             foreach (Control ctrl in parentPanel.Controls) { height += ctrl.Height; }
-            c.Width = parentPanel.Width;
+            if (c.Width > parentPanel.Width) {
+                parentPanel.Width = c.Width;
+                foreach (Control ctrl in parentPanel.Controls) { ctrl.Width = c.Width; }
+            }
+            else {
+                c.Width = parentPanel.Width;
+            }
             c.Top = height;
             parentPanel.Height = height + c.Height;
 
@@ -69,7 +75,7 @@ namespace Snowflake.GuiComponents {
         /// <param name="clickEvent">Event handler for button click</param>
         public void AddButton(string text, EventHandler clickEvent) {
             Button b = new Button("CM_btn" + (++i)) {
-                Skin = ResourceManager.Skins["ButtonSkin"],
+                Skin = ResourceManager.Skins["ContextButtonSkin"],
                 Size = new Size(parentPanel.Width, 25),
                 Text = text,
                 Padding = new Thickness(5, 0, 5, 0)

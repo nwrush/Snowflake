@@ -251,13 +251,13 @@ namespace Snowflake.States {
                     /*Vector2 mouseMoveRotated = Utils3D.RotateVector2(new Vector2(mStateMgr.Input.MouseMoveX, mStateMgr.Input.MouseMoveY), angle);
                     focalPoint.Translate(new Vector3(mouseMoveRotated.y, 0, mouseMoveRotated.x));
                     mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);*/
-                }
 
-                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left) || mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
-                    ContextMenu.Visible = false;
+                    if (!ContextMenu.HitTest(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY))) {
+                        ContextMenu.Visible = false;
+                    }
                 }
                 //Right click - context menus
-                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right))
+                if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Right))
                 {
                     ContextMenu.Location = new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
                     ContextMenu.Visible = true;
@@ -265,6 +265,7 @@ namespace Snowflake.States {
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
                     if (!ContextMenu.HitTest(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY))) {
+                        ContextMenu.Visible = false;
                         //Uhhh...now do something with that nice ray of sunshine
                         //Utils3D.DrawRay(engine.SceneMgr, mouseRay);
                     }

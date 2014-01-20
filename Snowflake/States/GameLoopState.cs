@@ -27,6 +27,9 @@ namespace Snowflake.States {
         private SceneNode focalPoint;
         private float angle;
 
+        private SceneNode selBox;
+        private Entity selBoxEnt;
+
         private GameConsole GameConsole;
         private ToolPanel Tools;
         private WeatherOverlay WeatherOverlay;
@@ -83,7 +86,11 @@ namespace Snowflake.States {
 
             setupCamera(engine);
 
-            Utils3D.DrawLine(engine.SceneMgr, new Vector3(0, 0, 0), new Vector3(0, 500, 0));
+            selBox = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("SelBox");
+            selBoxEnt = engine.SceneMgr.CreateEntity("SelBoxEnt", "sel_Box001.mesh");
+            selBox.AttachObject(selBoxEnt);
+            selBox.Scale(new Vector3(440, 440, 440));
+            selBoxEnt.CastShadows = false;
 
             WeatherMgr.CreateScene(engine.SceneMgr);
             CityMgr.CreateScene(engine.SceneMgr);
@@ -213,6 +220,16 @@ namespace Snowflake.States {
             //If we're not typing into a form or something...
             if (!StateManager.SupressGameControl) {
                 Ray mouseRay = GetSelectionRay(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
+
+                Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
+                if (intersection.first) {
+                    Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
+                    intersectionPt = new Vector3((float)System.Math.Floor(intersectionPt.x / Renderable.PlotWidth) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f),
+                                                0,
+                                                (float)System.Math.Floor(intersectionPt.z / Renderable.PlotHeight) * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
+                    selBox.SetPosition(intersectionPt.x, intersectionPt.y, intersectionPt.z);
+                }
+
                 //Mouse drag control
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
 
@@ -224,6 +241,8 @@ namespace Snowflake.States {
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right))
                 {
                     angle += mStateMgr.Input.MouseMoveX * 0.01f;
+                    //mStateMgr.Input += mStateMgr.Input.MouseMoveX;
+
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {

@@ -60,7 +60,7 @@ namespace Snowflake {
             ambient.CastShadows = true;
 
             sm.RootSceneNode.AttachObject(sun);
-            //sm.RootSceneNode.AttachObject(ambient);
+            sm.RootSceneNode.AttachObject(ambient);
 
             rainSystem = sm.CreateParticleSystem("Rain", "Weather/Rain");
             particleNode = sm.GetSceneNode("focalPoint").CreateChildSceneNode("Weather");

@@ -26,7 +26,7 @@ namespace Snowflake {
         public void CreateScene(SceneManager sm) {
 
             CreateTerrain(sm);
-            CreateCity(sm);
+            //CreateCity(sm);
         }
 
         /// <summary>
@@ -67,12 +67,12 @@ namespace Snowflake {
 
         public void Update(long frametime) {
             
-            Haswell.Controller.Update(frametime);
+            //Haswell.Controller.Update(frametime);
 
-            foreach (Renderable r in cityObjects) {
+            //foreach (Renderable r in cityObjects) {
                 //Check if r needs updating, and if so:
                 //r.Update();
-            }
+            //}
         }
     }
 }

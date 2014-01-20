@@ -193,7 +193,7 @@ namespace Snowflake.States {
             UpdateCameraPosition();
             HandleInput(StateMgr);
 
-            CityMgr.Update();
+            CityMgr.Update(_frameTime);
             WeatherMgr.Update(StateMgr.Engine.SceneMgr);
             DebugPanel.UpdateFPS(_frameTime);
         }

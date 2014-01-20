@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 
 using Mogre;
 
@@ -38,6 +37,7 @@ namespace Snowflake.States {
         private ToolPanel Tools;
         private WeatherOverlay WeatherOverlay;
         private DebugPanel DebugPanel;
+        private ContextMenu ContextMenu;
 
         /// <summary>
         /// Constructor
@@ -68,6 +68,7 @@ namespace Snowflake.States {
             Tools = new ToolPanel();
             WeatherOverlay = new WeatherOverlay();
             DebugPanel = new DebugPanel();
+            ContextMenu = new ContextMenu();
 
             //Initialize everythings
             createScene(engine);
@@ -120,6 +121,9 @@ namespace Snowflake.States {
             GameConsole.CreateGui(Gui);
             Tools.CreateGui(Gui);
             DebugPanel.CreateGui(Gui);
+
+            ContextMenu.CreateGui(Gui);
+            ContextMenu.AddButton("Create Building", null);
 
             WeatherOverlay.CreateGui(Gui);
             WeatherMgr.SetWeatherOverlay(WeatherOverlay);
@@ -248,16 +252,22 @@ namespace Snowflake.States {
                     focalPoint.Translate(new Vector3(mouseMoveRotated.y, 0, mouseMoveRotated.x));
                     mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);*/
                 }
-                
+
+                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left) || mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
+                    ContextMenu.Visible = false;
+                }
+                //Right click - context menus
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Right))
                 {
-
+                    ContextMenu.Location = new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
+                    ContextMenu.Visible = true;
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
-
-                    //Uhhh...now do something with that nice ray of sunshine
-                    Utils3D.DrawRay(engine.SceneMgr, mouseRay);
+                    if (!ContextMenu.HitTest(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY))) {
+                        //Uhhh...now do something with that nice ray of sunshine
+                        //Utils3D.DrawRay(engine.SceneMgr, mouseRay);
+                    }
                 }
                 DebugPanel.SetDebugText(engine.Camera.Position.ToString());
 

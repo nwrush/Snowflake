@@ -6,9 +6,14 @@ using System.Text;
 namespace Haswell {
     public class Zone {
         public enum Type {
-            residential,
-            commercial,
-            industrial
+            Residential,
+            Commercial,
+            Industrial,
+            Conservation
         };
+
+        public Zone(int x1, int y1, int x2, int y2) {
+
+        }
     }
 }

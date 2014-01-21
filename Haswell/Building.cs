@@ -21,5 +21,14 @@ namespace Haswell {
             this.amountProduced = (uint)produced;
             this.produced = typeProduced;
         }
+        /// <summary>
+        /// Gives the virtual amount of space this building takes up
+        /// on the plot.
+        /// </summary>
+        /// <returns>Float representing the amount of space on the plot</returns>
+        public float GetPlotUsage() {
+            return 1.0f;
+            //Override in child classes
+        }
     }
 }

@@ -15,6 +15,10 @@ namespace Haswell {
         private List<Building> buildings;
         private List<Plot> neighbors;
 
+        //Buildings use up different amounts of space on the plot
+        //For ex. if a building takes up 5, and the plot has 47/50, then building creation will fail.
+        private float plotUsage;
+        private float plotCapacity;
 
         ////These values used until we move to dynamic plots
         //public const int Width = 120;
@@ -36,6 +40,21 @@ namespace Haswell {
                 this.plotY = y;
             }
         }
+
+        /// <summary>
+        /// Attempts to add a building to this plot. If successful, returns true, otherwise
+        /// returns false.
+        /// </summary>
+        /// <param name="b">The building to add to the plot.</param>
+        /// <returns>Whether or not building addition was successful.</returns>
+        public bool AddBuilding(Building b) {
+            if (plotUsage + b.GetPlotUsage() <= plotCapacity) {
+                this.buildings.Add(b);
+                return true;
+            }
+            return false;
+        }
+
         public List<Plot> Neighbors {
             set {
                 this.neighbors = value;

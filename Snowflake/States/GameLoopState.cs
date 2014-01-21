@@ -235,10 +235,10 @@ namespace Snowflake.States {
                 Mogre.Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
                 if (intersection.first) {
                     Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
-                    intersectionPt = new Vector3((float)System.Math.Floor(intersectionPt.x / Renderable.PlotWidth) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f),
+                    Vector3 plotCenter = new Vector3((float)System.Math.Floor(intersectionPt.x / Renderable.PlotWidth) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f),
                                                 0,
                                                 (float)System.Math.Floor(intersectionPt.z / Renderable.PlotHeight) * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
-                    selBox.SetPosition(intersectionPt.x, intersectionPt.y, intersectionPt.z);
+                    selBox.SetPosition(plotCenter.x, plotCenter.y, plotCenter.z);
                 }
                 
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
@@ -252,7 +252,7 @@ namespace Snowflake.States {
                     focalPoint.Translate(new Vector3(mouseMoveRotated.y, 0, mouseMoveRotated.x));
                     mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);*/
 
-                    if (!ContextMenu.HitTest(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY))) {
+                    if (!ContextMenu.HitTest(MousePosition(mStateMgr.Input))) {
                         ContextMenu.Visible = false;
                     }
                 }
@@ -264,7 +264,7 @@ namespace Snowflake.States {
                 }
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
-                    if (!ContextMenu.HitTest(new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY))) {
+                    if (!ContextMenu.HitTest(MousePosition(mStateMgr.Input))) {
                         ContextMenu.Visible = false;
                         //Uhhh...now do something with that nice ray of sunshine
                         //Utils3D.DrawRay(engine.SceneMgr, mouseRay);
@@ -324,6 +324,9 @@ namespace Snowflake.States {
             return StateMgr.Engine.Camera.GetCameraToViewportRay(offset.X, offset.Y);
         }
 
+        private Point MousePosition(MoisManager input) {
+            return new Point(input.MousePosX, input.MousePosY);
+        }
     } // class
 
 } // namespace

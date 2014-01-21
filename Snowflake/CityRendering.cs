@@ -34,8 +34,9 @@ namespace Snowflake {
         /// After that, you can manipulate the node as necessary.
         /// </summary>
         /// <param name="sm">Scenemanager to add the scenenode to</param>
-        public virtual void Create(SceneManager sm) {
-            node = sm.RootSceneNode.CreateChildSceneNode(this.Name);
+        /// /// <param name="cityNode">City Node to add a child to</param>
+        public virtual void Create(SceneManager sm, SceneNode cityNode) {
+            node = cityNode.CreateChildSceneNode(this.Name);
             foreach (Entity e in this.entities) {
                 node.AttachObject(e);
             }
@@ -58,6 +59,13 @@ namespace Snowflake {
         /// <returns></returns>
         public SceneNode GetSceneNode() {
             return this.node;
+        }
+
+        /// <summary>
+        /// Update me
+        /// </summary>
+        public void Update() {
+            throw new NotImplementedException();
         }
     }
 

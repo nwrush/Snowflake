@@ -16,8 +16,13 @@ namespace Snowflake {
         private SceneNode cityNode;
         private Entity ground;
         private SceneNode world;
+        private Vector3 origin;
 
         private List<Renderable> cityObjects;
+
+        public CityManager() {
+            cityObjects = new List<Renderable>();
+        }
 
         /// <summary>
         /// Sets up city terrain and creates road planes.
@@ -61,7 +66,7 @@ namespace Snowflake {
             //Todo: initialize objects from Haswell data
 
             foreach (Renderable r in cityObjects) {
-                r.Create(sm);
+                r.Create(sm, cityNode);
             }
         }
 
@@ -69,10 +74,10 @@ namespace Snowflake {
             
             //Haswell.Controller.Update(frametime);
 
-            //foreach (Renderable r in cityObjects) {
+            foreach (Renderable r in cityObjects) {
                 //Check if r needs updating, and if so:
-                //r.Update();
-            //}
+                r.Update();
+            }
         }
     }
 }

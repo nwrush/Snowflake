@@ -17,7 +17,7 @@ namespace Haswell {
             activeCity = new City(name);
         }
 
-        public static void Update(long frametime) {
+        public static void Update(float frametime) {
             activeCity.Update(frametime);
             //GameState returnState = lastFrame;
             //try {

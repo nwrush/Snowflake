@@ -21,9 +21,11 @@ namespace Snowflake.GuiComponents {
 
         private Dictionary<string, ConsoleCommand> commands;
 
+        public static GameConsole ActiveInstance { get; private set; }
+
         public GameConsole() {
             commands = new Dictionary<string, ConsoleCommand>();
-
+            ActiveInstance = this;
         }
 
         public void CreateGui(GUI gui) {
@@ -164,16 +166,17 @@ namespace Snowflake.GuiComponents {
         private void AddLabel(string text) {
             var label = new Label {
                 Location = new Point(0, labelY),
-                Text = "> " + text,
+                Text = "> " + text.Trim(),
                 AutoSize = true,
                 TextStyle = new TextStyle() {
                     Font = ResourceManager.Fonts["Courier"],
                     Multiline = true
-                }
+                },
+                MaxSize = new Size(this.outputPanel.Width, this.outputPanel.Height)
             };
             label.SuccessfulHitTest += (s, e) => e.Cancel = true;
             this.outputPanel.Controls.Add(label);
-            this.labelY += 12;
+            this.labelY += label.Height;
             this.outputPanel.ScrollToBottom();
         }
 
@@ -205,7 +208,7 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         /// <param name="input">Command to execute formatted as [CommandName] [Arg1] [Arg2] etc.</param>
         public void ExecuteCommand(string input) {
-            string[] command = input.Split(new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            string[] command = input.Split(' ');//new char[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             if (command.Length <= 0) { return; }
             string commandName = command[0];
             string[] args = new string[command.Length - 1];

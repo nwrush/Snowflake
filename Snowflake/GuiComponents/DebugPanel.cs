@@ -19,9 +19,12 @@ namespace Snowflake.GuiComponents {
 
         private Queue<float> _lastFrametimes;
 
+        public static DebugPanel ActiveInstance;
+
         public DebugPanel()
         {
             _lastFrametimes = new Queue<float>();
+            ActiveInstance = this;
         }
 
         public void CreateGui(GUI gui) {

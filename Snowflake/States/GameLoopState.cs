@@ -33,7 +33,7 @@ namespace Snowflake.States {
         private Entity selBoxEnt;
 
         private GUI Gui;
-        private GameConsole GameConsole;
+        private GameConsole gConsole;
         private ToolPanel Tools;
         private WeatherOverlay WeatherOverlay;
         private DebugPanel DebugPanel;
@@ -64,7 +64,7 @@ namespace Snowflake.States {
             WeatherMgr = new Environment();
             CityMgr = new CityManager();
 
-            GameConsole = new GameConsole();
+            gConsole = new GameConsole();
             Tools = new ToolPanel();
             WeatherOverlay = new WeatherOverlay();
             DebugPanel = new DebugPanel();
@@ -118,12 +118,22 @@ namespace Snowflake.States {
             Gui = new GUI();
             StateMgr.GuiSystem.GUIManager.GUIs.Add(Gui);
 
-            GameConsole.CreateGui(Gui);
+            gConsole.CreateGui(Gui);
             Tools.CreateGui(Gui);
             DebugPanel.CreateGui(Gui);
 
             ContextMenu.CreateGui(Gui);
-            ContextMenu.AddButton("Create Building", null);
+            ContextMenu.AddButton("Create Building", (object source, EventArgs e) => {
+                Mogre.Pair<bool, Point> result = getPlotCoordsFromMousePosition();
+                if (result.first) {
+                    if (!CityMgr.Initialized) {
+                        CityMgr.Init(result.second);
+                    }
+                    else {
+                        //create a building
+                    }
+                }
+            });
 
             WeatherOverlay.CreateGui(Gui);
             WeatherMgr.SetWeatherOverlay(WeatherOverlay);
@@ -133,46 +143,46 @@ namespace Snowflake.States {
         /// Register the console commands 
         /// </summary>
         private void createCommands() {
-            GameConsole.AddCommand("sw", new ConsoleCommand((string[] args) => {
-                if (args.Length == 0) { GameConsole.WriteLine("Usage: sw [weathertype]"); return; }
+            gConsole.AddCommand("sw", new ConsoleCommand((string[] args) => {
+                if (args.Length == 0) { gConsole.WriteLine("Usage: sw [weathertype]"); return; }
                 Weather w;
                 Enum.TryParse<Weather>(args[0], out w);
                 if (w != Weather.Null) {
                     WeatherMgr.SwitchWeather(w);
-                    GameConsole.WriteLine("Switching weather to " + args[0]);
+                    gConsole.WriteLine("Switching weather to " + args[0]);
                 }
-                else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
+                else { gConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
             }, "Sets the weather to the specified type, resetting the timer."));
-            GameConsole.AddCommand("fw", new ConsoleCommand((string[] args) => {
-                if (args.Length == 0) { GameConsole.WriteLine("Usage: fw [weathertype]"); return; }
+            gConsole.AddCommand("fw", new ConsoleCommand((string[] args) => {
+                if (args.Length == 0) { gConsole.WriteLine("Usage: fw [weathertype]"); return; }
                 Weather w;
                 Enum.TryParse<Weather>(args[0], out w);
                 if (w != Weather.Null) {
                     WeatherMgr.ForceWeather(w);
-                    GameConsole.WriteLine("Forcing weather to " + args[0]);
+                    gConsole.WriteLine("Forcing weather to " + args[0]);
                 }
-                else { GameConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
+                else { gConsole.WriteLine("Invalid weather type \"" + args[0] + "\"!"); }
             }, "Sets the weather to the specified type without resetting the timer."));
-            GameConsole.AddCommand("timescale", new ConsoleCommand((string[] args) => {
-                if (args.Length == 0) { GameConsole.WriteLine("Usage: timescale [n], default 1.0"); return; }
+            gConsole.AddCommand("timescale", new ConsoleCommand((string[] args) => {
+                if (args.Length == 0) { gConsole.WriteLine("Usage: timescale [n], default 1.0"); return; }
                 float timescale;
                 if (Single.TryParse(args[0], out timescale)) {
                     WeatherMgr.Timescale = timescale;
                 }
                 else {
-                    GameConsole.WriteLine("Please enter a valid number!");
+                    gConsole.WriteLine("Please enter a valid number!");
                 }
             }, "Sets the timestep of the game to the specified value."));
-            GameConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Quits the game."));
-            GameConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Exits the game."));
-            GameConsole.AddCommand("debug", new ConsoleCommand((string[] args) => { DebugPanel.Visible = !DebugPanel.Visible; }, "Toggles the debug panel."));
-            GameConsole.AddCommand("wireframe", new ConsoleCommand((string[] args) => {
+            gConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Quits the game."));
+            gConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Exits the game."));
+            gConsole.AddCommand("debug", new ConsoleCommand((string[] args) => { DebugPanel.Visible = !DebugPanel.Visible; }, "Toggles the debug panel."));
+            gConsole.AddCommand("wireframe", new ConsoleCommand((string[] args) => {
                 if (StateMgr.Engine.Camera.PolygonMode == PolygonMode.PM_WIREFRAME) {
                     StateMgr.Engine.Camera.PolygonMode = PolygonMode.PM_SOLID;
                 }
                 else { StateMgr.Engine.Camera.PolygonMode = PolygonMode.PM_WIREFRAME; }
             }, "Toggles rendering in wireframe mode."));
-            GameConsole.AddCommand("bloom", new ConsoleCommand((string[] args) => { 
+            gConsole.AddCommand("bloom", new ConsoleCommand((string[] args) => { 
                 bool enabled;
                 if (args.Length == 0) {
                     enabled = !(CompositorManager.Singleton.GetCompositorChain(StateMgr.Engine.Window.GetViewport(0)).GetCompositor("Bloom")).Enabled;
@@ -180,7 +190,7 @@ namespace Snowflake.States {
                 else { enabled = (args[0] == "0" || args[0] == "false") ? true : false; }
                 CompositorManager.Singleton.SetCompositorEnabled(StateMgr.Engine.Window.GetViewport(0), "Bloom", enabled);
             }, "Toggles the bloom shader."));
-            GameConsole.AddCommand("radialblur", new ConsoleCommand((string[] args) => {
+            gConsole.AddCommand("radialblur", new ConsoleCommand((string[] args) => {
                 bool enabled;
                 if (args.Length == 0) {
                     enabled = !(CompositorManager.Singleton.GetCompositorChain(StateMgr.Engine.Window.GetViewport(0)).GetCompositor("Radial Blur")).Enabled;
@@ -233,15 +243,14 @@ namespace Snowflake.States {
                 Ray mouseRay = GetSelectionRay(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
 
                 Mogre.Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
-                if (intersection.first) {
+                if (intersection.first && selboxShouldUpate()) {
                     Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
-                    Vector3 plotCenter = new Vector3((float)System.Math.Floor(intersectionPt.x / Renderable.PlotWidth) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f),
-                                                0,
-                                                (float)System.Math.Floor(intersectionPt.z / Renderable.PlotHeight) * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
+                    Vector3 plotCenter = CityMgr.GetPlotCenter(CityMgr.GetPlotCoords(intersectionPt));
                     selBox.SetPosition(plotCenter.x, plotCenter.y, plotCenter.z);
                 }
                 
-                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle)) {
+                //Middle click - rotate the view
+                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle) && viewShouldUpdate()) {
 
                     //Mouse rotate control
                     angle += mStateMgr.Input.MouseMoveX * 0.01f;
@@ -262,6 +271,7 @@ namespace Snowflake.States {
                     ContextMenu.Location = new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
                     ContextMenu.Visible = true;
                 }
+
                 //Mouse click - 3D selection
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
                     if (!ContextMenu.HitTest(MousePosition(mStateMgr.Input))) {
@@ -272,23 +282,25 @@ namespace Snowflake.States {
                 }
                 DebugPanel.SetDebugText(engine.Camera.Position.ToString());
 
-                //WASD Control
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
-                    focalPoint.Translate(new Vector3(5 * Mogre.Math.Sin(angle), 0, -5 * Mogre.Math.Cos(angle)));
-                }
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
-                    focalPoint.Translate(new Vector3(5 * Mogre.Math.Cos(angle), 0, 5 * Mogre.Math.Sin(angle)));
-                }
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
-                    focalPoint.Translate(new Vector3(-5 * Mogre.Math.Sin(angle), 0, 5 * Mogre.Math.Cos(angle)));
-                }
-                if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
-                    focalPoint.Translate(new Vector3(-5 * Mogre.Math.Cos(angle), 0, -5 * Mogre.Math.Sin(angle)));
+                if (viewShouldUpdate()) {
+                    //WASD Control
+                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
+                        focalPoint.Translate(new Vector3(5 * Mogre.Math.Sin(angle), 0, -5 * Mogre.Math.Cos(angle)));
+                    }
+                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
+                        focalPoint.Translate(new Vector3(5 * Mogre.Math.Cos(angle), 0, 5 * Mogre.Math.Sin(angle)));
+                    }
+                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
+                        focalPoint.Translate(new Vector3(-5 * Mogre.Math.Sin(angle), 0, 5 * Mogre.Math.Cos(angle)));
+                    }
+                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
+                        focalPoint.Translate(new Vector3(-5 * Mogre.Math.Cos(angle), 0, -5 * Mogre.Math.Sin(angle)));
+                    }
                 }
 
                 //Toggle the console with `
                 if (mStateMgr.Input.WasKeyPressed(MOIS.KeyCode.KC_GRAVE)) {
-                    GameConsole.Visible = !GameConsole.Visible;
+                    gConsole.Visible = !gConsole.Visible;
                 }
             }
 
@@ -297,6 +309,14 @@ namespace Snowflake.States {
                 // quit the application
                 mStateMgr.RequestShutdown();
             }
+        }
+
+        private bool selboxShouldUpate() {
+            return ContextMenu.Visible == false;
+        }
+
+        private bool viewShouldUpdate() {
+            return ContextMenu.Visible == false;
         }
 
         /// <summary>
@@ -322,6 +342,18 @@ namespace Snowflake.States {
         private Ray GetSelectionRay(int mousex, int mousey) {
             PointF offset = GetSelectionOrigin(new Point(mousex, mousey));
             return StateMgr.Engine.Camera.GetCameraToViewportRay(offset.X, offset.Y);
+        }
+        private Ray GetSelectionRay(Point pt) { return GetSelectionRay(pt.X, pt.Y); }
+
+        private Mogre.Pair<bool, Point> getPlotCoordsFromMousePosition() {
+            Ray mouseRay = GetSelectionRay(MousePosition(StateMgr.Input));
+
+            Mogre.Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
+            if (intersection.first) {
+                Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
+                return new Mogre.Pair<bool,Point> (true, CityMgr.GetPlotCoords(intersectionPt));
+            }
+            else { return new Mogre.Pair<bool, Point>(false, Point.Empty); }
         }
 
         private Point MousePosition(MoisManager input) {

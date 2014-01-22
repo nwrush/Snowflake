@@ -203,7 +203,7 @@ namespace Snowflake.States {
         /// Update the game
         /// </summary>
         /// <param name="_frameTime"></param>
-        public override void Update(long _frameTime) {
+        public override void Update(float _frameTime) {
             // check if the state was initialized before
             if (StateMgr == null)
                 return;

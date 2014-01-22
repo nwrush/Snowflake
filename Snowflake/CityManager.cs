@@ -32,6 +32,9 @@ namespace Snowflake {
 
             CreateTerrain(sm);
             //CreateCity(sm);
+
+            //Todo: name?
+            Haswell.Controller.init("shrug");
         }
 
         /// <summary>
@@ -70,7 +73,7 @@ namespace Snowflake {
             }
         }
 
-        public void Update(long frametime) {
+        public void Update(float frametime) {
             
             //Haswell.Controller.Update(frametime);
 

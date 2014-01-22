@@ -109,7 +109,7 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* update                                                               */
         /************************************************************************/
-        public void Update(long _frameTime)
+        public void Update(float _frameTime)
         {
             // update the MOIS input manager
             mInput.Update();

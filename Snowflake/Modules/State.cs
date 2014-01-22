@@ -29,7 +29,7 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* update                                                               */
         /************************************************************************/
-        public abstract void Update(long _frameTime);
+        public abstract void Update(float _frameTime);
 
     } // class
 

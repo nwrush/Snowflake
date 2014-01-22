@@ -61,7 +61,7 @@ namespace Haswell {
             throw new NotImplementedException();
         }
 
-        public void Update(long gametime) {
+        public void Update(float gametime) {
             throw new NotImplementedException();
         }
 

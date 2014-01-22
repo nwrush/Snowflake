@@ -19,7 +19,7 @@ namespace Snowflake
         public const int WINDOW_HEIGHT = 768;
 
         public const int MAJOR_VERSION = 0;
-        public const int MINOR_VERSION = 1;
+        public const int MINOR_VERSION = 2;
 
         public const bool USE_FSAA = false;
 
@@ -91,7 +91,7 @@ namespace Snowflake
         /************************************************************************/
         /* update objects in the scene                                          */
         /************************************************************************/
-        private long _frametime = 0;
+        private float _frametime = 0;
         private Stopwatch _stopwatch;
         public void UpdateScene()
         {
@@ -101,7 +101,7 @@ namespace Snowflake
             mStateMgr.Update(_frametime);
 
             _stopwatch.Stop();
-            _frametime = _stopwatch.ElapsedTicks;
+            _frametime = _stopwatch.ElapsedTicks / 500.0f;
             _stopwatch.Reset();
         }
 

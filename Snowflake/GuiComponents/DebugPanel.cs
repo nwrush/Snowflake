@@ -17,11 +17,11 @@ namespace Snowflake.GuiComponents {
         private Label debugText;
         private Panel parentPanel;
 
-        private Queue<long> _lastFrametimes;
+        private Queue<float> _lastFrametimes;
 
         public DebugPanel()
         {
-            _lastFrametimes = new Queue<long>();
+            _lastFrametimes = new Queue<float>();
         }
 
         public void CreateGui(GUI gui) {
@@ -91,19 +91,19 @@ namespace Snowflake.GuiComponents {
         /// <summary>
         /// Updates the FPS indicator
         /// </summary>
-        /// <param name="frametime">The elapsed DateTime.ticks since last update</param>
-        public void UpdateFPS(long frametime) {
+        /// <param name="frametime">The elapsed milliseconds since last update</param>
+        public void UpdateFPS(float frametime) {
             if (frametime != 0) {
                 _lastFrametimes.Enqueue(frametime);
             }
             if (_lastFrametimes.Count > 60) { _lastFrametimes.Dequeue(); }
             if (_lastFrametimes.Count == 0) { return; }
-            long total = 0;
-            foreach (long l in _lastFrametimes) { total += l; }
-            long average = total / _lastFrametimes.Count;
+            float total = 0;
+            foreach (float l in _lastFrametimes) { total += l; }
+            float average = total / _lastFrametimes.Count;
 
             float millisecondsPerSecond = 1000.0f;
-            float frameSeconds = (average) / millisecondsPerSecond / 100.0f;
+            float frameSeconds = (average) / millisecondsPerSecond;
             float framesPerSecond = 1.0f / frameSeconds;
             fps.Text = framesPerSecond.ToString().Substring(0, Math.Min(4, framesPerSecond.ToString().Length)) + " fps";
         }

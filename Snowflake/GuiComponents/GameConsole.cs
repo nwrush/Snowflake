@@ -74,8 +74,12 @@ namespace Snowflake.GuiComponents {
                 },
                 Skin = ResourceManager.Skins["PanelSkin"],
                 TextStyle = new TextStyle() {
-                    Font = ResourceManager.Fonts["Courier"]
+                    Font = ResourceManager.Fonts["Courier"],
+                    ForegroundColour = Colours.Black,
+                    Multiline = true,
+                    Alignment = Alignment.TopLeft
                 }
+                
             };
 
             entryBox = new TextBox("GC_Entrybox") {
@@ -261,6 +265,8 @@ namespace Snowflake.GuiComponents {
             commands.Add("crash", new ConsoleCommand((string[] args) => {
                 throw new Exception("User has crashed the game.");
             }, "Crashes the game."));
+            commands.Add("clear", new ConsoleCommand((string[] args) => { ClearScreen(); }, "Clears the console of previously printed text."));
+            commands.Add("cls", new ConsoleCommand((string[] args) => { ClearScreen(); }, "Clears the console of previously printed text."));
         }
 
         /// <summary>
@@ -278,6 +284,20 @@ namespace Snowflake.GuiComponents {
         /// <param name="commandName">Command to remove</param>
         public void RemoveCommand(string commandName) {
             this.commands.Remove(commandName);
+        }
+
+        /// <summary>
+        /// Clears the panel of all previously printed text.
+        /// </summary>
+        public void ClearScreen() {
+            for (int i = 0; i < this.outputPanel.Controls.Count;) {
+                if (this.outputPanel.Controls[i] is Label) {
+                    Control c = this.outputPanel.Controls[i];
+                    this.outputPanel.Controls.RemoveAt(i);
+                }
+                else { ++i; }
+            }
+            labelY = 0;
         }
     }
 

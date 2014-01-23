@@ -80,17 +80,22 @@ namespace Snowflake {
         }
 
         public void Init(int originx, int originy) {
+            if (!initialized) {
+                GameConsole.ActiveInstance.WriteLine("Founding new City at " + originx.ToString() + ", " + originy.ToString());
 
-            GameConsole.ActiveInstance.WriteLine("Founding new City at " + originx.ToString() + ", " + originy.ToString());
-
-            origin = new Point(originx, originy);
-            Haswell.Controller.init("shrug");
+                origin = new Point(originx, originy);
+                Haswell.Controller.init("shrug");
+                initialized = true;
+            }
+            else {
+                GameConsole.ActiveInstance.WriteLine("Attempting to found city in an already initialized area!");
+            }
         }
         public void Init(Point p) { Init(p.X, p.Y); }
 
         public void Update(float frametime) {
 
-            if (initialized) {
+            if (initialized && false) {
                 try {
                     Haswell.Controller.Update(frametime);
                 }

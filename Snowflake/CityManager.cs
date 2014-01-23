@@ -52,7 +52,7 @@ namespace Snowflake {
         private void CreateTerrain(SceneManager sm) {
            
             Plane plane = new Plane(Vector3.UNIT_Y, 0);
-            MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 5000, 5000, 100, 100, true, 1, 5, 5, Vector3.UNIT_Z);
+            MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 10000, 10000, 100, 100, true, 1, 5, 5, Vector3.UNIT_Z);
 
             ground = sm.CreateEntity("GroundEntity", "ground");
             ground.SetMaterialName("Grass");
@@ -80,7 +80,7 @@ namespace Snowflake {
             //Todo: initialize objects from Haswell data
 
             foreach (Renderable r in cityObjects) {
-                r.Create(sm, cityNode);
+                r.Create(this, sm, cityNode);
             }
         }
 
@@ -120,7 +120,7 @@ namespace Snowflake {
         private void CreateBuilding(object sender, BuildingEventArgs e) {
             GameConsole.ActiveInstance.WriteLine("Added a building at " + e.Building.Parent.X + ", " + e.Building.Parent.Y);
             RenderableBuilding rb = new RenderableBuilding(e.Building);
-            rb.Create(GameMgr.StateMgr.Engine.SceneMgr, cityNode);
+            rb.Create(this, GameMgr.StateMgr.Engine.SceneMgr, cityNode);
             this.cityObjects.Add(rb);
         }
             
@@ -152,6 +152,7 @@ namespace Snowflake {
             return new Point((int)System.Math.Floor(src.x / Renderable.PlotWidth), (int)System.Math.Floor(src.z / Renderable.PlotHeight));
         }
 
+        public Vector3 GetPlotCenter(int x, int y) { return this.GetPlotCenter(new Point(x, y)); }
         public Vector3 GetPlotCenter(Point plotCoord) {
             if (!(origin.X == 0 && origin.Y == 0)) {
                 //Todo: account for terrain height
@@ -164,6 +165,10 @@ namespace Snowflake {
                     0.0f,
                     plotCoord.Y * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
             }
+        }
+
+        public Point GetOrigin() {
+            return this.origin;
         }
     }
 }

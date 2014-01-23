@@ -27,8 +27,8 @@ namespace Snowflake.States {
         private CityManager CityMgr;
 
         private SceneNode focalPoint;
-        private float angle;
-        private float dist;
+        private float angle = 0.78539f;
+        private float dist = -7.0f;
 
         private SceneNode selBox;
         private Entity selBoxEnt;
@@ -129,7 +129,8 @@ namespace Snowflake.States {
                 if (result.first) {
                     if (!CityMgr.Initialized) {
                         CityMgr.Init(result.second);
-                        CityMgr.NewBuilding(result.second);
+                        Point newPos = result.second - CityMgr.GetOrigin();
+                        CityMgr.NewBuilding(newPos);
                     }
                     else {
                         CityMgr.NewBuilding(result.second);
@@ -250,6 +251,7 @@ namespace Snowflake.States {
                 if (intersection.first && selboxShouldUpate()) {
                     Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
                     Vector3 plotCenter = CityMgr.GetPlotCenter(CityMgr.GetPlotCoords(intersectionPt));
+                    DebugPanel.SetDebugText(CityMgr.GetPlotCoords(intersectionPt).ToString());
                     selBox.SetPosition(plotCenter.x, plotCenter.y, plotCenter.z);
                 }
                 
@@ -291,25 +293,25 @@ namespace Snowflake.States {
                 }
 
                 if (mStateMgr.Input.MouseMoveZ != 0.0f) {
-                    dist += mStateMgr.Input.MouseMoveZ * 0.01f;
+                    dist += mStateMgr.Input.MouseMoveZ * 0.002f;
                     if (dist < -12.0f) { dist = -12.0f; }
                     if (dist > 2.0f) { dist = 2.0f; }
                 }
-                DebugPanel.SetDebugText(engine.Camera.Position.ToString());
 
                 if (viewShouldUpdate()) {
                     //WASD Control
+                    int speed = 10;
                     if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
-                        focalPoint.Translate(new Vector3((-dist + 12) * Mogre.Math.Sin(angle), 0, -(-dist + 12) * Mogre.Math.Cos(angle)));
+                        focalPoint.Translate(new Vector3((-dist + speed) * Mogre.Math.Sin(angle), 0, -(-dist + speed) * Mogre.Math.Cos(angle)));
                     }
                     if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
-                        focalPoint.Translate(new Vector3((-dist + 12) * Mogre.Math.Cos(angle), 0, (-dist + 12) * Mogre.Math.Sin(angle)));
+                        focalPoint.Translate(new Vector3((-dist + speed) * Mogre.Math.Cos(angle), 0, (-dist + speed) * Mogre.Math.Sin(angle)));
                     }
                     if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
-                        focalPoint.Translate(new Vector3(-(-dist + 12) * Mogre.Math.Sin(angle), 0, (-dist + 12) * Mogre.Math.Cos(angle)));
+                        focalPoint.Translate(new Vector3(-(-dist + speed) * Mogre.Math.Sin(angle), 0, (-dist + speed) * Mogre.Math.Cos(angle)));
                     }
                     if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
-                        focalPoint.Translate(new Vector3(-(-dist + 12) * Mogre.Math.Cos(angle), 0, -(-dist + 12) * Mogre.Math.Sin(angle)));
+                        focalPoint.Translate(new Vector3(-(-dist + speed) * Mogre.Math.Cos(angle), 0, -(-dist + speed) * Mogre.Math.Sin(angle)));
                     }
                 }
 

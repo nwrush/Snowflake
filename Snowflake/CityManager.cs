@@ -7,6 +7,7 @@ using Miyagi.Common.Data;
 
 using Snowflake.Modules;
 using Snowflake.GuiComponents;
+using Snowflake.States;
 using Haswell;
 using Haswell.Buildings;
 using Haswell.Exceptions;
@@ -15,7 +16,8 @@ using Vector3 = Mogre.Vector3;
 
 namespace Snowflake {
     public class CityManager {
-        
+
+        private GameLoopState GameMgr;
 
         private int MaxX, MaxY, MinX, MinY;
         private bool initialized = false;
@@ -29,8 +31,9 @@ namespace Snowflake {
 
         public bool Initialized { get { return initialized; } }
 
-        public CityManager() {
+        public CityManager(GameLoopState gameloop) {
             cityObjects = new List<Renderable>();
+            this.GameMgr = gameloop;
         }
 
         /// <summary>
@@ -91,7 +94,7 @@ namespace Snowflake {
                 initialized = true;
             }
             else {
-                GameConsole.ActiveInstance.WriteLine("Attempting to found city in an already initialized area!");
+                GameConsole.ActiveInstance.WriteError("Attempting to found city in an already initialized area!");
             }
         }
         public void Init(Point p) { Init(p.X, p.Y); }
@@ -109,15 +112,18 @@ namespace Snowflake {
                 }
             }
             else {
-                GameConsole.ActiveInstance.WriteLine("Unable to create building, no city initialized!");
+                GameConsole.ActiveInstance.WriteError("Unable to create building, no city initialized!");
             }
         }
         public void NewBuilding(Point p) { this.NewBuilding(p.X, p.Y); }
 
         private void CreateBuilding(object sender, BuildingEventArgs e) {
             GameConsole.ActiveInstance.WriteLine("Added a building at " + e.Building.Parent.X + ", " + e.Building.Parent.Y);
+            RenderableBuilding rb = new RenderableBuilding(e.Building);
+            rb.Create(GameMgr.StateMgr.Engine.SceneMgr, cityNode);
+            this.cityObjects.Add(rb);
         }
-
+            
         /// <summary>
         /// Update the city
         /// </summary>

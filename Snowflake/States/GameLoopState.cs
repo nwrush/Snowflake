@@ -22,12 +22,13 @@ namespace Snowflake.States {
     /// </summary>
     public class GameLoopState : State {
 
-        private StateManager StateMgr;
+        public StateManager StateMgr { get; private set; }
         private Environment WeatherMgr;
         private CityManager CityMgr;
 
         private SceneNode focalPoint;
         private float angle;
+        private float dist;
 
         private SceneNode selBox;
         private Entity selBoxEnt;
@@ -62,7 +63,7 @@ namespace Snowflake.States {
 
             //Instantiate everything
             WeatherMgr = new Environment();
-            CityMgr = new CityManager();
+            CityMgr = new CityManager(this);
 
             gConsole = new GameConsole();
             Tools = new ToolPanel();
@@ -229,7 +230,8 @@ namespace Snowflake.States {
         }
 
         private void UpdateCameraPosition() {
-            StateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + -500 * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -500 * Mogre.Math.Sin(angle));
+            StateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + (-500) * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -(500) * Mogre.Math.Sin(angle));
+            StateMgr.Engine.Camera.Position += StateMgr.Engine.Camera.Direction * (float)System.Math.Pow(dist, 3);
         }
 
         /// <summary>
@@ -270,8 +272,13 @@ namespace Snowflake.States {
                 //Right click - context menus
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Right))
                 {
-                    ContextMenu.Location = new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
-                    ContextMenu.Visible = true;
+                    if (ContextMenu.Visible == true && !ContextMenu.HitTest(MousePosition(mStateMgr.Input))) {
+                        ContextMenu.Visible = false;
+                    }
+                    else {
+                        ContextMenu.Location = new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
+                        ContextMenu.Visible = true;
+                    }
                 }
 
                 //Mouse click - 3D selection
@@ -282,21 +289,27 @@ namespace Snowflake.States {
                         //Utils3D.DrawRay(engine.SceneMgr, mouseRay);
                     }
                 }
+
+                if (mStateMgr.Input.MouseMoveZ != 0.0f) {
+                    dist += mStateMgr.Input.MouseMoveZ * 0.01f;
+                    if (dist < -12.0f) { dist = -12.0f; }
+                    if (dist > 2.0f) { dist = 2.0f; }
+                }
                 DebugPanel.SetDebugText(engine.Camera.Position.ToString());
 
                 if (viewShouldUpdate()) {
                     //WASD Control
                     if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
-                        focalPoint.Translate(new Vector3(5 * Mogre.Math.Sin(angle), 0, -5 * Mogre.Math.Cos(angle)));
+                        focalPoint.Translate(new Vector3((-dist + 12) * Mogre.Math.Sin(angle), 0, -(-dist + 12) * Mogre.Math.Cos(angle)));
                     }
                     if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
-                        focalPoint.Translate(new Vector3(5 * Mogre.Math.Cos(angle), 0, 5 * Mogre.Math.Sin(angle)));
+                        focalPoint.Translate(new Vector3((-dist + 12) * Mogre.Math.Cos(angle), 0, (-dist + 12) * Mogre.Math.Sin(angle)));
                     }
                     if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
-                        focalPoint.Translate(new Vector3(-5 * Mogre.Math.Sin(angle), 0, 5 * Mogre.Math.Cos(angle)));
+                        focalPoint.Translate(new Vector3(-(-dist + 12) * Mogre.Math.Sin(angle), 0, (-dist + 12) * Mogre.Math.Cos(angle)));
                     }
                     if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
-                        focalPoint.Translate(new Vector3(-5 * Mogre.Math.Cos(angle), 0, -5 * Mogre.Math.Sin(angle)));
+                        focalPoint.Translate(new Vector3(-(-dist + 12) * Mogre.Math.Cos(angle), 0, -(-dist + 12) * Mogre.Math.Sin(angle)));
                     }
                 }
 

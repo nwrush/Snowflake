@@ -50,7 +50,7 @@ namespace Snowflake {
         public void SetPosition(int plotx, int ploty) {
             PlotX = plotx;
             PlotY = ploty;
-            node.Translate(new Vector3(plotx * PlotWidth, 0, ploty * PlotHeight));
+            node.Translate(new Vector3(plotx * PlotWidth + PlotWidth * 0.5f, 0, ploty * PlotHeight + PlotHeight * 0.5f));
         }
 
         /// <summary>
@@ -93,12 +93,15 @@ namespace Snowflake {
 
         public RenderableBuilding(Building data) {
             this.data = data;
+            this.entities = new List<Entity>();
+            this.Name = this.data.GetType().ToString() + "_" + this.GetHashCode();
         }
 
-        public override void  Create(SceneManager sm, SceneNode cityNode) {
+        public override void Create(SceneManager sm, SceneNode cityNode) {
             foreach (Entity e in GetBuildingEntities(this.data, sm)) { this.entities.Add(e); }
             base.Create(sm, cityNode);
-            this.node.Scale(new Vector3(PlotWidth / 12.0f, 0, PlotHeight / 12.0f));
+            this.SetPosition(this.data.Parent.X, this.data.Parent.Y);
+            this.node.Scale(new Vector3(80.0f, 80.0f, 80.0f));
         }
 
         public static List<Entity> GetBuildingEntities(Building b, SceneManager sm) {

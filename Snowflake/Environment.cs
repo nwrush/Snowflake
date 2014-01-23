@@ -75,7 +75,7 @@ namespace Snowflake {
             Time += Timescale;
             UpdateFormatTime(0, 0, Timescale / MinuteLength);
 
-            sun.Position = new Vector3(1000 * (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength)), 1000 * (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength)), -300);
+            sun.Position = new Vector3(10000 * (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength)), 10000 * (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength)), -10000);
 
             //brightness
             float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(sun.Position.y) * System.Math.Pow(sun.Position.y / 1000, (1.0 / 3.0)));

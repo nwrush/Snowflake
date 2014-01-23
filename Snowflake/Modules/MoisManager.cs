@@ -2,6 +2,8 @@
 
 using MOIS;
 
+using Snowflake.GuiComponents;
+
 namespace Snowflake.Modules
 {
     /************************************************************************/
@@ -143,13 +145,13 @@ namespace Snowflake.Modules
             ClearMousePressed();
             ClearMouseMove();
 
-            try {
+            //try {
                 mKeyboard.Capture();
                 mMouse.Capture();
-            }
-            catch (NullReferenceException e) {
-                Console.WriteLine(e.Message);
-            }
+            //}
+            //catch (NullReferenceException e) {
+                //GameConsole.ActiveInstance.WriteError(e.Message);
+            //}
         }
 
         /************************************************************************/

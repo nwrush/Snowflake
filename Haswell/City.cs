@@ -12,8 +12,8 @@ namespace Haswell {
         private List<Pipe> pipes;
         private List<Zone> zones;
 
-        public event EventHandler BuildingCreated;
-        public event EventHandler BuildingUpdated;
+        public event EventHandler<BuildingEventArgs> BuildingCreated;
+        public event EventHandler<BuildingEventArgs> BuildingUpdated;
 
         /// <summary>
         /// Creates a city and initialize's it with the given sides
@@ -38,18 +38,20 @@ namespace Haswell {
 
         /// <summary>
         /// Called by Snowflake when the user requests the creation of a building
-        /// Throws an exception error if Building creation fails (e.g. Plot is already occupied)
+        /// Throws an error if something goes wrong.
         /// </summary>
         /// <typeparam name="T">The Type of Building to create</typeparam>
         /// <param name="x">The plot X of the building</param>
         /// <param name="y">The plot Y of the building</param>
         public void CreateBuilding<T>(int x, int y) where T : Building,new() {
 
-            if (grid.ElementAt(x, y).AddBuilding(new T())) {
-
+            Building b = new T();
+            if (grid.ElementAt(x, y).AddBuilding(b)) {
+                BuildingCreated.Invoke(this, new BuildingEventArgs(b));
+                return;
             }
 
-            throw new NotImplementedException();
+            throw new Exceptions.BuildingCreationFailedException("Building creation failed");
         }
         /// <summary>
         /// Creates a zone for automatic building creation by the game's AI

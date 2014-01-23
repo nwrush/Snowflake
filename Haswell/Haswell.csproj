@@ -52,7 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Building.cs" />
+    <Compile Include="Buildings\Commercial.cs" />
+    <Compile Include="Buildings\Industrial.cs" />
+    <Compile Include="Buildings\Infrastructure.cs" />
+    <Compile Include="Buildings\Residential.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="Events\BuildingEventArgs.cs" />
+    <Compile Include="Exceptions\BuildingCreationFailedException.cs" />
     <Compile Include="Exceptions\ElementAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ElementNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidResourceType.cs" />

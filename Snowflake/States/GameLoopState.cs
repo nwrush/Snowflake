@@ -128,11 +128,13 @@ namespace Snowflake.States {
                 if (result.first) {
                     if (!CityMgr.Initialized) {
                         CityMgr.Init(result.second);
+                        CityMgr.NewBuilding(result.second);
                     }
                     else {
-                        //create a building
+                        CityMgr.NewBuilding(result.second);
                     }
                 }
+                ContextMenu.Visible = false;
             });
 
             WeatherOverlay.CreateGui(Gui);

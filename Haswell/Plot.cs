@@ -48,8 +48,9 @@ namespace Haswell {
         /// <param name="b">The building to add to the plot.</param>
         /// <returns>Whether or not building addition was successful.</returns>
         public bool AddBuilding(Building b) {
-            if (plotUsage + b.GetPlotUsage() <= plotCapacity) {
+            if (plotUsage + b.GetPlotUsage() <= plotCapacity && b.Parent == null) {
                 this.buildings.Add(b);
+                b.Parent = this;
                 return true;
             }
             return false;

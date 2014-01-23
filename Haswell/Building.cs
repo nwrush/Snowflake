@@ -5,26 +5,34 @@ using System.Text;
 
 namespace Haswell {
 	public abstract class Building {
-		Zone.Type zone;
+
+		protected Zone.Type zone;
+        public Plot Parent;
 
 		Resource.resourceType consumed;
 		int amountConsumed;
 		Resource.resourceType produced;
 		uint amountProduced;
 
-		//#warning This is a potentially bad function
-		//public Building() {
+        public bool Initialized { get; protected set; }
 
-		//}
-		protected Building(Zone.Type z) {
-			this.zone = z;
+		//#warning This is a potentially bad function
+		public Building() {
+
 		}
-		public Building(int consumed,Resource.resourceType typeConsumed, int produced,Resource.resourceType typeProduced,Zone.Type z):this(z) {
-			this.amountConsumed = consumed;
-			this.consumed = typeConsumed;
-			this.amountProduced = (uint)produced;
-			this.produced = typeProduced;
+		public Building(int consumed,Resource.resourceType typeConsumed, int produced,Resource.resourceType typeProduced) : this() {
+            this.Init(consumed, typeConsumed, produced, typeProduced);
 		}
+
+        public void Init(int consumed, Resource.resourceType typeConsumed, int produced, Resource.resourceType typeProduced) {
+            this.amountConsumed = consumed;
+            this.consumed = typeConsumed;
+            this.amountProduced = (uint)produced;
+            this.produced = typeProduced;
+
+            Initialized = true;
+        }
+
 		/// <summary>
 		/// Gives the virtual amount of space this building takes up
 		/// on the plot.

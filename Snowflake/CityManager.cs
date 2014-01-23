@@ -8,6 +8,8 @@ using Miyagi.Common.Data;
 using Snowflake.Modules;
 using Snowflake.GuiComponents;
 using Haswell;
+using Haswell.Buildings;
+using Haswell.Exceptions;
 
 using Vector3 = Mogre.Vector3;
 
@@ -85,6 +87,7 @@ namespace Snowflake {
 
                 origin = new Point(originx, originy);
                 Haswell.Controller.init("shrug");
+                Haswell.Controller.City.BuildingCreated += CreateBuilding;
                 initialized = true;
             }
             else {
@@ -93,6 +96,32 @@ namespace Snowflake {
         }
         public void Init(Point p) { Init(p.X, p.Y); }
 
+        /// <summary>
+        /// Add a new building to the city at the specified coordinates
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        public void NewBuilding(int x, int y) {
+            if (initialized) {
+                try { Haswell.Controller.City.CreateBuilding<Commercial>(x, y); }
+                catch (BuildingCreationFailedException e) {
+                    GameConsole.ActiveInstance.WriteLine(e.Message);
+                }
+            }
+            else {
+                GameConsole.ActiveInstance.WriteLine("Unable to create building, no city initialized!");
+            }
+        }
+        public void NewBuilding(Point p) { this.NewBuilding(p.X, p.Y); }
+
+        private void CreateBuilding(object sender, BuildingEventArgs e) {
+            GameConsole.ActiveInstance.WriteLine("Added a building at " + e.Building.Parent.X + ", " + e.Building.Parent.Y);
+        }
+
+        /// <summary>
+        /// Update the city
+        /// </summary>
+        /// <param name="frametime">Milliseconds since last frame</param>
         public void Update(float frametime) {
 
             if (initialized && false) {

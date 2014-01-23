@@ -130,7 +130,7 @@ namespace Snowflake.States {
                     if (!CityMgr.Initialized) {
                         CityMgr.Init(result.second);
                         Point newPos = result.second - CityMgr.GetOrigin();
-                        CityMgr.NewBuilding(newPos);
+                        CityMgr.NewBuilding(newPos );
                     }
                     else {
                         CityMgr.NewBuilding(result.second);

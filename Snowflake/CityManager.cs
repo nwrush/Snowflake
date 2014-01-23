@@ -47,7 +47,7 @@ namespace Snowflake {
         private void CreateTerrain(SceneManager sm) {
            
             Plane plane = new Plane(Vector3.UNIT_Y, 0);
-            MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 3500, 3500, 40, 40, true, 1, 5, 5, Vector3.UNIT_Z);
+            MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 5000, 5000, 100, 100, true, 1, 5, 5, Vector3.UNIT_Z);
 
             ground = sm.CreateEntity("GroundEntity", "ground");
             ground.SetMaterialName("Grass");

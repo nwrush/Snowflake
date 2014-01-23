@@ -40,10 +40,13 @@ namespace Haswell {
         /// Called by Snowflake when the user requests the creation of a building
         /// Throws an exception error if Building creation fails (e.g. Plot is already occupied)
         /// </summary>
+        /// <typeparam name="T">The Type of Building to create</typeparam>
         /// <param name="x">The plot X of the building</param>
         /// <param name="y">The plot Y of the building</param>
-        public void CreateBuilding(int x, int y) {
-            //if (grid.ElementAt(x, y).AddBuilding(new Building()))
+        public void CreateBuilding<T>(int x, int y) where T : Building {
+            if (grid.ElementAt(x, y).AddBuilding(new T())) {
+
+            }
 
             throw new NotImplementedException();
         }

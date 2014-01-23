@@ -43,7 +43,8 @@ namespace Haswell {
         /// <typeparam name="T">The Type of Building to create</typeparam>
         /// <param name="x">The plot X of the building</param>
         /// <param name="y">The plot Y of the building</param>
-        public void CreateBuilding<T>(int x, int y) where T : Building {
+        public void CreateBuilding<T>(int x, int y) where T : Building,new() {
+
             if (grid.ElementAt(x, y).AddBuilding(new T())) {
 
             }

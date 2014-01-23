@@ -34,12 +34,11 @@ namespace Haswell {
             throw new NotImplementedException();
         }
 
-        [Obsolete]
-        private static void LogError(Exception e) {
+        public static void LogError(Exception e) {
             String msg = "\"" + e.Message + "\"";
             msg += " " + "\"" + e.StackTrace + "\"";
             Process p = new Process();
-            Process.Start("ErrorLog.exe", msg);
+            Process.Start("Log.exe", msg);
         }
 
         public static City City {

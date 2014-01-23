@@ -8,7 +8,13 @@ namespace TEST {
     class Program {
         static void Main(string[] args) {
             City TEST = new City("TEST");
-            //GameState gs = Controller.Controller.Update(long.MaxValue);
+
+            try {
+                Haswell.Controller.Update(long.MaxValue);
+            } catch (Exception e) {
+                Haswell.Controller.LogError(e);
+            }
+
             Console.ReadKey();
         }
     }

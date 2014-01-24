@@ -21,10 +21,10 @@ namespace Haswell {
 
         protected bool Initialized;
 
-        public Building(Zone.Type zone) {
+        protected Building(Zone.Type zone) {
 
         }
-        public Building(int consumed, Resource.resourceType typeConsumed, int produced, Resource.resourceType typeProduced) {
+        protected Building(int consumed, Resource.resourceType typeConsumed, int produced, Resource.resourceType typeProduced) {
             this.Init(consumed, typeConsumed, produced, typeProduced);
         }
 

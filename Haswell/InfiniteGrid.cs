@@ -21,6 +21,7 @@ namespace Haswell {
             /*don't return null because that's dumb 
             //return null;
             instead, since there's no grid element for these coordinates, let's create one */
+            //I think this is a really bad plan, 
             Plot p = new Plot(x, y);
             elements.Add(p);
             return p;
@@ -67,6 +68,14 @@ namespace Haswell {
         #region ICollection Stuff
         //ICollection
         private bool isReadOnly = false;
+        public bool IsReadOnly {
+            get {
+                return this.isReadOnly;
+            }
+            set {
+                this.isReadOnly = value;
+            }
+        }
 
         void ICollection<Plot>.Add(Plot e) {
             foreach (Plot p in elements) {

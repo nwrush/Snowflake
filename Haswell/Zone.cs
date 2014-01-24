@@ -9,7 +9,8 @@ namespace Haswell {
             Residential,
             Commercial,
             Industrial,
-            Conservation
+            Conservation,
+            Infrastructure
         };
 
         public Zone(int x1, int y1, int x2, int y2) {

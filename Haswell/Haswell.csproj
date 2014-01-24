@@ -61,6 +61,7 @@
     <Compile Include="Exceptions\BuildingCreationFailedException.cs" />
     <Compile Include="Exceptions\ElementAlreadyExistsException.cs" />
     <Compile Include="Exceptions\ElementNotFoundException.cs" />
+    <Compile Include="Exceptions\InvalidResourceAmountException.cs" />
     <Compile Include="Exceptions\InvalidResourceType.cs" />
     <Compile Include="Exceptions\NotEnoughMoneyException.cs" />
     <Compile Include="Exceptions\PlotOutOfRangeException.cs" />

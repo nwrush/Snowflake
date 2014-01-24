@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Haswell.Buildings {
     public class Infrastructure : Building {
-        
+        public Infrastructure()
+            : base(Zone.Type.Infrastructure) {
+
+        }
     }
 }

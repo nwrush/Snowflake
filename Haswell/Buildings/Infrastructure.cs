@@ -5,5 +5,6 @@ using System.Text;
 
 namespace Haswell.Buildings {
     public class Infrastructure : Building {
+        
     }
 }

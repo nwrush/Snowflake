@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Haswell.Buildings {
     public class Residential : Building {
-        public Residential() {
+        public Residential():base(Zone.Type.Residential) {
 
         }
     }

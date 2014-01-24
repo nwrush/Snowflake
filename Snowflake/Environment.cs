@@ -78,13 +78,16 @@ namespace Snowflake {
             sun.Position = new Vector3(10000 * (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength)), 10000 * (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength)), -10000);
 
             //brightness
-            float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(sun.Position.y) * System.Math.Pow(sun.Position.y / 1000, (1.0 / 3.0)));
+            float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(sun.Position.y) * System.Math.Pow(sun.Position.y / 10000, (1.0 / 3.0)));
             float shadowCoef = System.Math.Max(1.0f - multiplier, GetCloudiness() * 0.5f + 0.5f);
             //sm.ShadowColour = new ColourValue(shadowCoef, shadowCoef, shadowCoef);
             sun.DiffuseColour = new ColourValue(0.98f * multiplier, 0.95f * multiplier, 0.9f * multiplier);
+            sun.SpecularColour = sun.DiffuseColour;
             //sm.AmbientLight = new ColourValue(sun.DiffuseColour.r * GetCloudiness() + 0.1f, sun.DiffuseColour.g * GetCloudiness() + 0.1f, sun.DiffuseColour.b * GetCloudiness() + 0.1f);
 
-            rainSystem.GetEmitter(0).Colour = new ColourValue(sun.DiffuseColour.b * 0.7f + 0.2f, sun.DiffuseColour.b * 0.7f + 0.2f, sun.DiffuseColour.b * 0.7f + 0.2f, 0.6f);
+            float col = (float)System.Math.Max(sun.Position.y / 10000, 0.0) * 0.7f + 0.2f;
+            rainSystem.GetEmitter(0).Colour = new ColourValue(col, col, col, 0.6f);
+            
 
             if (!(this.CurrentWeather == Weather.Rainy || this.CurrentWeather == Weather.Stormy) && rainSystem.GetEmitter(0).EmissionRate > 0) { rainSystem.GetEmitter(0).EmissionRate -= Timescale; }
             if (this.CurrentWeather == Weather.Rainy && rainSystem.GetEmitter(0).EmissionRate < 800) { rainSystem.GetEmitter(0).EmissionRate += Timescale; }

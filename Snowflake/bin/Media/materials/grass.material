@@ -8,7 +8,7 @@ material Grass
 			
 			texture_unit
 			{
-				texture grass.tga
+				texture grass.png
 			}
 		}
 	}

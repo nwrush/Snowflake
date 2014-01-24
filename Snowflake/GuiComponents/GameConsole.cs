@@ -155,6 +155,9 @@ namespace Snowflake.GuiComponents {
             } 
         }
 
+        public void WriteError(string error) {
+            this.AddLabel(error, Colours.Red);
+        }
         /// <summary>
         /// Writes a line of text to the console (Alias for Echo)
         /// </summary>
@@ -165,16 +168,17 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         /// <param name="text"></param>
         public void Echo(string text) {
-            this.AddLabel(text);
+            this.AddLabel(text, Colours.Black);
         }
-        private void AddLabel(string text) {
+        private void AddLabel(string text, Colour col) {
             var label = new Label {
                 Location = new Point(0, labelY),
                 Text = "> " + text.Trim(),
                 AutoSize = true,
                 TextStyle = new TextStyle() {
                     Font = ResourceManager.Fonts["Courier"],
-                    Multiline = true
+                    Multiline = true,
+                    ForegroundColour = col
                 },
                 MaxSize = new Size(this.outputPanel.Width, this.outputPanel.Height)
             };

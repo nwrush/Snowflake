@@ -28,6 +28,8 @@ namespace Snowflake {
         public int PlotX { get; private set; }
         public int PlotY { get; private set; }
 
+        protected CityManager CityMgr;
+
         /// <summary>
         /// Create the SceneNode and Entities associated with this renderable object.
         /// When overriding, create Entities first, then call base.Create();
@@ -35,7 +37,8 @@ namespace Snowflake {
         /// </summary>
         /// <param name="sm">Scenemanager to add the scenenode to</param>
         /// /// <param name="cityNode">City Node to add a child to</param>
-        public virtual void Create(SceneManager sm, SceneNode cityNode) {
+        public virtual void Create(CityManager mgr, SceneManager sm, SceneNode cityNode) {
+            this.CityMgr = mgr;
             node = cityNode.CreateChildSceneNode(this.Name);
             foreach (Entity e in this.entities) {
                 node.AttachObject(e);
@@ -50,7 +53,7 @@ namespace Snowflake {
         public void SetPosition(int plotx, int ploty) {
             PlotX = plotx;
             PlotY = ploty;
-            node.Translate(new Vector3(plotx * PlotWidth, 0, ploty * PlotHeight));
+            node.Translate(CityMgr.GetPlotCenter(plotx, ploty));
         }
 
         /// <summary>
@@ -77,9 +80,9 @@ namespace Snowflake {
             this.data = data;
         }
 
-        public override void Create(SceneManager sm, SceneNode cityNode) {
+        public override void Create(CityManager mgr, SceneManager sm, SceneNode cityNode) {
             foreach (Entity e in GetResourceEntities(this.data)) { this.entities.Add(e); }
-            base.Create(sm, cityNode);
+            base.Create(mgr, sm, cityNode);
         }
 
         public static List<Entity> GetResourceEntities(Resource r) {
@@ -93,12 +96,15 @@ namespace Snowflake {
 
         public RenderableBuilding(Building data) {
             this.data = data;
+            this.entities = new List<Entity>();
+            this.Name = this.data.GetType().ToString() + "_" + this.GetHashCode();
         }
 
-        public override void  Create(SceneManager sm, SceneNode cityNode) {
+        public override void Create(CityManager mgr, SceneManager sm, SceneNode cityNode) {
             foreach (Entity e in GetBuildingEntities(this.data, sm)) { this.entities.Add(e); }
-            base.Create(sm, cityNode);
-            this.node.Scale(new Vector3(PlotWidth / 12.0f, 0, PlotHeight / 12.0f));
+            base.Create(mgr, sm, cityNode);
+            this.SetPosition(this.data.Parent.X, this.data.Parent.Y);
+            this.node.Scale(new Vector3(80.0f, 80.0f, 80.0f));
         }
 
         public static List<Entity> GetBuildingEntities(Building b, SceneManager sm) {
@@ -116,9 +122,9 @@ namespace Snowflake {
             this.data = data;
         }
 
-        public override void Create(SceneManager sm, SceneNode cityNode) {
+        public override void Create(CityManager mgr, SceneManager sm, SceneNode cityNode) {
             foreach (Entity e in GetPipeEntities(this.data)) { this.entities.Add(e); }
-            base.Create(sm, cityNode);
+            base.Create(mgr, sm, cityNode);
         }
 
         public static List<Entity> GetPipeEntities(Pipe b) {

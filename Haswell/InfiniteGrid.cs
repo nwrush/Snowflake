@@ -18,7 +18,12 @@ namespace Haswell {
                     return e;
                 }
             }
-            return null;
+            /*don't return null because that's dumb 
+            //return null;
+            instead, since there's no grid element for these coordinates, let's create one */
+            Plot p = new Plot(x, y);
+            elements.Add(p);
+            return p;
         }
         public Plot RemoveAt(int x, int y) {
             for (int i = 0; i < elements.Count; i++) {

@@ -17,8 +17,8 @@ namespace Haswell {
 
         //Buildings use up different amounts of space on the plot
         //For ex. if a building takes up 5, and the plot has 47/50, then building creation will fail.
-        private float plotUsage;
-        private float plotCapacity;
+        private float plotUsage = 0.0f;
+        private float plotCapacity = 1.0f;
 
         ////These values used until we move to dynamic plots
         //public const int Width = 120;
@@ -33,12 +33,10 @@ namespace Haswell {
             this.resource = new Dictionary<Resource, ResourceVal>();
             this.buildings = new List<Building>();
 
-            if (x < 0 || y < 0) {
-                throw new PlotOutOfRangeException("The position of the plot was negative.");
-            } else {
-                this.plotX = x;
-                this.plotY = y;
-            }
+            //Note: removed positivity test because why the #fff would we care?
+            this.plotX = x;
+            this.plotY = y;
+            
         }
 
         /// <summary>

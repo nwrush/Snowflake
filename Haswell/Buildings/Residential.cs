@@ -5,5 +5,8 @@ using System.Text;
 
 namespace Haswell.Buildings {
     public class Residential : Building {
+        public Residential() {
+
+        }
     }
 }

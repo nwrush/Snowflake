@@ -56,6 +56,10 @@ namespace Haswell {
             return false;
         }
 
+
+        public void Update() {
+            throw new NotImplementedException();
+        }
         public List<Plot> Neighbors {
             set {
                 this.neighbors = value;

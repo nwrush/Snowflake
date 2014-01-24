@@ -14,13 +14,15 @@ namespace Haswell {
 		Resource.resourceType produced;
 		uint amountProduced;
 
-        public bool Initialized { get; protected set; }
+        protected ResourceVal energyConsumed;
 
-		//#warning This is a potentially bad function
-		public Building() {
+        protected bool Initialized;
 
-		}
-		public Building(int consumed,Resource.resourceType typeConsumed, int produced,Resource.resourceType typeProduced) : this() {
+        protected Building() {
+
+        }
+
+		public Building(int consumed,Resource.resourceType typeConsumed, int produced,Resource.resourceType typeProduced) {
             this.Init(consumed, typeConsumed, produced, typeProduced);
 		}
 
@@ -42,5 +44,11 @@ namespace Haswell {
 			return 1.0f;
 			//Override in child classes
 		}
+
+        public int EnergyUsage {
+            get {
+                return this.energyConsumed.Val;
+            }
+        }
 	}
 }

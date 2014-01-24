@@ -9,11 +9,7 @@ namespace TEST {
         static void Main(string[] args) {
             City TEST = new City("TEST");
 
-            try {
-                Haswell.Controller.Update(long.MaxValue);
-            } catch (Exception e) {
-                Haswell.Controller.LogError(e);
-            }
+            ResourceVal r = 5;
 
             Console.ReadKey();
         }

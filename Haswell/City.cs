@@ -43,7 +43,7 @@ namespace Haswell {
         /// <typeparam name="T">The Type of Building to create</typeparam>
         /// <param name="x">The plot X of the building</param>
         /// <param name="y">The plot Y of the building</param>
-        public void CreateBuilding<T>(int x, int y) where T : Building,new() {
+        public void CreateBuilding<T>(int x, int y) where T : Building, new() {
 
             Building b = new T();
             if (grid.ElementAt(x, y).AddBuilding(b)) {
@@ -68,7 +68,9 @@ namespace Haswell {
         }
 
         public void Update(float gametime) {
-            throw new NotImplementedException();
+            foreach (Plot p in grid) {
+                p.Update();
+            }
         }
 
         public override string ToString() {

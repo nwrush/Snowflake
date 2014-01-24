@@ -15,6 +15,7 @@ namespace Haswell {
          
         public static void init(string name) {
             activeCity = new City(name);
+            System.IO.File.Delete("Snowflake.log");
         }
 
         public static void Update(float frametime) {

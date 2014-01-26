@@ -81,7 +81,7 @@
     <Compile Include="GuiComponents\DebugPanel.cs" />
     <Compile Include="GuiComponents\GameConsole.cs" />
     <Compile Include="GuiComponents\IGuiComponent.cs" />
-    <Compile Include="GuiComponents\ToolPanel.cs" />
+    <Compile Include="GuiComponents\StatsPanel.cs" />
     <Compile Include="GuiComponents\WeatherOverlay.cs" />
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />

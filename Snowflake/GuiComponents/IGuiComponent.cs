@@ -13,5 +13,11 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         /// <param name="system">A MiyagiSystem instance</param>
         void CreateGui(GUI gui);
+
+        /// <summary>
+        /// Updates this GUI component, allowing it to track whatever it needs to from the game data
+        /// </summary>
+        /// <param name="frametime">Time elapsed since last frame, in milliseconds.</param>
+        void Update(float frametime);
     }
 }

@@ -101,6 +101,10 @@ namespace Snowflake.GuiComponents {
 
         private void contextMenuClick(object sender, EventArgs e) { parentPanel.Visible = false; }
 
+        public void Update(float frametime) {
+
+        }
+
         /// <summary>
         /// Returns whether or not the context menu is currently visible
         /// </summary>

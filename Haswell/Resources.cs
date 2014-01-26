@@ -8,17 +8,17 @@ namespace Haswell {
         public enum resourceType {
             Material,
             Energy,
-            OtherStuff,
+            Money,
             None
         };
 
         private resourceType type;
         
         public Resource() {
-            this.type = resourceType.OtherStuff;
+            this.type = resourceType.None;
         }
         public Resource(resourceType t) {
-            if (t != resourceType.OtherStuff)
+            if (t != resourceType.None)
                 this.type = t;
             else {
                 throw new InvalidResourceTypeException();

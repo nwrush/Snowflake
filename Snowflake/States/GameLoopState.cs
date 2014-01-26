@@ -24,7 +24,6 @@ namespace Snowflake.States {
 
         public StateManager StateMgr { get; private set; }
         private Environment WeatherMgr;
-        private CityManager CityMgr;
 
         private SceneNode focalPoint;
         private float angle = 0.78539f;
@@ -46,7 +45,6 @@ namespace Snowflake.States {
         public GameLoopState() {
             StateMgr = null;
             WeatherMgr = null;
-            CityMgr = null;
         }
 
         /// <summary>
@@ -63,7 +61,7 @@ namespace Snowflake.States {
 
             //Instantiate everything
             WeatherMgr = new Environment();
-            CityMgr = new CityManager(this);
+            CityManager.SetGameMgr(this);
 
             gConsole = new GameConsole();
             Tools = new ToolPanel();
@@ -99,7 +97,7 @@ namespace Snowflake.States {
             selBoxEnt.CastShadows = false;
 
             WeatherMgr.CreateScene(engine.SceneMgr);
-            CityMgr.CreateScene(engine.SceneMgr);
+            CityManager.CreateScene(engine.SceneMgr);
         }
 
         private void setupCamera(OgreManager engine) {
@@ -127,13 +125,13 @@ namespace Snowflake.States {
             ContextMenu.AddButton("Create Building", (object source, EventArgs e) => {
                 Mogre.Pair<bool, Point> result = getPlotCoordsFromMousePosition();
                 if (result.first) {
-                    if (!CityMgr.Initialized) {
-                        CityMgr.Init(result.second);
-                        Point newPos = result.second - CityMgr.GetOrigin();
-                        CityMgr.NewBuilding(newPos );
+                    if (!CityManager.Initialized) {
+                        CityManager.Init(result.second);
+                        Point newPos = result.second - CityManager.GetOrigin();
+                        CityManager.NewBuilding(newPos );
                     }
                     else {
-                        CityMgr.NewBuilding(result.second);
+                        CityManager.NewBuilding(result.second);
                     }
                 }
                 ContextMenu.Visible = false;
@@ -225,7 +223,7 @@ namespace Snowflake.States {
             UpdateCameraPosition();
             HandleInput(StateMgr);
 
-            CityMgr.Update(_frameTime);
+            CityManager.Update(_frameTime);
             WeatherMgr.Update(StateMgr.Engine.SceneMgr);
             DebugPanel.UpdateFPS(_frameTime);
         }
@@ -250,8 +248,8 @@ namespace Snowflake.States {
                 Mogre.Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
                 if (intersection.first && selboxShouldUpate()) {
                     Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
-                    Vector3 plotCenter = CityMgr.GetPlotCenter(CityMgr.GetPlotCoords(intersectionPt));
-                    DebugPanel.SetDebugText(CityMgr.GetPlotCoords(intersectionPt).ToString());
+                    Vector3 plotCenter = CityManager.GetPlotCenter(CityManager.GetPlotCoords(intersectionPt));
+                    DebugPanel.SetDebugText(CityManager.GetPlotCoords(intersectionPt).ToString());
                     selBox.SetPosition(plotCenter.x, plotCenter.y, plotCenter.z);
                 }
                 
@@ -368,7 +366,7 @@ namespace Snowflake.States {
             Mogre.Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
             if (intersection.first) {
                 Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
-                return new Mogre.Pair<bool,Point> (true, CityMgr.GetPlotCoords(intersectionPt));
+                return new Mogre.Pair<bool,Point> (true, CityManager.GetPlotCoords(intersectionPt));
             }
             else { return new Mogre.Pair<bool, Point>(false, Point.Empty); }
         }

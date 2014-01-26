@@ -327,7 +327,7 @@ namespace Snowflake.States {
                         }
                         CityManager.MakeSelection();
                         Vector3 center = (CityManager.GetPlotCenter(CityManager.SelectionBox.Left, CityManager.SelectionBox.Top)
-                                        + CityManager.GetPlotCenter(CityManager.SelectionBox.Bottom, CityManager.SelectionBox.Right))
+                                        + CityManager.GetPlotCenter(CityManager.SelectionBox.Right, CityManager.SelectionBox.Bottom))
                                          * 0.5f;
                         gConsole.WriteLine("Plot center: " + center.ToString());
                         gConsole.WriteLine("Topleft: " + CityManager.selectionStart.ToString() + " center: " + CityManager.GetPlotCenter(CityManager.selectionStart).ToString());

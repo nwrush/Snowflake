@@ -63,12 +63,6 @@ namespace Snowflake.States {
             WeatherMgr = new Environment();
             CityManager.SetGameMgr(this);
 
-            gConsole = new GameConsole();
-            Tools = new StatsPanel();
-            WeatherOverlay = new WeatherOverlay();
-            DebugPanel = new DebugPanel();
-            ContextMenu = new ContextMenu();
-
             //Initialize everythings
             createScene(engine);
             createUI();
@@ -114,6 +108,13 @@ namespace Snowflake.States {
         /// Set up overlays for user interface
         /// </summary>
         public void createUI() {
+
+            gConsole = new GameConsole();
+            Tools = new StatsPanel();
+            WeatherOverlay = new WeatherOverlay();
+            DebugPanel = new DebugPanel();
+            ContextMenu = new ContextMenu();
+
             Gui = new GUI();
             StateMgr.GuiSystem.GUIManager.GUIs.Add(Gui);
 

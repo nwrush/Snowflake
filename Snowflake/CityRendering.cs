@@ -21,6 +21,8 @@ namespace Snowflake {
         protected SceneNode node;
         protected List<Entity> entities;
 
+        public event EventHandler Selected;
+
         /// <summary>
         /// The name of this resource (and its child scene node)
         /// </summary>
@@ -64,8 +66,12 @@ namespace Snowflake {
         /// <summary>
         /// Update me
         /// </summary>
-        public void Update() {
-            throw new NotImplementedException();
+        public virtual void Update() {
+            
+        }
+
+        public void Select() {
+            Selected.Invoke(this, new EventArgs());
         }
     }
 

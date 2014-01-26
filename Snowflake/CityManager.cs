@@ -19,8 +19,6 @@ using Rectangle = Miyagi.Common.Data.Rectangle;
 namespace Snowflake {
     public static class CityManager {
 
-        private static GameLoopState GameMgr;
-
         private static bool initialized = false;
 
         private static SceneNode cityNode;
@@ -36,6 +34,11 @@ namespace Snowflake {
         public static bool Initialized { get { return initialized; } }
 
         public static Rectangle SelectionBox { get { return new Rectangle(selectionStart, new Size(selectionEnd.X - selectionStart.X, selectionEnd.Y - selectionStart.Y)); } }
+
+        public static StateManager StateMgr { get { return GameMgr.StateMgr; } }
+        public static SceneManager SceneMgr { get { return GameMgr.StateMgr.Engine.SceneMgr; } }
+        public static OgreManager Engine { get { return GameMgr.StateMgr.Engine; } }
+        public static GameLoopState GameMgr { get; private set; }
 
         static CityManager() {
             cityObjects = new List<Renderable>();

@@ -7,6 +7,7 @@ using Mogre;
 using Snowflake.States;
 using Snowflake.GuiComponents;
 
+
 namespace Snowflake {
     public class Environment {
 
@@ -55,9 +56,9 @@ namespace Snowflake {
             ambient.Type = Light.LightTypes.LT_DIRECTIONAL;
             ambient.Position = new Vector3(0, 2000, 0);
             ambient.Direction = new Vector3(0, -1, 0);
-            ambient.DiffuseColour = new ColourValue(0.005f, 0.0075f, 0.010f);
+            ambient.DiffuseColour = new ColourValue(0.01f, 0.05f, 0.1f);
             ambient.SpecularColour = ColourValue.Black;
-            ambient.CastShadows = true;
+            ambient.CastShadows = false;
 
             sm.RootSceneNode.AttachObject(sun);
             sm.RootSceneNode.AttachObject(ambient);
@@ -75,17 +76,19 @@ namespace Snowflake {
             Time += Timescale;
             UpdateFormatTime(0, 0, Timescale / MinuteLength);
 
-            sun.Position = new Vector3(10000 * (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength)), 10000 * (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength)), -10000);
+            float daynight = (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength));
+            float daynightx = (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength));
+            float season = -(float)System.Math.Cos((Time / 31536000.0) * (2 * System.Math.PI));
+            sun.Position = new Vector3(10000 * daynightx, 10000 * daynight, 10000.0f * season);
 
             //brightness
-            float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(sun.Position.y) * System.Math.Pow(sun.Position.y / 10000, (1.0 / 3.0)));
+            float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(daynight) * System.Math.Pow(daynight, (1.0 / 3.0)));
             float shadowCoef = System.Math.Max(1.0f - multiplier, GetCloudiness() * 0.5f + 0.5f);
             //sm.ShadowColour = new ColourValue(shadowCoef, shadowCoef, shadowCoef);
             sun.DiffuseColour = new ColourValue(0.98f * multiplier, 0.95f * multiplier, 0.9f * multiplier);
-            sun.SpecularColour = sun.DiffuseColour;
             //sm.AmbientLight = new ColourValue(sun.DiffuseColour.r * GetCloudiness() + 0.1f, sun.DiffuseColour.g * GetCloudiness() + 0.1f, sun.DiffuseColour.b * GetCloudiness() + 0.1f);
 
-            float col = (float)System.Math.Max(sun.Position.y / 10000, 0.0) * 0.7f + 0.2f;
+            float col = (float)System.Math.Max(daynight, 0.0) * 0.7f + 0.2f;
             rainSystem.GetEmitter(0).Colour = new ColourValue(col, col, col, 0.6f);
             
 

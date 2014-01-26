@@ -16,41 +16,43 @@ using Haswell.Exceptions;
 using Vector3 = Mogre.Vector3;
 
 namespace Snowflake {
-    public class CityManager {
+    public static class CityManager {
 
-        private GameLoopState GameMgr;
+        private static GameLoopState GameMgr;
 
-        private int MaxX, MaxY, MinX, MinY;
-        private bool initialized = false;
+        private static bool initialized = false;
 
-        private SceneNode cityNode;
-        private Entity ground;
-        private SceneNode world;
-        private Point origin;
+        private static SceneNode cityNode;
+        private static Entity ground;
+        private static SceneNode world;
+        private static Point origin;
 
-        private List<Renderable> cityObjects;
+        private static List<Renderable> cityObjects;
 
-        public bool Initialized { get { return initialized; } }
+        public static bool Initialized { get { return initialized; } }
 
-        public CityManager(GameLoopState gameloop) {
+        static CityManager() {
             cityObjects = new List<Renderable>();
-            this.GameMgr = gameloop;
         }
 
         /// <summary>
         /// Sets up city terrain and creates road planes.
         /// </summary>
         /// <param name="sm">Scenemanager to create scene in</param>
-        public void CreateScene(SceneManager sm) {
+        public static void CreateScene(SceneManager sm) {
 
             CreateTerrain(sm);
             CreateCity(sm);
         }
 
+        public static void SetGameMgr(GameLoopState gameState) {
+            GameMgr = gameState;
+        }
+
         /// <summary>
         /// Set up terrain
         /// </summary>
-        private void CreateTerrain(SceneManager sm) {
+        private static void CreateTerrain(SceneManager sm) {
            
             Plane plane = new Plane(Vector3.UNIT_Y, 0);
             MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 10000, 10000, 100, 100, true, 1, 5, 5, Vector3.UNIT_Z);
@@ -62,30 +64,30 @@ namespace Snowflake {
             //world.Translate(new Vector3(0, -1, 0));
         }
 
-        private void CreateCity(SceneManager sm) {
+        private static void CreateCity(SceneManager sm) {
             cityNode = sm.RootSceneNode.CreateChildSceneNode("CityNode");
 
             //CreateRoads(sm);
             CreateObjects(sm);
         }
         
-        private void CreateRoads(SceneManager sm) {
+        private static void CreateRoads(SceneManager sm) {
 
             //Todo: initialize roads from Haswell data
 
             throw new NotImplementedException();
         }
 
-        private void CreateObjects(SceneManager sm) {
+        private static void CreateObjects(SceneManager sm) {
 
             //Todo: initialize objects from Haswell data
 
             foreach (Renderable r in cityObjects) {
-                r.Create(this, sm, cityNode);
+                r.Create(sm, cityNode);
             }
         }
 
-        public void Init(int originx, int originy) {
+        public static void Init(int originx, int originy) {
             if (!initialized) {
                 GameConsole.ActiveInstance.WriteLine("Founding new City at " + originx.ToString() + ", " + originy.ToString());
 
@@ -98,14 +100,14 @@ namespace Snowflake {
                 GameConsole.ActiveInstance.WriteError("Attempting to found city in an already initialized area!");
             }
         }
-        public void Init(Point p) { Init(p.X, p.Y); }
+        public static void Init(Point p) { Init(p.X, p.Y); }
 
         /// <summary>
         /// Add a new building to the city at the specified coordinates
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public void NewBuilding(int x, int y) {
+        public static void NewBuilding(int x, int y) {
             if (initialized) {
                 try { Haswell.Controller.City.CreateBuilding<Commercial>(x, y); }
                 catch (BuildingCreationFailedException e) {
@@ -116,20 +118,20 @@ namespace Snowflake {
                 GameConsole.ActiveInstance.WriteError("Unable to create building, no city initialized!");
             }
         }
-        public void NewBuilding(Point p) { this.NewBuilding(p.X, p.Y); }
+        public static void NewBuilding(Point p) { NewBuilding(p.X, p.Y); }
 
-        private void CreateBuilding(object sender, BuildingEventArgs e) {
+        private static void CreateBuilding(object sender, BuildingEventArgs e) {
             GameConsole.ActiveInstance.WriteLine("Added a building at " + e.Building.Parent.X + ", " + e.Building.Parent.Y);
             RenderableBuilding rb = new RenderableBuilding(e.Building);
-            rb.Create(this, GameMgr.StateMgr.Engine.SceneMgr, cityNode);
-            this.cityObjects.Add(rb);
+            rb.Create( GameMgr.StateMgr.Engine.SceneMgr, cityNode);
+            cityObjects.Add(rb);
         }
             
         /// <summary>
         /// Update the city
         /// </summary>
         /// <param name="frametime">Milliseconds since last frame</param>
-        public void Update(float frametime) {
+        public static void Update(float frametime) {
 
             if (initialized && false) {
                 try {
@@ -146,15 +148,15 @@ namespace Snowflake {
             }
         }
 
-        public Point GetPlotCoords(Vector3 src) {
+        public static Point GetPlotCoords(Vector3 src) {
             if (!(origin.X == 0 && origin.Y == 0)) {
                 return new Point((int)System.Math.Floor(src.x / Renderable.PlotWidth - origin.X), (int)System.Math.Floor(src.z / Renderable.PlotHeight - origin.Y));
             }
             return new Point((int)System.Math.Floor(src.x / Renderable.PlotWidth), (int)System.Math.Floor(src.z / Renderable.PlotHeight));
         }
 
-        public Vector3 GetPlotCenter(int x, int y) { return this.GetPlotCenter(new Point(x, y)); }
-        public Vector3 GetPlotCenter(Point plotCoord) {
+        public static Vector3 GetPlotCenter(int x, int y) { return GetPlotCenter(new Point(x, y)); }
+        public static Vector3 GetPlotCenter(Point plotCoord) {
             if (!(origin.X == 0 && origin.Y == 0)) {
                 //Todo: account for terrain height
                 return new Vector3((plotCoord.X + origin.X) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f), 
@@ -168,8 +170,8 @@ namespace Snowflake {
             }
         }
 
-        public Point GetOrigin() {
-            return this.origin;
+        public static Point GetOrigin() {
+            return origin;
         }
     }
 }

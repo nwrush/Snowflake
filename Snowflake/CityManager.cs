@@ -14,6 +14,7 @@ using Haswell.Buildings;
 using Haswell.Exceptions;
 
 using Vector3 = Mogre.Vector3;
+using Rectangle = Miyagi.Common.Data.Rectangle;
 
 namespace Snowflake {
     public static class CityManager {
@@ -29,7 +30,12 @@ namespace Snowflake {
 
         private static List<Renderable> cityObjects;
 
+        private static Point selectionStart;
+        private static Point selectionEnd;
+
         public static bool Initialized { get { return initialized; } }
+
+        public static Rectangle SelectionBox { get { return new Rectangle(selectionStart, new Size(selectionEnd.X - selectionStart.X, selectionEnd.Y - selectionStart.Y)); } }
 
         static CityManager() {
             cityObjects = new List<Renderable>();
@@ -145,6 +151,19 @@ namespace Snowflake {
                     //Check if r needs updating, and if so:
                     r.Update();
                 }
+            }
+        }
+
+        public static void SetSelectionStart(Point p) {
+            selectionStart = p;
+        }
+        public static void SetSelectionEnd(Point p) {
+            if (p.X > selectionStart.X || p.Y > selectionStart.Y) {
+                selectionEnd = selectionStart;
+                selectionStart = p;
+            }
+            else {
+                selectionEnd = p;
             }
         }
 

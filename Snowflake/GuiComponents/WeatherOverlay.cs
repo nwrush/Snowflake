@@ -42,6 +42,10 @@ namespace Snowflake.GuiComponents {
             gui.Controls.Add(text);
         }
 
+        public void Update(float frametime) {
+
+        }
+
         /// <summary>
         /// Set the weather icon to the specified Weather condition
         /// Time of day is automatically compensated for

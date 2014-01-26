@@ -91,6 +91,10 @@ namespace Snowflake.GuiComponents {
         /// <param name="text">Text to add</param>
         public void WriteLine(string text) { this.debugText.Text += "\n" + text; }
 
+        public void Update(float frametime) {
+
+        }
+
         /// <summary>
         /// Updates the FPS indicator
         /// </summary>

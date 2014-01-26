@@ -81,7 +81,7 @@
     <Compile Include="GuiComponents\DebugPanel.cs" />
     <Compile Include="GuiComponents\GameConsole.cs" />
     <Compile Include="GuiComponents\IGuiComponent.cs" />
-    <Compile Include="GuiComponents\ToolPanel.cs" />
+    <Compile Include="GuiComponents\StatsPanel.cs" />
     <Compile Include="GuiComponents\WeatherOverlay.cs" />
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />
@@ -93,6 +93,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States\GameLoopState.cs" />
+    <Compile Include="States\MenuState.cs" />
     <Compile Include="Utils3D.cs" />
     <Compile Include="Environment.cs" />
   </ItemGroup>

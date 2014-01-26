@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio 12.0\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="12.0">
+ <Targets>
+  <Target Name="C:\Users\Andy\Dev\Git\Snowflake\Haswell\bin\Debug\Haswell.dll">
+   <Modules>
+    <Module Name="haswell.dll">
+     <Namespaces>
+      <Namespace Name="Haswell">
+       <Types>
+        <Type Name="InfiniteGrid" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#System.Collections.Generic.ICollection`1&lt;Haswell.Plot&gt;.Add(Haswell.Plot)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="InfiniteGrid.cs" Line="80">Make 'InfiniteGrid' sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of 'ICollection&lt;Plot&gt;.Add(Plot)' and is visible to derived classes.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#System.Collections.Generic.ICollection`1&lt;Haswell.Plot&gt;.Clear()" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="InfiniteGrid.cs" Line="89">Make 'InfiniteGrid' sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of 'ICollection&lt;Plot&gt;.Clear()' and is visible to derived classes.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#System.Collections.Generic.ICollection`1&lt;Haswell.Plot&gt;.Contains(Haswell.Plot)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="InfiniteGrid.cs" Line="93">Make 'InfiniteGrid' sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of 'ICollection&lt;Plot&gt;.Contains(Plot)' and is visible to derived classes.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#System.Collections.Generic.ICollection`1&lt;Haswell.Plot&gt;.CopyTo(Haswell.Plot[],System.Int32)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="InfiniteGrid.cs" Line="102">Make 'InfiniteGrid' sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of 'ICollection&lt;Plot&gt;.CopyTo(Plot[], int)' and is visible to derived classes.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#System.Collections.Generic.ICollection`1&lt;Haswell.Plot&gt;.Count" Kind="Property" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Accessors>
+            <Accessor Name="#System.Collections.Generic.ICollection`1&lt;Haswell.Plot&gt;.get_Count()" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+             <Messages>
+              <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="NonBreaking">
+               <Issue Certainty="95" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="InfiniteGrid.cs" Line="107">Make 'InfiniteGrid' sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of 'ICollection&lt;Plot&gt;.Count.get()' and is visible to derived classes.</Issue>
+              </Message>
+             </Messages>
+            </Accessor>
+           </Accessors>
+          </Member>
+          <Member Name="#System.Collections.Generic.ICollection`1&lt;Haswell.Plot&gt;.Remove(Haswell.Plot)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="InfiniteGrid.cs" Line="114">Make 'InfiniteGrid' sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of 'ICollection&lt;Plot&gt;.Remove(Plot)' and is visible to derived classes.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#System.Collections.Generic.IEnumerable`1&lt;Haswell.Plot&gt;.GetEnumerator()" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="InfiniteGrid.cs" Line="119">Make 'InfiniteGrid' sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of 'IEnumerable&lt;Plot&gt;.GetEnumerator()' and is visible to derived classes.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+          <Member Name="#System.Collections.IEnumerable.GetEnumerator()" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="InfiniteGrid.cs" Line="123">Make 'InfiniteGrid' sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of 'IEnumerable.GetEnumerator()' and is visible to derived classes.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Plot" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#System.IComparable`1&lt;Haswell.Plot&gt;.CompareTo(Haswell.Plot)" Kind="Method" Static="False" Accessibility="Private" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="Plot.cs" Line="77">Make 'Plot' sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of 'IComparable&lt;Plot&gt;.CompareTo(Plot)' and is visible to derived classes.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="ResourceVal" Kind="Struct" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#op_Implicit(System.Int32):Haswell.ResourceVal" Kind="Method" Static="True" Accessibility="Public" ExternallyVisible="True">
+           <Messages>
+            <Message TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065" Status="Active" Created="2014-01-26 02:45:07Z" FixCategory="Breaking">
+             <Issue Name="NoAllowedExceptions" Certainty="90" Level="Error" Path="c:\Users\Andy\Dev\Git\Snowflake\Haswell" File="ResourceVal.cs" Line="22">'ResourceVal.implicit operator ResourceVal(int)' creates an exception of type 'InvalidResourceAmountException'. Exceptions should not be raised in this type of method. If this exception instance might be raised, change this method's logic so it no longer raises an exception.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="DoNotRaiseExceptionsInUnexpectedLocations" Category="Microsoft.Design" CheckId="CA1065">
+   <Name>Do not raise exceptions in unexpected locations</Name>
+   <Description>Do not explicitly raise exceptions from unexpected locations. There are some methods, such as Equals and GetHashCode, which users do not expect to raise exceptions. Therefore calls to these methods are not commonly wrapped in try catch blocks.</Description>
+   <Resolution Name="NoAllowedExceptions">{0} creates an exception of type {1}. Exceptions should not be raised in this type of method. If this exception instance might be raised, change this method's logic so it no longer raises an exception.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/bb386039.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="90">Error, Warning</MessageLevel>
+   <File Name="designrules.dll" Version="12.0.0.0" />
+  </Rule>
+  <Rule TypeName="InterfaceMethodsShouldBeCallableByChildTypes" Category="Microsoft.Design" CheckId="CA1033">
+   <Name>Interface methods should be callable by child types</Name>
+   <Description>Explicit method implementations are defined with private accessibility. Classes that derive from classes with explicit method implementations and choose to re-declare them on the class will not be able to call into the base class implementation unless the base class has provided an alternate method with appropriate accessibility. When overriding a base class method that has been hidden by explicit interface implementation, in order to call into the base class implementation, a derived class must cast the base pointer to the relevant interface. When calling through this reference, however, the derived class implementation will actually be invoked, resulting in recursion and an eventual stack overflow.</Description>
+   <Resolution Name="Default">Make {0} sealed (a breaking change if this class has previously shipped), implement the method non-explicitly, or implement a new method that exposes the functionality of {1} and is visible to derived classes.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182153.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">Error</MessageLevel>
+   <File Name="designrules.dll" Version="12.0.0.0" />
+  </Rule>
+ </Rules>
+ <Localized>
+  <String Key="Category">Category</String>
+  <String Key="Certainty">Certainty</String>
+  <String Key="CollapseAll">Collapse All</String>
+  <String Key="CheckId">Check Id</String>
+  <String Key="Error">Error</String>
+  <String Key="Errors">error(s)</String>
+  <String Key="ExpandAll">Expand All</String>
+  <String Key="Help">Help</String>
+  <String Key="Line">Line</String>
+  <String Key="Messages">message(s)</String>
+  <String Key="LocationNotStoredInPdb">[Location not stored in Pdb]</String>
+  <String Key="Project">Project</String>
+  <String Key="Resolution">Resolution</String>
+  <String Key="Rule">Rule</String>
+  <String Key="RuleFile">Rule File</String>
+  <String Key="RuleDescription">Rule Description</String>
+  <String Key="Source">Source</String>
+  <String Key="Status">Status</String>
+  <String Key="Target">Target</String>
+  <String Key="Warning">Warning</String>
+  <String Key="Warnings">warning(s)</String>
+  <String Key="ReportTitle">Code Analysis Report</String>
+ </Localized>
+</FxCopReport>

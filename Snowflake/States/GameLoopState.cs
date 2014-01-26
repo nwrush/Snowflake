@@ -34,7 +34,7 @@ namespace Snowflake.States {
 
         private GUI Gui;
         private GameConsole gConsole;
-        private ToolPanel Tools;
+        private StatsPanel Tools;
         private WeatherOverlay WeatherOverlay;
         private DebugPanel DebugPanel;
         private ContextMenu ContextMenu;
@@ -64,7 +64,7 @@ namespace Snowflake.States {
             CityManager.SetGameMgr(this);
 
             gConsole = new GameConsole();
-            Tools = new ToolPanel();
+            Tools = new StatsPanel();
             WeatherOverlay = new WeatherOverlay();
             DebugPanel = new DebugPanel();
             ContextMenu = new ContextMenu();
@@ -93,7 +93,7 @@ namespace Snowflake.States {
             selBox = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("SelBox");
             selBoxEnt = engine.SceneMgr.CreateEntity("SelBoxEnt", "sel_Box001.mesh");
             selBox.AttachObject(selBoxEnt);
-            selBox.Scale(new Vector3(440, 440, 440));
+            selBox.Scale(new Vector3(440, 110, 440));
             selBoxEnt.CastShadows = false;
 
             WeatherMgr.CreateScene(engine.SceneMgr);
@@ -226,6 +226,7 @@ namespace Snowflake.States {
             CityManager.Update(_frameTime);
             WeatherMgr.Update(StateMgr.Engine.SceneMgr);
             DebugPanel.UpdateFPS(_frameTime);
+            UpdateGUI(_frameTime);
         }
 
         private void UpdateCameraPosition() {
@@ -285,8 +286,21 @@ namespace Snowflake.States {
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
                     if (!ContextMenu.HitTest(MousePosition(mStateMgr.Input))) {
                         ContextMenu.Visible = false;
-                        //Uhhh...now do something with that nice ray of sunshine
-                        //Utils3D.DrawRay(engine.SceneMgr, mouseRay);
+                    }
+                }
+
+                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
+                    if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left) && selectionCanBegin()) {
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromMousePosition();
+                        if (result.first) {
+                            CityManager.SetSelectionStart(result.second);
+                        }
+                    }
+                    else {
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromMousePosition();
+                        if (result.first) {
+                            CityManager.SetSelectionEnd(result.second);
+                        }   
                     }
                 }
 
@@ -326,11 +340,19 @@ namespace Snowflake.States {
             }
         }
 
+        public void UpdateGUI(float frametime) {
+            Tools.Update(frametime);
+        }
+
         private bool selboxShouldUpate() {
             return ContextMenu.Visible == false;
         }
 
         private bool viewShouldUpdate() {
+            return ContextMenu.Visible == false;
+        }
+
+        private bool selectionCanBegin() {
             return ContextMenu.Visible == false;
         }
 

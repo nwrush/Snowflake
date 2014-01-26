@@ -303,6 +303,10 @@ namespace Snowflake.GuiComponents {
             }
             labelY = 0;
         }
+
+        public void Update(float frametime) {
+
+        }
     }
 
     public class ConsoleCommand {

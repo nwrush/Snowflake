@@ -6,47 +6,43 @@ using System.Drawing;
 
 namespace Haswell {
     public class InfiniteGrid : ICollection<Plot> {
-        List<Plot> elements;
+        Dictionary<string,Plot> elements;
 
         public InfiniteGrid() {
-            elements = new List<Plot>();
+            elements = new Dictionary<string, Plot>();
         }
 
         public Plot ElementAt(int x, int y) {
-            foreach (Plot e in elements) {
-                if (e.X == x && e.Y == y) {
-                    return e;
-                }
+            try {
+                Plot p = elements[x.ToString() + "," + y.ToString()];
+                return p;
             }
-            /*don't return null because that's dumb 
-            //return null;
-            instead, since there's no grid element for these coordinates, let's create one */
-            //I think this is a really bad plan, 
-            Plot p = new Plot(x, y);
-            elements.Add(p);
-            return p;
+            catch (KeyNotFoundException e) {
+                //For now, add a plot where its trying to find one
+                //In the future, don't catch this exception and let the caller deal with it.
+                Plot p = new Plot(x, y);
+                elements[x.ToString() + "," + y.ToString()] = p;
+                return p;
+            }
         }
         public Plot RemoveAt(int x, int y) {
-            for (int i = 0; i < elements.Count; i++) {
-                if (elements[i].X == x && elements[i].Y == y) {
-                    Plot tmp = elements[i];
-                    elements.RemoveAt(i);
-                    return tmp;
-                }
-            }
-            throw new ElementNotFoundException();
+            Plot tmp = elements[x.ToString() + "," + y.ToString()];
+            elements.Remove(x.ToString() + "," + y.ToString());
+            return tmp;
         }
 
         public Plot[,] ToGrid() {
             Plot[,] tmp = null;
             makePlot(tmp);
-            populateGrid(tmp);
+            populateGrid(ref tmp);
             return tmp;
         }
 
         private void makePlot(Plot[,] t) {
             int lowX = 0, lowY = 0, highX = 0, highY = 0;
-            foreach (Plot p in this.elements) {
+
+            foreach (KeyValuePair<string, Plot> kvp in this.elements) {
+                Plot p = kvp.Value;
                 if (p.X > highX)
                     highX = p.X;
                 else if (p.X < lowX)
@@ -59,8 +55,9 @@ namespace Haswell {
             }
             t = new Plot[highX - lowX, highY - lowY];
         }
-        private void populateGrid(Plot[,] t) {
-            foreach (Plot p in this.elements) {
+        private void populateGrid(ref Plot[,] t) {
+            foreach (KeyValuePair<string, Plot> kvp in this.elements) {
+                Plot p = kvp.Value;
                 t[p.X, p.Y] = p;
             }
         }
@@ -78,12 +75,12 @@ namespace Haswell {
         }
 
         void ICollection<Plot>.Add(Plot e) {
-            foreach (Plot p in elements) {
-                if (e == p) {
-                    throw new StackOverflowException();
-                }
+            if (elements[e.X.ToString() + "," + e.Y.ToString()] != null) {
+                throw new ElementAlreadyExistsException();
             }
-            elements.Add(e);
+            else {
+                elements[e.X.ToString() + "," + e.Y.ToString()] = e;
+            }
         }
 
         void ICollection<Plot>.Clear() {
@@ -91,10 +88,8 @@ namespace Haswell {
         }
 
         bool ICollection<Plot>.Contains(Plot item) {
-            foreach (Plot p in this.elements) {
-                if (item == p) {
-                    return true;
-                }
+            if (elements[item.X.ToString() + "," + item.Y.ToString()] != null) {
+                if (item == elements[item.X.ToString() + "," + item.Y.ToString()]) { return true; }
             }
             return false;
         }
@@ -112,12 +107,12 @@ namespace Haswell {
         }
 
         bool ICollection<Plot>.Remove(Plot item) {
-            this.elements.Remove(item);
+            this.elements.Remove(item.X.ToString() + "," + item.Y.ToString());
             return true;
         }
 
         IEnumerator<Plot> IEnumerable<Plot>.GetEnumerator() {
-            return this.elements.GetEnumerator();
+            return this.elements.Values.GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {

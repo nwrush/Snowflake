@@ -285,10 +285,10 @@ namespace Snowflake.States {
                 if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
                     if (!ContextMenu.HitTest(MousePosition(mStateMgr.Input))) {
                         ContextMenu.Visible = false;
-                        //Uhhh...now do something with that nice ray of sunshine
-                        //Utils3D.DrawRay(engine.SceneMgr, mouseRay);
                     }
                 }
+
+                //if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.
 
                 if (mStateMgr.Input.MouseMoveZ != 0.0f) {
                     dist += mStateMgr.Input.MouseMoveZ * 0.002f;
@@ -331,6 +331,10 @@ namespace Snowflake.States {
         }
 
         private bool viewShouldUpdate() {
+            return ContextMenu.Visible == false;
+        }
+
+        private bool selectionCanBegin() {
             return ContextMenu.Visible == false;
         }
 

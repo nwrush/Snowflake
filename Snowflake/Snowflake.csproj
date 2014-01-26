@@ -93,6 +93,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States\GameLoopState.cs" />
+    <Compile Include="States\MenuState.cs" />
     <Compile Include="Utils3D.cs" />
     <Compile Include="Environment.cs" />
   </ItemGroup>

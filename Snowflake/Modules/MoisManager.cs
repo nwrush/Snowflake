@@ -6,9 +6,10 @@ using Snowflake.GuiComponents;
 
 namespace Snowflake.Modules
 {
-    /************************************************************************/
-    /* MOIS manager                                                         */
-    /************************************************************************/
+    
+    ///<summary> 
+    ///MOIS manager                                                          
+	///</summary>
     public class MoisManager
     {
         //////////////////////////////////////////////////////////////////////////
@@ -19,6 +20,7 @@ namespace Snowflake.Modules
         private bool[] mKeyPressed;
         private bool[] mMouseDown;
         private bool[] mMousePressed;
+        private bool[] mMouseReleased;
         private Vector3 mMouseMove;
         private Vector3 mMousePos;
         private Vector3 mMousePressedPos;
@@ -45,9 +47,10 @@ namespace Snowflake.Modules
         public Keyboard Keyboard { get { return mKeyboard; } }
         public Mouse Mouse { get { return mMouse; } }
 
-        /************************************************************************/
-        /* constructor                                                          */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  constructor                                                           
+		///</summary>
         internal MoisManager()
         {
             mInputMgr = null;
@@ -57,15 +60,17 @@ namespace Snowflake.Modules
             mKeyPressed = new bool[256];
             mMouseDown = new bool[8];
             mMousePressed = new bool[8];
+            mMouseReleased = new bool[8];
             mMouseMove = new Vector3();
             mMousePos = new Vector3();
             mMousePressedPos = new Vector3();
             mMouseReleasedPos = new Vector3();
         }
 
-        /************************************************************************/
-        /* start up mois manager                                                */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  start up mois manager                                                 
+		///</summary>
         internal bool Startup(IntPtr _windowHandle, int _width, int _height)
         {
             // check if already initialized
@@ -109,9 +114,10 @@ namespace Snowflake.Modules
             return true;
         }
 
-        /************************************************************************/
-        /* shut down mois manager                                               */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  shut down mois manager                                                
+		///</summary>
         internal void Shutdown()
         {
             // shutdown mouse
@@ -136,27 +142,26 @@ namespace Snowflake.Modules
             }
         }
 
-        /************************************************************************/
-        /* update mois manager                                                  */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  update mois manager                                                   
+		///</summary>
+        
         internal void Update()
         {
             ClearKeyPressed();
             ClearMousePressed();
             ClearMouseMove();
+            ClearMouseReleased();
 
-            //try {
-                mKeyboard.Capture();
-                mMouse.Capture();
-            //}
-            //catch (NullReferenceException e) {
-                //GameConsole.ActiveInstance.WriteError(e.Message);
-            //}
+            mKeyboard.Capture();
+            mMouse.Capture();
         }
 
-        /************************************************************************/
-        /* clear all keyboard and mouse state except for absolute mouse pos     */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///Clear all keyboard and mouse state except for absolute mouse pos      
+		///</summary>
         public void Clear()
         {
             ClearKeyPressed();
@@ -164,43 +169,57 @@ namespace Snowflake.Modules
             ClearMousePressed();
             ClearMouseDown();
             ClearMouseMove();
+            ClearMouseReleased();
         }
 
-        /************************************************************************/
-        /* check if a key is currently pressed on the keyboard                  */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///check if a key is currently pressed on the keyboard                   
+		///</summary>
         public bool IsKeyDown(KeyCode _key)
         {
             return mKeyDown[(int)_key];
         }
 
-        /************************************************************************/
-        /* check if a key was pressed on the keyboard this frame                */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  check if a key was pressed on the keyboard this frame                 
+		///</summary>
+        
         public bool WasKeyPressed(KeyCode _key)
         {
             return mKeyPressed[(int)_key];
         }
 
-        /************************************************************************/
-        /* check if a mouse button is currently pressed                         */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  check if a mouse button is currently pressed                          
+		///</summary>
+        
         public bool IsMouseButtonDown(MouseButtonID _button)
         {
             return mMouseDown[(int)_button];
         }
 
-        /************************************************************************/
-        /* check if a mouse button was pressed this frame                       */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  check if a mouse button was pressed this frame                        
+		///</summary>
+        
         public bool WasMouseButtonPressed(MouseButtonID _button)
         {
             return mMousePressed[(int)_button];
         }
 
-        /************************************************************************/
-        /* check if the mouse was moved this frame (or wheel position changed)  */
-        /************************************************************************/
+        public bool WasMouseButtonReleased(MouseButtonID _button) {
+            return mMouseReleased[(int)_button];
+        }
+
+        
+        ///<summary> 
+	 	///  check if the mouse was moved this frame (or wheel position changed)   
+		///</summary>
+        
         public bool WasMouseMoved()
         {
             return mMouseMove.x != 0 || mMouseMove.y != 0 || mMouseMove.z != 0;
@@ -210,45 +229,61 @@ namespace Snowflake.Modules
         // internal functions ////////////////////////////////////////////////////
         //////////////////////////////////////////////////////////////////////////
 
-        /************************************************************************/
-        /* clear the buffer for keys that were pressed                          */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  clear the buffer for keys that were pressed                           
+		///</summary>
+        
         private void ClearKeyPressed()
         {
             for (int i = 0; i < mKeyPressed.Length; ++i)
                 mKeyPressed[i] = false;
         }
 
-        /************************************************************************/
-        /* clear the buffer for keys that are pressed                           */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  clear the buffer for keys that are pressed                            
+		///</summary>
+        
         private void ClearKeyDown()
         {
             for (int i = 0; i < mKeyDown.Length; ++i)
                 mKeyDown[i] = false;
         }
 
-        /************************************************************************/
-        /* clear the buffer for mouse buttons that were pressed                 */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  clear the buffer for mouse buttons that were pressed                  
+		///</summary>
+        
         private void ClearMousePressed()
         {
             for (int i = 0; i < mMousePressed.Length; ++i)
                 mMousePressed[i] = false;
         }
 
-        /************************************************************************/
-        /* clear the buffer for mouse buttons that are pressed                  */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  clear the buffer for mouse buttons that are pressed                   
+		///</summary>
+        
         private void ClearMouseDown()
         {
             for (int i = 0; i < mMouseDown.Length; ++i)
                 mMouseDown[i] = false;
         }
 
-        /************************************************************************/
-        /* clear the relative mouse movement for this frame                     */
-        /************************************************************************/
+        private void ClearMouseReleased() 
+        {
+            for (int i = 0; i < mMouseReleased.Length; ++i)
+                mMouseReleased[i] = false;          
+        }
+
+        
+        ///<summary> 
+	 	///  clear the relative mouse movement for this frame                      
+		///</summary>
+        
         private void ClearMouseMove()
         {
             mMouseMove.x = 0;
@@ -256,9 +291,11 @@ namespace Snowflake.Modules
             mMouseMove.z = 0;
         }
 
-        /************************************************************************/
-        /* event handler for key presses                                        */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  event handler for key presses                                         
+		///</summary>
+        
         private bool OnKeyPressed(KeyEvent arg)
         {
             mKeyDown[(int)arg.key] = true;
@@ -266,18 +303,22 @@ namespace Snowflake.Modules
             return true;
         }
 
-        /************************************************************************/
-        /* event handler for key releases                                       */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  event handler for key releases                                        
+		///</summary>
+        
         private bool OnKeyReleased(KeyEvent arg)
         {
             mKeyDown[(int)arg.key] = false;
             return true;
         }
 
-        /************************************************************************/
-        /* event handler for mouse movement                                     */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  event handler for mouse movement                                      
+		///</summary>
+        
         private bool OnMouseMoved(MouseEvent arg)
         {
             mMouseMove.x = arg.state.X.rel;
@@ -288,9 +329,11 @@ namespace Snowflake.Modules
             return true;
         }
 
-        /************************************************************************/
-        /* event handler for mouse button presses                               */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  event handler for mouse button presses                                
+		///</summary>
+        
         private bool OnMousePressed(MouseEvent arg, MouseButtonID id)
         {
             mMouseDown[(int)id] = true;
@@ -302,12 +345,15 @@ namespace Snowflake.Modules
             return true;
         }
 
-        /************************************************************************/
-        /* event handler for mouse button releases                              */
-        /************************************************************************/
+        
+        ///<summary> 
+	 	///  event handler for mouse button releases                               
+		///</summary>
+        
         private bool OnMouseReleased(MouseEvent arg, MouseButtonID id)
         {
             mMouseDown[(int)id] = false;
+            mMouseReleased[(int)id] = true;
             mMousePos.x = arg.state.X.abs;
             mMousePos.y = arg.state.Y.abs;
             mMouseReleasedPos.x = arg.state.X.abs;

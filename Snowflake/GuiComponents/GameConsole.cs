@@ -16,7 +16,7 @@ namespace Snowflake.GuiComponents {
 
         private int labelY;
         private Panel outputPanel;
-        private Panel parentPanel;
+        public Panel parentPanel { get; private set; }
         private TextBox entryBox;
 
         private Dictionary<string, ConsoleCommand> commands;

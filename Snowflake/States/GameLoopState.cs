@@ -29,8 +29,11 @@ namespace Snowflake.States {
         private float angle = 0.78539f;
         private float dist = -7.0f;
 
-        private SceneNode selBox;
-        private Entity selBoxEnt;
+        private SceneNode cursorPlane;
+        private Entity cursorPlaneEnt;
+
+        private SceneNode selectionBox;
+        private Entity selectionBoxEnt;
 
         private GUI Gui;
         private GameConsole gConsole;
@@ -38,6 +41,8 @@ namespace Snowflake.States {
         private WeatherOverlay WeatherOverlay;
         private DebugPanel DebugPanel;
         private ContextMenu ContextMenu;
+
+        private const float SCALEFACTOR = 440.0f;
 
         /// <summary>
         /// Constructor
@@ -84,11 +89,19 @@ namespace Snowflake.States {
 
             setupCamera(engine);
 
-            selBox = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("SelBox");
-            selBoxEnt = engine.SceneMgr.CreateEntity("SelBoxEnt", "cursor_Plane001.mesh");
-            selBox.AttachObject(selBoxEnt);
-            selBox.Scale(new Vector3(440, 440, 440));
-            selBoxEnt.CastShadows = false;
+            cursorPlane = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("cursorPlane");
+            cursorPlaneEnt = engine.SceneMgr.CreateEntity("cursorPlaneEnt", "cursorplane.mesh");
+            cursorPlane.AttachObject(cursorPlaneEnt);
+            cursorPlane.Scale(new Vector3(SCALEFACTOR, SCALEFACTOR, SCALEFACTOR));
+            cursorPlaneEnt.CastShadows = false;
+
+            selectionBox = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("selectionBox");
+            selectionBoxEnt = engine.SceneMgr.CreateEntity("selectionBoxEnt", "selectionbox.mesh");
+            selectionBox.AttachObject(selectionBoxEnt);
+            selectionBox.Scale(new Vector3(SCALEFACTOR, SCALEFACTOR / 2.0f, SCALEFACTOR));
+            selectionBoxEnt.CastShadows = false;
+
+            selectionBox.SetVisible(false);
 
             WeatherMgr.CreateScene(engine.SceneMgr);
             CityManager.CreateScene(engine.SceneMgr);
@@ -251,12 +264,11 @@ namespace Snowflake.States {
                 if (intersection.first && selboxShouldUpate()) {
                     Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
                     Vector3 plotCenter = CityManager.GetPlotCenter(CityManager.GetPlotCoords(intersectionPt));
-                    DebugPanel.SetDebugText(CityManager.GetPlotCoords(intersectionPt).ToString());
-                    selBox.SetPosition(plotCenter.x, plotCenter.y + 1f, plotCenter.z);
+                    cursorPlane.SetPosition(plotCenter.x, plotCenter.y + 1f, plotCenter.z);
                 }
                 
                 //Middle click - rotate the view
-                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Middle) && viewShouldUpdate()) {
+                if (mStateMgr.Input.IsMouseButtonDown(MouseButtonID.MB_Middle) && viewShouldUpdate()) {
 
                     //Mouse rotate control
                     angle += mStateMgr.Input.MouseMoveX * 0.01f;
@@ -272,7 +284,7 @@ namespace Snowflake.States {
                     }
                 }
                 //Right click - context menus
-                if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Right))
+                if (mStateMgr.Input.WasMouseButtonPressed(MouseButtonID.MB_Right))
                 {
                     if (ContextMenu.Visible == true && !ContextMenu.HitTest(MousePosition(mStateMgr.Input))) {
                         ContextMenu.Visible = false;
@@ -284,24 +296,45 @@ namespace Snowflake.States {
                 }
 
                 //Mouse click - 3D selection
-                if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left)) {
+                if (mStateMgr.Input.WasMouseButtonPressed(MouseButtonID.MB_Left)) {
                     if (!ContextMenu.HitTest(MousePosition(mStateMgr.Input))) {
                         ContextMenu.Visible = false;
+
+                        if (canSelect()) {
+                            Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                            if (result.first) {
+                                CityManager.SetSelectionStart(result.second);
+                                CityManager.SetSelectionEnd(result.second);
+                            }
+                        }
                     }
                 }
 
-                if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
-                    if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left) && selectionCanBegin()) {
-                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
-                        if (result.first) {
-                            CityManager.SetSelectionStart(result.second);
-                        }
-                    }
-                    else {
+                if (mStateMgr.Input.IsMouseButtonDown(MouseButtonID.MB_Left)) {
+                   if (canSelect()) {
+                       Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                       if (result.first) {
+                           DebugPanel.SetDebugText(result.second.ToString());
+                       }
+                   }
+                }
+
+                if (mStateMgr.Input.WasMouseButtonReleased(MouseButtonID.MB_Left)) {
+                    if (canSelect()) {
                         Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
                         if (result.first) {
                             CityManager.SetSelectionEnd(result.second);
-                        }   
+                        }
+                        CityManager.MakeSelection();
+                        Vector3 center = (CityManager.GetPlotCenter(CityManager.SelectionBox.Left, CityManager.SelectionBox.Top)
+                                        + CityManager.GetPlotCenter(CityManager.SelectionBox.Bottom, CityManager.SelectionBox.Right))
+                                         * 0.5f;
+                        gConsole.WriteLine("Plot center: " + center.ToString());
+                        gConsole.WriteLine("Topleft: " + CityManager.selectionStart.ToString() + " center: " + CityManager.GetPlotCenter(CityManager.selectionStart).ToString());
+                        gConsole.WriteLine("Bottomright: " + CityManager.selectionEnd.ToString() + " center: " + CityManager.GetPlotCenter(CityManager.selectionEnd).ToString());
+                        selectionBox.SetPosition(center.x, center.y, center.z);
+                        selectionBox.SetScale(CityManager.SelectionBox.Width * SCALEFACTOR, SCALEFACTOR / 2.0f, CityManager.SelectionBox.Height * SCALEFACTOR);
+                        selectionBox.SetVisible(true);
                     }
                 }
 
@@ -314,34 +347,34 @@ namespace Snowflake.States {
                 if (viewShouldUpdate()) {
                     //WASD Control
                     int speed = 10;
-                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_A)) {
+                    if (mStateMgr.Input.IsKeyDown(KeyCode.KC_A)) {
                         focalPoint.Translate(new Vector3((-dist + speed) * Mogre.Math.Sin(angle), 0, -(-dist + speed) * Mogre.Math.Cos(angle)));
                     }
-                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_W)) {
+                    if (mStateMgr.Input.IsKeyDown(KeyCode.KC_W)) {
                         focalPoint.Translate(new Vector3((-dist + speed) * Mogre.Math.Cos(angle), 0, (-dist + speed) * Mogre.Math.Sin(angle)));
                     }
-                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_D)) {
+                    if (mStateMgr.Input.IsKeyDown(KeyCode.KC_D)) {
                         focalPoint.Translate(new Vector3(-(-dist + speed) * Mogre.Math.Sin(angle), 0, (-dist + speed) * Mogre.Math.Cos(angle)));
                     }
-                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
+                    if (mStateMgr.Input.IsKeyDown(KeyCode.KC_S)) {
                         focalPoint.Translate(new Vector3(-(-dist + speed) * Mogre.Math.Cos(angle), 0, -(-dist + speed) * Mogre.Math.Sin(angle)));
                     }
-                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_Q)) {
+                    if (mStateMgr.Input.IsKeyDown(KeyCode.KC_Q)) {
                         angle += 0.01f;
                     }
-                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_E)) {
+                    if (mStateMgr.Input.IsKeyDown(KeyCode.KC_E)) {
                         angle -= 0.01f;
                     }
                 }
 
                 //Toggle the console with `
-                if (mStateMgr.Input.WasKeyPressed(MOIS.KeyCode.KC_GRAVE)) {
+                if (mStateMgr.Input.WasKeyPressed(KeyCode.KC_GRAVE)) {
                     gConsole.Visible = !gConsole.Visible;
                 }
             }
 
             // check if the escape key was pressed
-            if (mStateMgr.Input.WasKeyPressed(MOIS.KeyCode.KC_EQUALS)) {
+            if (mStateMgr.Input.WasKeyPressed(KeyCode.KC_EQUALS)) {
                 // quit the application
                 mStateMgr.RequestShutdown();
             }
@@ -359,8 +392,8 @@ namespace Snowflake.States {
             return ContextMenu.Visible == false;
         }
 
-        private bool selectionCanBegin() {
-            return ContextMenu.Visible == false;
+        private bool canSelect() {
+            return ContextMenu.Visible == false && gConsole.parentPanel.HitTest(MousePosition(StateMgr.Input)) == false;
         }
 
         /// <summary>

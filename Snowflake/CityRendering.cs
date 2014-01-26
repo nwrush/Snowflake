@@ -112,7 +112,7 @@ namespace Snowflake {
 
         public static List<Entity> GetBuildingEntities(Building b, SceneManager sm) {
             List<Entity> entList = new List<Entity>();
-            entList.Add(sm.CreateEntity(b.GetType().ToString() + "_" + b.GetHashCode(), "skyscraperBox001.mesh"));
+            entList.Add(sm.CreateEntity(b.GetType().ToString() + "_" + b.GetHashCode(), "skyscraper01.mesh"));
             return entList;
         }
     }

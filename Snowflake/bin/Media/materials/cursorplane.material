@@ -1,0 +1,18 @@
+material "cursor_01_-_Default"
+{
+	technique cursor_01_-_Default_technique
+	{
+		pass cursor_01_-_Default_standard
+		{
+			lighting off
+
+			scene_blend alpha_blend
+			depth_write off
+			
+			texture_unit
+			{
+				texture cursorplane.png
+			}
+		}
+	}
+}

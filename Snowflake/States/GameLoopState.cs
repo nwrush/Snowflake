@@ -91,9 +91,9 @@ namespace Snowflake.States {
             setupCamera(engine);
 
             selBox = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("SelBox");
-            selBoxEnt = engine.SceneMgr.CreateEntity("SelBoxEnt", "sel_Box001.mesh");
+            selBoxEnt = engine.SceneMgr.CreateEntity("SelBoxEnt", "cursor_Plane001.mesh");
             selBox.AttachObject(selBoxEnt);
-            selBox.Scale(new Vector3(440, 110, 440));
+            selBox.Scale(new Vector3(440, 440, 440));
             selBoxEnt.CastShadows = false;
 
             WeatherMgr.CreateScene(engine.SceneMgr);
@@ -123,7 +123,7 @@ namespace Snowflake.States {
 
             ContextMenu.CreateGui(Gui);
             ContextMenu.AddButton("Create Building", (object source, EventArgs e) => {
-                Mogre.Pair<bool, Point> result = getPlotCoordsFromMousePosition();
+                Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(ContextMenu.Location);
                 if (result.first) {
                     if (!CityManager.Initialized) {
                         CityManager.Init(result.second);
@@ -251,7 +251,7 @@ namespace Snowflake.States {
                     Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
                     Vector3 plotCenter = CityManager.GetPlotCenter(CityManager.GetPlotCoords(intersectionPt));
                     DebugPanel.SetDebugText(CityManager.GetPlotCoords(intersectionPt).ToString());
-                    selBox.SetPosition(plotCenter.x, plotCenter.y, plotCenter.z);
+                    selBox.SetPosition(plotCenter.x, plotCenter.y + 1f, plotCenter.z);
                 }
                 
                 //Middle click - rotate the view
@@ -291,13 +291,13 @@ namespace Snowflake.States {
 
                 if (mStateMgr.Input.IsMouseButtonDown(MOIS.MouseButtonID.MB_Left)) {
                     if (mStateMgr.Input.WasMouseButtonPressed(MOIS.MouseButtonID.MB_Left) && selectionCanBegin()) {
-                        Mogre.Pair<bool, Point> result = getPlotCoordsFromMousePosition();
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
                         if (result.first) {
                             CityManager.SetSelectionStart(result.second);
                         }
                     }
                     else {
-                        Mogre.Pair<bool, Point> result = getPlotCoordsFromMousePosition();
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
                         if (result.first) {
                             CityManager.SetSelectionEnd(result.second);
                         }   
@@ -324,6 +324,12 @@ namespace Snowflake.States {
                     }
                     if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_S)) {
                         focalPoint.Translate(new Vector3(-(-dist + speed) * Mogre.Math.Cos(angle), 0, -(-dist + speed) * Mogre.Math.Sin(angle)));
+                    }
+                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_Q)) {
+                        angle += 0.01f;
+                    }
+                    if (mStateMgr.Input.IsKeyDown(MOIS.KeyCode.KC_E)) {
+                        angle -= 0.01f;
                     }
                 }
 
@@ -382,8 +388,8 @@ namespace Snowflake.States {
         }
         private Ray GetSelectionRay(Point pt) { return GetSelectionRay(pt.X, pt.Y); }
 
-        private Mogre.Pair<bool, Point> getPlotCoordsFromMousePosition() {
-            Ray mouseRay = GetSelectionRay(MousePosition(StateMgr.Input));
+        private Mogre.Pair<bool, Point> getPlotCoordsFromScreenPoint(Point p) {
+            Ray mouseRay = GetSelectionRay(p);
 
             Mogre.Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
             if (intersection.first) {

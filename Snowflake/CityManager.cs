@@ -139,7 +139,7 @@ namespace Snowflake {
         /// <param name="frametime">Milliseconds since last frame</param>
         public static void Update(float frametime) {
 
-            if (initialized && false) {
+            if (initialized && true) {
                 try {
                     Haswell.Controller.Update(frametime);
                 }
@@ -149,7 +149,11 @@ namespace Snowflake {
 
                 foreach (Renderable r in cityObjects) {
                     //Check if r needs updating, and if so:
-                    r.Update();
+                    try {
+                        r.Update();
+                    } catch (NotImplementedException e) {
+                        DebugPanel.ActiveInstance.SetDebugText(e.Message);
+                    }
                 }
             }
         }

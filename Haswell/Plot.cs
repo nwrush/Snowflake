@@ -11,8 +11,10 @@ namespace Haswell {
             industrial
         };
 
-        private Dictionary<Resource, ResourceVal> resource;
+        private Dictionary<Resource.Type, int> resource;
         private List<Building> buildings;
+
+        //Todo: Implement this list
         private List<Plot> neighbors;
 
         //Buildings use up different amounts of space on the plot
@@ -30,10 +32,9 @@ namespace Haswell {
         int plotX, plotY;
 
         public Plot(int x, int y) {
-            this.resource = new Dictionary<Resource, ResourceVal>();
+            this.resource = new Dictionary<Resource.Type, int>();
             this.buildings = new List<Building>();
 
-            //Note: removed positivity test because why the #fff would we care?
             this.plotX = x;
             this.plotY = y;
             
@@ -55,9 +56,19 @@ namespace Haswell {
         }
 
 
-        public void Update() {
-            throw new NotImplementedException();
+        public void Update(Dictionary<Resource.Type,int> cityResources) {
+            foreach (Building b in buildings) {
+                b.Update(this.resource);
+            }
         }
+        private void UpdateCityResources(Dictionary<Resource.Type, int> cityResources) {
+            foreach (KeyValuePair<Resource.Type,int> kvp in this.resource) {
+                if (cityResources.ContainsKey(kvp.Key)) {
+                    cityResources[kvp.Key] += kvp.Value;
+                }
+            }
+        }
+
         public List<Plot> Neighbors {
             set {
                 this.neighbors = value;

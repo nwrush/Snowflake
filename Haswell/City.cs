@@ -6,11 +6,14 @@ using System.Text;
 namespace Haswell {
     public class City {
         //Getting an execuateble directly from someone is less sketchy-
+
         private int population { get; set; }
         private string name { get; set; }
         private InfiniteGrid grid;
+
         private List<Pipe> pipes;
         private List<Zone> zones;
+        private Dictionary<Resource.Type, int> resources;
 
         public event EventHandler<BuildingEventArgs> BuildingCreated;
         public event EventHandler<BuildingEventArgs> BuildingUpdated;
@@ -26,6 +29,7 @@ namespace Haswell {
 
             this.pipes = new List<Pipe>();
             this.zones = new List<Zone>();
+            this.resources = new Dictionary<Resource.Type, int>();
         }
 
         private static void createGrid(Plot[,] p) {
@@ -53,6 +57,7 @@ namespace Haswell {
 
             throw new Exceptions.BuildingCreationFailedException("Building creation failed");
         }
+
         /// <summary>
         /// Creates a zone for automatic building creation by the game's AI
         /// </summary>
@@ -69,7 +74,7 @@ namespace Haswell {
 
         public void Update(float gametime) {
             foreach (Plot p in grid) {
-                p.Update();
+                p.Update(this.resources);
             }
         }
 
@@ -79,6 +84,11 @@ namespace Haswell {
         public InfiniteGrid Grid {
             get {
                 return this.grid;
+            }
+        }
+        public Dictionary<Resource.Type, int> Resources {
+            get {
+                return this.resources;
             }
         }
     }

@@ -9,7 +9,7 @@ namespace TEST {
         static void Main(string[] args) {
             City TEST = new City("TEST");
 
-            ResourceVal r = 5;
+            int r = 5;
 
             Console.ReadKey();
         }

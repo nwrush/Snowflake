@@ -9,32 +9,47 @@ namespace Haswell {
         protected Zone.Type zone;
         public Plot Parent;
 
-        Resource.resourceType consumed;
+        Resource.Type consumed;
         int amountConsumed;
-        Resource.resourceType produced;
+        Resource.Type produced;
         uint amountProduced;
 
         //Todo: Implement this into the constructor and init function
-        protected Dictionary<Resource, ResourceVal> resouceChanges;
-
-        protected ResourceVal energyConsumed;
+        protected Dictionary<Resource.Type, int> resouceChanges;
 
         protected bool Initialized;
 
         protected Building(Zone.Type zone) {
-
+            this.resouceChanges = new Dictionary<Resource.Type, int>();
+            this.Initialized = true;
         }
-        protected Building(int consumed, Resource.resourceType typeConsumed, int produced, Resource.resourceType typeProduced) {
+        protected Building(Dictionary<Resource.Type, int> resource, Zone.Type zone)
+            : this(zone) {
+            this.resouceChanges = resource;
+            this.Initialized = true;
+        }
+
+        [Obsolete("Instead pass a dictionary of the Resources to change")]
+        protected Building(int consumed, Resource.Type typeConsumed, int produced, Resource.Type typeProduced) {
             this.Init(consumed, typeConsumed, produced, typeProduced);
         }
 
-        public void Init(int consumed, Resource.resourceType typeConsumed, int produced, Resource.resourceType typeProduced) {
+        [Obsolete("Pass a Resource dictionary to the constructor")]
+        public void Init(int consumed, Resource.Type typeConsumed, int produced, Resource.Type typeProduced) {
             this.amountConsumed = consumed;
             this.consumed = typeConsumed;
             this.amountProduced = (uint)produced;
             this.produced = typeProduced;
 
             Initialized = true;
+        }
+
+        public void Update(Dictionary<Resource.Type, int> plotResources) {
+            foreach (KeyValuePair<Resource.Type, int> kvp in this.resouceChanges) {
+                if (plotResources.ContainsKey(kvp.Key)) {
+                    plotResources[kvp.Key] += kvp.Value;
+                }
+            }
         }
 
         /// <summary>
@@ -45,12 +60,6 @@ namespace Haswell {
         public float GetPlotUsage() {
             return 1.0f;
             //Override in child classes
-        }
-
-        public int EnergyUsage {
-            get {
-                return this.energyConsumed.Val;
-            }
         }
     }
 }

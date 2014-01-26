@@ -20,19 +20,6 @@ namespace Haswell {
 
         public static void Update(float frametime) {
             activeCity.Update(frametime);
-            //GameState returnState = lastFrame;
-            //try {
-            //    returnState = currentFrame;
-            //} catch (Exception e) {
-            //    LogError(e);
-            //}
-            //try {
-            //    throw new NotImplementedException();
-            //} catch (Exception e) {
-            //    LogError(e);
-            //}
-            //return null;
-            throw new NotImplementedException();
         }
 
         public static void LogError(Exception e) {

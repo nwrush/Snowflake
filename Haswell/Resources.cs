@@ -4,21 +4,24 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
+    /// <summary>
+    /// Base class for all resources
+    /// </summary>
     public abstract class Resource {
-        public enum resourceType {
+        public enum Type {
             Material,
             Energy,
             Money,
             None
         };
 
-        private resourceType type;
+        private Type type;
         
         public Resource() {
-            this.type = resourceType.None;
+            this.type = Type.None;
         }
-        public Resource(resourceType t) {
-            if (t != resourceType.None)
+        public Resource(Type t) {
+            if (t != Type.None)
                 this.type = t;
             else {
                 throw new InvalidResourceTypeException();

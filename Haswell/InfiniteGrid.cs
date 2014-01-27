@@ -20,6 +20,7 @@ namespace Haswell {
             catch (KeyNotFoundException e) {
                 //For now, add a plot where its trying to find one
                 //In the future, don't catch this exception and let the caller deal with it.
+                System.Diagnostics.Debug.WriteLine(e);
                 Plot p = new Plot(x, y);
                 elements[x.ToString() + "," + y.ToString()] = p;
                 return p;

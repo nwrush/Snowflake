@@ -237,7 +237,9 @@ namespace Snowflake.States {
             UpdateCameraPosition();
             HandleInput(StateMgr);
 
-            CityManager.Update(_frameTime);
+            if (CityManager.Initialized)
+                CityManager.Update(_frameTime);
+
             WeatherMgr.Update(StateMgr.Engine.SceneMgr);
             DebugPanel.UpdateFPS(_frameTime);
             UpdateGUI(_frameTime);
@@ -381,9 +383,10 @@ namespace Snowflake.States {
             selectionBox.SetScale(CityManager.SelectionBox.Width * SCALEFACTOR + SCALEFACTOR, SCALEFACTOR / 2.0f, CityManager.SelectionBox.Height * SCALEFACTOR + SCALEFACTOR);
             selectionBox.SetVisible(true);
         }
-
+        //Why isn't this in the main update loop?
         public void UpdateGUI(float frametime) {
-            Tools.Update(frametime);
+            if (CityManager.Initialized)
+                Tools.Update(frametime);
         }
 
         private bool selboxShouldUpate() {

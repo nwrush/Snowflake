@@ -34,5 +34,10 @@ namespace Haswell {
                 return activeCity;
             }
         }
+        public static float ChanceThatThisProgramBecomesSkynet {
+            get {
+                return 0.0000001f;
+            }
+        }
     }
 }

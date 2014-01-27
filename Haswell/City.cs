@@ -7,6 +7,7 @@ namespace Haswell {
     public class City {
         //Getting an execuateble directly from someone is less sketchy-
 
+        //Todo: Make this a resource
         private int population { get; set; }
         private string name { get; set; }
         private InfiniteGrid grid;
@@ -29,7 +30,13 @@ namespace Haswell {
 
             this.pipes = new List<Pipe>();
             this.zones = new List<Zone>();
-            this.resources = new Dictionary<Resource.Type, int>();
+            this.resources = new Dictionary<Resource.Type, int> 
+                {
+                    //Default Values for a new city
+                    {Resource.Type.Energy,100},
+                    {Resource.Type.Material,100},
+                    {Resource.Type.Money,100}
+                };
         }
 
         private static void createGrid(Plot[,] p) {

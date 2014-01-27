@@ -11,6 +11,8 @@ using Miyagi.UI.Controls.Styles;
 
 using Snowflake.Modules;
 
+using Haswell;
+
 namespace Snowflake.GuiComponents {
     //Menu for holding tools and stuff
     public class StatsPanel : IGuiComponent {
@@ -26,7 +28,7 @@ namespace Snowflake.GuiComponents {
             //store game width and height
             int gw = gui.MiyagiSystem.RenderManager.MainViewport.Size.Width;
             int gh = gui.MiyagiSystem.RenderManager.MainViewport.Size.Height;
-            
+
             parentPanel = new Panel("Stats_ParentPanel") {
                 TabStop = false,
                 TabIndex = 0,
@@ -47,8 +49,8 @@ namespace Snowflake.GuiComponents {
                 Size = new Size(16, 80),
                 Location = new Point(10, 10),
                 ProgressBarStyle = new ProgressBarStyle {
-                     Orientation = Orientation.Vertical,
-                     Mode = ProgressBarMode.Continuous
+                    Orientation = Orientation.Vertical,
+                    Mode = ProgressBarMode.Continuous
                 },
                 Skin = ResourceManager.Skins["ProgressBarVSkin"],
                 ToolTipText = "Happiness"
@@ -117,6 +119,9 @@ namespace Snowflake.GuiComponents {
 
             labelMoney.Text = "$4,375.64";
             labelPopulation.Text = "Population: 82";
+
+            Dictionary<Resource.Type, int> resources = Haswell.Controller.City.Resources;
+            labelMoney.Text = resources[Resource.Type.Money].ToString("C");
         }
     }
 }

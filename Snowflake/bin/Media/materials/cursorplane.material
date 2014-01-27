@@ -11,7 +11,7 @@ material "cursor_01_-_Default"
 			
 			texture_unit
 			{
-				texture cursorplane.png
+				texture cursorplane.png 2d 0
 			}
 		}
 	}

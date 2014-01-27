@@ -30,6 +30,7 @@ namespace Snowflake {
 
         public static Point selectionStart { get; private set; }
         public static Point selectionEnd { get; private set; }
+        private static Point selectionOrigin;
 
         public static bool Initialized { get { return initialized; } }
 
@@ -184,42 +185,25 @@ namespace Snowflake {
             }
         }
 
-        /// <summary>
-        /// Sets the point where the selection rectangle begins
-        /// </summary>
-        /// <param name="p">Selection start point</param>
-        public static void SetSelectionStart(Point p) {
-            selectionStart = p;
+        public static void SetSelectionOrigin(Point p) {
+            selectionStart = selectionEnd = selectionOrigin = p;
         }
+
         /// <summary>
-        /// Sets the point where the selection rectangle ends
+        /// Set the selection box,
+        /// ensuring that the selection start represents the minimum bounds of the box
+        /// and the selection end represents the maximum bounds of box
         /// </summary>
-        /// <param name="p">Selection end point</param>
-        public static void SetSelectionEnd(Point p) {
-            if (p.X < selectionStart.X) {
-                if (p.Y < selectionStart.Y) {
-                    selectionEnd = selectionStart;
-                    selectionStart = p;
-                }
-                else {
-                    selectionEnd = new Point(selectionStart.X, p.Y);
-                    selectionStart = new Point(p.X, selectionStart.Y);
-                }
-            }
-            else if (p.Y < selectionStart.Y) {
-                if (p.X < selectionStart.X) {
-                    selectionEnd = selectionStart;
-                    selectionStart = p;
-                }
-                else {
-                    selectionEnd = new Point(p.X, selectionStart.Y);
-                    selectionStart = new Point(selectionStart.X, p.Y);
-                }
-            }
-            else {
-                selectionEnd = p;
-            }
+        public static void UpdateSelectionBox(Point p) {
+            int minx, miny, maxx, maxy;
+            minx = Utils3D.Min(selectionOrigin.X, p.X);
+            miny = Utils3D.Min(selectionOrigin.Y, p.Y);
+            maxx = Utils3D.Max(selectionOrigin.X, p.X);
+            maxy = Utils3D.Max(selectionOrigin.Y, p.Y);
+            selectionStart = new Point(minx, miny);
+            selectionEnd = new Point(maxx, maxy);
         }
+
         /// <summary>
         /// Takes the active selection and performs the selection action on all the things contained within.
         /// </summary>

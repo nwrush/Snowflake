@@ -42,7 +42,7 @@ namespace Snowflake.States {
         private DebugPanel DebugPanel;
         private ContextMenu ContextMenu;
 
-        private const float SCALEFACTOR = 440.0f;
+        private const float SCALEFACTOR = 473.0f;
 
         /// <summary>
         /// Constructor
@@ -265,6 +265,7 @@ namespace Snowflake.States {
                     Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
                     Vector3 plotCenter = CityManager.GetPlotCenter(CityManager.GetPlotCoords(intersectionPt));
                     cursorPlane.SetPosition(plotCenter.x, plotCenter.y + 1f, plotCenter.z);
+                    DebugPanel.SetDebugText(CityManager.GetPlotCoords(intersectionPt).ToString());
                 }
                 
                 //Middle click - rotate the view
@@ -303,8 +304,7 @@ namespace Snowflake.States {
                         if (canSelect()) {
                             Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
                             if (result.first) {
-                                CityManager.SetSelectionStart(result.second);
-                                CityManager.SetSelectionEnd(result.second);
+                                CityManager.SetSelectionOrigin(result.second);
                             }
                         }
                     }
@@ -314,7 +314,8 @@ namespace Snowflake.States {
                    if (canSelect()) {
                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
                        if (result.first) {
-                           DebugPanel.SetDebugText(result.second.ToString());
+                           CityManager.UpdateSelectionBox(result.second);
+                           UpdateSelectionBox();
                        }
                    }
                 }
@@ -323,18 +324,10 @@ namespace Snowflake.States {
                     if (canSelect()) {
                         Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
                         if (result.first) {
-                            CityManager.SetSelectionEnd(result.second);
+                            CityManager.UpdateSelectionBox(result.second);
                         }
                         CityManager.MakeSelection();
-                        Vector3 center = (CityManager.GetPlotCenter(CityManager.SelectionBox.Left, CityManager.SelectionBox.Top)
-                                        + CityManager.GetPlotCenter(CityManager.SelectionBox.Right, CityManager.SelectionBox.Bottom))
-                                         * 0.5f;
-                        gConsole.WriteLine("Plot center: " + center.ToString());
-                        gConsole.WriteLine("Topleft: " + CityManager.selectionStart.ToString() + " center: " + CityManager.GetPlotCenter(CityManager.selectionStart).ToString());
-                        gConsole.WriteLine("Bottomright: " + CityManager.selectionEnd.ToString() + " center: " + CityManager.GetPlotCenter(CityManager.selectionEnd).ToString());
-                        selectionBox.SetPosition(center.x, center.y, center.z);
-                        selectionBox.SetScale(CityManager.SelectionBox.Width * SCALEFACTOR, SCALEFACTOR / 2.0f, CityManager.SelectionBox.Height * SCALEFACTOR);
-                        selectionBox.SetVisible(true);
+                        UpdateSelectionBox();
                     }
                 }
 
@@ -378,6 +371,15 @@ namespace Snowflake.States {
                 // quit the application
                 mStateMgr.RequestShutdown();
             }
+        }
+
+        private void UpdateSelectionBox() {
+            Vector3 center = (CityManager.GetPlotCenter(CityManager.SelectionBox.Left, CityManager.SelectionBox.Top)
+                + CityManager.GetPlotCenter(CityManager.SelectionBox.Right, CityManager.SelectionBox.Bottom))
+                 * 0.5f;
+            selectionBox.SetPosition(center.x, center.y, center.z);
+            selectionBox.SetScale(CityManager.SelectionBox.Width * SCALEFACTOR + SCALEFACTOR, SCALEFACTOR / 2.0f, CityManager.SelectionBox.Height * SCALEFACTOR + SCALEFACTOR);
+            selectionBox.SetVisible(true);
         }
 
         public void UpdateGUI(float frametime) {

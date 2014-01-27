@@ -42,5 +42,21 @@ namespace Snowflake {
         public static SceneNode DrawRay(SceneManager mSceneMgr, Ray r) {
             return DrawLine(mSceneMgr, r.Origin, r.Origin + r.Direction * 99999);
         }
+
+        public static T Min<T>(params T[] args) where T : IComparable {
+            T min = args[0];
+            foreach (T arg in args) {
+                if (arg.CompareTo(min) < 0) { min = arg; }
+            }
+            return min;
+        }
+
+        public static T Max<T>(params T[] args) where T : IComparable {
+            T max = args[0];
+            foreach (T arg in args) {
+                if (arg.CompareTo(max) > 0) { max = arg; }
+            }
+            return max;
+        }
     }
 }

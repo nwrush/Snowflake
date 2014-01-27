@@ -12,6 +12,7 @@ namespace Haswell {
             Material,
             Energy,
             Money,
+            Population,
             None
         };
 

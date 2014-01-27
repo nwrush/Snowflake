@@ -35,7 +35,8 @@ namespace Haswell {
                     //Default Values for a new city
                     {Resource.Type.Energy,100},
                     {Resource.Type.Material,100},
-                    {Resource.Type.Money,100}
+                    {Resource.Type.Money,100},
+                    {Resource.Type.Population,100}
                 };
         }
 

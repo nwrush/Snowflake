@@ -237,12 +237,13 @@ namespace Snowflake.States {
             UpdateCameraPosition();
             HandleInput(StateMgr);
 
-            if (CityManager.Initialized)
+            if (CityManager.Initialized) {
                 CityManager.Update(_frameTime);
+                UpdateGUI(_frameTime);
+            }
 
             WeatherMgr.Update(StateMgr.Engine.SceneMgr);
             DebugPanel.UpdateFPS(_frameTime);
-            UpdateGUI(_frameTime);
         }
 
         private void UpdateCameraPosition() {
@@ -383,7 +384,6 @@ namespace Snowflake.States {
             selectionBox.SetScale(CityManager.SelectionBox.Width * SCALEFACTOR + SCALEFACTOR, SCALEFACTOR / 2.0f, CityManager.SelectionBox.Height * SCALEFACTOR + SCALEFACTOR);
             selectionBox.SetVisible(true);
         }
-        //Why isn't this in the main update loop?
         public void UpdateGUI(float frametime) {
             if (CityManager.Initialized)
                 Tools.Update(frametime);

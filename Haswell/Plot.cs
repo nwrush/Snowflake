@@ -55,7 +55,6 @@ namespace Haswell {
             return false;
         }
 
-
         public void Update(Dictionary<Resource.Type,int> cityResources) {
             foreach (Building b in buildings) {
                 b.Update(this.resource);

@@ -271,5 +271,13 @@ namespace Snowflake {
         public static Point GetOrigin() {
             return origin;
         }
+        /// <summary>
+        /// Gets the active city from Haswell
+        /// </summary>
+        public static City ActiveCity {
+            get {
+                return Controller.City;
+            }
+        }
     }
 }

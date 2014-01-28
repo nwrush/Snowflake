@@ -7,10 +7,31 @@ using Haswell;
 namespace TEST {
     class Program {
         static void Main(string[] args) {
-            City TEST = new City("TEST");
-
+            List<Fruit> fruits = new List<Fruit>();
+            fruits.Add(new Banana());
+            fruits.Add(new Apple());
+            fruits.Add(new Banana());
+            fruits.Add(new Apple());
 
             Console.ReadKey();
         }
+    }
+    class Fruit {
+        string name;
+        protected Fruit(string n) {
+            this.name = n;
+        }
+        public virtual void Exit() { }
+        public override string ToString() {
+            return this.name;
+        }
+    }
+    class Apple : Fruit {
+        public Apple() : base("Apple") { }
+        public override void Exit() { Environment.Exit(10); }
+    }
+    class Banana : Fruit {
+        public Banana() : base("Banana") { }
+        public override void Exit() { Console.WriteLine("LOL"); }
     }
 }

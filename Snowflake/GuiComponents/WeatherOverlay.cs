@@ -11,35 +11,13 @@ using Miyagi.UI.Controls;
 using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents {
-    public class WeatherOverlay : IGuiComponent {
-
-        private Panel icon;
-        private Label text;
+    public partial class WeatherOverlay : IGuiComponent {
 
         //Todo: replace with actual localization.
         private string[] Months = new string[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
-        public void CreateGui(GUI gui) {
+        public void Initialize() {
 
-            icon = new Panel("WO_Icon") {
-                Size = new Size(64, 64),
-                Location = new Point(50, 40),
-                ResizeMode = ResizeModes.None
-            };
-            icon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons.Sunny"]);
-
-            text = new Label("WO_Label") {
-                Location = new Point(10, 10),
-                AutoSize = true,
-                TextStyle = {
-                    ForegroundColour = Colours.White,
-                    Font = ResourceManager.Fonts["Expressway"]
-                },
-                Text = "<Undefined>"
-            };
-
-            gui.Controls.Add(icon);
-            gui.Controls.Add(text);
         }
 
         public void Update(float frametime) {

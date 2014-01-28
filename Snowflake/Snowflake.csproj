@@ -78,11 +78,26 @@
     <Compile Include="CityManager.cs" />
     <Compile Include="CityRendering.cs" />
     <Compile Include="GuiComponents\ContextMenu.cs" />
+    <Compile Include="GuiComponents\ContextMenu.Designer.cs">
+      <DependentUpon>ContextMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\DebugPanel.cs" />
+    <Compile Include="GuiComponents\DebugPanel.Designer.cs">
+      <DependentUpon>DebugPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\GameConsole.cs" />
+    <Compile Include="GuiComponents\GameConsole.Designer.cs">
+      <DependentUpon>GameConsole.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\IGuiComponent.cs" />
     <Compile Include="GuiComponents\StatsPanel.cs" />
+    <Compile Include="GuiComponents\StatsPanel.Designer.cs">
+      <DependentUpon>StatsPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\WeatherOverlay.cs" />
+    <Compile Include="GuiComponents\WeatherOverlay.Designer.cs">
+      <DependentUpon>WeatherOverlay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />
     <Compile Include="Modules\OgreManager.cs" />

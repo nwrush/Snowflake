@@ -10,9 +10,8 @@ using Miyagi.UI;
 using Miyagi.UI.Controls;
 
 namespace Snowflake.GuiComponents {
-    public class ContextMenu : IGuiComponent {
+    public partial class ContextMenu : IGuiComponent {
 
-        private Panel parentPanel;
         private List<Control> items;
         private static int i;
 
@@ -20,17 +19,7 @@ namespace Snowflake.GuiComponents {
             items = new List<Control>();
         }
 
-        public void CreateGui(GUI gui) {
-
-            parentPanel = new Panel("DP_parent") {
-                Skin = ResourceManager.Skins["PanelSkin"],
-                Size = new Size(150, 200),
-                Location = new Point(0, 0),
-                ResizeMode = ResizeModes.None
-            };
-
-            gui.Controls.Add(parentPanel);
-
+        public void Initialize() {
             this.Visible = false;
         }
 

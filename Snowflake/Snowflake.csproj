@@ -98,6 +98,10 @@
     <Compile Include="GuiComponents\WeatherOverlay.Designer.cs">
       <DependentUpon>WeatherOverlay.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiComponents\Window.cs" />
+    <Compile Include="GuiComponents\Window.Designer.cs">
+      <DependentUpon>Window.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />
     <Compile Include="Modules\OgreManager.cs" />

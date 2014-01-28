@@ -15,25 +15,11 @@ namespace Snowflake.GuiComponents {
     public partial class GameConsole {
         private int labelY;
         private Panel outputPanel;
-        public Panel parentPanel { get; private set; }
         private TextBox entryBox;
 
-        public void CreateGui(GUI gui) {
+        public override void CreateGui(GUI gui) {
+            base.CreateGui(gui);
 
-            parentPanel = new Panel("GC_ParentPanel") {
-                TabStop = false,
-                TabIndex = 0,
-                Throwable = true,
-                Size = new Size(516, 416),
-                Movable = true,
-                Location = new Point(200, 100),
-                MinSize = new Size(4, 4),
-                ResizeThreshold = new Thickness(4),
-                BorderStyle = {
-                    Thickness = new Thickness(4, 24, 4, 4)
-                },
-                Skin = ResourceManager.Skins["WindowSkin"]
-            };
             this.outputPanel = new Panel("GC_OutputPanel") {
                 TabStop = false,
                 TabIndex = 0,
@@ -99,31 +85,18 @@ namespace Snowflake.GuiComponents {
             entryBox.LostFocus += (object sender, EventArgs e) => { StateManager.SupressGameControl = false; };
             entryBox.AutoCompleteSource = this.commands.Keys;
 
-            parentPanel.ClientSizeChanged += (object sender, EventArgs e) => {
-                entryBox.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
-                entryBox.Bottom = parentPanel.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
-                outputPanel.Width = parentPanel.Width - parentPanel.BorderStyle.Thickness.Left - parentPanel.BorderStyle.Thickness.Right;
-                outputPanel.Height = parentPanel.Height - entryBox.Height - parentPanel.BorderStyle.Thickness.Bottom - parentPanel.BorderStyle.Thickness.Top;
+            ParentPanel.ClientSizeChanged += (object sender, EventArgs e) => {
+                entryBox.Width = ParentPanel.Width - ParentPanel.BorderStyle.Thickness.Left - ParentPanel.BorderStyle.Thickness.Right;
+                entryBox.Bottom = ParentPanel.Height - ParentPanel.BorderStyle.Thickness.Bottom - ParentPanel.BorderStyle.Thickness.Top;
+                outputPanel.Width = ParentPanel.Width - ParentPanel.BorderStyle.Thickness.Left - ParentPanel.BorderStyle.Thickness.Right;
+                outputPanel.Height = ParentPanel.Height - entryBox.Height - ParentPanel.BorderStyle.Thickness.Bottom - ParentPanel.BorderStyle.Thickness.Top;
 
                 foreach (Control c in outputPanel.Controls) {
                     c.MaxSize = new Size(outputPanel.Width, outputPanel.Height);
                 }
             };
-            parentPanel.Controls.Add(entryBox);
-            parentPanel.Controls.Add(outputPanel);
-
-            Console.WriteLine("Creating Console");
-            gui.Controls.Add(parentPanel);
-
-            Initialize();
-        }
-
-        public void Dispose() {
-            parentPanel.GUI.Controls.Remove(parentPanel);
-            foreach (Control c in parentPanel.Controls) {
-                c.Dispose();
-            }
-            parentPanel.Dispose();
+            ParentPanel.Controls.Add(entryBox);
+            ParentPanel.Controls.Add(outputPanel);
         }
     }
 }

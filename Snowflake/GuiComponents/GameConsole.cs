@@ -12,7 +12,7 @@ using Miyagi.UI.Controls.Styles;
 using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents {
-    public partial class GameConsole : IGuiComponent {
+    public partial class GameConsole : Window, IGuiComponent {
 
         private Dictionary<string, ConsoleCommand> commands;
 
@@ -23,7 +23,7 @@ namespace Snowflake.GuiComponents {
             ActiveInstance = this;
         }
 
-        public void Initialize() {
+        public override void Initialize() {
             //Add default commands
             builtins();
 
@@ -34,23 +34,23 @@ namespace Snowflake.GuiComponents {
         /// Appearify the console
         /// </summary>
         public void Show() {
-            this.parentPanel.Visible = true;
-            this.parentPanel.GUI.MiyagiSystem.GUIManager.FocusedControl = this.entryBox;
+            this.ParentPanel.Visible = true;
+            this.ParentPanel.GUI.MiyagiSystem.GUIManager.FocusedControl = this.entryBox;
         }
         /// <summary>
         /// Disappearify the console
         /// </summary>
         public void Hide() {
-            this.parentPanel.Visible = false;
+            this.ParentPanel.Visible = false;
         }
         /// <summary>
         /// Returns whether or not the console is currently visible
         /// </summary>
-        public bool Visible { 
-            get { return this.parentPanel.Visible; } 
+        public new bool Visible { 
+            get { return this.ParentPanel.Visible; } 
             set { 
-                this.parentPanel.Visible = value;
-                if (value == true) { this.parentPanel.GUI.MiyagiSystem.GUIManager.FocusedControl = this.entryBox; }
+                this.ParentPanel.Visible = value;
+                if (value == true) { this.ParentPanel.GUI.MiyagiSystem.GUIManager.FocusedControl = this.entryBox; }
             } 
         }
 
@@ -203,7 +203,7 @@ namespace Snowflake.GuiComponents {
             labelY = 0;
         }
 
-        public void Update(float frametime) {
+        public override void Update(float frametime) {
 
         }
     }

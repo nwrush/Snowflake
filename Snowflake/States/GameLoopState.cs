@@ -398,7 +398,7 @@ namespace Snowflake.States {
         }
 
         private bool canSelect() {
-            return ContextMenu.Visible == false && gConsole.parentPanel.HitTest(MousePosition(StateMgr.Input)) == false;
+            return ContextMenu.Visible == false && gConsole.HitTest(MousePosition(StateMgr.Input)) == false;
         }
 
         /// <summary>

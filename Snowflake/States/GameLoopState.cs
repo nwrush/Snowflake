@@ -37,6 +37,7 @@ namespace Snowflake.States {
 
         private GUI Gui;
         private GameConsole gConsole;
+        private BuildingCreationWindow bcWindow;
         private StatsPanel Tools;
         private WeatherOverlay WeatherOverlay;
         private DebugPanel DebugPanel;
@@ -127,6 +128,7 @@ namespace Snowflake.States {
             WeatherOverlay = new WeatherOverlay();
             DebugPanel = new DebugPanel();
             ContextMenu = new ContextMenu();
+            bcWindow = new BuildingCreationWindow();
 
             Gui = new GUI();
             StateMgr.GuiSystem.GUIManager.GUIs.Add(Gui);
@@ -134,6 +136,7 @@ namespace Snowflake.States {
             gConsole.CreateGui(Gui);
             Tools.CreateGui(Gui);
             DebugPanel.CreateGui(Gui);
+            bcWindow.CreateGui(Gui);
 
             ContextMenu.CreateGui(Gui);
             ContextMenu.AddButton("Create Building", (object source, EventArgs e) => {
@@ -142,10 +145,12 @@ namespace Snowflake.States {
                     if (!CityManager.Initialized) {
                         CityManager.Init(result.second);
                         Point newPos = result.second - CityManager.GetOrigin();
-                        CityManager.NewBuilding(newPos );
+                        //CityManager.NewBuilding(newPos );
+                        bcWindow.Show();
                     }
                     else {
-                        CityManager.NewBuilding(result.second);
+                        //CityManager.NewBuilding(result.second);
+                        bcWindow.Show();
                     }
                 }
                 ContextMenu.Visible = false;

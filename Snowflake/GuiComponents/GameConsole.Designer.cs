@@ -8,6 +8,7 @@ using Miyagi.Common.Events;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Miyagi.UI.Controls.Styles;
+using Miyagi.UI.Controls.Layout;
 
 using Snowflake.Modules;
 
@@ -19,6 +20,8 @@ namespace Snowflake.GuiComponents {
 
         public override void CreateGui(GUI gui) {
             base.CreateGui(gui);
+
+            this.ParentPanel.Size = new Size(516, 416);
 
             this.outputPanel = new Panel("GC_OutputPanel") {
                 TabStop = false,
@@ -54,8 +57,7 @@ namespace Snowflake.GuiComponents {
                     ForegroundColour = Colours.Black,
                     Multiline = true,
                     Alignment = Alignment.TopLeft
-                }
-
+                },
             };
 
             entryBox = new TextBox("GC_Entrybox") {
@@ -77,7 +79,7 @@ namespace Snowflake.GuiComponents {
                 },
                 Skin = ResourceManager.Skins["PanelSkin"],
                 ClearTextOnSubmit = true,
-                DefocusOnSubmit = false
+                DefocusOnSubmit = false,
             };
 
             entryBox.Submit += (object sender, ValueEventArgs<string> e) => { this.Command(((TextBox)sender).Text); };

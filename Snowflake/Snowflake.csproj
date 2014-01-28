@@ -102,6 +102,10 @@
     <Compile Include="GuiComponents\Window.Designer.cs">
       <DependentUpon>Window.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiComponents\Windows\BuildingCreationWindow.cs" />
+    <Compile Include="GuiComponents\Windows\BuildingCreationWindow.Designer.cs">
+      <DependentUpon>BuildingCreationWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />
     <Compile Include="Modules\OgreManager.cs" />
@@ -125,6 +129,7 @@
       <Name>Haswell</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

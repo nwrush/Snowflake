@@ -33,15 +33,9 @@ namespace Snowflake.GuiComponents {
         /// <summary>
         /// Appearify the console
         /// </summary>
-        public void Show() {
-            this.ParentPanel.Visible = true;
+        public override void Show() {
+            base.Show();
             this.ParentPanel.GUI.MiyagiSystem.GUIManager.FocusedControl = this.entryBox;
-        }
-        /// <summary>
-        /// Disappearify the console
-        /// </summary>
-        public void Hide() {
-            this.ParentPanel.Visible = false;
         }
         /// <summary>
         /// Returns whether or not the console is currently visible

@@ -23,6 +23,8 @@ namespace Snowflake
 
         public const bool USE_FSAA = false;
 
+        public const bool BOOT_INTO_GAME = true;
+
         /************************************************************************/
         /* program starts here                                                  */
         /************************************************************************/
@@ -39,7 +41,7 @@ namespace Snowflake
             Program prg = new Program();
 
             // try to initialize Ogre and the state manager
-            if (mEngine.Startup() && mStateMgr.Startup(typeof(GameLoopState)))
+            if (mEngine.Startup() && mStateMgr.Startup((BOOT_INTO_GAME ? typeof(GameLoopState) : typeof(MenuState))))
             {
                 // create objects in scene
                 prg.CreateScene();

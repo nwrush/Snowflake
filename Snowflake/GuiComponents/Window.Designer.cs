@@ -57,6 +57,7 @@ namespace Snowflake.GuiComponents {
                 Skin = ResourceManager.Skins["BlackPanelSkin"]
             };
             CloseButton.SetBackgroundTexture(CloseButton.Skin.SubSkins["BlackPanelSkin0"]);
+
             CloseButton.MouseHover += (object sender, MouseEventArgs e) => {
                 CloseButton.SetBackgroundTexture(CloseButton.Skin.SubSkins["BlackPanelSkin40"]);
             };

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Reflection;
 
 using Miyagi.Common;
 using Miyagi.Common.Data;
@@ -11,6 +12,7 @@ using Miyagi.UI.Controls.Styles;
 using Miyagi.UI.Controls.Layout;
 
 using Snowflake.Modules;
+using Miyagi.UI.Controls.Elements;
 
 namespace Snowflake.GuiComponents {
     public partial class BuildingCreationWindow {
@@ -25,18 +27,18 @@ namespace Snowflake.GuiComponents {
 
             base.CreateGui(gui);
 
-            ParentPanel.Size = new Size(400, 200);
+            ParentPanel.Size = new Size(400, 500);
 
             tabControl = new TabControl("BCW_tabControl") {
                 AutoSize = true,
+                Size = new Size(400, 500),
                 Skin = ResourceManager.Skins["TabControlSkin"],
                 Movable = false,
                 TabBarStyle = {
                     Extent = 32,
-                    Mode = TabMode.Fill,
-                    Alignment = Alignment.MiddleCenter
-                },
-                Dock = DockStyle.Fill,
+                    Mode = TabMode.AutoSize,
+                    Alignment = Alignment.MiddleCenter,
+                }
                 //AlwaysOnBottom = true
             };
             residentialPage = new TabPage("BCW_tabResidential") {
@@ -45,11 +47,11 @@ namespace Snowflake.GuiComponents {
             };
             commercialPage = new TabPage("BCW_tabCommercial") {
                 Title = "Commercial",
-                Skin = ResourceManager.Skins["TabPageSkin"]
+                Skin = ResourceManager.Skins["TabPageSkin"],
             };
             municipalPage = new TabPage("BCW_tabMunicipal") {
                 Title = "Municipal",
-                Skin = ResourceManager.Skins["TabPageSkin"]
+                Skin = ResourceManager.Skins["TabPageSkin"],
             };
 
             /*residentialBtn = new Button("BCW_residentialBtn") {
@@ -65,13 +67,15 @@ namespace Snowflake.GuiComponents {
             this.Text = "Create Building";
 
             ParentPanel.Controls.Add(tabControl);
-
+            ParentPanel.ResizeMode = ResizeModes.None;
             ParentPanel.VisibleChanged += (object sender, EventArgs e) => {
                 tabControl.Visible = ParentPanel.Visible;
                 foreach (Control c in tabControl.Controls) {
                     c.Opacity = (ParentPanel.Visible ? 1 : 0);
                     c.Visible = false;
                 }
+                //FieldInfo tabBar = tabControl.GetType().GetField("tabBarElement", BindingFlags.NonPublic | BindingFlags.Instance);
+                //tabBar.SetValue(tabControl, ((TabBarElement)tabBar.GetValue(tabControl)));
             };
         }
     }

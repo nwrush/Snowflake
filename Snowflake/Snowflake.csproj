@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CityManager.cs" />
+    <Compile Include="CityManager.Haswell.cs" />
     <Compile Include="CityRendering.cs" />
     <Compile Include="GuiComponents\ContextMenu.cs" />
     <Compile Include="GuiComponents\ContextMenu.Designer.cs">
@@ -116,6 +117,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States\GameLoopState.cs" />
+    <Compile Include="States\GameLoopState.Update.cs" />
     <Compile Include="States\MenuState.cs" />
     <Compile Include="Utils3D.cs" />
     <Compile Include="Environment.cs" />

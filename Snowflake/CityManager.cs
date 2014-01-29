@@ -37,8 +37,8 @@ namespace Snowflake {
         public static Rectangle SelectionBox { 
             get { 
                 return new Rectangle(selectionStart, 
-                        new Size((selectionEnd.X > selectionStart.X ? selectionEnd.X - selectionStart.X : 1), 
-                                 (selectionEnd.Y > selectionStart.Y ? selectionEnd.Y - selectionStart.Y : 1))); 
+                        new Size((selectionEnd.X > selectionStart.X ? selectionEnd.X - selectionStart.X : 0), 
+                                 (selectionEnd.Y > selectionStart.Y ? selectionEnd.Y - selectionStart.Y : 0))); 
             } 
         }
 

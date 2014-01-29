@@ -7,12 +7,6 @@ using Haswell;
 namespace TEST {
     class Program {
         static void Main(string[] args) {
-            List<Fruit> fruits = new List<Fruit>();
-            fruits.Add(new Banana());
-            fruits.Add(new Apple());
-            fruits.Add(new Banana());
-            fruits.Add(new Apple());
-
             Console.ReadKey();
         }
     }

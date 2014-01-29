@@ -6,12 +6,13 @@ using System.Text;
 namespace Haswell.Buildings {
     public class Commercial : Building {
 
-        public Commercial():base(Zone.Type.Commercial) {
-
-        }
+        public Commercial():base(Zone.Type.Commercial) {}
         public Commercial(Dictionary<Resource.Type, int> r)
             : base(r, Zone.Type.Commercial) {
+        }
 
+        public override void Update(Dictionary<Resource.Type, int> plotResources) {
+            base.Update(plotResources);
         }
     }
 }

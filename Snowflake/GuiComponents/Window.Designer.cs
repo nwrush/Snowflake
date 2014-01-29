@@ -76,14 +76,19 @@ namespace Snowflake.GuiComponents {
 
                 WindowLabel.Location = ParentPanel.Location + new Point(4, 2);
                 CloseButton.Location = ParentPanel.Location + new Point(ParentPanel.Size.Width - 24, 0);
-                WindowLabel.BringToFront();
-                CloseButton.BringToFront();
+                keepWindowSorting();
             };
             ParentPanel.LocationChanged += (object sender, ChangedValueEventArgs<Point> e) => {
                 WindowLabel.Location = e.NewValue + new Point(4, 2);
                 CloseButton.Location = e.NewValue + new Point(ParentPanel.Size.Width - 24, 0);
-                WindowLabel.BringToFront();
-                CloseButton.BringToFront();
+                keepWindowSorting();
+            };
+
+            ParentPanel.ControlAdded += (object sender, ValueEventArgs<Control> e) => {
+                
+                e.Data.Click += (object sender2, EventArgs e2) => { keepWindowSorting(); };
+                e.Data.MouseDown += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
+                e.Data.MouseHeld += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
             };
 
             Console.WriteLine("Creating Console");
@@ -100,6 +105,11 @@ namespace Snowflake.GuiComponents {
                 c.Dispose();
             }
             ParentPanel.Dispose();
+        }
+
+        private void keepWindowSorting() {
+            WindowLabel.BringToFront();
+            CloseButton.BringToFront();
         }
     }
 }

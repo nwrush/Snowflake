@@ -11,7 +11,7 @@
               <X>0</X>
               <Y>0.5</Y>
               <Width>0.125</Width>
-              <Height>0.5</Height>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -31,7 +31,7 @@
               <X>0.125</X>
               <Y>0.5</Y>
               <Width>0.125</Width>
-              <Height>0.5</Height>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -51,7 +51,7 @@
               <X>0.25</X>
               <Y>0.5</Y>
               <Width>0.125</Width>
-              <Height>0.5</Height>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -71,7 +71,7 @@
               <X>0.375</X>
               <Y>0.5</Y>
               <Width>0.125</Width>
-              <Height>0.5</Height>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -91,7 +91,7 @@
               <X>0.5</X>
               <Y>0.5</Y>
               <Width>0.125</Width>
-              <Height>0.5</Height>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -111,7 +111,7 @@
               <X>0.625</X>
               <Y>0.5</Y>
               <Width>0.125</Width>
-              <Height>0.5</Height>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -131,6 +131,30 @@
               <X>0.75</X>
               <Y>0.5</Y>
               <Width>0.125</Width>
+              <Height>0.25</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+    </SubSkins>
+  </Skin>
+  <Skin Name="Logo">
+    <SubSkins>
+      <SubSkin Name="Logo">
+        <Frames>
+          <Frame>
+            <FileName>icons.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0</X>
+              <Y>0</Y>
+              <Width>1.0</Width>
               <Height>0.5</Height>
             </UV>
           </Frame>

@@ -17,7 +17,7 @@ using Vector3 = Mogre.Vector3;
 using Rectangle = Miyagi.Common.Data.Rectangle;
 
 namespace Snowflake {
-    public static class CityManager {
+    public static partial class CityManager {
 
         private static bool initialized = false;
 
@@ -107,52 +107,6 @@ namespace Snowflake {
             }
         }
 
-        /// <summary>
-        /// Initializes the City, setting its origin point and creating the relevant Haswell objects.
-        /// </summary>
-        /// <param name="originx">X position of city origin</param>
-        /// <param name="originy">Y Position of city origin</param>
-        public static void Init(int originx, int originy) {
-            if (!initialized) {
-                GameConsole.ActiveInstance.WriteLine("Founding new City at " + originx.ToString() + ", " + originy.ToString());
-
-                origin = new Point(originx, originy);
-                Haswell.Controller.init("shrug");
-                Haswell.Controller.City.BuildingCreated += CreateBuilding;
-                initialized = true;
-            }
-            else {
-                GameConsole.ActiveInstance.WriteError("Attempting to found city in an already initialized area!");
-            }
-        }
-        /// <summary>
-        /// Initializes the City, setting its origin point and creating the relevant Haswell objects.
-        /// </summary>
-        /// <param name="p">Origin point of the city</param>
-        public static void Init(Point p) { Init(p.X, p.Y); }
-
-        /// <summary>
-        /// Add a new building to the city at the specified coordinates
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public static void NewBuilding(int x, int y) {
-            if (initialized) {
-                try { Haswell.Controller.City.CreateBuilding<Commercial>(x, y); }
-                catch (BuildingCreationFailedException e) {
-                    GameConsole.ActiveInstance.WriteLine(e.Message);
-                }
-            }
-            else {
-                GameConsole.ActiveInstance.WriteError("Unable to create building, no city initialized!");
-            }
-        }
-        /// <summary>
-        /// Add a new building to the city at the specified coordinates
-        /// </summary>
-        /// <param name="p">2d location to place the building at.</param>
-        public static void NewBuilding(Point p) { NewBuilding(p.X, p.Y); }
-
         private static void CreateBuilding(object sender, BuildingEventArgs e) {
             GameConsole.ActiveInstance.WriteLine("Added a building at " + e.Building.Parent.X + ", " + e.Building.Parent.Y);
             RenderableBuilding rb = new RenderableBuilding(e.Building);
@@ -166,13 +120,8 @@ namespace Snowflake {
         /// <param name="frametime">Milliseconds since last frame</param>
         public static void Update(float frametime) {
 
-            if (initialized && true) {
-                try {
-                    Haswell.Controller.Update(frametime);
-                }
-                catch (NotImplementedException e) {
-                    DebugPanel.ActiveInstance.SetDebugText(e.Message);
-                }
+            if (initialized) {
+                UpdateHaswell(frametime);
 
                 foreach (Renderable r in cityObjects) {
                     //Check if r needs updating, and if so:

@@ -9,10 +9,15 @@ using Miyagi.UI.Controls;
 using Snowflake.GuiComponents;
 using Snowflake.Modules;
 
+using Vector3 = Mogre.Vector3;
+
 namespace Snowflake.States {
     public class MenuState : State {
 
         private StateManager StateMgr;
+        private Mogre.SceneNode focalPoint;
+        private float angle = 0.78539f;
+        private float dist = -7.0f;
 
         public MenuState() {
             StateMgr = null;
@@ -22,6 +27,11 @@ namespace Snowflake.States {
             StateMgr = _mgr;
 
             CreateGui();
+            setupCamera(_mgr.Engine);
+            createLight(_mgr.Engine.SceneMgr);
+            _mgr.Engine.SceneMgr.SetSkyBox(true, "Sky01", 2048, false);
+            focalPoint.AttachObject(_mgr.Engine.SceneMgr.CreateEntity(Mogre.SceneManager.PrefabType.PT_CUBE));
+
             return true;
         }
 
@@ -33,7 +43,7 @@ namespace Snowflake.States {
             GUI gui = new GUI();
             StateMgr.GuiSystem.GUIManager.GUIs.Add(gui);
 
-            Size logosize = new Size((int)(Math.Max(512, gw - 400)), (int)Math.Max(128, (gw - 400) / 4.0));
+            Size logosize = new Size((int)(Math.Min(1536, gw - 200)), (int)Math.Min(256, (gw - 200) / 6.0));
             Panel logo = new Panel("menu_logo")
             {
                 Skin = ResourceManager.Skins["Logo"],
@@ -42,6 +52,7 @@ namespace Snowflake.States {
                 ResizeMode = ResizeModes.None,
                 Throwable = false,
                 Movable = false,
+                AlwaysOnTop = true
             };
             Panel logobg = new Panel("menu_logobg") {
                 BorderStyle = new Miyagi.UI.Controls.Styles.BorderStyle() {
@@ -49,15 +60,44 @@ namespace Snowflake.States {
                 },
                 Skin = ResourceManager.Skins["BlackPanelSkin"],
                 Size = new Size(gw, logosize.Height + 50),
-                Location = new Point(0, 75)
+                Location = new Point(0, 75),
+                Throwable = false,
+                Movable = false
             };
             logobg.SetBackgroundTexture(ResourceManager.Skins["BlackPanelSkin"].SubSkins["BlackPanelSkin40"]);
 
             gui.Controls.Add(logo);
+            gui.Controls.Add(logobg);
+        }
+
+        private void setupCamera(OgreManager engine) {
+            focalPoint = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("focalPoint");
+            focalPoint.Position = new Vector3(0, -5, 0);
+
+            engine.Camera.NearClipDistance = 5;
+            engine.Camera.FarClipDistance = 4096;
+            engine.Camera.AutoAspectRatio = true;
+            engine.Camera.SetAutoTracking(true, focalPoint);
+        }
+        private void createLight(Mogre.SceneManager sm) {
+            Mogre.Light ambient = sm.CreateLight("ambient");
+            ambient.Type = Mogre.Light.LightTypes.LT_DIRECTIONAL;
+            ambient.Position = new Vector3(0, 2000, 0);
+            ambient.Direction = new Vector3(-0.8365f, -1, 0.5867f);
+            ambient.DiffuseColour = new Mogre.ColourValue(0.99f, 0.95f, 0.9f);
+            ambient.SpecularColour = Mogre.ColourValue.White;
+            ambient.CastShadows = true;
+            sm.RootSceneNode.AttachObject(ambient);
         }
 
         public override void Update(float _frameTime) {
+            angle += 0.0003f;
+            UpdateCameraPosition();
+        }
 
+        private void UpdateCameraPosition() {
+            StateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + (-500) * Mogre.Math.Cos(angle), 100 * (float)System.Math.Sin(angle), focalPoint.Position.z + -(500) * Mogre.Math.Sin(angle));
+            StateMgr.Engine.Camera.Position += StateMgr.Engine.Camera.Direction * (float)System.Math.Pow(dist, 3);
         }
 
         public override void Shutdown() {

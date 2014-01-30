@@ -149,13 +149,13 @@
       <SubSkin Name="Logo">
         <Frames>
           <Frame>
-            <FileName>icons.png</FileName>
+            <FileName>logo.png</FileName>
             <Duration>0</Duration>
             <UV>
               <X>0</X>
               <Y>0</Y>
               <Width>1.0</Width>
-              <Height>0.5</Height>
+              <Height>1.0</Height>
             </UV>
           </Frame>
         </Frames>

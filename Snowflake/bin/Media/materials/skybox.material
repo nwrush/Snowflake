@@ -1,4 +1,4 @@
-material Sky/Sky01
+material Sky01
 {
 	technique
 	{
@@ -9,7 +9,7 @@ material Sky/Sky01
 
 			texture_unit
 			{
-				cubic_texture stormy.jpg separateUV
+				cubic_texture sky01.bmp separateUV
 				tex_address_mode clamp
 			}
 		}

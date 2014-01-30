@@ -13,7 +13,6 @@ using Miyagi.UI.Controls;
 using MOIS;
 
 using Vector3 = Mogre.Vector3;
-using Quaternion = Mogre.Quaternion;
 
 namespace Snowflake.States {
     

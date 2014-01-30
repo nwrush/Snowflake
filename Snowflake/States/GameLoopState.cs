@@ -74,6 +74,8 @@ namespace Snowflake.States {
             createScene(engine);
             createUI();
             createCommands();
+            //Initialize the City Manager (that's everything right?)
+            CityManager.Init(0, 0);
 
             CompositorManager.Singleton.AddCompositor(engine.Window.GetViewport(0), "Bloom");
             CompositorManager.Singleton.AddCompositor(engine.Window.GetViewport(0), "Radial Blur");

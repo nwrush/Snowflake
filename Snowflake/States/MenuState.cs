@@ -29,7 +29,7 @@ namespace Snowflake.States {
 
         public override bool Startup(StateManager _mgr) {
             StateMgr = _mgr;
-
+            System.Environment.Exit(-12);
             CreateGui();
             setupCamera(_mgr.Engine);
             createLight(_mgr.Engine.SceneMgr);

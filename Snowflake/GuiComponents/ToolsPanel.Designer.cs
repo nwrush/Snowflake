@@ -42,14 +42,8 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(64, 64),
                 PictureOffset = new Point(18, 18),
                 //Skin = ResourceManager.Skins["BlackPanelSkin"],
-                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"]
-            };
-            //buildButton.SetBackgroundTexture(buildButton.Skin.SubSkins["BlackPanelSkin20"]);
-            buildButton.MouseEnter += (object sender, MouseEventArgs e) => {
-                buildButton.Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.Hover"];
-            };
-            buildButton.MouseLeave += (object sender, MouseEventArgs e) => {
-                buildButton.Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"];
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
+                PictureHover = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.MouseEnter"]
             };
 
             ParentPanel.Controls.Add(buildButton);

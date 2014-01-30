@@ -15,6 +15,7 @@ namespace Snowflake.GuiComponents {
 
         private Panel picturePanel;
         private Texture _picture;
+        private Texture _pictureHover;
         private Size _pictureSize;
         private Point _pictureOffset;
 
@@ -29,6 +30,7 @@ namespace Snowflake.GuiComponents {
         }
 
         private void CreatePictureBox() {
+            //create the child panel element to display the texture on
             this.picturePanel = new Panel() {
                 Size = _pictureSize,
                 Location = this.Location + new Point(this.Padding.Left, this.Padding.Top) + _pictureOffset,
@@ -37,7 +39,15 @@ namespace Snowflake.GuiComponents {
                 ResizeMode = ResizeModes.None,
                 HitTestVisible = false,
             };
+
+            //bind event handlers for button hover and leave
             if (this._picture != null) { this.picturePanel.SetBackgroundTexture(this._picture); }
+            this.MouseEnter += (object sender, MouseEventArgs e) => {
+                if (_pictureHover != null) { this.picturePanel.SetBackgroundTexture(this._pictureHover); }
+            };
+            this.MouseLeave += (object sender, MouseEventArgs e) => {
+                if (_picture != null) { this.picturePanel.SetBackgroundTexture(this._picture); }
+            };
         }
 
         public Texture Picture {
@@ -45,6 +55,12 @@ namespace Snowflake.GuiComponents {
             set { 
                 this._picture = value;
                 if (this.picturePanel != null) { this.picturePanel.SetBackgroundTexture(value); }
+            }
+        }
+        public Texture PictureHover {
+            get { return this._pictureHover; }
+            set {
+                this._pictureHover = value;
             }
         }
 

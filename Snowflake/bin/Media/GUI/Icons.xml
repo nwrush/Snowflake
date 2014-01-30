@@ -190,7 +190,7 @@
           <Y>0</Y>
         </ScrollVector>
       </SubSkin>
-      <SubSkin Name="Tools.Build.Hover">
+      <SubSkin Name="Tools.Build.MouseEnter">
         <Frames>
           <Frame>
             <FileName>icons.png</FileName>

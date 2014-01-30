@@ -78,9 +78,9 @@ namespace Snowflake.States
 
                     //Mouse rotate control
                     angle += mStateMgr.Input.MouseMoveX * 0.01f;
-                    //mStateMgr.Input += mStateMgr.Input.MouseMoveX;
+                    //mStateMgr.Input += mStateMgr.Input.MouseMoveX; //Enable this if you ever figure out how to prevent the mouse from moving
 
-                    //Mouse drag control
+                    //Mouse drag control //Re-enable if control scheme changes to allow for mouse dragging
                     /*Vector2 mouseMoveRotated = Utils3D.RotateVector2(new Vector2(mStateMgr.Input.MouseMoveX, mStateMgr.Input.MouseMoveY), angle);
                     focalPoint.Translate(new Vector3(mouseMoveRotated.y, 0, mouseMoveRotated.x));
                     mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);*/
@@ -218,7 +218,7 @@ namespace Snowflake.States
 
         private bool selboxShouldUpate()
         {
-            return ContextMenu.Visible == false;
+            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null;
         }
 
         private bool viewShouldUpdate()
@@ -228,7 +228,7 @@ namespace Snowflake.States
 
         private bool canSelect()
         {
-            return ContextMenu.Visible == false && gConsole.HitTest(MousePosition(StateMgr.Input)) == false;
+            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null;
         }
     }
 }

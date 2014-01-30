@@ -21,6 +21,9 @@ namespace Snowflake.GuiComponents {
         public override void CreateGui(GUI gui) {
             base.CreateGui(gui);
 
+            this.HasCloseButton = true;
+            this.Text = "Console";
+
             this.ParentPanel.Size = new Size(516, 416);
 
             this.outputPanel = new Panel("GC_OutputPanel") {

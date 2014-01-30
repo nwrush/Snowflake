@@ -3,6 +3,7 @@ using Miyagi;
 using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.Common.Events;
+using Miyagi.Common.Rendering;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 using Miyagi.UI.Controls.Styles;
@@ -19,6 +20,8 @@ namespace Snowflake.States {
         private float dist = -7.0f;
 
         private GameConsole gConsole;
+
+        private Mogre.Light ambient;
 
         public MenuState() {
             StateMgr = null;
@@ -110,7 +113,7 @@ namespace Snowflake.States {
             engine.Camera.SetAutoTracking(true, focalPoint);
         }
         private void createLight(Mogre.SceneManager sm) {
-            Mogre.Light ambient = sm.CreateLight("menuAmbient");
+            ambient = sm.CreateLight("menuAmbient");
             ambient.Type = Mogre.Light.LightTypes.LT_DIRECTIONAL;
             ambient.Position = new Vector3(0, 2000, 0);
             ambient.Direction = new Vector3(-0.8365f, -1, 0.5867f);
@@ -131,6 +134,9 @@ namespace Snowflake.States {
         }
 
         public void StartNewGame() {
+            ambient.DiffuseColour = ambient.SpecularColour = new Mogre.ColourValue(0, 0, 0);
+            ambient.Visible = false;
+            ambient.CastShadows = false;
             StateMgr.Engine.SceneMgr.RootSceneNode.RemoveAndDestroyAllChildren();
             StateMgr.GuiSystem.GUIManager.DisposeAllGUIs();
             StateMgr.RequestStateChange(typeof(GameLoopState), () => {

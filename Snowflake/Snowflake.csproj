@@ -91,9 +91,14 @@
       <DependentUpon>GameConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiComponents\IGuiComponent.cs" />
+    <Compile Include="GuiComponents\PictureButton.cs" />
     <Compile Include="GuiComponents\StatsPanel.cs" />
     <Compile Include="GuiComponents\StatsPanel.Designer.cs">
       <DependentUpon>StatsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GuiComponents\ToolsPanel.cs" />
+    <Compile Include="GuiComponents\ToolsPanel.Designer.cs">
+      <DependentUpon>ToolsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiComponents\WeatherOverlay.cs" />
     <Compile Include="GuiComponents\WeatherOverlay.Designer.cs">

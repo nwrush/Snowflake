@@ -25,13 +25,13 @@ namespace Snowflake {
         /// <param name="originx">X position of city origin</param>
         /// <param name="originy">Y Position of city origin</param>
         public static void Init(int originx, int originy) {
-            if (!initialized) {
+            if (!Initialized) {
                 GameConsole.ActiveInstance.WriteLine("Founding new City at " + originx.ToString() + ", " + originy.ToString());
 
                 origin = new Point(originx, originy);
-                Haswell.Controller.init("shrug");
+                Haswell.Controller.init(cityName ?? "New City");
                 Haswell.Controller.City.BuildingCreated += CreateBuilding;
-                initialized = true;
+                Initialized = true;
             }
             else {
                 GameConsole.ActiveInstance.WriteError("Attempting to found city in an already initialized area!");
@@ -49,7 +49,7 @@ namespace Snowflake {
         /// <param name="x"></param>
         /// <param name="y"></param>
         public static void NewBuilding(int x, int y) {
-            if (initialized) {
+            if (Initialized) {
                 try { Haswell.Controller.City.CreateBuilding<Commercial>(x, y); }
                 catch (BuildingCreationFailedException e) {
                     GameConsole.ActiveInstance.WriteLine(e.Message);

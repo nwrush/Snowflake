@@ -19,12 +19,11 @@ using Rectangle = Miyagi.Common.Data.Rectangle;
 namespace Snowflake {
     public static partial class CityManager {
 
-        private static bool initialized = false;
-
         private static SceneNode cityNode;
         private static Entity ground;
         private static SceneNode world;
         private static Point origin;
+        private static string cityName;
 
         private static List<Renderable> cityObjects;
 
@@ -32,7 +31,7 @@ namespace Snowflake {
         public static Point selectionEnd { get; private set; }
         private static Point selectionOrigin;
 
-        public static bool Initialized { get { return initialized; } }
+        public static bool Initialized { get; private set; }
 
         public static Rectangle SelectionBox { 
             get { 
@@ -120,7 +119,7 @@ namespace Snowflake {
         /// <param name="frametime">Milliseconds since last frame</param>
         public static void Update(float frametime) {
 
-            if (initialized) {
+            if (Initialized) {
                 UpdateHaswell(frametime);
 
                 foreach (Renderable r in cityObjects) {
@@ -159,7 +158,7 @@ namespace Snowflake {
         public static bool MakeSelection() {
             //Todo: make selection
             if (SelectionBox.Left != Int32.MaxValue - 1 && SelectionBox.Top != Int32.MaxValue - 1) {
-                GameConsole.ActiveInstance.WriteLine("Selecting region " + SelectionBox.ToString());
+                //GameConsole.ActiveInstance.WriteLine("Selecting region " + SelectionBox.ToString());
                 return true;
                 //ClearSelection();
             }
@@ -219,6 +218,16 @@ namespace Snowflake {
         /// <returns>2D origin point</returns>
         public static Point GetOrigin() {
             return origin;
+        }
+        /// <summary>
+        /// Sets the active city's name
+        /// </summary>
+        /// <param name="name">Name of the city</param>
+        public static void SetCityName(string name) {
+            cityName = name;
+            if (Initialized) {
+                //huh, I dunno...
+            }
         }
         /// <summary>
         /// Gets the active city from Haswell

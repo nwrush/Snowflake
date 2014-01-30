@@ -37,16 +37,6 @@ namespace Snowflake.GuiComponents {
             base.Show();
             this.ParentPanel.GUI.MiyagiSystem.GUIManager.FocusedControl = this.entryBox;
         }
-        /// <summary>
-        /// Returns whether or not the console is currently visible
-        /// </summary>
-        public new bool Visible { 
-            get { return this.ParentPanel.Visible; } 
-            set { 
-                this.ParentPanel.Visible = value;
-                if (value == true) { this.ParentPanel.GUI.MiyagiSystem.GUIManager.FocusedControl = this.entryBox; }
-            } 
-        }
 
         public void WriteError(string error) {
             this.AddLabel(error, Colours.Red);

@@ -24,8 +24,14 @@ namespace Snowflake.GuiComponents {
             parentPanel = new Panel("DP_parent") {
                 Skin = ResourceManager.Skins["BlackPanelSkin"],
                 Size = new Size(200, gh - 230),
-                Location = new Point(gw - 220, 130),
-                ResizeMode = ResizeModes.None
+                Location = new Point(10, 130),
+                ResizeMode = ResizeModes.None,
+                BorderStyle = new BorderStyle() {
+                    Thickness = new Thickness(1, 0, 1, 0)
+                },
+                Throwable = false,
+                Movable = false,
+                HitTestVisible = false
             };
             fps = new Label("DP_fps") {
                 TextStyle = new TextStyle() {

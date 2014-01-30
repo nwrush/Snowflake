@@ -37,7 +37,8 @@ namespace Snowflake.States {
         private GUI Gui;
         private GameConsole gConsole;
         private BuildingCreationWindow bcWindow;
-        private StatsPanel Tools;
+        private StatsPanel StatsPanel;
+        private ToolsPanel ToolsPanel;
         private WeatherOverlay WeatherOverlay;
         private DebugPanel DebugPanel;
         private ContextMenu ContextMenu;
@@ -124,7 +125,8 @@ namespace Snowflake.States {
         public void createUI() {
 
             gConsole = new GameConsole();
-            Tools = new StatsPanel();
+            StatsPanel = new StatsPanel();
+            ToolsPanel = new ToolsPanel();
             WeatherOverlay = new WeatherOverlay();
             DebugPanel = new DebugPanel();
             ContextMenu = new ContextMenu();
@@ -134,27 +136,26 @@ namespace Snowflake.States {
             StateMgr.GuiSystem.GUIManager.GUIs.Add(Gui);
 
             gConsole.CreateGui(Gui);
-            Tools.CreateGui(Gui);
+            StatsPanel.CreateGui(Gui);
+            ToolsPanel.CreateGui(Gui);
             DebugPanel.CreateGui(Gui);
             bcWindow.CreateGui(Gui);
 
             ContextMenu.CreateGui(Gui);
-            ContextMenu.AddButton("Create Building", (object source, EventArgs e) => {
+            /*ContextMenu.AddButton("Zone as...", (object source, EventArgs e) => {
                 Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(ContextMenu.Location);
                 if (result.first) {
                     if (!CityManager.Initialized) {
                         CityManager.Init(result.second);
                         Point newPos = result.second - CityManager.GetOrigin();
-                        //CityManager.NewBuilding(newPos );
-                        bcWindow.Show();
+
                     }
                     else {
-                        //CityManager.NewBuilding(result.second);
-                        bcWindow.Show();
+                        
                     }
                 }
                 ContextMenu.Visible = false;
-            });
+            });*/
 
             WeatherOverlay.CreateGui(Gui);
             WeatherMgr.SetWeatherOverlay(WeatherOverlay);

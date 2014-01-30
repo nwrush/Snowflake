@@ -213,7 +213,7 @@ namespace Snowflake.States
         public void UpdateGUI(float frametime)
         {
             if (CityManager.Initialized)
-                Tools.Update(frametime);
+                StatsPanel.Update(frametime);
         }
 
         private bool selboxShouldUpate()

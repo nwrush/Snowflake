@@ -139,9 +139,7 @@ namespace Snowflake.States {
             ambient.CastShadows = false;
             StateMgr.Engine.SceneMgr.RootSceneNode.RemoveAndDestroyAllChildren();
             StateMgr.GuiSystem.GUIManager.DisposeAllGUIs();
-            StateMgr.RequestStateChange(typeof(GameLoopState), () => {
-                CityManager.Init(new Point(0, 0));
-            });
+            StateMgr.RequestStateChange(typeof(GameLoopState));
         }
 
         public override void Shutdown() {

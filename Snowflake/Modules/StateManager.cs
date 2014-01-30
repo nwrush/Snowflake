@@ -16,6 +16,8 @@ namespace Snowflake.Modules
         private MoisManager mInput;
         private MiyagiSystem mGuiSystem; //might make a wrapper for this later
 
+        private Action _nextStateCallback;
+
         //////////////////////////////////////////////////////////////////////////
         private State mCurrentState;
         private Type mNewState;
@@ -148,7 +150,7 @@ namespace Snowflake.Modules
         /************************************************************************/
         /* set next state that should be switched to, returns false if invalid  */
         /************************************************************************/
-        public bool RequestStateChange(Type _newState)
+        public bool RequestStateChange(Type _newState, Action callback = null)
         {
             // new state class must be derived from base class "State"
             if (_newState == null || !_newState.IsSubclassOf(typeof(State)))
@@ -158,6 +160,7 @@ namespace Snowflake.Modules
             if (mCurrentState != null && mCurrentState.GetType() == _newState)
                 return false;
 
+            if (callback != null) { _nextStateCallback = callback; }
             // store type of new state class to request a state change
             mNewState = _newState;
 
@@ -191,8 +194,13 @@ namespace Snowflake.Modules
             mCurrentState = _newState;
 
             // if a state is active, start it up
-            if (mCurrentState != null)
+            if (mCurrentState != null) {
                 mCurrentState.Startup(this);
+                if (_nextStateCallback != null) {
+                    _nextStateCallback.Invoke();
+                    _nextStateCallback = null;
+                }
+            }
         }
 
     } // class

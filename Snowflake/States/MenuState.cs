@@ -18,6 +18,8 @@ namespace Snowflake.States {
         private float angle = 0.78539f;
         private float dist = -7.0f;
 
+        private GameConsole gConsole;
+
         public MenuState() {
             StateMgr = null;
         }
@@ -93,6 +95,9 @@ namespace Snowflake.States {
             gui.Controls.Add(logo);
             gui.Controls.Add(logobg);
             gui.Controls.Add(newGameButton);
+
+            gConsole = new GameConsole();
+            gConsole.CreateGui(gui);
         }
 
         private void setupCamera(OgreManager engine) {
@@ -128,7 +133,9 @@ namespace Snowflake.States {
         public void StartNewGame() {
             StateMgr.Engine.SceneMgr.RootSceneNode.RemoveAndDestroyAllChildren();
             StateMgr.GuiSystem.GUIManager.DisposeAllGUIs();
-            StateMgr.RequestStateChange(typeof(GameLoopState));
+            StateMgr.RequestStateChange(typeof(GameLoopState), () => {
+                CityManager.Init(new Point(0, 0));
+            });
         }
 
         public override void Shutdown() {

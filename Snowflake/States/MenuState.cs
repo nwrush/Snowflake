@@ -20,19 +20,20 @@ namespace Snowflake.States {
 
         public override bool Startup(StateManager _mgr) {
             StateMgr = _mgr;
+
             CreateGui();
             return true;
         }
 
         private void CreateGui()
         {
-            float gw = StateMgr.Engine.Camera.Viewport.Width;
-            float gh = StateMgr.Engine.Camera.Viewport.Height;
+            int gw = StateMgr.Engine.Viewport.ActualWidth;
+            int gh = StateMgr.Engine.Viewport.ActualHeight;
 
             GUI gui = new GUI();
             StateMgr.GuiSystem.GUIManager.GUIs.Add(gui);
 
-            Size logosize = new Size((int)(Math.Min(512, gw - 200)), (int)Math.Min(256, (gw - 200) / 2.0));
+            Size logosize = new Size((int)(Math.Max(512, gw - 400)), (int)Math.Max(128, (gw - 400) / 4.0));
             Panel logo = new Panel("menu_logo")
             {
                 Skin = ResourceManager.Skins["Logo"],
@@ -41,11 +42,18 @@ namespace Snowflake.States {
                 ResizeMode = ResizeModes.None,
                 Throwable = false,
                 Movable = false,
-                BorderStyle = new Miyagi.UI.Controls.Styles.BorderStyle()
-                {
-                    Thickness = new Thickness(0, 1, 0, 1)
-                }
             };
+            Panel logobg = new Panel("menu_logobg") {
+                BorderStyle = new Miyagi.UI.Controls.Styles.BorderStyle() {
+                    Thickness = new Thickness(0, 1, 0, 1)
+                },
+                Skin = ResourceManager.Skins["BlackPanelSkin"],
+                Size = new Size(gw, logosize.Height + 50),
+                Location = new Point(0, 75)
+            };
+            logobg.SetBackgroundTexture(ResourceManager.Skins["BlackPanelSkin"].SubSkins["BlackPanelSkin40"]);
+
+            gui.Controls.Add(logo);
         }
 
         public override void Update(float _frameTime) {

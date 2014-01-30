@@ -1830,6 +1830,26 @@
   </Skin>
   <Skin Name="BlackPanelSkin">
     <SubSkins>
+      <SubSkin Name="BlackPanelSkin0">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.3125</X>
+              <Y>0.75</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
       <SubSkin Name="BlackPanelSkin20">
         <Frames>
           <Frame>
@@ -1930,13 +1950,13 @@
           <Y>0</Y>
         </ScrollVector>
       </SubSkin>
-      <SubSkin Name="BlackPanelSkin0">
+      <SubSkin Name="BlackPanelSkin.Border">
         <Frames>
           <Frame>
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.3125</X>
+              <X>0.25</X>
               <Y>0.75</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>

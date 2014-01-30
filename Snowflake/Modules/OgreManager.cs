@@ -47,6 +47,10 @@ namespace Snowflake.Modules {
             get { return mCamera; }
         }
 
+        public Viewport Viewport {
+            get { return mViewport; }
+        }
+
         // events raised when direct 3D device is lost or restored ///////////////
         public event EventHandler<OgreEventArgs> DeviceLost;
         public event EventHandler<OgreEventArgs> DeviceRestored;

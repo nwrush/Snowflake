@@ -71,10 +71,10 @@ namespace Snowflake {
         public static void SetCityName(string name) {
             cityName = name;
             if (Initialized) {
-                //huh, I dunno...
+                Haswell.Controller.City.Name = name;
             }
         }
-        public static string CityName { get { return cityName } }
+        public static string CityName { get { return Haswell.Controller.City.Name; } }
         /// <summary>
         /// Gets the active city from Haswell
         /// </summary>

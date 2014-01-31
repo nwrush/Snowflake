@@ -10,6 +10,7 @@ using Miyagi.UI.Controls;
 using Miyagi.UI.Controls.Styles;
 
 using Snowflake.Modules;
+
 namespace Snowflake.GuiComponents {
     public partial class ToolsPanel {
         private Panel ParentPanel;
@@ -34,12 +35,11 @@ namespace Snowflake.GuiComponents {
             buildButton = new PictureButton("ToolsPanel_btnBuild") {
                 Location = new Point (panelSize.Width - 100 - padding, 10),
                 Size = new Size(100, 100),
-                Text = "BUILD",
                 TextStyle = new TextStyle() {
                     ForegroundColour = Colours.White,
                     Alignment = Alignment.BottomCenter
                 },
-                PictureSize = new Size(64, 64),
+                PictureSize = new Size(80, 80),
                 PictureOffset = new Point(18, 18),
                 //Skin = ResourceManager.Skins["BlackPanelSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
@@ -48,12 +48,11 @@ namespace Snowflake.GuiComponents {
             manageButton = new PictureButton("ToolsPanel_btnManage") {
                 Location = new Point(panelSize.Width - 200 - padding * 3, 10),
                 Size = new Size(100, 100),
-                Text = "MANAGE",
                 TextStyle = new TextStyle() {
                     ForegroundColour = Colours.White,
                     Alignment = Alignment.BottomCenter
                 },
-                PictureSize = new Size(64, 64),
+                PictureSize = new Size(80, 80),
                 PictureOffset = new Point(18, 18),
                 //Skin = ResourceManager.Skins["BlackPanelSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
@@ -62,16 +61,15 @@ namespace Snowflake.GuiComponents {
             governButton = new PictureButton("ToolsPanel_btnGovern") {
                 Location = new Point(panelSize.Width - 300 - padding * 5, 10),
                 Size = new Size(100, 100),
-                Text = "GOVERN",
                 TextStyle = new TextStyle() {
                     ForegroundColour = Colours.White,
                     Alignment = Alignment.BottomCenter
                 },
-                PictureSize = new Size(64, 64),
+                PictureSize = new Size(80, 80),
                 PictureOffset = new Point(18, 18),
                 //Skin = ResourceManager.Skins["BlackPanelSkin"],
-                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
-                PictureHover = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.MouseEnter"]
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Govern"],
+                PictureHover = ResourceManager.Skins["Tools"].SubSkins["Tools.Govern.MouseEnter"]
             };
 
             ParentPanel.Controls.AddRange(buildButton, manageButton, governButton);

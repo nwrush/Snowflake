@@ -86,6 +86,10 @@
     <Compile Include="GuiComponents\ContextMenu.Designer.cs">
       <DependentUpon>ContextMenu.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiComponents\ControlPanel.cs" />
+    <Compile Include="GuiComponents\ControlPanel.Designer.cs">
+      <DependentUpon>ControlPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\DebugPanel.cs" />
     <Compile Include="GuiComponents\DebugPanel.Designer.cs">
       <DependentUpon>DebugPanel.cs</DependentUpon>

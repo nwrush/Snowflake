@@ -18,7 +18,7 @@ namespace Snowflake.GuiComponents {
 
             icon = new Panel("WO_Icon") {
                 Size = new Size(64, 64),
-                Location = new Point(50, 40),
+                Location = new Point(20, 20),
                 ResizeMode = ResizeModes.None
             };
             icon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons.Sunny"]);

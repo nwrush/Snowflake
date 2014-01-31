@@ -100,21 +100,9 @@
     </Compile>
     <Compile Include="GuiComponents\IGuiComponent.cs" />
     <Compile Include="GuiComponents\PictureButton.cs" />
-    <Compile Include="GuiComponents\StatsPanel.cs" />
-    <Compile Include="GuiComponents\StatsPanel.Designer.cs">
-      <DependentUpon>StatsPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GuiComponents\ToolsPanel.cs" />
-    <Compile Include="GuiComponents\ToolsPanel.Designer.cs">
-      <DependentUpon>ToolsPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="GuiComponents\TopContainer.cs" />
     <Compile Include="GuiComponents\TopContainer.Designer.cs">
       <DependentUpon>TopContainer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GuiComponents\WeatherOverlay.cs" />
-    <Compile Include="GuiComponents\WeatherOverlay.Designer.cs">
-      <DependentUpon>WeatherOverlay.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiComponents\Window.cs" />
     <Compile Include="GuiComponents\Window.Designer.cs">

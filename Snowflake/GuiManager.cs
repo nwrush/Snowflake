@@ -15,11 +15,8 @@ namespace Snowflake {
         private GUI Gui;
         private GameConsole gConsole;
         private BuildingCreationWindow bcWindow;
-        //private StatsPanel statsPanel;
-        //private ToolsPanel toolsPanel;
         private ControlPanel ctrlPanel;
         private CityInfoPanel cityPanel;
-        //private WeatherOverlay weatherOverlay;
         private DebugPanel debugPanel;
         private ContextMenu contextMenu;
         private TopContainer topContainer;
@@ -34,10 +31,6 @@ namespace Snowflake {
             get { return gConsole; }
             set { gConsole = value; }
         }
-        /*public WeatherOverlay WeatherOverlay {
-            get { return weatherOverlay; }
-            set { weatherOverlay = value; }
-        }*/
         public ContextMenu ContextMenu {
             get { return contextMenu; }
             set { contextMenu = value; }
@@ -53,11 +46,8 @@ namespace Snowflake {
 
         public void CreateDefaultGui(MiyagiSystem GuiSystem) {
             gConsole = new GameConsole();
-            //statsPanel = new StatsPanel();
-            //toolsPanel = new ToolsPanel();
             ctrlPanel = new ControlPanel();
             cityPanel = new CityInfoPanel();
-            //weatherOverlay = new WeatherOverlay();
             DebugPanel = new DebugPanel();
             ContextMenu = new ContextMenu();
             bcWindow = new BuildingCreationWindow();

@@ -108,6 +108,10 @@
     <Compile Include="GuiComponents\ToolsPanel.Designer.cs">
       <DependentUpon>ToolsPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiComponents\TopContainer.cs" />
+    <Compile Include="GuiComponents\TopContainer.Designer.cs">
+      <DependentUpon>TopContainer.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\WeatherOverlay.cs" />
     <Compile Include="GuiComponents\WeatherOverlay.Designer.cs">
       <DependentUpon>WeatherOverlay.cs</DependentUpon>
@@ -134,7 +138,7 @@
     <Compile Include="States\GameLoopState.Update.cs" />
     <Compile Include="States\MenuState.cs" />
     <Compile Include="Utils3D.cs" />
-    <Compile Include="Environment.cs" />
+    <Compile Include="WeatherManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

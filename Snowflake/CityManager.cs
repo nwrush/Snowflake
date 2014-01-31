@@ -46,6 +46,7 @@ namespace Snowflake {
         public static OgreManager Engine { get { return GameMgr.StateMgr.Engine; } }
         public static GameLoopState GameMgr { get; private set; }
         public static GuiManager GuiMgr { get { return GameMgr.GuiMgr; } }
+        public static WeatherManager WeatherMgr { get { return GameMgr.WeatherMgr; } }
 
         //////TIME
         public static float Time { get; private set; }

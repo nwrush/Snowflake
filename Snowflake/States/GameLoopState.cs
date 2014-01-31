@@ -22,7 +22,7 @@ namespace Snowflake.States {
     public partial class GameLoopState : State {
 
         public StateManager StateMgr { get; private set; }
-        private Environment WeatherMgr;
+        public WeatherManager WeatherMgr { get; private set; }
         public GuiManager GuiMgr;
 
         private SceneNode focalPoint;
@@ -67,7 +67,7 @@ namespace Snowflake.States {
             OgreManager engine = StateMgr.Engine;
 
             //Instantiate everything
-            WeatherMgr = new Environment();
+            WeatherMgr = new WeatherManager();
             CityManager.SetGameMgr(this);
 
             //Initialize everythings
@@ -127,7 +127,6 @@ namespace Snowflake.States {
         public void createUI() {
             GuiMgr = new GuiManager();
             GuiMgr.CreateDefaultGui(StateMgr.GuiSystem);
-            WeatherMgr.SetWeatherOverlay(GuiMgr.WeatherOverlay);
         }
 
         /// <summary>

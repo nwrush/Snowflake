@@ -38,15 +38,20 @@ namespace Snowflake.GuiComponents {
                 BorderStyle = {
                     Thickness = new Thickness(4, 4, 4, 4)
                 },
-                Skin = ResourceManager.Skins["PanelSkin"]
+                Skin = ResourceManager.Skins["PanelSkin"],
+                AlwaysOnBottom = true
             };
 
             expandButton = new Button("CP_expandBtn") {
                 Location = new Point(16, 0),
                 Size = new Size(16, 16),
                 Text = "^",
-                
+                Opacity = 0.7f,
             };
+
+            ParentPanel.Controls.Add(expandButton);
+
+            gui.Controls.Add(expandButton);
         }
     }
 }

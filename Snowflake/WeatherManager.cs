@@ -9,7 +9,7 @@ using Snowflake.GuiComponents;
 
 
 namespace Snowflake {
-    public class Environment {
+    public class WeatherManager {
 
         public List<Weather> PastWeather;
         public Weather CurrentWeather;
@@ -26,9 +26,7 @@ namespace Snowflake {
         private Random randomizer;
         private float timer;
 
-        private WeatherOverlay overlay;
-
-        public Environment() {
+        public WeatherManager() {
             randomizer = new Random();
             PastWeather = new List<Weather>();
         }
@@ -149,12 +147,6 @@ namespace Snowflake {
                     break;
 
             }
-
-            overlay.SetWeatherIcon(w);
-        }
-        
-        public void SetWeatherOverlay(WeatherOverlay wo) {
-            this.overlay = wo;
         }
     }
 

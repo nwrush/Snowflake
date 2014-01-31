@@ -1930,13 +1930,73 @@
           <Y>0</Y>
         </ScrollVector>
       </SubSkin>
-      <SubSkin Name="BlackPanelSkin">
+      <SubSkin Name="BlackPanelSkin100">
         <Frames>
           <Frame>
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
               <X>0.25</X>
+              <Y>0.75</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="BlackPanelSkin">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.0625</X>
+              <Y>0.75</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="BlackPanelSkin.MouseEnter">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.125</X>
+              <Y>0.75</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>BackwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="BlackPanelSkin.MouseDown">
+        <Frames>
+          <Frame>
+            <FileName>texture.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.1875</X>
               <Y>0.75</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>

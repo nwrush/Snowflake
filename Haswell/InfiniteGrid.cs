@@ -6,29 +6,34 @@ using System.Drawing;
 
 namespace Haswell {
     public class InfiniteGrid : ICollection<Plot> {
-        Dictionary<string,Plot> elements;
+        Dictionary<Point, Plot> elements;
 
         public InfiniteGrid() {
-            elements = new Dictionary<string, Plot>();
+            elements = new Dictionary<Point, Plot>();
+
+            for (int r = -10; r <= 10; r++) {
+                for (int c = -10; c <= 10; c++) {
+                    elements.Add(new Point(r, c), new Plot(r, c));
+                }
+            }
         }
 
         public Plot ElementAt(int x, int y) {
             try {
-                Plot p = elements[x.ToString() + "," + y.ToString()];
+                Plot p = elements[new Point(x,y)];
                 return p;
-            }
-            catch (KeyNotFoundException e) {
+            } catch (KeyNotFoundException e) {
                 //For now, add a plot where its trying to find one
                 //In the future, don't catch this exception and let the caller deal with it.
                 System.Diagnostics.Debug.WriteLine(e);
                 Plot p = new Plot(x, y);
-                elements[x.ToString() + "," + y.ToString()] = p;
+                elements[new Point(x,y)] = p;
                 return p;
             }
         }
         public Plot RemoveAt(int x, int y) {
-            Plot tmp = elements[x.ToString() + "," + y.ToString()];
-            elements.Remove(x.ToString() + "," + y.ToString());
+            Plot tmp = elements[new Point(x,y)];
+            elements.Remove(new Point(x,y));
             return tmp;
         }
 
@@ -42,7 +47,7 @@ namespace Haswell {
         private void makePlot(Plot[,] t) {
             int lowX = 0, lowY = 0, highX = 0, highY = 0;
 
-            foreach (KeyValuePair<string, Plot> kvp in this.elements) {
+            foreach (KeyValuePair<Point, Plot> kvp in this.elements) {
                 Plot p = kvp.Value;
                 if (p.X > highX)
                     highX = p.X;
@@ -57,7 +62,7 @@ namespace Haswell {
             t = new Plot[highX - lowX, highY - lowY];
         }
         private void populateGrid(ref Plot[,] t) {
-            foreach (KeyValuePair<string, Plot> kvp in this.elements) {
+            foreach (KeyValuePair<Point, Plot> kvp in this.elements) {
                 Plot p = kvp.Value;
                 t[p.X, p.Y] = p;
             }
@@ -76,11 +81,10 @@ namespace Haswell {
         }
 
         void ICollection<Plot>.Add(Plot e) {
-            if (elements[e.X.ToString() + "," + e.Y.ToString()] != null) {
+            if (elements[new Point(e.X,e.Y)] != null) {
                 throw new ElementAlreadyExistsException();
-            }
-            else {
-                elements[e.X.ToString() + "," + e.Y.ToString()] = e;
+            } else {
+                elements[new Point(e.X,e.Y)] = e;
             }
         }
 
@@ -89,8 +93,8 @@ namespace Haswell {
         }
 
         bool ICollection<Plot>.Contains(Plot item) {
-            if (elements[item.X.ToString() + "," + item.Y.ToString()] != null) {
-                if (item == elements[item.X.ToString() + "," + item.Y.ToString()]) { return true; }
+            if (elements[new Point(item.X,item.Y)] != null) {
+                if (item == elements[new Point(item.X,item.Y)]) { return true; }
             }
             return false;
         }
@@ -108,7 +112,7 @@ namespace Haswell {
         }
 
         bool ICollection<Plot>.Remove(Plot item) {
-            this.elements.Remove(item.X.ToString() + "," + item.Y.ToString());
+            this.elements.Remove(new Point(item.X,item.Y));
             return true;
         }
 

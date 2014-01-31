@@ -17,6 +17,7 @@ namespace Snowflake {
         private BuildingCreationWindow bcWindow;
         private StatsPanel statsPanel;
         private ToolsPanel toolsPanel;
+        private CityInfoPanel cityPanel;
         private WeatherOverlay weatherOverlay;
         private DebugPanel debugPanel;
         private ContextMenu contextMenu;
@@ -52,15 +53,17 @@ namespace Snowflake {
             gConsole = new GameConsole();
             statsPanel = new StatsPanel();
             toolsPanel = new ToolsPanel();
+            cityPanel = new CityInfoPanel();
             weatherOverlay = new WeatherOverlay();
             DebugPanel = new DebugPanel();
             ContextMenu = new ContextMenu();
             bcWindow = new BuildingCreationWindow();
 
-            GuiComponents.AddRange(new IGuiComponent[] { gConsole, statsPanel, toolsPanel, weatherOverlay, debugPanel, contextMenu, bcWindow });
+            GuiComponents.AddRange(new IGuiComponent[] { gConsole, statsPanel, toolsPanel, cityPanel, weatherOverlay, debugPanel, contextMenu, bcWindow });
 
             Gui = new GUI();
             GuiSystem.GUIManager.GUIs.Add(Gui);
+
             this.InitGui(Gui);
         }
 

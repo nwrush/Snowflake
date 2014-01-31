@@ -25,21 +25,12 @@ namespace Snowflake {
 
         private Random randomizer;
         private float timer;
-        public float Time = 0.0f;
-        public float Timescale = 1.0f;
-        public DateTime FormattedTime;
-
-        //Relative length of days, hours, and minutes, according to a tick of 1.0.
-        private const float DayLength = 2400.0f;
-        private const float HourLength = 100.0f;
-        private const float MinuteLength = 1.6666667f;
 
         private WeatherOverlay overlay;
 
         public Environment() {
             randomizer = new Random();
             PastWeather = new List<Weather>();
-            FormattedTime = new DateTime(2014, 01, 01, 6, 0, 0);
         }
 
         public void CreateScene(SceneManager sm) {
@@ -72,13 +63,15 @@ namespace Snowflake {
         }
 
         public void Update(SceneManager sm) {
-            
-            Time += Timescale;
-            UpdateFormatTime(0, 0, Timescale / MinuteLength);
 
-            float daynight = (float)System.Math.Sin(Time * (2 * System.Math.PI / DayLength));
-            float daynightx = (float)System.Math.Cos(Time * (2 * System.Math.PI / DayLength));
-            float season = -(float)System.Math.Cos((Time / 31536000.0) * (2 * System.Math.PI));
+            float t = CityManager.Time;
+            float pi = (float)System.Math.PI;
+            float ts = CityManager.Timescale;
+            if (t == 0.0) { return;
+            }
+            float daynight = (float)System.Math.Sin(t * (2 * pi/ t));
+            float daynightx = (float)System.Math.Cos(t * (2 * pi / t));
+            float season = -(float)System.Math.Cos((t / 31536000.0) * (2 * pi));
             sun.Position = new Vector3(10000 * daynightx, 10000 * daynight, 10000.0f * season);
 
             //brightness
@@ -91,25 +84,28 @@ namespace Snowflake {
             float col = (float)System.Math.Max(daynight, 0.0) * 0.7f + 0.2f;
             rainSystem.GetEmitter(0).Colour = new ColourValue(col, col, col, 0.6f);
             
-
-            if (!(this.CurrentWeather == Weather.Rainy || this.CurrentWeather == Weather.Stormy) && rainSystem.GetEmitter(0).EmissionRate > 0) { rainSystem.GetEmitter(0).EmissionRate -= Timescale; }
-            if (this.CurrentWeather == Weather.Rainy && rainSystem.GetEmitter(0).EmissionRate < 800) { rainSystem.GetEmitter(0).EmissionRate += Timescale; }
-            if (this.CurrentWeather == Weather.Stormy && rainSystem.GetEmitter(0).EmissionRate < 1600) { rainSystem.GetEmitter(0).EmissionRate += Timescale; }
+            //Fade in/out particle system emission rates
+            if (!(this.CurrentWeather == Weather.Rainy 
+                || this.CurrentWeather == Weather.Stormy)
+                && rainSystem.GetEmitter(0).EmissionRate > 0) { 
+                rainSystem.GetEmitter(0).EmissionRate -= ts; 
+            }
+            if (this.CurrentWeather == Weather.Rainy 
+                && rainSystem.GetEmitter(0).EmissionRate < 800) { 
+                rainSystem.GetEmitter(0).EmissionRate += ts;
+            }
+            if (this.CurrentWeather == Weather.Stormy 
+                && rainSystem.GetEmitter(0).EmissionRate < 1600) { 
+                rainSystem.GetEmitter(0).EmissionRate += ts; 
+            }
 
             //Temp weather change code (ultimately will be handled in Nikko's code)
             if (timer <= 0) {
                 SwitchWeather((Weather)Enum.GetValues(typeof(Weather)).GetValue(randomizer.Next(1, Enum.GetValues(typeof(Weather)).Length)));
             }
             else {
-                timer -= Timescale;
+                timer -= ts;
             }
-        }
-
-        private void UpdateFormatTime(double days = 0, double hours = 0, double minutes = 0) {
-            FormattedTime = FormattedTime.AddDays(days);
-            FormattedTime = FormattedTime.AddHours(hours);
-            FormattedTime = FormattedTime.AddMinutes(minutes);
-            this.overlay.UpdateTimeLabel(FormattedTime);
         }
 
         private void ResetTimer() {

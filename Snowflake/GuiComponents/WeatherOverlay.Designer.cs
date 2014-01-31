@@ -13,7 +13,6 @@ using Snowflake.Modules;
 namespace Snowflake.GuiComponents {
     public partial class WeatherOverlay {
         private Panel icon;
-        private Label text;
 
         public void CreateGui(GUI gui) {
 
@@ -24,18 +23,7 @@ namespace Snowflake.GuiComponents {
             };
             icon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons.Sunny"]);
 
-            text = new Label("WO_Label") {
-                Location = new Point(10, 10),
-                AutoSize = true,
-                TextStyle = {
-                    ForegroundColour = Colours.White,
-                    Font = ResourceManager.Fonts["Expressway"]
-                },
-                Text = "<Undefined>"
-            };
-
             gui.Controls.Add(icon);
-            gui.Controls.Add(text);
 
             Initialize();
         }
@@ -43,8 +31,6 @@ namespace Snowflake.GuiComponents {
         public void Dispose() {
             icon.GUI.Controls.Remove(icon);
             icon.Dispose();
-            text.GUI.Controls.Remove(text);
-            text.Dispose();
         }
     }
 }

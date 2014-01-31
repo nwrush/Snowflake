@@ -158,7 +158,7 @@ namespace Snowflake.States {
                 if (args.Length == 0) { gConsole.WriteLine("Usage: timescale [n], default 1.0"); return; }
                 float timescale;
                 if (Single.TryParse(args[0], out timescale)) {
-                    WeatherMgr.Timescale = timescale;
+                    CityManager.SetTimescale(timescale);
                 }
                 else {
                     gConsole.WriteLine("Please enter a valid number!");

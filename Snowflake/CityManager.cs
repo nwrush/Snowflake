@@ -22,7 +22,7 @@ namespace Snowflake {
         private static SceneNode cityNode;
         private static Entity ground;
         private static SceneNode world;
-        private static Point origin;
+        public static Point Origin { get; private set; }
         private static string cityName;
 
         private static List<Renderable> cityObjects;
@@ -45,6 +45,42 @@ namespace Snowflake {
         public static SceneManager SceneMgr { get { return GameMgr.StateMgr.Engine.SceneMgr; } }
         public static OgreManager Engine { get { return GameMgr.StateMgr.Engine; } }
         public static GameLoopState GameMgr { get; private set; }
+
+        //////TIME
+        public static float Time { get; private set; }
+        public static float Timescale { get; private set; }
+        public const float DayLength = 2400.0f;
+        public const float HourLength = 100.0f;
+        public const float MinuteLength = 1.6666667f;
+
+        /// <summary>
+        /// Sets the amount by which the game time is incremented every tick
+        /// </summary>
+        /// <param name="timescale"></param>
+        public static void SetTimescale(float timescale) {
+            Timescale = timescale;
+            //Todo: take into account framerate
+        }
+
+        /// <summary>
+        /// Sets the active city's name
+        /// </summary>
+        /// <param name="name">Name of the city</param>
+        public static void SetCityName(string name) {
+            cityName = name;
+            if (Initialized) {
+                //huh, I dunno...
+            }
+        }
+        public static string CityName { get { return "New City"; } } //Haswell.Controller.City.ToString(); } }
+        /// <summary>
+        /// Gets the active city from Haswell
+        /// </summary>
+        public static City ActiveCity {
+            get {
+                return Controller.City;
+            }
+        }
 
         static CityManager() {
             cityObjects = new List<Renderable>();
@@ -120,6 +156,9 @@ namespace Snowflake {
         public static void Update(float frametime) {
 
             if (Initialized) {
+
+                Time += Timescale;
+
                 UpdateHaswell(frametime);
 
                 foreach (Renderable r in cityObjects) {
@@ -179,8 +218,8 @@ namespace Snowflake {
         /// <param name="src">Source point</param>
         /// <returns>Destination point</returns>
         public static Point GetPlotCoords(Vector3 src) {
-            if (!(origin.X == 0 && origin.Y == 0)) {
-                return new Point((int)System.Math.Floor(src.x / Renderable.PlotWidth - origin.X), (int)System.Math.Floor(src.z / Renderable.PlotHeight - origin.Y));
+            if (!(Origin.X == 0 && Origin.Y == 0)) {
+                return new Point((int)System.Math.Floor(src.x / Renderable.PlotWidth - Origin.X), (int)System.Math.Floor(src.z / Renderable.PlotHeight - Origin.Y));
             }
             return new Point((int)System.Math.Floor(src.x / Renderable.PlotWidth), (int)System.Math.Floor(src.z / Renderable.PlotHeight));
         }
@@ -199,42 +238,16 @@ namespace Snowflake {
         /// <param name="plotCoord">2D Point representing plot coordinate</param>
         /// <returns>3D point in the center of the plot</returns>
         public static Vector3 GetPlotCenter(Point plotCoord) {
-            if (!(origin.X == 0 && origin.Y == 0)) {
+            if (!(Origin.X == 0 && Origin.Y == 0)) {
                 //Todo: account for terrain height
-                return new Vector3((plotCoord.X + origin.X) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f), 
+                return new Vector3((plotCoord.X + Origin.X) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f), 
                                     0.0f,
-                                    (plotCoord.Y + origin.Y) * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
+                                    (plotCoord.Y + Origin.Y) * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
             }
             else {
                 return new Vector3(plotCoord.X * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f),
                     0.0f,
                     plotCoord.Y * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
-            }
-        }
-
-        /// <summary>
-        /// Gets the origin point of the current city.
-        /// </summary>
-        /// <returns>2D origin point</returns>
-        public static Point GetOrigin() {
-            return origin;
-        }
-        /// <summary>
-        /// Sets the active city's name
-        /// </summary>
-        /// <param name="name">Name of the city</param>
-        public static void SetCityName(string name) {
-            cityName = name;
-            if (Initialized) {
-                //huh, I dunno...
-            }
-        }
-        /// <summary>
-        /// Gets the active city from Haswell
-        /// </summary>
-        public static City ActiveCity {
-            get {
-                return Controller.City;
             }
         }
     }

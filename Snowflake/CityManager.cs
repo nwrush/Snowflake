@@ -74,7 +74,7 @@ namespace Snowflake {
                 //huh, I dunno...
             }
         }
-        public static string CityName { get { return "New City"; } } //Haswell.Controller.City.ToString(); } }
+        public static string CityName { get { return cityName } }
         /// <summary>
         /// Gets the active city from Haswell
         /// </summary>

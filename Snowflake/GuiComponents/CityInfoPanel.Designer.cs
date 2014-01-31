@@ -25,8 +25,8 @@ namespace Snowflake.GuiComponents {
 
             ParentPanel = new Panel("CIP_parent") {
                 //Skin = ResourceManager.Skins["BlackPanelSkin"],
-                Size = new Size(300, 100),
-                Location = new Point(gw - 310, gh - 160),
+                Size = new Size(400, 105),
+                Location = new Point(gw - 410, gh - 115),
                 ResizeMode = ResizeModes.None,
                 BorderStyle = new BorderStyle() {
                     Thickness = new Thickness(0, 0, 1, 1)
@@ -41,20 +41,21 @@ namespace Snowflake.GuiComponents {
                 AutoSize = true,
                 TextStyle = {
                     ForegroundColour = Colours.White,
-                    Font = ResourceManager.Fonts["Lane"],
-                    Alignment = Alignment.TopCenter
+                    Font = ResourceManager.Fonts["Heading"],
+                    Alignment = Alignment.TopLeft
                 },
                 Text = "<Undefined>"
             };
             timeLabelShadow = new Label("CIP_LabelTimeShadow") {
-                Location = new Point(17, ParentPanel.Size.Height - 38),
+                Location = timeLabel.Location + new Point(1, 1),
                 AutoSize = true,
                 TextStyle = {
-                    ForegroundColour = Colours.DarkGrey,
-                    Font = ResourceManager.Fonts["Lane"],
-                    Alignment = Alignment.TopCenter
+                    ForegroundColour = Colours.Black,
+                    Font = ResourceManager.Fonts["Heading"],
+                    Alignment = Alignment.TopLeft
                 },
-                Text = timeLabel.Text
+                Text = timeLabel.Text,
+                AlwaysOnBottom = true
             };
 
             cityLabel = new Label("CIP_LabelCity") {

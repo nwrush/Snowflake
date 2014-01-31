@@ -87,6 +87,13 @@ namespace Snowflake {
             });*/
         }
 
+        public void SetDebugText(string text) {
+            debugPanel.SetDebugText(text);
+        }
+        public void ConsoleWrite(string text) {
+            gConsole.WriteLine(text);
+        }
+
         public void Update(float frametime) {
             foreach (IGuiComponent c in GuiComponents) {
                 c.Update(frametime);

@@ -67,12 +67,13 @@ namespace Snowflake {
             float t = CityManager.Time;
             float pi = (float)System.Math.PI;
             float ts = CityManager.Timescale;
-            if (t == 0.0) { return;
-            }
-            float daynight = (float)System.Math.Sin(t * (2 * pi/ t));
-            float daynightx = (float)System.Math.Cos(t * (2 * pi / t));
+            if (t == 0.0) { return; }
+
+            float daynight = (float)System.Math.Sin(t * (2 * pi));
+            float daynightx = (float)System.Math.Cos(t * (2 * pi));
             float season = -(float)System.Math.Cos((t / 31536000.0) * (2 * pi));
             sun.Position = new Vector3(10000 * daynightx, 10000 * daynight, 10000.0f * season);
+            CityManager.GuiMgr.SetDebugText(daynight.ToString());
 
             //brightness
             float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(daynight) * System.Math.Pow(daynight, (1.0 / 3.0)));

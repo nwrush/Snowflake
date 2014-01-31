@@ -23,7 +23,7 @@ namespace Snowflake.States {
 
         public StateManager StateMgr { get; private set; }
         private Environment WeatherMgr;
-        private GuiManager GuiMgr;
+        public GuiManager GuiMgr;
 
         private SceneNode focalPoint;
         private float angle = 0.78539f;

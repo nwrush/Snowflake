@@ -45,6 +45,7 @@ namespace Snowflake {
         public static SceneManager SceneMgr { get { return GameMgr.StateMgr.Engine.SceneMgr; } }
         public static OgreManager Engine { get { return GameMgr.StateMgr.Engine; } }
         public static GameLoopState GameMgr { get; private set; }
+        public static GuiManager GuiMgr { get { return GameMgr.GuiMgr; } }
 
         //////TIME
         public static float Time { get; private set; }
@@ -84,6 +85,7 @@ namespace Snowflake {
 
         static CityManager() {
             cityObjects = new List<Renderable>();
+            Timescale = 1.0f;
         }
 
         /// <summary>

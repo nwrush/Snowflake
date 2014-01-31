@@ -36,8 +36,8 @@
     <Resolution>96</Resolution>
     <Size>32</Size>
   </TrueTypeFont>
-  <TrueTypeFont Name="Lane">
-    <FileName>..\media\fonts\lane.ttf</FileName>
+  <TrueTypeFont Name="Heading">
+    <FileName>..\media\fonts\goulong.ttf</FileName>
     <FontStyle>Regular</FontStyle>
     <Resolution>96</Resolution>
     <Size>16</Size>

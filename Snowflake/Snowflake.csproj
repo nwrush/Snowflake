@@ -78,6 +78,10 @@
     <Compile Include="CityManager.cs" />
     <Compile Include="CityManager.Haswell.cs" />
     <Compile Include="CityRendering.cs" />
+    <Compile Include="GuiComponents\CityInfoPanel.cs" />
+    <Compile Include="GuiComponents\CityInfoPanel.Designer.cs">
+      <DependentUpon>CityInfoPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\ContextMenu.cs" />
     <Compile Include="GuiComponents\ContextMenu.Designer.cs">
       <DependentUpon>ContextMenu.cs</DependentUpon>
@@ -112,6 +116,7 @@
     <Compile Include="GuiComponents\Windows\BuildingCreationWindow.Designer.cs">
       <DependentUpon>BuildingCreationWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiManager.cs" />
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />
     <Compile Include="Modules\OgreManager.cs" />

@@ -23,6 +23,7 @@ namespace Snowflake.States {
 
         public StateManager StateMgr { get; private set; }
         private Environment WeatherMgr;
+        private GuiManager GuiMgr;
 
         private SceneNode focalPoint;
         private float angle = 0.78539f;
@@ -34,14 +35,13 @@ namespace Snowflake.States {
         private SceneNode selectionBox;
         private Entity selectionBoxEnt;
 
-        private GUI Gui;
-        private GameConsole gConsole;
-        private BuildingCreationWindow bcWindow;
-        private StatsPanel StatsPanel;
-        private ToolsPanel ToolsPanel;
-        private WeatherOverlay WeatherOverlay;
-        private DebugPanel DebugPanel;
-        private ContextMenu ContextMenu;
+        #region Properties
+
+        private DebugPanel DebugPanel { get { return GuiMgr.DebugPanel; } }
+        private GameConsole gConsole { get { return GuiMgr.GameConsole; } }
+        private ContextMenu ContextMenu { get { return GuiMgr.ContextMenu; } }
+
+        #endregion
 
         //Scale factor to get from 20 3ds max units to 1 plot grid square (120 mogre units)
         private const float SCALEFACTOR = 473.0f;
@@ -125,42 +125,9 @@ namespace Snowflake.States {
         /// Set up overlays for user interface
         /// </summary>
         public void createUI() {
-
-            gConsole = new GameConsole();
-            StatsPanel = new StatsPanel();
-            ToolsPanel = new ToolsPanel();
-            WeatherOverlay = new WeatherOverlay();
-            DebugPanel = new DebugPanel();
-            ContextMenu = new ContextMenu();
-            bcWindow = new BuildingCreationWindow();
-
-            Gui = new GUI();
-            StateMgr.GuiSystem.GUIManager.GUIs.Add(Gui);
-
-            gConsole.CreateGui(Gui);
-            StatsPanel.CreateGui(Gui);
-            ToolsPanel.CreateGui(Gui);
-            DebugPanel.CreateGui(Gui);
-            bcWindow.CreateGui(Gui);
-
-            ContextMenu.CreateGui(Gui);
-            /*ContextMenu.AddButton("Zone as...", (object source, EventArgs e) => {
-                Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(ContextMenu.Location);
-                if (result.first) {
-                    if (!CityManager.Initialized) {
-                        CityManager.Init(result.second);
-                        Point newPos = result.second - CityManager.GetOrigin();
-
-                    }
-                    else {
-                        
-                    }
-                }
-                ContextMenu.Visible = false;
-            });*/
-
-            WeatherOverlay.CreateGui(Gui);
-            WeatherMgr.SetWeatherOverlay(WeatherOverlay);
+            GuiMgr = new GuiManager();
+            GuiMgr.CreateDefaultGui(StateMgr.GuiSystem);
+            WeatherMgr.SetWeatherOverlay(GuiMgr.WeatherOverlay);
         }
 
         /// <summary>

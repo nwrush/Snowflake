@@ -21,10 +21,10 @@ namespace Snowflake.GuiComponents {
             int gw = gui.MiyagiSystem.RenderManager.MainViewport.Size.Width;
             int gh = gui.MiyagiSystem.RenderManager.MainViewport.Size.Height;
 
-            int padding = 40;
-            Size panelSize = new Size(84 * 3 + padding * 6, 120);
+            int padding = 20;
+            Size panelSize = new Size(100 * 3 + padding * 6, 120);
             ParentPanel = new Panel("ToolsPanel_ParentPanel") {
-                Location = new Point(gw - 310 - panelSize.Width, 0),
+                Location = new Point(gw - 350 - panelSize.Width, 0),
                 Size = panelSize,
                 Movable = false,
                 Throwable = false,
@@ -45,8 +45,36 @@ namespace Snowflake.GuiComponents {
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
                 PictureHover = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.MouseEnter"]
             };
+            manageButton = new PictureButton("ToolsPanel_btnManage") {
+                Location = new Point(panelSize.Width - 200 - padding * 3, 10),
+                Size = new Size(100, 100),
+                Text = "MANAGE",
+                TextStyle = new TextStyle() {
+                    ForegroundColour = Colours.White,
+                    Alignment = Alignment.BottomCenter
+                },
+                PictureSize = new Size(64, 64),
+                PictureOffset = new Point(18, 18),
+                //Skin = ResourceManager.Skins["BlackPanelSkin"],
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
+                PictureHover = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.MouseEnter"]
+            };
+            governButton = new PictureButton("ToolsPanel_btnGovern") {
+                Location = new Point(panelSize.Width - 300 - padding * 5, 10),
+                Size = new Size(100, 100),
+                Text = "GOVERN",
+                TextStyle = new TextStyle() {
+                    ForegroundColour = Colours.White,
+                    Alignment = Alignment.BottomCenter
+                },
+                PictureSize = new Size(64, 64),
+                PictureOffset = new Point(18, 18),
+                //Skin = ResourceManager.Skins["BlackPanelSkin"],
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
+                PictureHover = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.MouseEnter"]
+            };
 
-            ParentPanel.Controls.Add(buildButton);
+            ParentPanel.Controls.AddRange(buildButton, manageButton, governButton);
             gui.Controls.Add(ParentPanel);
         }
     }

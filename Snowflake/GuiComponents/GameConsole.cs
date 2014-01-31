@@ -54,21 +54,26 @@ namespace Snowflake.GuiComponents {
             this.AddLabel(text, Colours.Black);
         }
         private void AddLabel(string text, Colour col) {
-            var label = new Label {
-                Location = new Point(0, labelY),
-                Text = "> " + text.Trim(),
-                AutoSize = true,
-                TextStyle = new TextStyle() {
-                    Font = ResourceManager.Fonts["Courier"],
-                    Multiline = true,
-                    ForegroundColour = col
-                },
-                MaxSize = new Size(this.outputPanel.Width, this.outputPanel.Height)
-            };
-            label.SuccessfulHitTest += (s, e) => e.Cancel = true;
-            this.outputPanel.Controls.Add(label);
-            this.labelY += label.Height;
-            this.outputPanel.ScrollToBottom();
+            if (this.outputPanel != null) {
+                var label = new Label {
+                    Location = new Point(0, labelY),
+                    Text = "> " + text.Trim(),
+                    AutoSize = true,
+                    TextStyle = new TextStyle() {
+                        Font = ResourceManager.Fonts["Courier"],
+                        Multiline = true,
+                        ForegroundColour = col
+                    },
+                    MaxSize = new Size(this.outputPanel.Width, this.outputPanel.Height)
+                };
+                label.SuccessfulHitTest += (s, e) => e.Cancel = true;
+                this.outputPanel.Controls.Add(label);
+                this.labelY += label.Height;
+                this.outputPanel.ScrollToBottom();
+            }
+            else {
+                throw new NullReferenceException("Game Console has not been initialized!");
+            }
         }
 
         /// <summary>

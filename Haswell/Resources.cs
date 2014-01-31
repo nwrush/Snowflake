@@ -7,7 +7,7 @@ namespace Haswell {
     /// <summary>
     /// Base class for all resources
     /// </summary>
-    public abstract class Resource {
+    public abstract class Type {
         public enum Type {
             Material,
             Energy,
@@ -18,10 +18,10 @@ namespace Haswell {
 
         private Type type;
         
-        public Resource() {
+        protected Resource() {
             this.type = Type.None;
         }
-        public Resource(Type t) {
+        protected Resource(Type t) {
             if (t != Type.None)
                 this.type = t;
             else {

@@ -9,7 +9,7 @@ namespace Haswell {
 
         //Todo: Make this a resource
         private int population { get; set; }
-        private string name { get; set; }
+        private string name { public get; public set; }
         private InfiniteGrid grid;
 
         private List<Pipe> pipes;

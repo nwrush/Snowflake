@@ -48,6 +48,11 @@ namespace Snowflake.GuiComponents {
             this.MouseLeave += (object sender, MouseEventArgs e) => {
                 if (_picture != null) { this.picturePanel.SetBackgroundTexture(this._picture); }
             };
+            this.LocationChanged += (object sender, ChangedValueEventArgs<Point> e) => {
+                if (_picture != null) {
+                    picturePanel.Location = e.NewValue + new Point(this.Padding.Left, this.Padding.Top) + _pictureOffset;
+                }
+            };
         }
 
         public Texture Picture {

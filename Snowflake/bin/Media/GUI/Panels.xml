@@ -860,7 +860,7 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.3125</X>
+              <X>0</X>
               <Y>0.8125</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
@@ -880,7 +880,7 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0</X>
+              <X>0.0625</X>
               <Y>0.8125</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
@@ -900,7 +900,7 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.0625</X>
+              <X>0.125</X>
               <Y>0.8125</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>

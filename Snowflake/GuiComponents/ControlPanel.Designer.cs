@@ -17,41 +17,97 @@ namespace Snowflake.GuiComponents {
         private PictureButton saveButton;
         private PictureButton quitButton;
         private PictureButton optionsButton;
-        private PictureButton loadbutton;
-        private Button expandButton;
+        private PictureButton loadButton;
+        private PictureButton expandButton;
+
+        private int boxwidth = 48;
+        private int expanderheight = 32;
+        private int padding = 3;
+        private int boxheight;
 
         public void CreateGui(GUI gui) {
 
             int gw = gui.MiyagiSystem.RenderManager.MainViewport.Size.Width;
             int gh = gui.MiyagiSystem.RenderManager.MainViewport.Size.Height;
 
+            boxheight = expanderheight + boxwidth * 4 + padding * 6;
+
             ParentPanel = new Panel("CP_ParentPanel") {
                 TabStop = false,
                 TabIndex = 0,
                 Throwable = false,
-                Size = new Size(48, 192),
+                Size = new Size(boxwidth, boxheight),
                 Movable = false,
                 ResizeMode = ResizeModes.None,
-                Opacity = 0.7f,
-                Location = new Point(gw - 48, gh - 400),
+                MinSize = new Size(boxwidth, expanderheight),
+                MaxSize = new Size(boxwidth, boxheight),
+                Location = new Point(gw - boxwidth, 130),
                 ResizeThreshold = new Thickness(0),
                 BorderStyle = {
-                    Thickness = new Thickness(4, 4, 4, 4)
+                    Thickness = new Thickness(1, 0, 0, 1)
                 },
-                Skin = ResourceManager.Skins["PanelSkin"],
-                AlwaysOnBottom = true
+                Skin = ResourceManager.Skins["BlackPanelSkin"],
+                AlwaysOnBottom = true,
+                VScrollBarStyle = new ScrollBarStyle() {
+                    Extent = 0
+                }
+            };
+            
+            expandButton = new PictureButton("CP_expandBtn") {
+                Location = new Point(0, boxheight - expanderheight),
+                Size = new Size(boxwidth, expanderheight),
+                TextStyle = new TextStyle() {
+                    ForegroundColour = Colours.White,
+                    Font = ResourceManager.Fonts["Heading"],
+                    Alignment = Alignment.TopCenter
+                },
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                BorderStyle = new BorderStyle() {
+                    Thickness = new Thickness(0, 1, 0, 0)
+                },
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Expand"],
+                PictureSize = new Size(16, 16),
+                PictureOffset = new Point((boxwidth - 16) / 2, (expanderheight - 16) / 2)
+            };
+            expandButton.MouseClick += (object sender, MouseButtonEventArgs e) => {
+                if (this.expanded) { this.Contract(); }
+                else { this.Expand(); }
             };
 
-            expandButton = new Button("CP_expandBtn") {
-                Location = new Point(16, 0),
-                Size = new Size(16, 16),
-                Text = "^",
-                Opacity = 0.7f,
+            quitButton = new PictureButton("CP_quitBtn") {
+                Location = new Point(0, boxheight - expanderheight - boxwidth),
+                Size = new Size(boxwidth, boxwidth),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Exit"]
             };
 
-            ParentPanel.Controls.Add(expandButton);
+            saveButton = new PictureButton("CP_saveBtn") {
+                Location = new Point(0, boxheight - expanderheight - boxwidth * 2 - padding),
+                Size = new Size(boxwidth, boxwidth),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Save"]
+            };
 
-            gui.Controls.Add(expandButton);
+            loadButton = new PictureButton("CP_loadBtn") {
+                Location = new Point(0, boxheight - expanderheight - boxwidth * 3 - padding * 3),
+                Size = new Size(boxwidth, boxwidth),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Load"]
+            };
+
+            optionsButton = new PictureButton("CP_optionsBtn") {
+                Location = new Point(0, boxheight - expanderheight - boxwidth * 4 - padding * 5),
+                Size = new Size(boxwidth, boxwidth),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                //TextStyle = new TextStyle() { ForegroundColour = Colours.White }
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Options"]
+            };
+
+            ParentPanel.Controls.AddRange(expandButton, quitButton, saveButton, loadButton, optionsButton);
+
+            gui.Controls.Add(ParentPanel);
+
+            this.Initialize();
         }
     }
 }

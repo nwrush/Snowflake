@@ -77,7 +77,7 @@ namespace Snowflake.GuiComponents {
                     ForegroundColour = Colours.White,
                     Alignment = Alignment.BottomCenter
                 },
-                Skin = ResourceManager.Skins["WhitePanelSkin"],
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
                 PictureSize = new Size(picsize, picsize),
                 PictureOffset = new Point((boxsize - picsize) / 2, (boxsize - picsize) / 2)
@@ -89,7 +89,7 @@ namespace Snowflake.GuiComponents {
                     ForegroundColour = Colours.White,
                     Alignment = Alignment.BottomCenter
                 },
-                Skin = ResourceManager.Skins["WhitePanelSkin"],
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Manage"],
                 PictureSize = new Size(picsize, picsize),
                 PictureOffset = new Point((boxsize - picsize) / 2, (boxsize - picsize) / 2)
@@ -101,7 +101,7 @@ namespace Snowflake.GuiComponents {
                     ForegroundColour = Colours.White,
                     Alignment = Alignment.BottomCenter
                 },
-                Skin = ResourceManager.Skins["WhitePanelSkin"],
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Govern"],
                 PictureSize = new Size(picsize, picsize),
                 PictureOffset = new Point((boxsize - picsize) / 2, (boxsize - picsize) / 2)

@@ -42,4 +42,16 @@
     <Resolution>96</Resolution>
     <Size>16</Size>
   </TrueTypeFont>
+  <TrueTypeFont Name="Subheading">
+    <FileName>..\media\fonts\goulong.ttf</FileName>
+    <FontStyle>Regular</FontStyle>
+    <Resolution>96</Resolution>
+    <Size>12</Size>
+  </TrueTypeFont>
+  <TrueTypeFont Name="Section">
+    <FileName>..\media\fonts\goulong.ttf</FileName>
+    <FontStyle>Regular</FontStyle>
+    <Resolution>96</Resolution>
+    <Size>8</Size>
+  </TrueTypeFont>
 </TrueTypeFonts>

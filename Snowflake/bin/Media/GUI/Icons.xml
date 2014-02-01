@@ -250,6 +250,46 @@
           <Y>0</Y>
         </ScrollVector>
       </SubSkin>
+      <SubSkin Name="Tools.Manage">
+        <Frames>
+          <Frame>
+            <FileName>icons.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.5</X>
+              <Y>0</Y>
+              <Width>0.25</Width>
+              <Height>0.25</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
+      <SubSkin Name="Tools.Manage.MouseEnter">
+        <Frames>
+          <Frame>
+            <FileName>icons.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.75</X>
+              <Y>0</Y>
+              <Width>0.25</Width>
+              <Height>0.25</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
     </SubSkins>
   </Skin>
 </Skins>

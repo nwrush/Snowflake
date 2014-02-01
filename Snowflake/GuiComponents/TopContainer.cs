@@ -28,7 +28,10 @@ namespace Snowflake.GuiComponents {
             pbEnvquality.Value = 23;
 
             labelMoney.Text = "$4,375.64";
-            labelPopulation.Text = "Population: 82";
+            labelPopulation.Text = "82,163";
+
+            textMoney.Location = new Point(labelMoney.Width - (int)(labelMoney.Width * 0.25), textMoney.Location.Y);
+            textPopulation.Location = new Point(labelPopulation.Width - (int)(labelPopulation.Width * 0.25), textPopulation.Location.Y);
 
             Dictionary<Resource.Type, int> resources = Haswell.Controller.City.Resources;
             labelMoney.Text = resources[Resource.Type.Money].ToString("C");

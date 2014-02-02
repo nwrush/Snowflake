@@ -14,6 +14,7 @@ namespace Haswell {
 
         private List<Pipe> pipes;
         private List<Zone> zones;
+
         private ResourceDict resources;
 
         public event EventHandler<BuildingEventArgs> BuildingCreated;
@@ -32,7 +33,7 @@ namespace Haswell {
             
             this.resources = new ResourceDict();
 
-            this.resources[typeof(Energy)]=100;
+            //this.resources[typeof(Energy)]=100;
                 //{
                 //    //Default Values for a new city
                 //    {Resource.Type.Energy,100},
@@ -88,7 +89,7 @@ namespace Haswell {
                 return this.grid;
             }
         }
-        public Dictionary<Resource.Type, int> Resources {
+        public ResourceDict Resources {
             get {
                 return this.resources;
             }

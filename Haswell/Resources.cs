@@ -7,7 +7,7 @@ namespace Haswell {
     /// <summary>
     /// Base class for all resources
     /// </summary>
-    public abstract class Type {
+    public abstract class Resource {
         public enum Type {
             Material,
             Energy,

@@ -4,34 +4,34 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    class ResourceDict : IDictionary<Type, int> {
-        private Dictionary<Type, int> resources;
+    public class ResourceDict : IDictionary<Resource.Type, int> {
+        private Dictionary<Resource.Type, int> resources;
 
         public ResourceDict() {
-            this.resources = new Dictionary<Type, int>();
+            this.resources = new Dictionary<Resource.Type, int>();
         }
-        public ResourceDict(Dictionary<Type, int> r) {
-            this.resources = new Dictionary<Type, int>(r);
+        public ResourceDict(Dictionary<Resource.Type, int> r) {
+            this.resources = new Dictionary<Resource.Type, int>(r);
         }
 
         #region IDictionary Stuff
-        public void Add(Type key, int value) {
+        public void Add(Resource.Type key, int value) {
             resources.Add(key, value);
         }
 
-        public bool ContainsKey(Type key) {
+        public bool ContainsKey(Resource.Type key) {
             return this.resources.ContainsKey(key);
         }
 
-        public ICollection<Type> Keys {
+        public ICollection<Resource.Type> Keys {
             get { return this.resources.Keys; }
         }
 
-        public bool Remove(Type key) {
+        public bool Remove(Resource.Type key) {
             return this.resources.Remove(key);
         }
 
-        public bool TryGetValue(Type key, out int value) {
+        public bool TryGetValue(Resource.Type key, out int value) {
             return this.resources.TryGetValue(key, out value);
         }
 
@@ -39,7 +39,7 @@ namespace Haswell {
             get { return this.resources.Values; }
         }
 
-        public int this[Type key] {
+        public int this[Resource.Type key] {
             get {
                 return this.resources[key];
             }
@@ -48,7 +48,7 @@ namespace Haswell {
             }
         }
 
-        public void Add(KeyValuePair<Type, int> item) {
+        public void Add(KeyValuePair<Resource.Type, int> item) {
             this.resources.Add(item.Key, item.Value);
         }
 
@@ -56,7 +56,7 @@ namespace Haswell {
             this.resources.Clear();
         }
 
-        public bool Contains(KeyValuePair<Type, int> item) {
+        public bool Contains(KeyValuePair<Resource.Type, int> item) {
             return this.resources.Contains(item);
         }
 
@@ -72,16 +72,19 @@ namespace Haswell {
             get { return false; }
         }
 
-        public bool Remove(KeyValuePair<Type, int> item) {
+        public bool Remove(KeyValuePair<Resource.Type, int> item) {
             return this.resources.Remove(item.Key);
         }
 
-        public IEnumerator<KeyValuePair<Type, int>> GetEnumerator() {
+        public IEnumerator<KeyValuePair<Resource.Type, int>> GetEnumerator() {
             return this.resources.GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             return this.resources.GetEnumerator();
+        }
+        public void CopyTo(KeyValuePair<Resource.Type, int>[] array, int arrayIndex) {
+            throw new NotImplementedException();
         }
         #endregion
     }

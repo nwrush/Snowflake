@@ -30,17 +30,17 @@ namespace Haswell {
 
             this.pipes = new List<Pipe>();
             this.zones = new List<Zone>();
-            
+
             this.resources = new ResourceDict();
 
             //this.resources[typeof(Energy)]=100;
-                //{
-                //    //Default Values for a new city
-                //    {Resource.Type.Energy,100},
-                //    {Resource.Type.Material,100},
-                //    {Resource.Type.Money,100},
-                //    {Resource.Type.Population,100}
-                //};
+            //{
+            //    //Default Values for a new city
+            //    {Resource.Type.Energy,100},
+            //    {Resource.Type.Material,100},
+            //    {Resource.Type.Money,100},
+            //    {Resource.Type.Population,100}
+            //};
         }
 
         /// <summary>
@@ -101,6 +101,19 @@ namespace Haswell {
             set {
                 this.name = value;
             }
+        }
+        public List<Building> GetAllInSelection(int x1, int y1, int x2, int y2) {
+            return this.GetAllInSelection(new System.Drawing.Point(x1, y1), new System.Drawing.Point(x2, y2));
+        }
+        public List<Building> GetAllInSelection(System.Drawing.Point topLeft, System.Drawing.Point bottomRight) {
+            List<Building> selected = new List<Building>();
+
+            for (int r = topLeft.X; r <= bottomRight.X; r++) {
+                for (int c = topLeft.Y; c <= bottomRight.Y; c++) {
+                    selected.AddRange(this.grid.ElementAt(r, c).GetAllBuildings);
+                }
+            }
+            return selected;
         }
     }
 }

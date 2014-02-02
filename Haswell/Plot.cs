@@ -89,5 +89,10 @@ namespace Haswell {
                 return 0;
             return 1;
         }
+        public List<Building> GetAllBuildings {
+            get {
+                return this.buildings;
+            }
+        }
     }
 }

@@ -18,10 +18,10 @@ namespace Haswell {
 
         private Type type;
         
-        public Resource() {
+        protected Resource() {
             this.type = Type.None;
         }
-        public Resource(Type t) {
+        protected Resource(Type t) {
             if (t != Type.None)
                 this.type = t;
             else {

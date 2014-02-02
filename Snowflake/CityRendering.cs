@@ -23,6 +23,7 @@ namespace Snowflake {
         protected Vector3 scale;
 
         public event EventHandler Selected;
+        public event EventHandler Deselected;
 
         private bool isGhosted;
         private bool isVisible;
@@ -155,8 +156,11 @@ namespace Snowflake {
         public virtual void Update() {
         }
 
-        public void Select() {
+        public virtual void Select() {
             Selected.Invoke(this, new EventArgs());
+        }
+        public virtual void Deselect() {
+            Deselected.Invoke(this, new EventArgs());
         }
 
         public virtual void Dispose() {
@@ -191,6 +195,7 @@ namespace Snowflake {
     public class RenderableBuilding : Renderable {
 
         private Building data;
+        private SceneNode selectionBox;
 
         public RenderableBuilding(Building data) {
             this.data = data;
@@ -201,6 +206,14 @@ namespace Snowflake {
         public override void Create(SceneManager sm, SceneNode cityNode) {
             foreach (Entity e in GetBuildingEntities(this.data, sm, out this.scale)) { this.entities.Add(e); }
             base.Create(sm, cityNode);
+
+            selectionBox = this.node.CreateChildSceneNode("selectionBox_" + this.GetType().ToString() + "_" + this.GetHashCode());
+            Entity selectionBoxEnt = sm.CreateEntity("selectionBoxEnt_" + this.GetType().ToString() + "_" + this.GetHashCode(), "selectionbox.mesh");
+            selectionBox.AttachObject(selectionBoxEnt);
+            selectionBox.Scale(new Vector3(473.0f / this.scale.x, 473.0f / this.scale.y, 473.0f / this.scale.z));
+            selectionBoxEnt.CastShadows = false;
+            selectionBox.SetVisible(false);
+
             if (this.data.Parent != null) { this.SetPosition(this.data.Parent.X, this.data.Parent.Y); }
         }
 
@@ -216,6 +229,17 @@ namespace Snowflake {
                 scale = new Vector3(15.0f, 15.0f, 15.0f);
             }
             return entList;
+        }
+
+        public override void Select()
+        {
+ 	        base.Select();
+            this.selectionBox.SetVisible(true);
+        }
+
+        public override void Deselect() {
+            base.Deselect();
+            this.selectionBox.SetVisible(false);
         }
 
         /// <summary>

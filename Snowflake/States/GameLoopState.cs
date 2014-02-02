@@ -45,7 +45,7 @@ namespace Snowflake.States {
         #endregion
 
         //Scale factor to get from 20 3ds max units to 1 plot grid square (120 mogre units)
-        private const float SCALEFACTOR = 473.0f;
+        private const float SCALEFACTOR = 473.0f * (Renderable.PlotWidth / 120);
 
         /// <summary>
         /// Constructor

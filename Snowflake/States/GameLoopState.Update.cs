@@ -164,8 +164,9 @@ namespace Snowflake.States
                         {
                             CityManager.UpdateSelectionBox(result.second);
                         }
-                        CityManager.MakeSelection();
                         UpdateSelectionBox();
+                        CityManager.MakeSelection();
+                        selectionBox.SetVisible(false);
                     }
                 }
 

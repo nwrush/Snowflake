@@ -23,8 +23,8 @@ namespace Snowflake.GuiComponents {
 
             parentPanel = new Panel("DP_parent") {
                 Skin = ResourceManager.Skins["BlackPanelSkin"],
-                Size = new Size(200, gh - 230),
-                Location = new Point(10, 130),
+                Size = new Size(200, gh - 190),
+                Location = new Point(10, 150),
                 ResizeMode = ResizeModes.None,
                 BorderStyle = new BorderStyle() {
                     Thickness = new Thickness(1, 0, 1, 0)

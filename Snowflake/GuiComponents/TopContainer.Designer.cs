@@ -82,6 +82,10 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(picsize, picsize),
                 PictureOffset = new Point((boxsize - picsize) / 2, (boxsize - picsize) / 2)
             };
+            buildButton.MouseClick += (object sender, MouseButtonEventArgs e) => {
+                CityManager.CreateBuildingOnCursor();
+            };
+
             manageButton = new PictureButton("ToolsPanel_btnManage") {
                 Location = new Point(panelSize.Width - boxsize * 2 - padding * 3, 0),
                 Size = new Size(boxsize, boxsize),

@@ -20,8 +20,32 @@ namespace Snowflake {
 
         protected SceneNode node;
         protected List<Entity> entities;
+        protected Vector3 scale;
 
         public event EventHandler Selected;
+
+        private bool isGhosted;
+        private bool isVisible;
+        private bool isVirtual;
+        /// <summary>
+        /// Whether or not this is a virtual renderable that has yet to be placed on the city grid.
+        /// </summary>
+        public bool IsVirtual {
+            get { return this.isVirtual; }
+            set {
+                this.isVirtual = value;
+                if (value) {
+                    foreach (Entity e in this.entities) {
+                        e.SetMaterialName("cursor_01_-_Default");
+                    }
+                }
+                else {
+                    foreach (Entity e in this.entities) {
+                        e.SetMaterialName("");
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// The name of this resource (and its child scene node)
@@ -42,6 +66,8 @@ namespace Snowflake {
             foreach (Entity e in this.entities) {
                 node.AttachObject(e);
             }
+            node.Scale(this.scale);
+            isVisible = true;
         }
 
         /// <summary>
@@ -52,7 +78,13 @@ namespace Snowflake {
         public void SetPosition(int plotx, int ploty) {
             PlotX = plotx;
             PlotY = ploty;
-            node.Translate(CityManager.GetPlotCenter(plotx, ploty));
+            Vector3 plotcenter = CityManager.GetPlotCenter(plotx, ploty);
+            if (node != null) { node.SetPosition(plotcenter.x, plotcenter.y, plotcenter.z); }
+        }
+
+        public void Place() {
+            this.IsVirtual = false;
+            this.Unghost();
         }
 
         /// <summary>
@@ -62,16 +94,78 @@ namespace Snowflake {
         public SceneNode GetSceneNode() {
             return this.node;
         }
+        /// <summary>
+        /// Sets the visibility of this object
+        /// </summary>
+        public bool Visible {
+            get { return this.isVisible; }
+            set { this.node.SetVisible(value); this.isVisible = value; }
+        }
+        /// <summary>
+        /// Makes this object visible
+        /// </summary>
+        public void Show() {
+            this.Visible = true;
+        }
+        /// <summary>
+        /// Makes this object inivisble
+        /// </summary>
+        public void Hide() {
+            this.Visible = false;
+        }
+
+        /// <summary>
+        /// Make this object transparent
+        /// Warning: assumes the Diffuse value has no opacity set!
+        /// </summary>
+        public void Ghost() {
+            if (!isGhosted) {
+                foreach (Entity e in this.entities) {
+                    MaterialPtr eMat = e.GetSubEntity(0).GetMaterial();
+                    eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+                    eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+                    //ColourValue c = eMat.GetTechnique(0).GetPass(0).Diffuse;
+                    //eMat.GetTechnique(0).GetPass(0).SetDiffuse(c.r, c.g, c.b, 0.5f);
+                    e.GetSubEntity(0).SetMaterial(eMat);
+                }
+                isGhosted = true;
+            }
+        }
+        /// <summary>
+        /// Make this object opaque
+        /// Warning: assumes the Diffuse value has no opacity set!
+        /// </summary>
+        public void Unghost() {
+            if (isGhosted) {
+                foreach (Entity e in this.entities) {
+                    MaterialPtr eMat = e.GetSubEntity(0).GetMaterial();
+                    eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_REPLACE);
+                    eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = true;
+                    //ColourValue c = eMat.GetTechnique(0).GetPass(0).Diffuse;
+                    //eMat.GetTechnique(0).GetPass(0).SetDiffuse(c.r, c.g, c.b, 1.0f);
+                    e.GetSubEntity(0).SetMaterial(eMat);
+                }
+                isGhosted = false;
+            }
+        }
 
         /// <summary>
         /// Update me
         /// </summary>
         public virtual void Update() {
-            
         }
 
         public void Select() {
             Selected.Invoke(this, new EventArgs());
+        }
+
+        public virtual void Dispose() {
+            foreach (Entity e in entities) {
+                e.Dispose();
+            }
+            entities.Clear();
+            node.Dispose();
+            node = null;
         }
     }
 
@@ -104,16 +198,31 @@ namespace Snowflake {
         }
 
         public override void Create(SceneManager sm, SceneNode cityNode) {
-            foreach (Entity e in GetBuildingEntities(this.data, sm)) { this.entities.Add(e); }
+            foreach (Entity e in GetBuildingEntities(this.data, sm, out this.scale)) { this.entities.Add(e); }
             base.Create(sm, cityNode);
-            this.SetPosition(this.data.Parent.X, this.data.Parent.Y);
-            this.node.Scale(new Vector3(80.0f, 80.0f, 80.0f));
+            if (this.data.Parent != null) { this.SetPosition(this.data.Parent.X, this.data.Parent.Y); }
         }
 
-        public static List<Entity> GetBuildingEntities(Building b, SceneManager sm) {
+        public static List<Entity> GetBuildingEntities(Building b, SceneManager sm, out Vector3 scale) {
             List<Entity> entList = new List<Entity>();
-            entList.Add(sm.CreateEntity(b.GetType().ToString() + "_" + b.GetHashCode(), "skyscraper01.mesh"));
+            scale = new Vector3(1, 1, 1);
+;            if (b is Haswell.Buildings.Commercial) {
+                entList.Add(sm.CreateEntity(b.GetType().ToString() + "_" + b.GetHashCode(), "skyscraper1.mesh"));
+                scale = new Vector3(80.0f, 80.0f, 80.0f);
+            }
+            else if (b is Haswell.Buildings.Residential) {
+                entList.Add(sm.CreateEntity(b.GetType().ToString() + "_" + b.GetHashCode(), "residential1.mesh"));
+                scale = new Vector3(20.0f, 20.0f, 20.0f);
+            }
             return entList;
+        }
+
+        /// <summary>
+        /// Returns the Haswell object providing this renderable's data.
+        /// </summary>
+        /// <returns>The Haswell object providing this renderable's data.</returns>
+        public Building GetData() {
+            return this.data;
         }
     }
 

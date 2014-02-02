@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 using Mogre;
 
@@ -14,6 +15,7 @@ using MOIS;
 
 using Vector3 = Mogre.Vector3;
 using Quaternion = Mogre.Quaternion;
+
 
 namespace Snowflake.States
 {
@@ -67,8 +69,14 @@ namespace Snowflake.States
                 if (intersection.first && selboxShouldUpate())
                 {
                     Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
-                    Vector3 plotCenter = CityManager.GetPlotCenter(CityManager.GetPlotCoords(intersectionPt));
+                    Point plotCoord = CityManager.GetPlotCoords(intersectionPt);
+                    Vector3 plotCenter = CityManager.GetPlotCenter(plotCoord);
                     cursorPlane.SetPosition(plotCenter.x, plotCenter.y + 1f, plotCenter.z);
+
+                    if (mouseMode == MouseMode.PlacingBuilding && cursorBuilding != null) {
+                        cursorBuilding.SetPosition(plotCoord.X, plotCoord.Y);
+                    }
+
                     DebugPanel.SetDebugText(CityManager.GetPlotCoords(intersectionPt).ToString());
                 }
 
@@ -110,6 +118,18 @@ namespace Snowflake.States
                     if (!ContextMenu.HitTest(MousePosition(mStateMgr.Input)))
                     {
                         ContextMenu.Visible = false;
+                        if (canPlaceBuilding()) {
+                            //Do a little reflection to be able to pass the type of the cursor building into the generic method
+                            MethodInfo method = typeof(CityManager).GetMethod("NewBuilding");
+                            MethodInfo newBuilding = method.MakeGenericMethod(this.cursorBuilding.GetData().GetType());
+                            newBuilding.Invoke(null, new object[] { this.cursorBuilding.PlotX, this.cursorBuilding.PlotY });
+                            gConsole.WriteLine("Placing building...");
+
+                            //Then dispose the cursor building as the game will be making a new one very shortly
+                            this.cursorBuilding.Dispose();
+                            this.cursorBuilding = null;
+                            this.mouseMode = MouseMode.Selection;
+                        }
 
                         if (canSelect())
                         {
@@ -228,7 +248,11 @@ namespace Snowflake.States
 
         private bool canSelect()
         {
-            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null;
+            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.Selection;
+        }
+
+        private bool canPlaceBuilding() {
+            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.PlacingBuilding && cursorBuilding != null;
         }
     }
 }

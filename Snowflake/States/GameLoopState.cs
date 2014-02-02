@@ -31,9 +31,10 @@ namespace Snowflake.States {
 
         private SceneNode cursorPlane;
         private Entity cursorPlaneEnt;
-
         private SceneNode selectionBox;
         private Entity selectionBoxEnt;
+        private MouseMode mouseMode = MouseMode.Selection;
+        private RenderableBuilding cursorBuilding;
 
         #region Properties
 
@@ -193,7 +194,7 @@ namespace Snowflake.States {
                 else {
                     int x, y;
                     if (Int32.TryParse(args[0], out x) && Int32.TryParse(args[1], out y)) {
-                        CityManager.NewBuilding(x, y);
+                        CityManager.NewBuilding<Haswell.Buildings.Commercial>(x, y);
                         return;
                     }
                     else {
@@ -202,6 +203,13 @@ namespace Snowflake.States {
                     }
                 }
             }, "Adds a building at x, y"));
+        }
+
+        public void SetMouseMode(MouseMode m) {
+            this.mouseMode = m;
+        }
+        public void SetCursorBuilding(RenderableBuilding rb) {
+            this.cursorBuilding = rb;
         }
 
         /// <summary>
@@ -254,5 +262,11 @@ namespace Snowflake.States {
             return new Point(input.MousePosX, input.MousePosY);
         }
     } // class
+
+    public enum MouseMode {
+        None,
+        Selection,
+        PlacingBuilding
+    }
 
 } // namespace

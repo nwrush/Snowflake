@@ -48,9 +48,9 @@ namespace Snowflake {
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public static void NewBuilding(int x, int y) {
+        public static void NewBuilding<T>(int x, int y) where T : Building, new() {
             if (Initialized) {
-                try { Haswell.Controller.City.CreateBuilding<Commercial>(x, y); }
+                try { Haswell.Controller.City.CreateBuilding<T>(x, y); }
                 catch (BuildingCreationFailedException e) {
                     GameConsole.ActiveInstance.WriteLine(e.Message);
                 }
@@ -59,11 +59,6 @@ namespace Snowflake {
                 GameConsole.ActiveInstance.WriteError("Unable to create building, no city initialized!");
             }
         }
-        /// <summary>
-        /// Add a new building to the city at the specified coordinates
-        /// </summary>
-        /// <param name="p">2d location to place the building at.</param>
-        public static void NewBuilding(Point p) { NewBuilding(p.X, p.Y); }
 
         private static void UpdateHaswell(float frametime) {
             try {

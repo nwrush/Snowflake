@@ -151,6 +151,13 @@ namespace Snowflake {
             rb.Create( GameMgr.StateMgr.Engine.SceneMgr, cityNode);
             cityObjects.Add(rb);
         }
+
+        public static void CreateBuildingOnCursor() {
+            RenderableBuilding rb = new RenderableBuilding(new Residential());
+            rb.Create(GameMgr.StateMgr.Engine.SceneMgr, cityNode);
+            GameMgr.SetCursorBuilding(rb);
+            GameMgr.SetMouseMode(MouseMode.PlacingBuilding);
+        }
             
         /// <summary>
         /// Update the city
@@ -205,6 +212,10 @@ namespace Snowflake {
                 //ClearSelection();
             }
             return false;
+        }
+
+        public static void SetMouseMode(MouseMode m) {
+            GameMgr.SetMouseMode(m);
         }
 
         /// <summary>

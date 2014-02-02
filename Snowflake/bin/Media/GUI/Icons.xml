@@ -10,8 +10,8 @@
             <UV>
               <X>0</X>
               <Y>0.5</Y>
-              <Width>0.125</Width>
-              <Height>0.125</Height>
+              <Width>0.25</Width>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -28,10 +28,10 @@
             <FileName>icons.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.125</X>
+              <X>0.25</X>
               <Y>0.5</Y>
-              <Width>0.125</Width>
-              <Height>0.125</Height>
+              <Width>0.25</Width>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -48,10 +48,10 @@
             <FileName>icons.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.25</X>
+              <X>0.5</X>
               <Y>0.5</Y>
-              <Width>0.125</Width>
-              <Height>0.125</Height>
+              <Width>0.25</Width>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -68,10 +68,10 @@
             <FileName>icons.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.375</X>
-              <Y>0.5</Y>
-              <Width>0.125</Width>
-              <Height>0.125</Height>
+              <X>0</X>
+              <Y>0.75</Y>
+              <Width>0.25</Width>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -88,10 +88,10 @@
             <FileName>icons.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5</X>
-              <Y>0.5</Y>
-              <Width>0.125</Width>
-              <Height>0.125</Height>
+              <X>0.25</X>
+              <Y>0.75</Y>
+              <Width>0.25</Width>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -108,30 +108,10 @@
             <FileName>icons.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.625</X>
-              <Y>0.5</Y>
-              <Width>0.125</Width>
-              <Height>0.125</Height>
-            </UV>
-          </Frame>
-        </Frames>
-        <GpuPrograms />
-        <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
-        <ScrollVector>
-          <X>0</X>
-          <Y>0</Y>
-        </ScrollVector>
-      </SubSkin>
-      <SubSkin Name="WeatherIcons.Night">
-        <Frames>
-          <Frame>
-            <FileName>icons.png</FileName>
-            <Duration>0</Duration>
-            <UV>
-              <X>0.75</X>
-              <Y>0.5</Y>
-              <Width>0.125</Width>
-              <Height>0.125</Height>
+              <X>0.5</X>
+              <Y>0.75</Y>
+              <Width>0.25</Width>
+              <Height>0.25</Height>
             </UV>
           </Frame>
         </Frames>
@@ -320,8 +300,8 @@
             <FileName>icons.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0</X>
-              <Y>0.625</Y>
+              <X>0.75</X>
+              <Y>0</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -340,8 +320,8 @@
             <FileName>icons.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.0625</X>
-              <Y>0.625</Y>
+              <X>0.8125</X>
+              <Y>0</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>

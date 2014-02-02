@@ -14,7 +14,7 @@ using Snowflake.Modules;
 namespace Snowflake.GuiComponents {
     public partial class TopContainer {
         public Panel ParentPanel;
-        private Panel weatherIcon; //Todo: turn into a button to display the weather
+        private PictureButton weatherIcon; //Todo: turn into a button to display the weather
 
         private Panel ToolsContainerPanel;
         private PictureButton buildButton;
@@ -49,12 +49,25 @@ namespace Snowflake.GuiComponents {
                 Skin = ResourceManager.Skins["BlackPanelSkin"]
             };
 
-            weatherIcon = new Panel("WO_Icon") {
-                Size = new Size(64, 64),
-                Location = new Point(20, 25),
-                ResizeMode = ResizeModes.None
+            weatherIcon = new PictureButton("WO_Icon") {
+                Size = new Size(140, 120),
+                Location = new Point(0, 0),
+                Skin = ResourceManager.Skins["BlackPanelSkin"],
+                BorderStyle = {
+                    Thickness = new Thickness(0, 0, 1, 0)
+                },
+                HitTestVisible = false,
+                Picture = ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons.Sunny"],
+                PictureSize = new Size(64, 64),
+                PictureOffset = new Point(48, 20),
+                Padding = new Thickness(0, 0, 0, 8),
+                Text = "      WEATHER",
+                TextStyle = new TextStyle() {
+                    Font = ResourceManager.Fonts["Section"],
+                    Alignment = Alignment.BottomCenter,
+                    ForegroundColour = Colours.White
+                }
             };
-            weatherIcon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons.Sunny"]);
 
             ///
 

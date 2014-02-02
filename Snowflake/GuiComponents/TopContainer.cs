@@ -33,8 +33,8 @@ namespace Snowflake.GuiComponents {
             textMoney.Location = new Point(labelMoney.Width - (int)(labelMoney.Width * 0.25), textMoney.Location.Y);
             textPopulation.Location = new Point(labelPopulation.Width - (int)(labelPopulation.Width * 0.25), textPopulation.Location.Y);
 
-            Dictionary<Resource.Type, int> resources = Haswell.Controller.City.Resources;
-            labelMoney.Text = resources[Resource.Type.Money].ToString("C");
+            //CityManager.ResourceDict resources = Haswell.Controller.City.Resources;
+            //labelMoney.Text = resources[Resource.Type.Money].ToString("C");
         }
 
         private void UpdateWeather(float frametime) {

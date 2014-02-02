@@ -36,12 +36,12 @@ namespace Snowflake {
                 this.isVirtual = value;
                 if (value) {
                     foreach (Entity e in this.entities) {
-                        e.SetMaterialName("cursor_01_-_Default");
+                        e.SetMaterialName("Ghosting");
                     }
                 }
                 else {
                     foreach (Entity e in this.entities) {
-                        e.SetMaterialName("");
+                        e.SetMaterialName("Default");
                     }
                 }
             }
@@ -160,6 +160,7 @@ namespace Snowflake {
         }
 
         public virtual void Dispose() {
+            node.ParentSceneNode.RemoveChild(node);
             foreach (Entity e in entities) {
                 e.Dispose();
             }
@@ -212,7 +213,7 @@ namespace Snowflake {
             }
             else if (b is Haswell.Buildings.Residential) {
                 entList.Add(sm.CreateEntity(b.GetType().ToString() + "_" + b.GetHashCode(), "residential1.mesh"));
-                scale = new Vector3(20.0f, 20.0f, 20.0f);
+                scale = new Vector3(15.0f, 15.0f, 15.0f);
             }
             return entList;
         }

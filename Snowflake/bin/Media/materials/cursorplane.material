@@ -16,3 +16,22 @@ material "cursor_01_-_Default"
 		}
 	}
 }
+
+material "Ghosting"
+{
+	technique default
+	{
+		pass default
+		{
+			lighting off
+			
+			scene_blend alpha_blend
+			depth_write off
+			
+			texture_unit
+			{
+				texture ghosting.png 2d 0
+			}
+		}
+	}
+}

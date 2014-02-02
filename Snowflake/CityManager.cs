@@ -155,6 +155,7 @@ namespace Snowflake {
         public static void CreateBuildingOnCursor() {
             RenderableBuilding rb = new RenderableBuilding(new Residential());
             rb.Create(GameMgr.StateMgr.Engine.SceneMgr, cityNode);
+            rb.IsVirtual = true;
             GameMgr.SetCursorBuilding(rb);
             GameMgr.SetMouseMode(MouseMode.PlacingBuilding);
         }

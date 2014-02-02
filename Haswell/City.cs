@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Haswell.Resources;
+
 namespace Haswell {
     public class City {
         //Getting an execuateble directly from someone is less sketchy-
 
-        //Todo: Make this a resource
-        private int population { get; set; }
         private string name;
         private InfiniteGrid grid;
 
         private List<Pipe> pipes;
         private List<Zone> zones;
-        private Dictionary<Resource.Type, int> resources;
+        private ResourceDict resources;
 
         public event EventHandler<BuildingEventArgs> BuildingCreated;
         public event EventHandler<BuildingEventArgs> BuildingUpdated;
@@ -24,20 +24,22 @@ namespace Haswell {
         /// </summary>
         /// <param name="name">Name of the city</param>
         public City(string name) {
-            this.population = 0;
             this.name = name;
             this.grid = new InfiniteGrid();
 
             this.pipes = new List<Pipe>();
             this.zones = new List<Zone>();
-            this.resources = new Dictionary<Resource.Type, int> 
-                {
-                    //Default Values for a new city
-                    {Resource.Type.Energy,100},
-                    {Resource.Type.Material,100},
-                    {Resource.Type.Money,100},
-                    {Resource.Type.Population,100}
-                };
+            
+            this.resources = new ResourceDict();
+
+            this.resources[typeof(Energy)]=100;
+                //{
+                //    //Default Values for a new city
+                //    {Resource.Type.Energy,100},
+                //    {Resource.Type.Material,100},
+                //    {Resource.Type.Money,100},
+                //    {Resource.Type.Population,100}
+                //};
         }
 
         /// <summary>
@@ -79,7 +81,7 @@ namespace Haswell {
         }
 
         public override string ToString() {
-            return "City " + this.name + ", with a population of " + this.population + ".";
+            return "City " + this.name + ", with a population of " + this.Resources[Resource.Type.Population] + ".";
         }
         public InfiniteGrid Grid {
             get {

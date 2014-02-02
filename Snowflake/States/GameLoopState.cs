@@ -188,6 +188,20 @@ namespace Snowflake.States {
                 else { enabled = (args[0] == "0" || args[0] == "false") ? true : false; }
                 CompositorManager.Singleton.SetCompositorEnabled(StateMgr.Engine.Window.GetViewport(0), "Radial Blur", enabled);
             }, "Toggles the radial blur shader."));
+            gConsole.AddCommand("addbuilding", new ConsoleCommand((string[] args) => {
+                if (args.Length < 2) { gConsole.WriteLine("Usage: addbuilding <x> <y>"); return; }
+                else {
+                    int x, y;
+                    if (Int32.TryParse(args[0], out x) && Int32.TryParse(args[1], out y)) {
+                        CityManager.NewBuilding(x, y);
+                        return;
+                    }
+                    else {
+                        gConsole.WriteLine("Usage: addbuilding <x> <y>, where x and y are valid integers."); 
+                        return;
+                    }
+                }
+            }, "Adds a building at x, y"));
         }
 
         /// <summary>

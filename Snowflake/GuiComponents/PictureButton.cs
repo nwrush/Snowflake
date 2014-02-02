@@ -32,7 +32,7 @@ namespace Snowflake.GuiComponents {
         private void CreatePictureBox() {
             //create the child panel element to display the texture on
             this.picturePanel = new Panel() {
-                Size = _pictureSize,
+                Size = (_pictureSize.Width == 0 && _pictureSize.Height == 0 ? this.Size : _pictureSize),
                 Location = this.Location + new Point(this.Padding.Left, this.Padding.Top) + _pictureOffset,
                 Movable = false,
                 Throwable = false,
@@ -47,6 +47,11 @@ namespace Snowflake.GuiComponents {
             };
             this.MouseLeave += (object sender, MouseEventArgs e) => {
                 if (_picture != null) { this.picturePanel.SetBackgroundTexture(this._picture); }
+            };
+            this.LocationChanged += (object sender, ChangedValueEventArgs<Point> e) => {
+                if (_picture != null) {
+                    picturePanel.Location = e.NewValue + new Point(this.Padding.Left, this.Padding.Top) + _pictureOffset;
+                }
             };
         }
 

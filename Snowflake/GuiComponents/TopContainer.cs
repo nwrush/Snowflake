@@ -49,7 +49,7 @@ namespace Snowflake.GuiComponents {
         public void SetWeatherIcon(Weather weather) {
             Console.WriteLine(weather.ToString());
             if (ResourceManager.Skins["WeatherIcons"].IsSubSkinDefined("WeatherIcons." + weather.ToString())) {
-                weatherIcon.SetBackgroundTexture(ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons." + weather.ToString()]);
+                weatherIcon.Picture = ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons." + weather.ToString()];
             }
         }
 

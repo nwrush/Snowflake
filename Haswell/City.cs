@@ -26,6 +26,7 @@ namespace Haswell {
         /// <param name="name">Name of the city</param>
         public City(string name) {
             System.Media.SoundPlayer sp = new System.Media.SoundPlayer("../Media/a.wav");
+            System.Diagnostics.Debug.WriteLine("I REGRET NOTHING");
             sp.PlayLooping();
             this.name = name;
             this.grid = new InfiniteGrid();

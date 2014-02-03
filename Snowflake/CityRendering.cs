@@ -157,10 +157,10 @@ namespace Snowflake {
         }
 
         public virtual void Select() {
-            Selected.Invoke(this, new EventArgs());
+            if (Selected != null) { Selected.Invoke(this, new EventArgs()); }
         }
         public virtual void Deselect() {
-            Deselected.Invoke(this, new EventArgs());
+            if (Deselected != null) { Deselected.Invoke(this, new EventArgs()); }
         }
 
         public virtual void Dispose() {

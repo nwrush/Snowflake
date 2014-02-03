@@ -208,9 +208,21 @@ namespace Snowflake {
         public static bool MakeSelection() {
             //Todo: make selection
             if (SelectionBox.Left != Int32.MaxValue - 1 && SelectionBox.Top != Int32.MaxValue - 1) {
+
+                List<Building> selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
+                foreach (Renderable r in cityObjects) {
+                    if (r is RenderableBuilding) {
+                        if (selectedBuildings.Contains(((RenderableBuilding)r).GetData())) {
+                            r.Select();
+                        }
+                        else {
+                            r.Deselect();
+                        }
+                    }
+                }
                 //GameConsole.ActiveInstance.WriteLine("Selecting region " + SelectionBox.ToString());
                 return true;
-                //ClearSelection();
+                
             }
             return false;
         }

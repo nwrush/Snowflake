@@ -7,9 +7,20 @@ namespace Haswell {
     public class ResourceDict : IDictionary<Resource.Type, int> {
         private Dictionary<Resource.Type, int> resources;
 
+        /// <summary>
+        /// Initializes a new ResourceDict using the default values
+        /// </summary>
         public ResourceDict() {
             this.resources = new Dictionary<Resource.Type, int>();
+            this.resources.Add(Resource.Type.Money, 0);
+            this.resources.Add(Resource.Type.Population, 0);
+            this.resources.Add(Resource.Type.Energy, 0);
+            this.resources.Add(Resource.Type.Material, 0);
         }
+        /// <summary>
+        /// Initializes a new Resource Dict from a Dictionary of Resource Types
+        /// </summary>
+        /// <param name="r">The dictionary to use in creation</param>
         public ResourceDict(Dictionary<Resource.Type, int> r) {
             this.resources = new Dictionary<Resource.Type, int>(r);
         }
@@ -87,5 +98,22 @@ namespace Haswell {
             throw new NotImplementedException();
         }
         #endregion
+
+        public static ResourceDict operator +(ResourceDict r1, ResourceDict r2) {
+            ResourceDict rd = new ResourceDict();
+            foreach (Resource.Type type in Enum.GetValues(typeof(Resource.Type))) {
+                rd[type] = r1[type] + r2[type];
+            }
+            return rd;
+        }
+
+        public override string ToString() {
+            String sb = "";
+            sb += "Energy: " + this.resources[Resource.Type.Energy].ToString() + "\n";
+            sb += "Material: " + this.resources[Resource.Type.Material].ToString() + "\n";
+            sb += "Money: " + this.resources[Resource.Type.Money].ToString() + "\n";
+            sb += "Energy: " + this.resources[Resource.Type.Energy].ToString();
+            return sb;
+        }
     }
 }

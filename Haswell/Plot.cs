@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    public class Plot:IComparable<Plot> {
+    public class Plot : IComparable<Plot> {
         public enum Zone {
             residential,
             commercial,
             industrial
         };
 
-        private Dictionary<Resource.Type, int> resource;
+        private ResourceDict resource;
         private List<Building> buildings;
 
         //Todo: Implement this list
@@ -32,12 +32,12 @@ namespace Haswell {
         int plotX, plotY;
 
         public Plot(int x, int y) {
-            this.resource = new Dictionary<Resource.Type, int>();
+            this.resource = new ResourceDict();
             this.buildings = new List<Building>();
 
             this.plotX = x;
             this.plotY = y;
-            
+
         }
 
         /// <summary>
@@ -59,9 +59,10 @@ namespace Haswell {
             foreach (Building b in buildings) {
                 b.Update(this.resource);
             }
+            UpdateCityResources(cityResources);
         }
-        private void UpdateCityResources(Dictionary<Resource.Type, int> cityResources) {
-            foreach (KeyValuePair<Resource.Type,int> kvp in this.resource) {
+        private void UpdateCityResources(ResourceDict cityResources) {
+            foreach (KeyValuePair<Resource.Type, int> kvp in this.resource) {
                 if (cityResources.ContainsKey(kvp.Key)) {
                     cityResources[kvp.Key] += kvp.Value;
                 }
@@ -93,6 +94,10 @@ namespace Haswell {
             get {
                 return this.buildings;
             }
+        }
+
+        public override string ToString() {
+            return "Plot at (" + this.X + "," + this.Y + ") with " + this.buildings.Count.ToString() + " buildings.";
         }
     }
 }

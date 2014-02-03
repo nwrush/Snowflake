@@ -26,7 +26,7 @@ namespace Snowflake.GuiComponents {
         void Update(float frametime);
 
         /// <summary>
-        /// Runs tasks necessary to delete references to resources and dispose of instanced objects
+        /// Runs tasks necessary to delete references to resource and dispose of instanced objects
         /// </summary>
         void Dispose();
     }

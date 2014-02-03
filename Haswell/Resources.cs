@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Haswell {
     /// <summary>
-    /// Base class for all resources
+    /// Base class for all resource
     /// </summary>
     public abstract class Resource {
         public enum Type {

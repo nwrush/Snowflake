@@ -189,7 +189,7 @@ namespace Snowflake.Modules
         }
 
         /************************************************************************/
-        /* load all resources for a resource group (preloading)                 */
+        /* load all resource for a resource group (preloading)                 */
         /************************************************************************/
         public void LoadGroup(string _groupName)
         {
@@ -280,7 +280,7 @@ namespace Snowflake.Modules
         }
 
         /************************************************************************/
-        /* get a list of all resources in a group                               */
+        /* get a list of all resource in a group                               */
         /************************************************************************/
         public string[] GetResourcesInGroup(string _group)
         {
@@ -300,7 +300,7 @@ namespace Snowflake.Modules
                 res[i] = resource.filename;
             }
 
-            // return list of resources in the requested group
+            // return list of resource in the requested group
             return res;
         }
 

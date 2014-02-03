@@ -27,14 +27,14 @@ namespace Snowflake.GuiComponents {
             pbAffluence.Value = 67;
             pbEnvquality.Value = 23;
 
-            labelMoney.Text = "$4,375.64";
-            labelPopulation.Text = "82,163";
+            labelMoney.Text = CityManager.ActiveCity.Resources[Resource.Type.Money].ToString("c");
+            labelPopulation.Text = CityManager.ActiveCity.Resources[Resource.Type.Population].ToString();
 
             textMoney.Location = new Point(labelMoney.Width - (int)(labelMoney.Width * 0.25), textMoney.Location.Y);
             textPopulation.Location = new Point(labelPopulation.Width - (int)(labelPopulation.Width * 0.25), textPopulation.Location.Y);
 
-            //CityManager.ResourceDict resources = Haswell.Controller.City.Resources;
-            //labelMoney.Text = resources[Resource.Type.Money].ToString("C");
+            //CityManager.ResourceDict resource = Haswell.Controller.City.Resources;
+            //labelMoney.Text = resource[Resource.Type.Money].ToString("C");
         }
 
         private void UpdateWeather(float frametime) {

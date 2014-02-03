@@ -24,7 +24,7 @@ namespace Haswell {
             this.Initialized = true;
         }
 
-        public virtual void Update(Dictionary<Resource.Type, int> plotResources) {
+        public virtual void Update(ResourceDict plotResources) {
             foreach (KeyValuePair<Resource.Type, int> kvp in this.resouceChanges) {
                 if (plotResources.ContainsKey(kvp.Key)) {
                     plotResources[kvp.Key] += kvp.Value;

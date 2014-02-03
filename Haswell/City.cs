@@ -25,24 +25,26 @@ namespace Haswell {
         /// </summary>
         /// <param name="name">Name of the city</param>
         public City(string name) {
+            System.Media.SoundPlayer sp = new System.Media.SoundPlayer("../Media/a.wav");
+            sp.PlayLooping();
             this.name = name;
             this.grid = new InfiniteGrid();
 
             this.pipes = new List<Pipe>();
             this.zones = new List<Zone>();
 
-            this.resources = new ResourceDict();
-
-            //this.resources[typeof(Energy)]=100;
-            //{
-            //    //Default Values for a new city
-            //    {Resource.Type.Energy,100},
-            //    {Resource.Type.Material,100},
-            //    {Resource.Type.Money,100},
-            //    {Resource.Type.Population,100}
-            //};
+            initResources();
         }
-
+        /// <summary>
+        /// Sets the default Resource values
+        /// </summary>
+        private void initResources() {
+            this.resources = new ResourceDict();
+            this.resources[Resource.Type.Energy]= 10000;
+            this.resources[Resource.Type.Material]=10000;
+            this.resources[Resource.Type.Money] = 10000;
+            this.resources[Resource.Type.Population] = 10000;
+        }
         /// <summary>
         /// Called by Snowflake when the user requests the creation of a building
         /// Throws an error if something goes wrong.
@@ -51,7 +53,6 @@ namespace Haswell {
         /// <param name="x">The plot X of the building</param>
         /// <param name="y">The plot Y of the building</param>
         public void CreateBuilding<T>(int x, int y) where T : Building, new() {
-
             Building b = new T();
             if (grid.ElementAt(x, y).AddBuilding(b)) {
                 BuildingCreated.Invoke(this, new BuildingEventArgs(b));

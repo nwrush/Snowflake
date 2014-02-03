@@ -47,7 +47,6 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         /// <param name="weather">Weather to set the icon to </param>
         public void SetWeatherIcon(Weather weather) {
-            Console.WriteLine(weather.ToString());
             if (ResourceManager.Skins["WeatherIcons"].IsSubSkinDefined("WeatherIcons." + weather.ToString())) {
                 weatherIcon.Picture = ResourceManager.Skins["WeatherIcons"].SubSkins["WeatherIcons." + weather.ToString()];
             }

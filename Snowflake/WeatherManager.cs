@@ -7,17 +7,16 @@ using Mogre;
 using Snowflake.States;
 using Snowflake.GuiComponents;
 
+using Haswell;
 
 namespace Snowflake {
     public class WeatherManager {
 
         public List<Weather> PastWeather;
-        public Weather CurrentWeather;
-        public Weather NextWeather;
 
         private ParticleSystem rainSystem;
-        private ParticleSystem fogSystem;
-        private ParticleSystem snowSystem;
+        //private ParticleSystem fogSystem;
+        //private ParticleSystem snowSystem;
         private SceneNode particleNode;
 
         private Light sun;
@@ -56,8 +55,6 @@ namespace Snowflake {
             particleNode = sm.GetSceneNode("focalPoint").CreateChildSceneNode("Weather");
             particleNode.AttachObject(rainSystem);
             particleNode.Translate(new Vector3(0, 600, 0));
-
-            timer = randomizer.Next(1000, 4800);
         }
 
         public void Update(SceneManager sm) {
@@ -75,7 +72,7 @@ namespace Snowflake {
 
             //brightness
             float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(daynight) * System.Math.Pow(daynight, (1.0 / 3.0)));
-            float shadowCoef = System.Math.Max(1.0f - multiplier, GetCloudiness() * 0.5f + 0.5f);
+            //float shadowCoef = System.Math.Max(1.0f - multiplier, GetCloudiness() * 0.5f + 0.5f);
             //sm.ShadowColour = new ColourValue(shadowCoef, shadowCoef, shadowCoef);
             sun.DiffuseColour = new ColourValue(0.98f * multiplier, 0.95f * multiplier, 0.9f * multiplier);
             //sm.AmbientLight = new ColourValue(sun.DiffuseColour.r * GetCloudiness() + 0.1f, sun.DiffuseColour.g * GetCloudiness() + 0.1f, sun.DiffuseColour.b * GetCloudiness() + 0.1f);
@@ -97,26 +94,20 @@ namespace Snowflake {
                 && rainSystem.GetEmitter(0).EmissionRate < 1600) { 
                 rainSystem.GetEmitter(0).EmissionRate += ts; 
             }
-
-            //Temp weather change code (ultimately will be handled in Nikko's code)
-            if (timer <= 0) {
-                SwitchWeather((Weather)Enum.GetValues(typeof(Weather)).GetValue(randomizer.Next(1, Enum.GetValues(typeof(Weather)).Length)));
-            }
-            else {
-                timer -= ts;
-            }
         }
 
         private void ResetTimer() {
             timer = randomizer.Next(1000, 4800);
         }
 
-        private float GetCloudiness() {
-            if (this.CurrentWeather == Weather.Cloudy) { return 0.9f; }
-            if (this.CurrentWeather == Weather.Foggy) { return 1.0f; }
-            if (this.CurrentWeather == Weather.Stormy) { return 0.95f; }
-            if (this.CurrentWeather == Weather.Windy) { return 0.5f; }
-            return 0.0f;
+        public Weather CurrentWeather {
+            get {
+                return Weather.Sunny;
+
+                if (Controller.Environment.GetCloudiness() < 0) {
+
+                }
+            }
         }
         
         /// <summary>
@@ -137,11 +128,11 @@ namespace Snowflake {
         /// <param name="w">Weather to force</param>
         public void ForceWeather(Weather w) {
             PastWeather.Add(w);
-            CurrentWeather = w;
+            //CurrentWeather = w;
 
             switch (CurrentWeather) {
                 case Weather.Null:
-                    CurrentWeather = Weather.Sunny;
+                    //CurrentWeather = Weather.Sunny;
                     break;
                 case Weather.Sunny:
                     break;

@@ -49,19 +49,28 @@ namespace Snowflake {
         public static WeatherManager WeatherMgr { get { return GameMgr.WeatherMgr; } }
 
         //////TIME
-        public static float Time { get; private set; }
-        public static float Timescale { get; private set; }
-        public const float DayLength = 2400.0f;
-        public const float HourLength = 100.0f;
-        public const float MinuteLength = 1.6666667f;
+        public static float Time {
+            get {
+                return Controller.Environment.Time;
+            }
+        }
+        public static float Timescale {
+            get {
+                return Controller.Environment.Timescale;
+            }
+        }
+        private static float totalTime;
+        private static float lastTotalTime;
+        public static float MinuteLength { get { return Universe.MinuteLength; } }
+        public static float HourLength { get { return Universe.HourLength; } }
+        public static float DayLength { get { return Universe.DayLength; } }
 
         /// <summary>
         /// Sets the amount by which the game time is incremented every tick
         /// </summary>
         /// <param name="timescale"></param>
         public static void SetTimescale(float timescale) {
-            Timescale = timescale;
-            //Todo: take into account framerate
+            Controller.Environment.SetTimescale(timescale);
         }
 
         /// <summary>
@@ -71,10 +80,10 @@ namespace Snowflake {
         public static void SetCityName(string name) {
             cityName = name;
             if (Initialized) {
-                Haswell.Controller.City.Name = name;
+                Controller.City.Name = name;
             }
         }
-        public static string CityName { get { return Haswell.Controller.City.Name; } }
+        public static string CityName { get { return Controller.City.Name; } }
         /// <summary>
         /// Gets the active city from Haswell
         /// </summary>
@@ -86,7 +95,6 @@ namespace Snowflake {
 
         static CityManager() {
             cityObjects = new List<Renderable>();
-            Timescale = 1.0f;
         }
 
         /// <summary>
@@ -165,12 +173,13 @@ namespace Snowflake {
         /// </summary>
         /// <param name="frametime">Milliseconds since last frame</param>
         public static void Update(float frametime) {
-
+            totalTime += frametime;
             if (Initialized) {
-
-                Time += Timescale;
-
-                UpdateHaswell(frametime);
+                
+                if ((totalTime - lastTotalTime) / 1000.0 >= 1 / 30.0) {
+                    UpdateHaswell((totalTime - lastTotalTime));
+                    lastTotalTime = totalTime;
+                }
 
                 foreach (Renderable r in cityObjects) {
                     //Check if r needs updating, and if so:

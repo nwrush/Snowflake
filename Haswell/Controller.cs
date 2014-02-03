@@ -12,14 +12,17 @@ namespace Haswell {
     /// </summary>
     public class Controller {
         private static City activeCity;
+        private static Universe activeEnv;
          
         public static void init(string name) {
             activeCity = new City(name);
+            activeEnv = new Universe(/*later we'll pass some regional parameters in here*/);
             System.IO.File.Delete("Snowflake.log");
         }
 
         public static void Update(float frametime) {
             activeCity.Update(frametime);
+            activeEnv.Update(frametime);
         }
 
         public static void LogError(Exception e) {
@@ -32,6 +35,11 @@ namespace Haswell {
         public static City City {
             get {
                 return activeCity;
+            }
+        }
+        public static Universe Environment {
+            get {
+                return activeEnv;
             }
         }
         public static float ChanceThatThisProgramBecomesSkynet {

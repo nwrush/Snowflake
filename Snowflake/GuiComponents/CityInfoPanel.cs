@@ -11,7 +11,7 @@ namespace Snowflake.GuiComponents {
         private string[] Months = new string[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
         public void Initialize() {
-
+            
         }
 
         public void Update(float frametime) {

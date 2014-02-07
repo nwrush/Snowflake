@@ -29,7 +29,7 @@ namespace Haswell {
             //That's Alex's job (supposedly).
         }
 
-        /// <summary>
+        /// <summary>6
         /// Sets the number by which the Time gets incremented each update tick.
         /// </summary>
         /// <param name="timescale">The scale of time.</param>

@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-using Haswell.Resources;
-
 namespace Haswell {
     public class City {
         //Getting an execuateble directly from someone is less sketchy-

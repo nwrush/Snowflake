@@ -39,8 +39,8 @@ namespace Haswell {
         /// </summary>
         private void initResources() {
             this.resources = new ResourceDict();
-            this.resources[Resource.Type.Energy]= 10000;
-            this.resources[Resource.Type.Material]=10000;
+            this.resources[Resource.Type.Energy] = 10000;
+            this.resources[Resource.Type.Material] = 10000;
             this.resources[Resource.Type.Money] = 10000;
             this.resources[Resource.Type.Population] = 10000;
         }

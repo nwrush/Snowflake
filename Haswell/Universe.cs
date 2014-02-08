@@ -20,6 +20,8 @@ namespace Haswell {
         public const float HourLength = 100.0f;
         public const float MinuteLength = 1.6666667f;
 
+        public DateTime CurrentTime { get; private set; }
+
         public Universe() {
             Timescale = 1.0f;
 
@@ -32,6 +34,7 @@ namespace Haswell {
             //Frametime, then is kind of redundant?
             //So we just increment Time by Timescale.
             Time += Timescale;
+            this.CurrentTime = new DateTime(1970, 1, 1).AddMinutes(this.Time / Universe.MinuteLength);
 
             //Further on in here, there will be some variables dictating weather conditions...timers and such.
             //Cloudiness, Fogginess, and Wind Vector can be direct functions of some internal weather parameter.

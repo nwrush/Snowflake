@@ -10,22 +10,22 @@ namespace Haswell {
         public Plot Parent;
 
         //Todo: Implement this into the constructor and init function
-        protected Dictionary<Resource.Type, int> resouceChanges;
+        protected Dictionary<ResourceType, int> resouceChanges;
 
         protected bool Initialized;
 
         protected Building(Zone.Type zone) {
-            this.resouceChanges = new Dictionary<Resource.Type, int>();
+            this.resouceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;
         }
-        protected Building(Dictionary<Resource.Type, int> resource, Zone.Type zone)
+        protected Building(Dictionary<ResourceType, int> resource, Zone.Type zone)
             : this(zone) {
             this.resouceChanges = resource;
             this.Initialized = true;
         }
 
         public virtual void Update(ResourceDict plotResources) {
-            foreach (KeyValuePair<Resource.Type, int> kvp in this.resouceChanges) {
+            foreach (KeyValuePair<ResourceType, int> kvp in this.resouceChanges) {
                 if (plotResources.ContainsKey(kvp.Key)) {
                     plotResources[kvp.Key] += kvp.Value;
                 }

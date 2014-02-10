@@ -4,45 +4,45 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    public class ResourceDict : IDictionary<Resource.Type, int> {
-        private Dictionary<Resource.Type, int> resources;
+    public class ResourceDict : IDictionary<ResourceType, int> {
+        private Dictionary<ResourceType, int> resources;
 
         /// <summary>
         /// Initializes a new ResourceDict using the default values
         /// </summary>
         public ResourceDict() {
-            this.resources = new Dictionary<Resource.Type, int>();
-            this.resources.Add(Resource.Type.Money, 0);
-            this.resources.Add(Resource.Type.Population, 0);
-            this.resources.Add(Resource.Type.Energy, 0);
-            this.resources.Add(Resource.Type.Material, 0);
+            this.resources = new Dictionary<ResourceType, int>();
+            this.resources.Add(ResourceType.Money, 0);
+            this.resources.Add(ResourceType.Population, 0);
+            this.resources.Add(ResourceType.Energy, 0);
+            this.resources.Add(ResourceType.Material, 0);
         }
         /// <summary>
         /// Initializes a new Resource Dict from a Dictionary of Resource Types
         /// </summary>
         /// <param name="r">The dictionary to use in creation</param>
-        public ResourceDict(Dictionary<Resource.Type, int> r) {
-            this.resources = new Dictionary<Resource.Type, int>(r);
+        public ResourceDict(Dictionary<ResourceType, int> r) {
+            this.resources = new Dictionary<ResourceType, int>(r);
         }
 
         #region IDictionary Stuff
-        public void Add(Resource.Type key, int value) {
+        public void Add(ResourceType key, int value) {
             resources.Add(key, value);
         }
 
-        public bool ContainsKey(Resource.Type key) {
+        public bool ContainsKey(ResourceType key) {
             return this.resources.ContainsKey(key);
         }
 
-        public ICollection<Resource.Type> Keys {
+        public ICollection<ResourceType> Keys {
             get { return this.resources.Keys; }
         }
 
-        public bool Remove(Resource.Type key) {
+        public bool Remove(ResourceType key) {
             return this.resources.Remove(key);
         }
 
-        public bool TryGetValue(Resource.Type key, out int value) {
+        public bool TryGetValue(ResourceType key, out int value) {
             return this.resources.TryGetValue(key, out value);
         }
 
@@ -50,7 +50,7 @@ namespace Haswell {
             get { return this.resources.Values; }
         }
 
-        public int this[Resource.Type key] {
+        public int this[ResourceType key] {
             get {
                 return this.resources[key];
             }
@@ -59,7 +59,7 @@ namespace Haswell {
             }
         }
 
-        public void Add(KeyValuePair<Resource.Type, int> item) {
+        public void Add(KeyValuePair<ResourceType, int> item) {
             this.resources.Add(item.Key, item.Value);
         }
 
@@ -67,7 +67,7 @@ namespace Haswell {
             this.resources.Clear();
         }
 
-        public bool Contains(KeyValuePair<Resource.Type, int> item) {
+        public bool Contains(KeyValuePair<ResourceType, int> item) {
             return this.resources.Contains(item);
         }
 
@@ -83,25 +83,25 @@ namespace Haswell {
             get { return false; }
         }
 
-        public bool Remove(KeyValuePair<Resource.Type, int> item) {
+        public bool Remove(KeyValuePair<ResourceType, int> item) {
             return this.resources.Remove(item.Key);
         }
 
-        public IEnumerator<KeyValuePair<Resource.Type, int>> GetEnumerator() {
+        public IEnumerator<KeyValuePair<ResourceType, int>> GetEnumerator() {
             return this.resources.GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             return this.resources.GetEnumerator();
         }
-        public void CopyTo(KeyValuePair<Resource.Type, int>[] array, int arrayIndex) {
+        public void CopyTo(KeyValuePair<ResourceType, int>[] array, int arrayIndex) {
             throw new NotImplementedException();
         }
         #endregion
 
         public static ResourceDict operator +(ResourceDict r1, ResourceDict r2) {
             ResourceDict rd = new ResourceDict();
-            foreach (Resource.Type type in Enum.GetValues(typeof(Resource.Type))) {
+            foreach (ResourceType type in Enum.GetValues(typeof(ResourceType))) {
                 rd[type] = r1[type] + r2[type];
             }
             return rd;
@@ -109,10 +109,10 @@ namespace Haswell {
 
         public override string ToString() {
             String sb = "";
-            sb += "Energy: " + this.resources[Resource.Type.Energy].ToString() + "\n";
-            sb += "Material: " + this.resources[Resource.Type.Material].ToString() + "\n";
-            sb += "Money: " + this.resources[Resource.Type.Money].ToString() + "\n";
-            sb += "Energy: " + this.resources[Resource.Type.Energy].ToString();
+            sb += "Energy: " + this.resources[ResourceType.Energy].ToString() + "\n";
+            sb += "Material: " + this.resources[ResourceType.Material].ToString() + "\n";
+            sb += "Money: " + this.resources[ResourceType.Money].ToString() + "\n";
+            sb += "Energy: " + this.resources[ResourceType.Energy].ToString();
             return sb;
         }
     }

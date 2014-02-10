@@ -5,17 +5,9 @@ using System.Text;
 
 namespace Haswell {
     /// <summary>
-    /// Base class for all resource
+    /// Stuct for holding a resource Value
     /// </summary>
     public struct Resource {
-        [Obsolete("Use the individual resource types instead")]
-        public enum Type {
-            Material,
-            Energy,
-            Money,
-            Population,
-            None
-        };
         float value;
         string name;
         /// <summary>
@@ -34,4 +26,14 @@ namespace Haswell {
         public Resource(string _name):this(_name,0.0f){}
 
     }
+    /// <summary>
+    /// The different types of resources available
+    /// </summary>
+    public enum ResourceType {
+        Material,
+        Energy,
+        Money,
+        Population,
+        None
+    };
 }

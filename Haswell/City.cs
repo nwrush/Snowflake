@@ -39,10 +39,10 @@ namespace Haswell {
         /// </summary>
         private void initResources() {
             this.resources = new ResourceDict();
-            this.resources[Resource.Type.Energy] = 10000;
-            this.resources[Resource.Type.Material] = 10000;
-            this.resources[Resource.Type.Money] = 10000;
-            this.resources[Resource.Type.Population] = 10000;
+            this.resources[ResourceType.Energy] = 10000;
+            this.resources[ResourceType.Material] = 10000;
+            this.resources[ResourceType.Money] = 10000;
+            this.resources[ResourceType.Population] = 10000;
         }
         /// <summary>
         /// Called by Snowflake when the user requests the creation of a building
@@ -82,7 +82,7 @@ namespace Haswell {
         }
 
         public override string ToString() {
-            return "City " + this.name + ", with a population of " + this.Resources[Resource.Type.Population] + ".";
+            return "City " + this.name + ", with a population of " + this.Resources[ResourceType.Population] + ".";
         }
         public InfiniteGrid Grid {
             get {

@@ -164,8 +164,8 @@ namespace Snowflake.States {
                     gConsole.WriteLine("Please enter a valid number!");
                 }
             }, "Sets the timestep of the game to the specified value."));
-            gConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Quits the game."));
-            gConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { StateMgr.RequestShutdown(); }, "Exits the game."));
+            gConsole.AddCommand("quit", new ConsoleCommand((string[] args) => { StartShutdown(); }, "Quits the game."));
+            gConsole.AddCommand("exit", new ConsoleCommand((string[] args) => { StartShutdown(); }, "Exits the game."));
             gConsole.AddCommand("debug", new ConsoleCommand((string[] args) => { DebugPanel.Visible = !DebugPanel.Visible; }, "Toggles the debug panel."));
             gConsole.AddCommand("wireframe", new ConsoleCommand((string[] args) => {
                 if (StateMgr.Engine.Camera.PolygonMode == PolygonMode.PM_WIREFRAME) {
@@ -219,6 +219,11 @@ namespace Snowflake.States {
             CompositorManager.Singleton.RemoveAll();
             CompositorManager.Singleton.UnloadAll();
             CompositorManager.Singleton.Dispose();
+        }
+
+        public void StartShutdown()
+        {
+            StateMgr.RequestShutdown();
         }
 
         /// <summary>

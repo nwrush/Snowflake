@@ -286,5 +286,11 @@ namespace Snowflake {
                     plotCoord.Y * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
             }
         }
+
+        public static void Quit()
+        {
+            GameMgr.StartShutdown();
+            //Todo: fancy UI for asking if the player is really absolutely sure they want to quit without saving their life's work
+        }
     }
 }

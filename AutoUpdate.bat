@@ -14,9 +14,8 @@ copy resources.cfg "../../../tmp/"
 
 cd ../../../tmp
 
-"../7za" a -r "../Snowflake.zip" *.*
-
 cd ..
+7za a -r Snowflake.zip ./tmp/*.*
 
 copy Snowflake.zip "./inetpub/wwwroot/downloads/Snowflake.zip"
 

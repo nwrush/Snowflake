@@ -78,6 +78,7 @@
     <Compile Include="CityManager.cs" />
     <Compile Include="CityManager.Haswell.cs" />
     <Compile Include="CityRendering.cs" />
+    <Compile Include="ExpanderPanel.Designer.cs" />
     <Compile Include="GuiComponents\CityInfoPanel.cs" />
     <Compile Include="GuiComponents\CityInfoPanel.Designer.cs">
       <DependentUpon>CityInfoPanel.cs</DependentUpon>
@@ -94,11 +95,13 @@
     <Compile Include="GuiComponents\DebugPanel.Designer.cs">
       <DependentUpon>DebugPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiComponents\ExpanderPanel.cs" />
     <Compile Include="GuiComponents\GameConsole.cs" />
     <Compile Include="GuiComponents\GameConsole.Designer.cs">
       <DependentUpon>GameConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiComponents\IGuiComponent.cs" />
+    <Compile Include="GuiComponents\IGuiToolbar.cs" />
     <Compile Include="GuiComponents\PictureButton.cs" />
     <Compile Include="GuiComponents\TopContainer.cs" />
     <Compile Include="GuiComponents\TopContainer.Designer.cs">

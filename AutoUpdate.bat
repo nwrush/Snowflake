@@ -14,12 +14,12 @@ copy resources.cfg "../../../tmp/"
 
 cd ../../../tmp
 
-rar a ../Snowflake.zip *.* -r
+"../7za" a -r ../Snowflake.zip *.*
 
 cd ..
 
 copy Snowflake.zip "./inetpub/wwwroot/downloads/Snowflake.zip"
 
-rd tmp
+rd tmp /Q /S
 
 pause

@@ -108,6 +108,10 @@ namespace Snowflake.GuiComponents {
             gui.Controls.Add(ParentPanel);
 
             this.Initialize();
+            quitButton.Click += (object sender, EventArgs e) =>
+            {
+                CityManager.Quit();
+            };
         }
     }
 }

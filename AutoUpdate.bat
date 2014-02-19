@@ -14,7 +14,7 @@ copy resources.cfg "../../../tmp/"
 
 cd ../../../tmp
 
-"../7za" a -r ../Snowflake.zip *.*
+"../7za" a -r "../Snowflake.zip" *.*
 
 cd ..
 

@@ -27,8 +27,8 @@ namespace Snowflake.GuiComponents {
             pbAffluence.Value = 67;
             pbEnvquality.Value = 23;
 
-            labelMoney.Text = CityManager.ActiveCity.Resources[Resource.Type.Money].ToString("c");
-            labelPopulation.Text = CityManager.ActiveCity.Resources[Resource.Type.Population].ToString();
+            labelMoney.Text = CityManager.ActiveCity.Resources[ResourceType.Money].ToString("c");
+            labelPopulation.Text = CityManager.ActiveCity.Resources[ResourceType.Population].ToString();
 
             textMoney.Location = new Point(labelMoney.Width - (int)(labelMoney.Width * 0.25), textMoney.Location.Y);
             textPopulation.Location = new Point(labelPopulation.Width - (int)(labelPopulation.Width * 0.25), textPopulation.Location.Y);

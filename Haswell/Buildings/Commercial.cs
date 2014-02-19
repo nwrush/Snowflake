@@ -7,9 +7,9 @@ namespace Haswell.Buildings {
     public class Commercial : Building {
 
         public Commercial() : base(Zone.Type.Commercial) { }
-        public Commercial(Dictionary<Resource.Type, int> r)
+        public Commercial(Dictionary<ResourceType, int> r)
             : base(r, Zone.Type.Commercial) {
-            this.resouceChanges.Add(Resource.Type.Money, 100);
+            this.resouceChanges.Add(ResourceType.Money, 100);
         }
 
         public override void Update(ResourceDict plotResources) {

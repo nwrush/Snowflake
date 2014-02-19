@@ -8,12 +8,23 @@ namespace Haswell {
 
         public float Time { get; private set; }
         public float Timescale { get; private set; }
+
+        public float Fog { get; private set; }
+        public float Clouds { get; private set; }
+        public float Temp { get; private set; }
+        public float WindX { get; private set; }
+        public float WindY { get; private set; }
+        public float WindMagnitude { get; private set; }
+
         public const float DayLength = 2400.0f;
         public const float HourLength = 100.0f;
         public const float MinuteLength = 1.6666667f;
 
+        public DateTime CurrentTime { get; private set; }
+
         public Universe() {
             Timescale = 1.0f;
+
         }
 
         public void Update(float frametime) {
@@ -23,13 +34,14 @@ namespace Haswell {
             //Frametime, then is kind of redundant?
             //So we just increment Time by Timescale.
             Time += Timescale;
+            this.CurrentTime = new DateTime(1970, 1, 1).AddMinutes(this.Time / Universe.MinuteLength);
 
             //Further on in here, there will be some variables dictating weather conditions...timers and such.
             //Cloudiness, Fogginess, and Wind Vector can be direct functions of some internal weather parameter.
             //That's Alex's job (supposedly).
         }
 
-        /// <summary>
+        /// <summary>6
         /// Sets the number by which the Time gets incremented each update tick.
         /// </summary>
         /// <param name="timescale">The scale of time.</param>

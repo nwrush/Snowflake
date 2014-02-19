@@ -194,8 +194,13 @@ namespace Snowflake.Modules
         public void LoadGroup(string _groupName)
         {
             // load resource group if it is not yet loaded
-            if (!ResourceGroupManager.Singleton.IsResourceGroupLoaded(_groupName))
-                ResourceGroupManager.Singleton.LoadResourceGroup(_groupName);
+            try {
+                if (!ResourceGroupManager.Singleton.IsResourceGroupLoaded(_groupName))
+                    ResourceGroupManager.Singleton.LoadResourceGroup(_groupName);
+            } catch (Exception e) {
+                System.Diagnostics.Debug.WriteLine(e);
+                LoadGroup(_groupName);
+            }
         }
 
         /************************************************************************/

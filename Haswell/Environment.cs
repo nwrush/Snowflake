@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell.Resources {
-    class Energy {
+namespace Haswell {
+    public class Environment {
+        public Environment() {
+
+        }
+
 
     }
 }

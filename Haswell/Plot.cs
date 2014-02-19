@@ -62,7 +62,7 @@ namespace Haswell {
             UpdateCityResources(cityResources);
         }
         private void UpdateCityResources(ResourceDict cityResources) {
-            foreach (KeyValuePair<Resource.Type, int> kvp in this.resource) {
+            foreach (KeyValuePair<ResourceType, int> kvp in this.resource) {
                 if (cityResources.ContainsKey(kvp.Key)) {
                     cityResources[kvp.Key] += kvp.Value;
                 }

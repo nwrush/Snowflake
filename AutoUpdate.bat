@@ -16,6 +16,8 @@ copy resources.cfg "../../../tmp/"
 
 cd C:\tmp
 
+mklink "Snowflake" "./Snowflake/Snowflake.exe"
+
 zip -r "../Snowflake.zip" Media Snowflake *.*
 
 cd ..

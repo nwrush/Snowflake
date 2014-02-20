@@ -103,24 +103,36 @@ namespace Snowflake.GuiComponents {
                 else { buildToolbar.Show(); }
             };
 
-            buildToolbar = new ExpanderToolbar(true, 120, 120, 3, 0)
+            buildToolbar = new ExpanderToolbar(true, boxsize, boxsize * 2, 3, 0)
             {
                 Location = new Point(buildButton.Location.X + ToolsContainerPanel.Location.X - 0, ParentPanel.Location.Y + ParentPanel.Height)
             };
-            buildToolbar.Buttons().Add("New Building", new PictureButton("TC_buttonNewBldng")
+            buildToolbar.Buttons().Add("Destroy Building", new PictureButton("TC_buttonDestBldng")
             {
                 Size = new Size(120, 120),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.DestBuilding"],
+                PictureOffset = new Point(32, 32),
+                PictureSize = new Size(64, 64),
+                ClickFunc = (object sender) =>
+                {
+
+                    buildToolbar.Hide();
+                }
+            });
+            buildToolbar.Buttons().Add("New Building", new PictureButton("TC_buttonNewBldng")
+            {
+                Size = new Size(boxsize, boxsize),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewBuilding"],
-                PictureOffset = new Point(12, 12),
-                PictureSize = new Size(96, 96),
+                PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
+                PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
                     CityManager.CreateBuildingOnCursor();
                     buildToolbar.Hide();
                 }
             });
-            buildToolbar.Hide();
 
             manageButton = new PictureButton("ToolsPanel_btnManage") {
                 Location = new Point(panelSize.Width - boxsize * 2 - padding * 3, 0),
@@ -146,9 +158,33 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(picsize, picsize),
                 PictureOffset = new Point((boxsize - picsize) / 2, (boxsize - picsize) / 2)
             };
+            governButton.MouseClick += (object sender, MouseButtonEventArgs e) =>
+            {
+                if (governToolbar.Visible()) { governToolbar.Hide(); }
+                else { governToolbar.Show(); }
+            };
+
+            governToolbar = new ExpanderToolbar(true, boxsize, boxsize * 1, 3, 0)
+            {
+                Location = new Point(governButton.Location.X + ToolsContainerPanel.Location.X - 0, ParentPanel.Location.Y + ParentPanel.Height)
+            };
+            governToolbar.Buttons().Add("Policy", new PictureButton("TC_buttonDestPolicy")
+            {
+                Size = new Size(boxsize, boxsize),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Govern.Policy"],
+                PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
+                PictureSize = new Size(64, 64),
+                ClickFunc = (object sender) =>
+                {
+
+                    governToolbar.Hide();
+                }
+            });
 
             ToolsContainerPanel.Controls.AddRange(buildButton, manageButton, governButton);
             buildToolbar.CreateGui(gui);
+            governToolbar.CreateGui(gui);
 
             ///
             int statwidth = 300;

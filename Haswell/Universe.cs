@@ -39,11 +39,30 @@ namespace Haswell {
             //So we can already assume a somewhat fixed tickrate.
             //Frametime, then is kind of redundant?
             //So we just increment Time by Timescale.
+            DateTime _prevTime = this.CurrentTime;
             Time += Timescale;
             this.CurrentTime = new DateTime(1970, 1, 1).AddMinutes(this.Time / Universe.MinuteLength);
-            if (Math.Round(Time / MinuteLength) % 60 == 0)
+            if (_prevTime.Hour != this.CurrentTime.Hour)
             {
-                Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime));
+                //Todo: don't assume this update is being called once or more per hour. At fast
+                //timescales with low tickrates, this will not be the case!
+                if (Hourly != null) { Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+            }
+            if (_prevTime.Day != this.CurrentTime.Day)
+            {
+                if (Daily != null) { Daily.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+            }
+            if (_prevTime.DayOfWeek != this.CurrentTime.DayOfWeek && this.CurrentTime.DayOfWeek == DayOfWeek.Monday)
+            {
+                if (Weekly != null) { Weekly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+            }
+            if (_prevTime.Month != this.CurrentTime.Month)
+            {
+                if (Monthly != null) { Monthly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+            }
+            if (_prevTime.Year != this.CurrentTime.Year)
+            {
+                if (Yearly != null) { Yearly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
             }
 
             //Further on in here, there will be some variables dictating weather conditions...timers and such.

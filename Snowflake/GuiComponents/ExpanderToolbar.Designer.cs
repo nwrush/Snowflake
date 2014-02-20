@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Diagnostics;
 
 using Miyagi.Common;
 using Miyagi.Common.Data;
@@ -27,6 +28,31 @@ namespace Snowflake.GuiComponents
         {
             int gw = gui.MiyagiSystem.RenderManager.MainViewport.Size.Width;
             int gh = gui.MiyagiSystem.RenderManager.MainViewport.Size.Height;
+
+            Button expandButton = new PictureButton(this.GetType() + "_expandBtn")
+            {
+                Location = new Point(0, boxheight - expandersize),
+                Size = new Size(boxwidth, expandersize),
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.White,
+                    Font = ResourceManager.Fonts["Heading"],
+                    Alignment = Alignment.TopCenter
+                },
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                BorderStyle = new BorderStyle()
+                {
+                    Thickness = new Thickness(0, 1, 0, 0)
+                },
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Expand"],
+                PictureSize = new Size(16, 16),
+                PictureOffset = new Point((boxwidth - 16) / 2, (expandersize - 16) / 2)
+            };
+            expandButton.MouseClick += (object sender, MouseButtonEventArgs e) =>
+            {
+                if (this.expanded) { this.Contract(); }
+                else { this.Expand(); }
+            };
 
             ParentPanel = new Panel(this.GetType().ToString() + "_Parent")
             {

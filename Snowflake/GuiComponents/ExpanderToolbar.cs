@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+
+using Miyagi.Common;
+using Miyagi.Common.Data;
+
+using Snowflake.Modules;
 
 namespace Snowflake.GuiComponents
 {
@@ -28,6 +32,18 @@ namespace Snowflake.GuiComponents
         {
             _height = boxheight;
             _width = boxwidth;
+        }
+
+        public void Expand()
+        {
+            expanded = true;
+            ((PictureButton)Buttons["Expand"]).Picture = ResourceManager.Skins["Control"].SubSkins["Control.Expand"];
+        }
+
+        public void Contract()
+        {
+            expanded = false;
+            ((PictureButton)Buttons["Expand"]).Picture = ResourceManager.Skins["Control"].SubSkins["Control.Contract"];
         }
 
     }

@@ -111,12 +111,16 @@ namespace Snowflake.GuiComponents {
             {
                 Size = new Size(120, 120),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
-                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewBuilding"],
+                PictureOffset = new Point(12, 12),
+                PictureSize = new Size(96, 96),
                 ClickFunc = (object sender) =>
                 {
-                    CityManager.SetMouseMode(States.MouseMode.PlacingBuilding);
+                    CityManager.CreateBuildingOnCursor();
+                    buildToolbar.Hide();
                 }
             });
+            buildToolbar.Hide();
 
             manageButton = new PictureButton("ToolsPanel_btnManage") {
                 Location = new Point(panelSize.Width - boxsize * 2 - padding * 3, 0),

@@ -1,5 +1,7 @@
 @echo off
 
+git pull
+
 MSBuild /t:Rebuild /p:Configuration=Release
 
 mkdir "../tmp"
@@ -12,13 +14,11 @@ xcopy "Snowflake/bin/Media" "../tmp/Media" /s
 cd Snowflake/bin
 copy resources.cfg "../../../tmp/"
 
-cd ../../../tmp
+cd C:\tmp
+
+zip -r "../Snowflake.zip" Media Snowflake *.*
 
 cd ..
-7za a /r Snowflake.zip ./tmp/
-
-echo "Done"
-pause
 
 copy Snowflake.zip "./inetpub/wwwroot/downloads/Snowflake.zip"
 

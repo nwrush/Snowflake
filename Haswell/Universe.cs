@@ -22,6 +22,12 @@ namespace Haswell {
 
         public DateTime CurrentTime { get; private set; }
 
+        public event EventHandler<TimeEventArgs> Hourly;
+        public event EventHandler<TimeEventArgs> Daily;
+        public event EventHandler<TimeEventArgs> Weekly;
+        public event EventHandler<TimeEventArgs> Monthly;
+        public event EventHandler<TimeEventArgs> Yearly;
+
         public Universe() {
             Timescale = 1.0f;
 
@@ -35,6 +41,10 @@ namespace Haswell {
             //So we just increment Time by Timescale.
             Time += Timescale;
             this.CurrentTime = new DateTime(1970, 1, 1).AddMinutes(this.Time / Universe.MinuteLength);
+            if (Math.Round(Time / MinuteLength) % 60 == 0)
+            {
+                Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime));
+            }
 
             //Further on in here, there will be some variables dictating weather conditions...timers and such.
             //Cloudiness, Fogginess, and Wind Vector can be direct functions of some internal weather parameter.

@@ -31,6 +31,9 @@ namespace Snowflake {
                 Origin = new Point(originx, originy);
                 Haswell.Controller.init(cityName ?? "New City");
                 Haswell.Controller.City.BuildingCreated += CreateBuilding;
+                Haswell.Controller.Environment.Hourly += (object sender, Haswell.TimeEventArgs e) => {
+                    
+                };
                 Initialized = true;
             }
             else {

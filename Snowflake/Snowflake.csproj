@@ -95,7 +95,10 @@
     <Compile Include="GuiComponents\DebugPanel.Designer.cs">
       <DependentUpon>DebugPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="GuiComponents\ExpanderPanel.cs" />
+    <Compile Include="GuiComponents\ExpanderToolbar.cs" />
+    <Compile Include="GuiComponents\ExpanderToolbar.Designer.cs">
+      <DependentUpon>ExpanderToolbar.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\GameConsole.cs" />
     <Compile Include="GuiComponents\GameConsole.Designer.cs">
       <DependentUpon>GameConsole.cs</DependentUpon>

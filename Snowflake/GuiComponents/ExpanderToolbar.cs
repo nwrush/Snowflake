@@ -6,7 +6,7 @@ using System.Text;
 namespace Snowflake.GuiComponents
 {
     
-    public class ExpanderToolbar : IGuiComponent, IGuiToolbar
+    public partial class ExpanderToolbar : IGuiComponent, IGuiToolbar
     {
         private bool expanded = true;
         private bool vertical = true;
@@ -14,15 +14,20 @@ namespace Snowflake.GuiComponents
         private float _height;
         private float _width;
 
-        public ExpanderToolbar(bool vertical, int boxwidth, int boxheight, int padding, int expandersize)
+        public ExpanderToolbar(bool _vertical, int _boxwidth, int _boxheight, int _padding, int _expandersize)
         {
-            //vertical
+            vertical = _vertical;
+            boxwidth = _boxwidth;
+            boxheight = _boxheight;
+            padding = _padding;
+            expandersize = _expandersize;
         }
+        //public ExpanderToolbar()
 
         public void Initialize()
         {
-            //_height = boxheight;
-            //_width = boxwidth;
+            _height = boxheight;
+            _width = boxwidth;
         }
 
     }

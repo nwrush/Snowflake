@@ -11,7 +11,7 @@ using Miyagi.UI.Controls.Styles;
 
 using Snowflake.Modules;
 
-namespace Snowflake
+namespace Snowflake.GuiComponents
 {
     public partial class ExpanderToolbar
     {

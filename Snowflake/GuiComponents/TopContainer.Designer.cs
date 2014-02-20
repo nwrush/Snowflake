@@ -18,8 +18,11 @@ namespace Snowflake.GuiComponents {
 
         private Panel ToolsContainerPanel;
         private PictureButton buildButton;
+        private IGuiToolbar buildToolbar;
         private PictureButton manageButton;
+        private IGuiToolbar manageToolbar;
         private PictureButton governButton;
+        private IGuiToolbar governToolbar;
 
         private Panel StatsContainerPanel;
         private ProgressBar pbHappiness;
@@ -96,8 +99,28 @@ namespace Snowflake.GuiComponents {
                 PictureOffset = new Point((boxsize - picsize) / 2, (boxsize - picsize) / 2)
             };
             buildButton.MouseClick += (object sender, MouseButtonEventArgs e) => {
-                CityManager.CreateBuildingOnCursor();
+                if (buildToolbar.Visible()) { buildToolbar.Hide(); }
+                else { buildToolbar.Show(); }
             };
+
+            buildToolbar = new ExpanderToolbar(true, 120, 120, 3, 0)
+            {
+                Location = new Point(buildButton.Location.X + ToolsContainerPanel.Location.X - 0, ParentPanel.Location.Y + ParentPanel.Height)
+            };
+            buildToolbar.Buttons().Add("New Building", new PictureButton("TC_buttonNewBldng")
+            {
+                Size = new Size(120, 120),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewBuilding"],
+                PictureOffset = new Point(12, 12),
+                PictureSize = new Size(96, 96),
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.CreateBuildingOnCursor();
+                    buildToolbar.Hide();
+                }
+            });
+            buildToolbar.Hide();
 
             manageButton = new PictureButton("ToolsPanel_btnManage") {
                 Location = new Point(panelSize.Width - boxsize * 2 - padding * 3, 0),
@@ -125,6 +148,7 @@ namespace Snowflake.GuiComponents {
             };
 
             ToolsContainerPanel.Controls.AddRange(buildButton, manageButton, governButton);
+            buildToolbar.CreateGui(gui);
 
             ///
             int statwidth = 300;

@@ -18,15 +18,20 @@ namespace Snowflake.GuiComponents {
         private Texture _pictureHover;
         private Size _pictureSize;
         private Point _pictureOffset;
+        public Action<object> ClickFunc;
 
         public PictureButton()
             : base() {
-                this.ParentChanged += (object sender, EventArgs e) => { CreatePictureBox(); this.Parent.Controls.Add(this.picturePanel); };
-                _pictureSize = this.Size;
+            create();
         }
         public PictureButton(string name) : base(name) {
+            create();
+        }
+        private void create()
+        {
             this.ParentChanged += (object sender, EventArgs e) => { CreatePictureBox(); this.Parent.Controls.Add(this.picturePanel); };
             _pictureSize = this.Size;
+            this.Click += (object sender, EventArgs e) => { if (ClickFunc != null) { ClickFunc.Invoke(sender); }  };
         }
 
         private void CreatePictureBox() {

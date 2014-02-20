@@ -21,7 +21,7 @@ namespace Snowflake.GuiComponents {
         private PictureButton expandButton;
 
         private int boxwidth = 48;
-        private int expanderheight = 32;
+        private int expandersize = 32;
         private int padding = 3;
         private int boxheight;
 
@@ -30,7 +30,7 @@ namespace Snowflake.GuiComponents {
             int gw = gui.MiyagiSystem.RenderManager.MainViewport.Size.Width;
             int gh = gui.MiyagiSystem.RenderManager.MainViewport.Size.Height;
 
-            boxheight = expanderheight + boxwidth * 4 + padding * 6;
+            boxheight = expandersize + boxwidth * 4 + padding * 6;
 
             ParentPanel = new Panel("CP_ParentPanel") {
                 TabStop = false,
@@ -39,7 +39,7 @@ namespace Snowflake.GuiComponents {
                 Size = new Size(boxwidth, boxheight),
                 Movable = false,
                 ResizeMode = ResizeModes.None,
-                MinSize = new Size(boxwidth, expanderheight),
+                MinSize = new Size(boxwidth, expandersize),
                 MaxSize = new Size(boxwidth, boxheight),
                 Location = new Point(gw - boxwidth, 130),
                 ResizeThreshold = new Thickness(0),
@@ -54,8 +54,8 @@ namespace Snowflake.GuiComponents {
             };
             
             expandButton = new PictureButton("CP_expandBtn") {
-                Location = new Point(0, boxheight - expanderheight),
-                Size = new Size(boxwidth, expanderheight),
+                Location = new Point(0, boxheight - expandersize),
+                Size = new Size(boxwidth, expandersize),
                 TextStyle = new TextStyle() {
                     ForegroundColour = Colours.White,
                     Font = ResourceManager.Fonts["Heading"],
@@ -67,7 +67,7 @@ namespace Snowflake.GuiComponents {
                 },
                 Picture = ResourceManager.Skins["Control"].SubSkins["Control.Expand"],
                 PictureSize = new Size(16, 16),
-                PictureOffset = new Point((boxwidth - 16) / 2, (expanderheight - 16) / 2)
+                PictureOffset = new Point((boxwidth - 16) / 2, (expandersize - 16) / 2)
             };
             expandButton.MouseClick += (object sender, MouseButtonEventArgs e) => {
                 if (this.expanded) { this.Contract(); }
@@ -75,28 +75,28 @@ namespace Snowflake.GuiComponents {
             };
 
             quitButton = new PictureButton("CP_quitBtn") {
-                Location = new Point(0, boxheight - expanderheight - boxwidth),
+                Location = new Point(0, boxheight - expandersize - boxwidth),
                 Size = new Size(boxwidth, boxwidth),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Control"].SubSkins["Control.Exit"]
             };
 
             saveButton = new PictureButton("CP_saveBtn") {
-                Location = new Point(0, boxheight - expanderheight - boxwidth * 2 - padding),
+                Location = new Point(0, boxheight - expandersize - boxwidth * 2 - padding),
                 Size = new Size(boxwidth, boxwidth),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Control"].SubSkins["Control.Save"]
             };
 
             loadButton = new PictureButton("CP_loadBtn") {
-                Location = new Point(0, boxheight - expanderheight - boxwidth * 3 - padding * 3),
+                Location = new Point(0, boxheight - expandersize - boxwidth * 3 - padding * 3),
                 Size = new Size(boxwidth, boxwidth),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Control"].SubSkins["Control.Load"]
             };
 
             optionsButton = new PictureButton("CP_optionsBtn") {
-                Location = new Point(0, boxheight - expanderheight - boxwidth * 4 - padding * 5),
+                Location = new Point(0, boxheight - expandersize - boxwidth * 4 - padding * 5),
                 Size = new Size(boxwidth, boxwidth),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
                 //TextStyle = new TextStyle() { ForegroundColour = Colours.White }

@@ -13,13 +13,13 @@ namespace Snowflake.GuiComponents
     
     public partial class ExpanderToolbar : IGuiToolbar
     {
-        private bool expanded = true;
+        private bool expanded = false;
         private bool fullyHide = false;
         private bool vertical = true;
         private bool horizontal { get { return !vertical; } set { vertical = !value; } }
         private float _height;
         private float _width;
-        public bool visible = true;
+        public bool visible = false;
         public Point Location;
 
         public ExpanderToolbar(bool _vertical, int _boxwidth, int _boxheight, int _padding, int _expandersize)
@@ -36,8 +36,15 @@ namespace Snowflake.GuiComponents
 
         public void Initialize()
         {
-            _height = boxheight;
-            _width = boxwidth;
+            _height = 0;
+            _width = 0;
+            if (vertical) { ParentPanel.Height = (fullyHide ? 0 : expandersize); }
+            if (horizontal) { ParentPanel.Width = (fullyHide ? 0 : expandersize); }
+            RedoLayout();
+        }
+        public int Height()
+        {
+            return ParentPanel.Height;
         }
         /// <summary>
         /// Shows (expands) the toolbar

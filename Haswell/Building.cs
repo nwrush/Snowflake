@@ -13,7 +13,6 @@ namespace Haswell {
         protected Dictionary<ResourceType, int> resouceChanges;
 
         protected bool Initialized;
-
         protected Building(Zone.Type zone) {
             this.resouceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;

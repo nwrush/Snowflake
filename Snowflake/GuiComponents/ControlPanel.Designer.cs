@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-
-using Miyagi.Common;
+using System.Text;using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.Common.Events;
 using Miyagi.UI;

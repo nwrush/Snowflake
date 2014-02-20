@@ -56,7 +56,7 @@ namespace Snowflake.GuiComponents
             };
             buttons.Add("Expand", expandButton);
 
-            ParentPanel = new Panel(this.GetType().ToString() + "_Parent")
+            ParentPanel = new Panel(this.GetType().ToString() + "_" + this.GetHashCode().ToString() + "_Parent")
             {
                 TabStop = false,
                 TabIndex = 0,

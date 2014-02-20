@@ -10,5 +10,6 @@ namespace Snowflake.GuiComponents
         void Show();
         void Hide();
         bool Visible();
+        int Height();
     }
 }

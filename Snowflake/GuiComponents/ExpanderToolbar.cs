@@ -42,6 +42,10 @@ namespace Snowflake.GuiComponents
             if (horizontal) { ParentPanel.Width = (fullyHide ? 0 : expandersize); }
             RedoLayout();
         }
+        public int Height()
+        {
+            return ParentPanel.Height;
+        }
         /// <summary>
         /// Shows (expands) the toolbar
         /// </summary>

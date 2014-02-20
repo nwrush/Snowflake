@@ -25,7 +25,7 @@ namespace Snowflake.GuiComponents {
         {
             ParentPanel.Update();
             buildToolbar.Update(frametime);
-            
+            governToolbar.Update(frametime);
         }
 
         private void UpdateStats(float frametime) {

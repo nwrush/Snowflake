@@ -48,7 +48,7 @@ namespace Snowflake.States
         private void UpdateCameraPosition()
         {
             StateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + (-500) * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -(500) * Mogre.Math.Sin(angle));
-            StateMgr.Engine.Camera.Position += StateMgr.Engine.Camera.Direction * (float)System.Math.Pow(dist, 3);
+            StateMgr.Engine.Camera.Position += StateMgr.Engine.Camera.Direction * (float)(System.Math.Pow(dist, 3) + 100.0f);
         }
 
         /// <summary>
@@ -173,8 +173,8 @@ namespace Snowflake.States
                 if (mStateMgr.Input.MouseMoveZ != 0.0f)
                 {
                     dist += mStateMgr.Input.MouseMoveZ * 0.002f;
-                    if (dist < -12.0f) { dist = -12.0f; }
-                    if (dist > 2.0f) { dist = 2.0f; }
+                    if (dist < -14.0f) { dist = -14.0f; }
+                    if (dist > 0.0f) { dist = 0.0f; }
                 }
 
                 if (viewShouldUpdate())

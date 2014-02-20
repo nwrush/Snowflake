@@ -17,7 +17,8 @@ namespace Snowflake.GuiComponents
     public partial class ExpanderToolbar
     {
         private Panel ParentPanel;
-        public Dictionary<string, Button> Buttons { get; protected set; }
+        public Dictionary<string, Button> buttons { get; protected set; }
+        public Dictionary<string, Button> Buttons() { return buttons; }
 
         private int boxwidth;
         private int expandersize;
@@ -53,6 +54,7 @@ namespace Snowflake.GuiComponents
                 if (this.expanded) { this.Contract(); }
                 else { this.Expand(); }
             };
+            buttons.Add("Expand", expandButton);
 
             ParentPanel = new Panel(this.GetType().ToString() + "_Parent")
             {
@@ -64,11 +66,10 @@ namespace Snowflake.GuiComponents
                 ResizeMode = ResizeModes.None,
                 MinSize = new Size(boxwidth, expandersize),
                 MaxSize = new Size(boxwidth, boxheight),
-                Location = new Point(gw - boxwidth, 130),
                 ResizeThreshold = new Thickness(0),
                 BorderStyle =
                 {
-                    Thickness = new Thickness(1, 0, 0, 1)
+                    Thickness = new Thickness(1, 0, 1, 1)
                 },
                 Skin = ResourceManager.Skins["BlackPanelSkin"],
                 AlwaysOnBottom = true,
@@ -77,6 +78,24 @@ namespace Snowflake.GuiComponents
                     Extent = 0
                 }
             };
+
+            foreach (Button b in buttons.Values)
+            {
+                ParentPanel.Controls.Add(b);
+            }
+
+            if (vertical)
+            {
+                boxheight = expandersize + boxwidth * (buttons.Count - 1) + padding * (buttons.Count);
+            }
+            if (horizontal)
+            {
+                boxwidth = expandersize + boxheight * (buttons.Count - 1) + padding * (buttons.Count);
+            }
+
+            gui.Controls.Add(ParentPanel);
+
+            this.Initialize();
         }
     }
 }

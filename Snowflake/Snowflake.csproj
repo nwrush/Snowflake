@@ -78,7 +78,6 @@
     <Compile Include="CityManager.cs" />
     <Compile Include="CityManager.Haswell.cs" />
     <Compile Include="CityRendering.cs" />
-    <Compile Include="ExpanderPanel.Designer.cs" />
     <Compile Include="GuiComponents\CityInfoPanel.cs" />
     <Compile Include="GuiComponents\CityInfoPanel.Designer.cs">
       <DependentUpon>CityInfoPanel.cs</DependentUpon>

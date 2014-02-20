@@ -18,6 +18,14 @@ namespace Snowflake.GuiComponents {
         public void Update(float frametime) {
             UpdateStats(frametime);
             UpdateWeather(frametime);
+            UpdateChildren(frametime);
+        }
+
+        private void UpdateChildren(float frametime)
+        {
+            ParentPanel.Update();
+            buildToolbar.Update(frametime);
+            
         }
 
         private void UpdateStats(float frametime) {

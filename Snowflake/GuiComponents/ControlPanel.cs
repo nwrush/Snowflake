@@ -21,26 +21,26 @@ namespace Snowflake.GuiComponents {
             if (expanded && ParentPanel.Height < boxheight) {
                 _height += ((boxheight - _height) * 0.05f);
                 ParentPanel.Height = (int)_height;
-                redolayout();
+                RedoLayout();
             }
-            else if (!expanded && ParentPanel.Height > expanderheight) {
-                _height -= ((_height - expanderheight) * 0.05f);
+            else if (!expanded && ParentPanel.Height > expandersize) {
+                _height -= ((_height - expandersize) * 0.05f);
                 ParentPanel.Height = (int)_height;
-                redolayout();
+                RedoLayout();
             }
         }
 
-        private void redolayout() {
+        private void RedoLayout() {
             int height = (int)_height;
-            expandButton.Location = new Point(0, height - expanderheight);
+            expandButton.Location = new Point(0, height - expandersize);
 
-            quitButton.Location = new Point(0, height - expanderheight - boxwidth);
+            quitButton.Location = new Point(0, height - expandersize - boxwidth);
 
-            saveButton.Location = new Point(0, height - expanderheight - boxwidth * 2 - padding);
+            saveButton.Location = new Point(0, height - expandersize - boxwidth * 2 - padding);
 
-            loadButton.Location = new Point(0, height - expanderheight - boxwidth * 3 - padding * 3);
+            loadButton.Location = new Point(0, height - expandersize - boxwidth * 3 - padding * 3);
 
-            optionsButton.Location = new Point(0, height - expanderheight - boxwidth * 4 - padding * 5);
+            optionsButton.Location = new Point(0, height - expandersize - boxwidth * 4 - padding * 5);
             //optionsButton.Text = optionsButton.Location.Y.ToString();
         }
 

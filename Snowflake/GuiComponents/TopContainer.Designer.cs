@@ -103,17 +103,30 @@ namespace Snowflake.GuiComponents {
                 else { buildToolbar.Show(); }
             };
 
-            buildToolbar = new ExpanderToolbar(true, 120, 120, 3, 0)
+            buildToolbar = new ExpanderToolbar(true, 120, 240, 3, 0)
             {
                 Location = new Point(buildButton.Location.X + ToolsContainerPanel.Location.X - 0, ParentPanel.Location.Y + ParentPanel.Height)
             };
+            buildToolbar.Buttons().Add("Destroy Building", new PictureButton("TC_buttonDestBldng")
+            {
+                Size = new Size(120, 120),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.DestBuilding"],
+                PictureOffset = new Point(32, 32),
+                PictureSize = new Size(64, 64),
+                ClickFunc = (object sender) =>
+                {
+
+                    buildToolbar.Hide();
+                }
+            });
             buildToolbar.Buttons().Add("New Building", new PictureButton("TC_buttonNewBldng")
             {
                 Size = new Size(120, 120),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewBuilding"],
-                PictureOffset = new Point(12, 12),
-                PictureSize = new Size(96, 96),
+                PictureOffset = new Point(32, 32),
+                PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
                     CityManager.CreateBuildingOnCursor();

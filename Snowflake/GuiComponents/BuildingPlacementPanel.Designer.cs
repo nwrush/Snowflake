@@ -42,11 +42,36 @@ namespace Snowflake.GuiComponents
             Renderbox = new RenderBox("BPP_RenderBox")
             {
                 Width = 130,
-                Height = 130,
+                Height = 106,
                 Location = new Point(10, 10),
                 Camera = renderCam
             };
-            ParentPanel.Controls.Add(Renderbox);
+
+            RotateLeft = new PictureButton("BBP_rotLeft")
+            {
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.RotateLeft"],
+                PictureSize = new Size(24, 24),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Size = new Size(24, 24),
+                Location = new Point(16, 126)
+            };
+            RotateLeft.Click += (object sender, EventArgs e) =>
+            {
+                _targetYaw += Mogre.Math.HALF_PI;
+            };
+            RotateRight = new PictureButton("BBP_rotRight")
+            {
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.RotateRight"],
+                PictureSize = new Size(24, 24),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Size = new Size(24, 24),
+                Location = new Point(110, 126)
+            };
+            RotateRight.Click += (object sender, EventArgs e) =>
+            {
+                _targetYaw -= Mogre.Math.HALF_PI;
+            };
+            ParentPanel.Controls.AddRange(Renderbox, RotateLeft, RotateRight);
 
             gui.Controls.Add(ParentPanel);
         }

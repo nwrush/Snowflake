@@ -65,7 +65,7 @@ namespace Snowflake {
                 Haswell.Controller.Update(frametime);
             }
             catch (NotImplementedException e) {
-                DebugPanel.ActiveInstance.SetDebugText(e.Message);
+                DebugPanel.ActiveInstance[2] = (e.Message);
             }
         }
     }

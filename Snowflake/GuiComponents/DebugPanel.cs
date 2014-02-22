@@ -15,17 +15,53 @@ namespace Snowflake.GuiComponents {
     public partial class DebugPanel : IGuiComponent {
 
         private Queue<float> _lastFrametimes;
+        private List<Label> debugTexts;
+        private int _oldDebugtextsLen = 0;
 
         public static DebugPanel ActiveInstance;
 
         public DebugPanel()
         {
             _lastFrametimes = new Queue<float>();
+            debugTexts = new List<Label>();
             ActiveInstance = this;
         }
 
         public void Initialize() {
             this.Visible = false;
+        }
+
+        public string this[int key]
+        {
+            get
+            {
+                return debugTexts[key].Text;
+            }
+            set
+            {
+                if (key < debugTexts.Count)
+                {
+                    debugTexts[key].Text = "Debug[" + key + "]: " + value;
+                }
+                else
+                {
+                    while (debugTexts.Count <= key)
+                    {
+                        debugTexts.Add(new Label()
+                        {
+                            TextStyle = new TextStyle()
+                            {
+                                ForegroundColour = Colours.White,
+                            },
+                            Location = new Point(5, 50 + 40 * (debugTexts.Count + 1)),
+                            MaxSize = new Size(190, 45),
+                            AutoSize = true,
+                            Text = "Debug[" + (debugTexts.Count) + "]: "
+                        });
+                        parentPanel.Controls.Add(debugTexts[debugTexts.Count - 1]);
+                    }
+                }
+            }
         }
 
         /// <summary>

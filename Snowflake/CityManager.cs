@@ -186,7 +186,7 @@ namespace Snowflake {
                     try {
                         r.Update();
                     } catch (NotImplementedException e) {
-                        DebugPanel.ActiveInstance.SetDebugText(e.Message);
+                        DebugPanel.ActiveInstance[2] = e.Message;
                     }
                 }
             }

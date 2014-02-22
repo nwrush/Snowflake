@@ -32,7 +32,8 @@ namespace Snowflake.GuiComponents {
                     Thickness = new Thickness(0, 0, 1, 1)
                 },
                 Throwable = false,
-                Movable = false
+                Movable = false,
+                HitTestVisible = false
             };
             //ParentPanel.SetBackgroundTexture(ParentPanel.Skin.SubSkins["BlackPanelSkin40"]);
 

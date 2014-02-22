@@ -20,6 +20,7 @@ namespace Snowflake {
         private DebugPanel debugPanel;
         private ContextMenu contextMenu;
         private TopContainer topContainer;
+        private BuildingPlacementPanel bldgPlacePanel;
 
         #region Properties
 
@@ -52,8 +53,9 @@ namespace Snowflake {
             ContextMenu = new ContextMenu();
             bcWindow = new BuildingCreationWindow();
             topContainer = new TopContainer();
+            bldgPlacePanel = new BuildingPlacementPanel();
 
-            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow });
+            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow, bldgPlacePanel });
 
             Gui = new GUI();
             GuiSystem.GUIManager.GUIs.Add(Gui);

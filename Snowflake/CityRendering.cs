@@ -207,8 +207,8 @@ namespace Snowflake {
             foreach (Entity e in GetBuildingEntities(this.data, sm, out this.scale)) { this.entities.Add(e); }
             base.Create(sm, cityNode);
 
-            selectionBox = this.node.CreateChildSceneNode("selectionBox_" + this.GetType().ToString() + "_" + this.GetHashCode());
-            Entity selectionBoxEnt = sm.CreateEntity("selectionBoxEnt_" + this.GetType().ToString() + "_" + this.GetHashCode(), "selectionbox.mesh");
+            selectionBox = this.node.CreateChildSceneNode();
+            Entity selectionBoxEnt = sm.CreateEntity("selectionbox.mesh");
             selectionBox.AttachObject(selectionBoxEnt);
             selectionBox.Scale(new Vector3(473.0f / this.scale.x, 473.0f / this.scale.y, 473.0f / this.scale.z));
             selectionBoxEnt.CastShadows = false;
@@ -221,11 +221,11 @@ namespace Snowflake {
             List<Entity> entList = new List<Entity>();
             scale = new Vector3(1, 1, 1);
 ;            if (b is Haswell.Buildings.Commercial) {
-                entList.Add(sm.CreateEntity(b.GetType().ToString() + "_" + b.GetHashCode(), "skyscraper1.mesh"));
+                entList.Add(sm.CreateEntity("skyscraper1.mesh"));
                 scale = new Vector3(80.0f, 80.0f, 80.0f);
             }
             else if (b is Haswell.Buildings.Residential) {
-                entList.Add(sm.CreateEntity(b.GetType().ToString() + "_" + b.GetHashCode(), "residential1.mesh"));
+                entList.Add(sm.CreateEntity("residential1.mesh"));
                 scale = new Vector3(15.0f, 15.0f, 15.0f);
             }
             return entList;

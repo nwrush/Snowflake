@@ -23,7 +23,7 @@ namespace Snowflake.GuiComponents
         {
             renderCam = CityManager.Engine.SceneMgr.CreateCamera("renderbox_cam");
             renderNode = CityManager.Engine.SceneMgr.RootSceneNode.CreateChildSceneNode();
-            renderNode.AttachObject(CityManager.Engine.SceneMgr.CreateEntity(SceneManager.PrefabType.PT_CUBE));
+            //renderNode.AttachObject(CityManager.Engine.SceneMgr.CreateEntity(SceneManager.PrefabType.PT_CUBE));
             renderNode.Translate(new Vector3(1000000, 0, 0));
             renderCam.SetPosition(150 + 1000000, 215, 0);
             renderCam.LookAt(1000000, 0, 0);
@@ -39,6 +39,22 @@ namespace Snowflake.GuiComponents
             {
                 ParentPanel.Visible = value;
                 ParentPanel.Enabled = value;
+            }
+        }
+
+
+        public void SetRenderBldg(RenderableBuilding b) {
+            if (b != null && b != this.renderBldg)
+            {
+                this.renderBldg = b;
+                renderNode.RemoveAndDestroyAllChildren();
+                Vector3 scale; //useless
+                List<Entity> ents = RenderableBuilding.GetBuildingEntities(b.GetData(), CityManager.Engine.SceneMgr, out scale);
+                foreach (Entity ent in ents)
+                {
+                    renderNode.AttachObject(ent);
+                }
+                renderNode.SetScale(scale);
             }
         }
 

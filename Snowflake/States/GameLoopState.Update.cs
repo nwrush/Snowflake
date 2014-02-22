@@ -234,7 +234,10 @@ namespace Snowflake.States
         public void UpdateGUI(float frametime)
         {
             if (CityManager.Initialized)
+            {
+                GuiMgr.SetCurrentCursorBuilding(this.cursorBuilding);
                 GuiMgr.Update(frametime);
+            }
         }
 
         private bool selboxShouldUpate()

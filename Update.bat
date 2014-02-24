@@ -25,5 +25,3 @@ cd ..
 copy Snowflake.zip "./inetpub/wwwroot/downloads/Snowflake.zip"
 
 rd tmp /Q /S
-
-pause

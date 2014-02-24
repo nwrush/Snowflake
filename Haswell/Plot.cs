@@ -55,6 +55,12 @@ namespace Haswell {
             return false;
         }
 
+        public void Delete(Building b)
+        {
+            this.buildings.Remove(b);
+            if (b.Parent != null) { b.Parent = null; }
+        }
+
         public void DeleteAllBuildings()
         {
             foreach (Building b in buildings)

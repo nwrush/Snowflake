@@ -125,10 +125,13 @@ namespace Snowflake.States
                             newBuilding.Invoke(null, new object[] { this.cursorBuilding.PlotX, this.cursorBuilding.PlotY });
                             gConsole.WriteLine("Placing building...");
 
-                            //Then dispose the cursor building as the game will be making a new one very shortly
-                            this.cursorBuilding.Dispose();
-                            this.cursorBuilding = null;
-                            this.mouseMode = MouseMode.Selection;
+                            if (!mStateMgr.Input.IsKeyDown(KeyCode.KC_LSHIFT))
+                            {
+                                //Then dispose the cursor building as the game will be making a new one very shortly
+                                this.cursorBuilding.Dispose();
+                                this.cursorBuilding = null;
+                                this.mouseMode = MouseMode.Selection;
+                            }
                         }
 
                         if (canSelect())

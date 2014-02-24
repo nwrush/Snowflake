@@ -61,6 +61,14 @@ namespace Haswell {
             throw new Exceptions.BuildingCreationFailedException("Building creation failed");
         }
 
+        public void DeleteBuilding(int x, int y)
+        {
+            if (grid.ElementAt(x, y).GetAllBuildings.Count > 0)
+            {
+                grid.ElementAt(x, y).DeleteAllBuildings();
+            }
+        }
+
         /// <summary>
         /// Creates a zone for automatic building creation by the game's AI
         /// </summary>

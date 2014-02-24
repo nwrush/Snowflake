@@ -60,6 +60,11 @@ namespace Snowflake {
             }
         }
 
+        public static void DeleteBuilding(int x, int y)
+        {
+            Haswell.Controller.City.DeleteBuilding(x, y);
+        }
+
         private static void UpdateHaswell(float frametime) {
             try {
                 Haswell.Controller.Update(frametime);

@@ -197,10 +197,14 @@ namespace Snowflake {
         private Building data;
         private SceneNode selectionBox;
 
+        public event EventHandler Deleted;
+
         public RenderableBuilding(Building data) {
             this.data = data;
             this.entities = new List<Entity>();
             this.Name = this.data.GetType().ToString() + "_" + this.GetHashCode();
+
+            data.Deleted += this.OnBuildingDeleted;
         }
 
         public override void Create(SceneManager sm, SceneNode cityNode) {
@@ -248,6 +252,27 @@ namespace Snowflake {
         /// <returns>The Haswell object providing this renderable's data.</returns>
         public Building GetData() {
             return this.data;
+        }
+
+        private void OnBuildingDeleted(object sender, EventArgs e)
+        {
+            this.Deselect();
+            this.Dispose();
+            if (this.Deleted != null)
+            {
+                this.Deleted.Invoke(sender, new EventArgs());
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (Entity ent in this.entities)
+            {
+                ent.DetachFromParent();
+                ent.Dispose();
+            }
+            node.RemoveAndDestroyAllChildren();
+            node.Dispose();
         }
     }
 

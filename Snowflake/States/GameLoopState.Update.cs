@@ -212,6 +212,11 @@ namespace Snowflake.States
                 {
                     gConsole.Visible = !gConsole.Visible;
                 }
+
+                if (mStateMgr.Input.WasKeyPressed(KeyCode.KC_DELETE))
+                {
+                    CityManager.DeleteSelectedBuildings();
+                }
             }
 
             // check if the escape key was pressed

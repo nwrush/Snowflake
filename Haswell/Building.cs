@@ -11,6 +11,7 @@ namespace Haswell {
 
         //Todo: Implement this into the constructor and init function
         protected Dictionary<ResourceType, int> resouceChanges;
+        public event EventHandler Deleted;
 
         protected bool Initialized;
         protected Building(Zone.Type zone) {
@@ -29,6 +30,19 @@ namespace Haswell {
                     plotResources[kvp.Key] += kvp.Value;
                 }
             }
+        }
+
+        public void Delete() {
+            if (Deleted != null)
+            {
+                Deleted.Invoke(this, new EventArgs());
+            }
+        }
+
+        private void OnDeleted(object sender, EventArgs e)
+        {
+            this.Parent = null;
+            //Do a thing
         }
 
         /// <summary>

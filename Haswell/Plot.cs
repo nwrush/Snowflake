@@ -55,6 +55,15 @@ namespace Haswell {
             return false;
         }
 
+        public void DeleteAllBuildings()
+        {
+            foreach (Building b in buildings)
+            {
+                b.Delete();
+            }
+            this.buildings.Clear();
+        }
+
         public void Update(ResourceDict cityResources) {
             foreach (Building b in buildings) {
                 b.Update(this.resource);

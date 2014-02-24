@@ -36,8 +36,7 @@ namespace Snowflake.GuiComponents
                 },
                 ResizeMode = ResizeModes.None,
                 Skin = ResourceManager.Skins["ClearPanelSkin"],
-                Location = new Point(20, gh - 150 - 20),
-                Movable = true
+                Location = new Point(20, gh - 150 - 20)
             };
             Renderbox = new RenderBox("BPP_RenderBox")
             {

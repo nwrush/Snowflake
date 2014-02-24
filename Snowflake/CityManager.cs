@@ -40,6 +40,7 @@ namespace Snowflake {
                                  (selectionEnd.Y > selectionStart.Y ? selectionEnd.Y - selectionStart.Y : 0))); 
             } 
         }
+        private static List<Building> selectedBuildings;
 
         public static StateManager StateMgr { get { return GameMgr.StateMgr; } }
         public static SceneManager SceneMgr { get { return GameMgr.StateMgr.Engine.SceneMgr; } }
@@ -158,6 +159,10 @@ namespace Snowflake {
             RenderableBuilding rb = new RenderableBuilding(e.Building);
             rb.Create( GameMgr.StateMgr.Engine.SceneMgr, cityNode);
             cityObjects.Add(rb);
+            rb.Deleted += (object sender2, EventArgs e2) =>
+            {
+                cityObjects.Remove(rb);
+            };
         }
 
         public static void CreateBuildingOnCursor() {
@@ -218,7 +223,8 @@ namespace Snowflake {
             //Todo: make selection
             if (SelectionBox.Left != Int32.MaxValue - 1 && SelectionBox.Top != Int32.MaxValue - 1) {
 
-                List<Building> selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
+                if (selectedBuildings != null) { selectedBuildings.Clear(); }
+                selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
                 foreach (Renderable r in cityObjects) {
                     if (r is RenderableBuilding) {
                         if (selectedBuildings.Contains(((RenderableBuilding)r).GetData())) {
@@ -246,6 +252,14 @@ namespace Snowflake {
         public static void ClearSelection() {
             selectionStart = new Point(Int32.MaxValue - 1, Int32.MaxValue - 1);
             selectionEnd = new Point(Int32.MaxValue, Int32.MaxValue);
+        }
+
+        public static void DeleteSelectedBuildings()
+        {
+            foreach (Building b in selectedBuildings)
+            {
+                b.Delete();
+            }
         }
 
         /// <summary>

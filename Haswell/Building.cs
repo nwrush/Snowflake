@@ -17,11 +17,13 @@ namespace Haswell {
         protected Building(Zone.Type zone) {
             this.resouceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;
+            this.Deleted += OnDeleted;
         }
         protected Building(Dictionary<ResourceType, int> resource, Zone.Type zone)
             : this(zone) {
             this.resouceChanges = resource;
             this.Initialized = true;
+            this.Deleted += OnDeleted;
         }
 
         public virtual void Update(ResourceDict plotResources) {

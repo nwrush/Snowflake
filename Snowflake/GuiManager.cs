@@ -93,6 +93,15 @@ namespace Snowflake {
             bldgPlacePanel.SetRenderBldg(b);
         }
 
+        public void HideBuildingPlacementPanel()
+        {
+            bldgPlacePanel.Visible = false;
+        }
+        public void ShowBuildingPlacementPanel()
+        {
+            bldgPlacePanel.Visible = true;
+        }
+
         public void SetDebugText(string text) {
             debugPanel.SetDebugText(text);
         }

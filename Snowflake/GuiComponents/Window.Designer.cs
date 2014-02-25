@@ -100,14 +100,19 @@ namespace Snowflake.GuiComponents {
         }
 
         public virtual void Dispose() {
-            ParentPanel.GUI.Controls.Remove(ParentPanel);
-            foreach (Control c in ParentPanel.Controls) {
-                c.Dispose();
+            if (ParentPanel.GUI != null)
+            {
+                ParentPanel.GUI.Controls.Remove(ParentPanel);
             }
-            try { ParentPanel.Dispose(); }
-            catch (NullReferenceException e) {
-                DebugPanel.ActiveInstance[2] = e.Message;
-            }
+                foreach (Control c in ParentPanel.Controls)
+                {
+                    c.Dispose();
+                }
+                try { ParentPanel.Dispose(); }
+                catch (NullReferenceException e)
+                {
+                    DebugPanel.ActiveInstance[2] = e.Message;
+                }
         }
 
         private void keepWindowSorting() {

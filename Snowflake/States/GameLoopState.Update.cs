@@ -157,6 +157,7 @@ namespace Snowflake.States
                                 //Then dispose the cursor building as the game will be making a new one very shortly
                                 this.cursorBuilding.Dispose();
                                 this.cursorBuilding = null;
+                                this.GuiMgr.HideBuildingPlacementPanel();
                                 this.mouseMode = MouseMode.Selection;
                             }
                         }

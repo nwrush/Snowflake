@@ -128,6 +128,7 @@ namespace Snowflake.States {
         public void createUI() {
             GuiMgr = new GuiManager();
             GuiMgr.CreateDefaultGui(StateMgr.GuiSystem);
+            GuiMgr.HideBuildingPlacementPanel();
         }
 
         /// <summary>

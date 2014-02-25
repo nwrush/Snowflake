@@ -171,6 +171,7 @@ namespace Snowflake {
             rb.IsVirtual = true;
             GameMgr.SetCursorBuilding(rb);
             GameMgr.SetMouseMode(MouseMode.PlacingBuilding);
+            GuiMgr.ShowBuildingPlacementPanel();
         }
             
         /// <summary>

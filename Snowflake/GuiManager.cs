@@ -83,6 +83,11 @@ namespace Snowflake {
             });*/
         }
 
+        public GUI GetGui()
+        {
+            return this.Gui;
+        }
+
         public void SetCurrentCursorBuilding(RenderableBuilding b)
         {
             bldgPlacePanel.SetRenderBldg(b);

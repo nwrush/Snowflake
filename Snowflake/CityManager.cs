@@ -262,6 +262,11 @@ namespace Snowflake {
             }
         }
 
+        public static List<Building> GetSelectedBuildings()
+        {
+            return selectedBuildings;
+        }
+
         /// <summary>
         /// Gives the 2D plot coordinates of a given 3D point
         /// </summary>

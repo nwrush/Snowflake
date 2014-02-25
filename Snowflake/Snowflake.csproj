@@ -121,6 +121,10 @@
     <Compile Include="GuiComponents\Windows\BuildingCreationWindow.Designer.cs">
       <DependentUpon>BuildingCreationWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiComponents\Windows\BuildingPropertiesWindow.cs" />
+    <Compile Include="GuiComponents\Windows\BuildingPropertiesWindow.Designer.cs">
+      <DependentUpon>BuildingPropertiesWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiManager.cs" />
     <Compile Include="Modules\MoisManager.cs" />
     <Compile Include="Modules\OgreEventArgs.cs" />

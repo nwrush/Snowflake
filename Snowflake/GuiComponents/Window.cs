@@ -37,6 +37,11 @@ namespace Snowflake.GuiComponents {
                 this.CloseButton.Visible = HasCloseButton && value;
             }
         }
+        public Point Location
+        {
+            get { return this.ParentPanel.Location; }
+            set { this.ParentPanel.Location = value; }
+        }
 
         public virtual void Show() {
             this.Visible = true;

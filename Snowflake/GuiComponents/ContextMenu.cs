@@ -51,8 +51,13 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         /// <param name="c">Control to remove</param>
         public void RemoveControl(Control c) {
+            c.Dispose();
             parentPanel.Controls.Remove(c);
-            parentPanel.Height -= c.Height;
+            parentPanel.Height = parentPanel.Height - c.Height;
+            if (parentPanel.Height <= 0)
+            {
+                parentPanel.Height = 200;
+            }
             items.Remove(c);
             c.Click -= contextMenuClick;
         }

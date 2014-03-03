@@ -140,11 +140,11 @@ namespace Snowflake.GuiComponents {
             {
                 Location = new Point(buildToolbar.Location.X + buildToolbar.Width, buildToolbar.Location.Y),
             };
-            buildingsBar.Buttons().Add("New Building", new PictureButton()
+            buildingsBar.Buttons().Add("New Residential Building", new PictureButton()
             {
                 Size = new Size(boxsize, boxsize),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
-                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewBuilding"],
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewResidential"],
                 PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>

@@ -64,12 +64,12 @@ namespace Snowflake.GuiComponents
                 Size = new Size(boxwidth, boxheight),
                 Movable = false,
                 ResizeMode = ResizeModes.None,
-                MinSize = new Size(boxwidth, expandersize),
+                MinSize = (vertical ? new Size(boxwidth, expandersize) : new Size(expandersize, boxheight)),
                 MaxSize = new Size(boxwidth, boxheight),
                 ResizeThreshold = new Thickness(0),
                 BorderStyle =
                 {
-                    Thickness = new Thickness(1, 0, 1, 1)
+                    Thickness = (vertical ? new Thickness(1, 0, 1, 1) : new Thickness(0, 1, 1, 1))
                 },
                 Skin = ResourceManager.Skins["BlackPanelSkin"],
                 AlwaysOnBottom = true,

@@ -107,7 +107,6 @@
       <DependentUpon>GameConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiComponents\IGuiComponent.cs" />
-    <Compile Include="GuiComponents\IGuiToolbar.cs" />
     <Compile Include="GuiComponents\PictureButton.cs" />
     <Compile Include="GuiComponents\TopContainer.cs" />
     <Compile Include="GuiComponents\TopContainer.Designer.cs">

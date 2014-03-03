@@ -18,7 +18,6 @@ namespace Snowflake.GuiComponents.Windows
 {
     public partial class BuildingPropertiesWindow
     {
-        private Label typeLabel;
         public override void CreateGui(GUI gui)
         {
             base.CreateGui(gui);
@@ -28,7 +27,8 @@ namespace Snowflake.GuiComponents.Windows
             {
                 Alignment = Alignment.TopRight,
                 ForegroundColour = new Colour(255, 192, 192, 192),
-                Font = ResourceManager.Fonts["Subtitle"]
+                Font = ResourceManager.Fonts["Subtitle"],
+                Offset = new Point(-10, 10)
             };
 
             UpdateBuildingInfo();

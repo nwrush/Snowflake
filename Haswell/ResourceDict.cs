@@ -5,13 +5,13 @@ using System.Text;
 
 namespace Haswell {
     public class ResourceDict : IDictionary<ResourceType, int> {
-        private Dictionary<ResourceType, int> resources;
+        private Dictionary<ResourceType, float> resources;
 
         /// <summary>
         /// Initializes a new ResourceDict using the default values
         /// </summary>
         public ResourceDict() {
-            this.resources = new Dictionary<ResourceType, int>();
+            this.resources = new Dictionary<ResourceType, float>();
             this.resources.Add(ResourceType.Money, 0);
             this.resources.Add(ResourceType.Population, 0);
             this.resources.Add(ResourceType.Energy, 0);
@@ -21,8 +21,8 @@ namespace Haswell {
         /// Initializes a new Resource Dict from a Dictionary of Resource Types
         /// </summary>
         /// <param name="r">The dictionary to use in creation</param>
-        public ResourceDict(Dictionary<ResourceType, int> r) {
-            this.resources = new Dictionary<ResourceType, int>(r);
+        public ResourceDict(Dictionary<ResourceType, float> r) {
+            this.resources = new Dictionary<ResourceType, float>(r);
         }
 
         #region IDictionary Stuff
@@ -42,15 +42,15 @@ namespace Haswell {
             return this.resources.Remove(key);
         }
 
-        public bool TryGetValue(ResourceType key, out int value) {
+        public bool TryGetValue(ResourceType key, out float value) {
             return this.resources.TryGetValue(key, out value);
         }
 
-        public ICollection<int> Values {
+        public ICollection<float> Values {
             get { return this.resources.Values; }
         }
 
-        public int this[ResourceType key] {
+        public float this[ResourceType key] {
             get {
                 return this.resources[key];
             }
@@ -67,7 +67,7 @@ namespace Haswell {
             this.resources.Clear();
         }
 
-        public bool Contains(KeyValuePair<ResourceType, int> item) {
+        public bool Contains(KeyValuePair<ResourceType, float> item) {
             return this.resources.Contains(item);
         }
 
@@ -87,7 +87,7 @@ namespace Haswell {
             return this.resources.Remove(item.Key);
         }
 
-        public IEnumerator<KeyValuePair<ResourceType, int>> GetEnumerator() {
+        public IEnumerator<KeyValuePair<ResourceType, float>> GetEnumerator() {
             return this.resources.GetEnumerator();
         }
 

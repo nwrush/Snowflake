@@ -55,16 +55,13 @@ namespace Haswell {
             return false;
         }
 
-        public void Delete(Building b)
-        {
+        public void Delete(Building b) {
             this.buildings.Remove(b);
             if (b.Parent != null) { b.Parent = null; }
         }
 
-        public void DeleteAllBuildings()
-        {
-            foreach (Building b in buildings)
-            {
+        public void DeleteAllBuildings() {
+            foreach (Building b in buildings) {
                 b.Delete();
             }
             this.buildings.Clear();
@@ -76,11 +73,12 @@ namespace Haswell {
             }
             UpdateCityResources(cityResources);
         }
-        public void UpdateHour(ResourceDict cityResources) {
-            foreach (Building b in buildings) {
-                b.UpdateHour(this.resource);
-            }
-        }
+        public void UpdateHour(ResourceDict cityResources) { }
+        public void UpdateDaily(ResourceDict cityResources) { }
+        public void UpdateWeekly(ResourceDict cityResources) { }
+        public void UpdateMonthly(ResourceDict cityResources) { }
+        public void UpdateYearly(ResourceDict cityResources) { }
+
         private void UpdateCityResources(ResourceDict cityResources) {
             foreach (KeyValuePair<ResourceType, int> kvp in this.resource) {
                 if (cityResources.ContainsKey(kvp.Key)) {

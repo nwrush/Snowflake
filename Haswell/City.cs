@@ -32,6 +32,7 @@ namespace Haswell {
             this.zones = new List<Zone>();
 
             initResources();
+            initUpdateMethods();
         }
         /// <summary>
         /// Sets the default Resource values
@@ -43,6 +44,23 @@ namespace Haswell {
             this.resources[ResourceType.Money] = 10000;
             this.resources[ResourceType.Population] = 10000;
         }
+        /// <summary>
+        /// Adds the timed event handlers to the controller
+        /// </summary>
+        private void initUpdateMethods() {
+            Controller.Environment.Hourly += Environment_Hourly;
+            Controller.Environment.Daily += Environment_Daily;
+            Controller.Environment.Weekly += Environment_Weekly;
+            Controller.Environment.Monthly += Environment_Monthly;
+            Controller.Environment.Yearly += Environment_Yearly;
+        }
+
+        void Environment_Hourly(object sender, TimeEventArgs e) { this.UpdateHour(e.Time); }
+        void Environment_Daily(object sender, TimeEventArgs e) { this.UpdateDaily(e.Time); }
+        void Environment_Weekly(object sender, TimeEventArgs e) { this.UpdateWeekly(e.Time); }
+        void Environment_Monthly(object sender, TimeEventArgs e) { this.UpdateMonthly(e.Time); }
+        void Environment_Yearly(object sender, TimeEventArgs e) { this.UpdateYearly(e.Time); }
+
         /// <summary>
         /// Called by Snowflake when the user requests the creation of a building
         /// Throws an error if something goes wrong.
@@ -85,11 +103,11 @@ namespace Haswell {
                 p.Update(this.resources);
             }
         }
-        public void UpdateHour(float gametime) {
-            foreach (Plot p in grid) {
-                p.UpdateHour(this.resources);
-            }
-        }
+        public void UpdateHour(DateTime time) { }
+        public void UpdateDaily(DateTime time) { }
+        public void UpdateWeekly(DateTime time) { }
+        public void UpdateMonthly(DateTime time) { }
+        public void UpdateYearly(DateTime time) { }
 
         public override string ToString() {
             return "City " + this.name + ", with a population of " + this.Resources[ResourceType.Population] + ".";

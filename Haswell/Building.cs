@@ -18,6 +18,7 @@ namespace Haswell {
             this.resouceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;
         }
+
         protected Building(Dictionary<ResourceType, int> resource, Zone.Type zone)
             : this(zone) {
             this.resouceChanges = resource;

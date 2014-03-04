@@ -16,7 +16,7 @@ namespace Snowflake.GuiComponents
 
         public void Initialize()
         {
-
+            this.Visible = false;
         }
 
         private void CreateRenderSystem()

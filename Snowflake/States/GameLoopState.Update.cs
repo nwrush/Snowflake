@@ -5,6 +5,9 @@ using Mogre;
 
 using Snowflake.Modules;
 using Snowflake.GuiComponents;
+using Snowflake.GuiComponents.Windows;
+
+using Haswell;
 
 using Miyagi.Common;
 using Miyagi.Common.Data;
@@ -15,7 +18,6 @@ using MOIS;
 
 using Vector3 = Mogre.Vector3;
 using Quaternion = Mogre.Quaternion;
-
 
 namespace Snowflake.States
 {
@@ -108,6 +110,31 @@ namespace Snowflake.States
                     else
                     {
                         ContextMenu.Location = new Point(mStateMgr.Input.MousePosX, mStateMgr.Input.MousePosY);
+
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                        if (result.first)
+                        {
+                            CityManager.UpdateSelectionBox(result.second);
+                        }
+                        UpdateSelectionBox();
+                        CityManager.MakeSelection();
+
+                        if (CityManager.GetSelectedBuildings().Count > 0)
+                        {
+                            ContextMenu.AddButton("Properties...", (object sender, EventArgs e) =>
+                            {
+                                int i = 0;
+                                foreach (Building b in CityManager.GetSelectedBuildings())
+                                {
+                                    BuildingPropertiesWindow bpw = new BuildingPropertiesWindow(b);
+                                    bpw.CreateGui(this.GuiMgr.GetGui());
+                                    bpw.Location += new Point(i * 24, i * 24);
+                                    ++i;
+                                }
+                                ContextMenu.RemoveButton("Properties...");
+                            });
+                        }
+                        CityManager.ClearSelection();
                         ContextMenu.Visible = true;
                     }
                 }
@@ -125,10 +152,14 @@ namespace Snowflake.States
                             newBuilding.Invoke(null, new object[] { this.cursorBuilding.PlotX, this.cursorBuilding.PlotY });
                             gConsole.WriteLine("Placing building...");
 
-                            //Then dispose the cursor building as the game will be making a new one very shortly
-                            this.cursorBuilding.Dispose();
-                            this.cursorBuilding = null;
-                            this.mouseMode = MouseMode.Selection;
+                            if (!mStateMgr.Input.IsKeyDown(KeyCode.KC_LSHIFT))
+                            {
+                                //Then dispose the cursor building as the game will be making a new one very shortly
+                                this.cursorBuilding.Dispose();
+                                this.cursorBuilding = null;
+                                this.GuiMgr.HideBuildingPlacementPanel();
+                                this.mouseMode = MouseMode.Selection;
+                            }
                         }
 
                         if (canSelect())

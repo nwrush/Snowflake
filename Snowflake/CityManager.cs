@@ -171,6 +171,7 @@ namespace Snowflake {
             rb.IsVirtual = true;
             GameMgr.SetCursorBuilding(rb);
             GameMgr.SetMouseMode(MouseMode.PlacingBuilding);
+            GuiMgr.ShowBuildingPlacementPanel();
         }
             
         /// <summary>
@@ -260,6 +261,11 @@ namespace Snowflake {
             {
                 b.Delete();
             }
+        }
+
+        public static List<Building> GetSelectedBuildings()
+        {
+            return selectedBuildings;
         }
 
         /// <summary>

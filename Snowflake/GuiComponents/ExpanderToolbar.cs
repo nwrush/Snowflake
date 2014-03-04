@@ -11,7 +11,7 @@ using Snowflake.Modules;
 namespace Snowflake.GuiComponents
 {
     
-    public partial class ExpanderToolbar : IGuiToolbar
+    public partial class ExpanderToolbar
     {
         private bool expanded = false;
         private bool fullyHide = false;
@@ -22,6 +22,11 @@ namespace Snowflake.GuiComponents
         public bool visible = false;
         public Point Location;
 
+        public event EventHandler Hidden;
+        public event EventHandler FullyHidden;
+        public event EventHandler Shown;
+        public event EventHandler FullyShown;
+
         public ExpanderToolbar(bool _vertical, int _boxwidth, int _boxheight, int _padding, int _expandersize)
         {
             vertical = _vertical;
@@ -29,6 +34,7 @@ namespace Snowflake.GuiComponents
             boxheight = _boxheight;
             padding = _padding;
             expandersize = _expandersize;
+            if (expandersize <= 0) { fullyHide = true; }
 
             buttons = new Dictionary<string, Miyagi.UI.Controls.Button>();
         }
@@ -42,14 +48,18 @@ namespace Snowflake.GuiComponents
             if (horizontal) { ParentPanel.Width = (fullyHide ? 0 : expandersize); }
             RedoLayout();
         }
-        public int Height()
+        public int Height
         {
-            return ParentPanel.Height;
+            get { return ParentPanel.Height; }
+        }
+        public int Width
+        {
+            get { return ParentPanel.Width; }
         }
         /// <summary>
         /// Shows (expands) the toolbar
         /// </summary>
-        public void Show() { Expand(); visible = true; }
+        public void Show() { Expand(); visible = true; if (Shown != null) { Shown.Invoke(this, new EventArgs()); } }
         /// <summary>
         /// Expands the toolbar
         /// </summary>
@@ -61,7 +71,7 @@ namespace Snowflake.GuiComponents
         /// <summary>
         /// Hides (contracts) the toolbar
         /// </summary>
-        public void Hide() { Contract(); visible = false; }
+        public void Hide() { Contract(); visible = false; if (Hidden != null) { Hidden.Invoke(this, new EventArgs()); } }
         /// <summary>
         /// Contracts the toolbar
         /// </summary>
@@ -81,12 +91,27 @@ namespace Snowflake.GuiComponents
             int i = 1;
             foreach (KeyValuePair<string, Button> kvp in buttons)
             {
-                kvp.Value.Location = new Point(0, (int)_height - expandersize - boxwidth * i - padding * (2 * i - 1));
+                if (vertical) { kvp.Value.Location = new Point(0, (int)_height - expandersize - boxwidth * i - padding * (2 * i - 1)); }
+                else if (horizontal) { kvp.Value.Location = new Point((int)_width - expandersize - boxheight * i - padding * (2 * i - 1), 0); }
                 if (kvp.Key == "Expand") { continue; }
                 ++i;
             }
+            if (horizontal) {
+                if (fullyHide && ParentPanel.Width <= 2)
+                {
+                    ParentPanel.BorderStyle = new Miyagi.UI.Controls.Styles.BorderStyle()
+                    {
+                        Thickness = new Miyagi.Common.Data.Thickness(0, 1, 0, 1)
+                    };
+                }
+                else {
+                    ParentPanel.BorderStyle = new Miyagi.UI.Controls.Styles.BorderStyle()
+                    {
+                        Thickness = new Miyagi.Common.Data.Thickness(0, 1, 1, 1)
+                    };
+                }
+            }
         }
-
         public void Update(float frametime)
         {
             this.ParentPanel.Location = this.Location;
@@ -95,12 +120,20 @@ namespace Snowflake.GuiComponents
                 if (expanded && ParentPanel.Height < boxheight)
                 {
                     _height += ((boxheight - _height) * 0.05f);
+                    if (_height >= boxheight)
+                    {
+                        if (FullyShown != null) { FullyShown.Invoke(this, new EventArgs()); }
+                    }
                     ParentPanel.Height = (int)_height;
                     RedoLayout();
                 }
                 else if (!expanded && ParentPanel.Height > (fullyHide ? 0 : expandersize))
                 {
                     _height -= ((_height - (fullyHide ? 0 : expandersize)) * 0.05f);
+                    if ((int)_height <= (fullyHide ? 0 : expandersize))
+                    {
+                        if (FullyHidden != null) { FullyHidden.Invoke(this, new EventArgs()); }
+                    }
                     ParentPanel.Height = (int)_height;
                     RedoLayout();
                 }
@@ -110,12 +143,20 @@ namespace Snowflake.GuiComponents
                 if (expanded && ParentPanel.Width < boxwidth)
                 {
                     _width += ((boxwidth - _width) * 0.05f);
+                    if (_width >= boxwidth)
+                    {
+                        if (FullyShown != null) { FullyShown.Invoke(this, new EventArgs()); }
+                    }
                     ParentPanel.Width = (int)_width;
                     RedoLayout();
                 }
                 else if (!expanded && ParentPanel.Width > (fullyHide ? 0 : expandersize))
                 {
                     _width -= ((_width - (fullyHide ? 0 : expandersize)) * 0.05f);
+                    if ((int)_width <= (fullyHide ? 0 : expandersize))
+                    {
+                        if (FullyHidden != null) { FullyHidden.Invoke(this, new EventArgs()); }
+                    }
                     ParentPanel.Width = (int)_width;
                     RedoLayout();
                 }

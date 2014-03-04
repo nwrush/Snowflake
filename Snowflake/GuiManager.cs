@@ -83,9 +83,23 @@ namespace Snowflake {
             });*/
         }
 
+        public GUI GetGui()
+        {
+            return this.Gui;
+        }
+
         public void SetCurrentCursorBuilding(RenderableBuilding b)
         {
             bldgPlacePanel.SetRenderBldg(b);
+        }
+
+        public void HideBuildingPlacementPanel()
+        {
+            bldgPlacePanel.Visible = false;
+        }
+        public void ShowBuildingPlacementPanel()
+        {
+            bldgPlacePanel.Visible = true;
         }
 
         public void SetDebugText(string text) {

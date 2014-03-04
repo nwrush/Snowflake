@@ -107,7 +107,6 @@
       <DependentUpon>GameConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiComponents\IGuiComponent.cs" />
-    <Compile Include="GuiComponents\IGuiToolbar.cs" />
     <Compile Include="GuiComponents\PictureButton.cs" />
     <Compile Include="GuiComponents\TopContainer.cs" />
     <Compile Include="GuiComponents\TopContainer.Designer.cs">
@@ -120,6 +119,10 @@
     <Compile Include="GuiComponents\Windows\BuildingCreationWindow.cs" />
     <Compile Include="GuiComponents\Windows\BuildingCreationWindow.Designer.cs">
       <DependentUpon>BuildingCreationWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GuiComponents\Windows\BuildingPropertiesWindow.cs" />
+    <Compile Include="GuiComponents\Windows\BuildingPropertiesWindow.Designer.cs">
+      <DependentUpon>BuildingPropertiesWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiManager.cs" />
     <Compile Include="Modules\MoisManager.cs" />

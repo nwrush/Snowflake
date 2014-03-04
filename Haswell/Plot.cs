@@ -76,6 +76,11 @@ namespace Haswell {
             }
             UpdateCityResources(cityResources);
         }
+        public void UpdateHour(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateHour(this.resource);
+            }
+        }
         private void UpdateCityResources(ResourceDict cityResources) {
             foreach (KeyValuePair<ResourceType, int> kvp in this.resource) {
                 if (cityResources.ContainsKey(kvp.Key)) {

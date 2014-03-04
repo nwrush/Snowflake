@@ -5,7 +5,6 @@ using System.Text;
 
 namespace Haswell {
     public class City {
-        //Getting an execuateble directly from someone is less sketchy-
 
         private string name;
         private InfiniteGrid grid;
@@ -61,10 +60,8 @@ namespace Haswell {
             throw new Exceptions.BuildingCreationFailedException("Building creation failed");
         }
 
-        public void DeleteBuilding(int x, int y)
-        {
-            if (grid.ElementAt(x, y).GetAllBuildings.Count > 0)
-            {
+        public void DeleteBuilding(int x, int y) {
+            if (grid.ElementAt(x, y).GetAllBuildings.Count > 0) {
                 grid.ElementAt(x, y).DeleteAllBuildings();
             }
         }
@@ -86,6 +83,11 @@ namespace Haswell {
         public void Update(float gametime) {
             foreach (Plot p in grid) {
                 p.Update(this.resources);
+            }
+        }
+        public void UpdateHour(float gametime) {
+            foreach (Plot p in grid) {
+                p.UpdateHour(this.resources);
             }
         }
 

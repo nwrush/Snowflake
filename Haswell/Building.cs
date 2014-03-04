@@ -34,16 +34,19 @@ namespace Haswell {
                 }
             }
         }
+        public virtual void UpdateHour(ResourceDict plotResources) { }
+        public virtual void UpdateDaily(ResourceDict plotResources) { }
+        public virtual void UpdateWeekly(ResourceDict plotResources) { }
+        public virtual void UpdateMonthly(ResourceDict plotResources) { }
+        public virtual void UpdateYearly(ResourceDict plotResources) { }
 
         public void Delete() {
-            if (Deleted != null)
-            {
+            if (Deleted != null) {
                 Deleted.Invoke(this, new EventArgs());
             }
         }
 
-        private void OnDeleted(object sender, EventArgs e)
-        {
+        private void OnDeleted(object sender, EventArgs e) {
             this.Parent.Delete(this);
             this.Parent = null;
             //Do a thing

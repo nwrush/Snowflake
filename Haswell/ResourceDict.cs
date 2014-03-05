@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    public class ResourceDict : IDictionary<ResourceType, int> {
+    public class ResourceDict : IDictionary<ResourceType, float> {
         private Dictionary<ResourceType, float> resources;
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Haswell {
         }
 
         #region IDictionary Stuff
-        public void Add(ResourceType key, int value) {
+        public void Add(ResourceType key, float value) {
             resources.Add(key, value);
         }
 
@@ -59,7 +59,7 @@ namespace Haswell {
             }
         }
 
-        public void Add(KeyValuePair<ResourceType, int> item) {
+        public void Add(KeyValuePair<ResourceType, float> item) {
             this.resources.Add(item.Key, item.Value);
         }
 
@@ -71,7 +71,7 @@ namespace Haswell {
             return this.resources.Contains(item);
         }
 
-        public void CopyTo(KeyValuePair<Type, int>[] array, int arrayIndex) {
+        public void CopyTo(KeyValuePair<Type, float>[] array, int arrayIndex) {
             throw new NotImplementedException();
         }
 
@@ -83,7 +83,7 @@ namespace Haswell {
             get { return false; }
         }
 
-        public bool Remove(KeyValuePair<ResourceType, int> item) {
+        public bool Remove(KeyValuePair<ResourceType, float> item) {
             return this.resources.Remove(item.Key);
         }
 
@@ -94,7 +94,7 @@ namespace Haswell {
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             return this.resources.GetEnumerator();
         }
-        public void CopyTo(KeyValuePair<ResourceType, int>[] array, int arrayIndex) {
+        public void CopyTo(KeyValuePair<ResourceType, float>[] array, int arrayIndex) {
             throw new NotImplementedException();
         }
         #endregion

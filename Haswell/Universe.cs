@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Haswell {
     public class Universe {
@@ -30,9 +31,18 @@ namespace Haswell {
         public event EventHandler<TimeEventArgs> Biannually;
         public event EventHandler<TimeEventArgs> Yearly;
 
+        private Thread HourlyUpdate;
+        private Thread DailyUpdate;
+        private Thread WeeklyUpdate;
+        private Thread MonthlyUpdate;
+        private Thread QuaterlyUpdate;
+        private Thread BiannuallyUpdate;
+        private Thread YearlyUpdate;
+
         public Universe() {
             Timescale = 1.0f;
 
+            
         }
 
         public void Update(float frametime) {

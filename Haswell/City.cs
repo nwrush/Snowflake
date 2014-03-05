@@ -52,13 +52,18 @@ namespace Haswell {
             Controller.Environment.Daily += Environment_Daily;
             Controller.Environment.Weekly += Environment_Weekly;
             Controller.Environment.Monthly += Environment_Monthly;
+            Controller.Environment.Quarterly += Environment_Quarterly;
+            Controller.Environment.Biannually += Environment_Biannually;
             Controller.Environment.Yearly += Environment_Yearly;
         }
+
 
         void Environment_Hourly(object sender, TimeEventArgs e) { this.UpdateHour(e.Time); }
         void Environment_Daily(object sender, TimeEventArgs e) { this.UpdateDaily(e.Time); }
         void Environment_Weekly(object sender, TimeEventArgs e) { this.UpdateWeekly(e.Time); }
         void Environment_Monthly(object sender, TimeEventArgs e) { this.UpdateMonthly(e.Time); }
+        void Environment_Quarterly(object sender, TimeEventArgs e) { this.UpdateQuaterly(e.Time); }
+        void Environment_Biannually(object sender, TimeEventArgs e) { this.UpdateBiannually(e.Time); }
         void Environment_Yearly(object sender, TimeEventArgs e) { this.UpdateYearly(e.Time); }
 
         /// <summary>
@@ -103,11 +108,41 @@ namespace Haswell {
                 p.Update(this.resources);
             }
         }
-        public void UpdateHour(DateTime time) { }
-        public void UpdateDaily(DateTime time) { }
-        public void UpdateWeekly(DateTime time) { }
-        public void UpdateMonthly(DateTime time) { }
-        public void UpdateYearly(DateTime time) { }
+        public void UpdateHour(DateTime time) {
+            foreach (Plot p in this.grid) {
+                p.UpdateHour(this.resources);
+            }
+        }
+        public void UpdateDaily(DateTime time) {
+            foreach (Plot p in this.grid) {
+                p.UpdateDaily(this.resources);
+            }
+        }
+        public void UpdateWeekly(DateTime time) {
+            foreach (Plot p in this.grid) {
+                p.UpdateWeekly(this.resources);
+            }
+        }
+        public void UpdateMonthly(DateTime time) {
+            foreach (Plot p in this.grid) {
+                p.UpdateMonthly(this.resources);
+            }
+        }
+        public void UpdateQuaterly(DateTime time) {
+            foreach (Plot p in this.grid) {
+                p.UpdateQuaterly(this.resources);
+            }
+        }
+        public void UpdateBiannually(DateTime time) {
+            foreach (Plot p in this.grid) {
+                p.UpdateBiannually(this.resources);
+            }
+        }
+        public void UpdateYearly(DateTime time) {
+            foreach (Plot p in this.grid) {
+                p.UpdateYearly(this.resources);
+            }
+        }
 
         public override string ToString() {
             return "City " + this.name + ", with a population of " + this.Resources[ResourceType.Population] + ".";

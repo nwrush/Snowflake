@@ -40,8 +40,8 @@ namespace Haswell.Buildings {
             base.UpdateQuaterly(pltRes);
         }
 
-        public override void UpdataBiannually(ResourceDict pltRes) {
-            base.UpdataBiannually(pltRes);
+        public override void UpdateBiannually(ResourceDict pltRes) {
+            base.UpdateBiannually(pltRes);
         }
 
         public override void UpdateYearly(ResourceDict pltRes) {

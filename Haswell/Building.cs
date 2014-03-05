@@ -39,7 +39,7 @@ namespace Haswell {
         public virtual void UpdateWeekly(ResourceDict plotResources) { }
         public virtual void UpdateMonthly(ResourceDict plotResources) { }
         public virtual void UpdateQuaterly(ResourceDict plotResources) { }
-        public virtual void UpdataBiannually(ResourceDict plotResources) { }
+        public virtual void UpdateBiannually(ResourceDict plotResources) { }
         public virtual void UpdateYearly(ResourceDict plotResources) { }
 
         public void Delete() {

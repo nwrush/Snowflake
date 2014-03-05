@@ -73,11 +73,41 @@ namespace Haswell {
             }
             UpdateCityResources(cityResources);
         }
-        public void UpdateHour(ResourceDict cityResources) { }
-        public void UpdateDaily(ResourceDict cityResources) { }
-        public void UpdateWeekly(ResourceDict cityResources) { }
-        public void UpdateMonthly(ResourceDict cityResources) { }
-        public void UpdateYearly(ResourceDict cityResources) { }
+        public void UpdateHour(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateHour(this.resource);
+            }
+        }
+        public void UpdateDaily(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateDaily(this.resource);
+            }
+        }
+        public void UpdateWeekly(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateWeekly(this.resource);
+            }
+        }
+        public void UpdateMonthly(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateMonthly(this.resource);
+            }
+        }
+        public void UpdateQuaterly(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateQuaterly(this.resource);
+            }
+        }
+        public void UpdateBiannually(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateBiannually(this.resource);
+            }
+        }
+        public void UpdateYearly(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateYearly(this.resource);
+            }
+        }
 
         private void UpdateCityResources(ResourceDict cityResources) {
             foreach (KeyValuePair<ResourceType, float> kvp in this.resource) {

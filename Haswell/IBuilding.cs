@@ -13,7 +13,7 @@ namespace Haswell {
         void UpdateWeekly(ResourceDict plotResources);
         void UpdateMonthly(ResourceDict plotResources);
         void UpdateQuaterly(ResourceDict plotResources);
-        void UpdataBiannually(ResourceDict plotResources);
+        void UpdateBiannually(ResourceDict plotResources);
         void UpdateYearly(ResourceDict plotResources);
     }
 }

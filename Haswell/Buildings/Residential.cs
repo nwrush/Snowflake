@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell.Buildings {
-    public class Residential : Building {
+    public class Residential : Building, IBuilding {
         private int _residents;
         private float _income;
 
@@ -18,15 +18,38 @@ namespace Haswell.Buildings {
             this._income = income;
         }
 
-        public override void Update(ResourceDict plotResources) { base.Update(plotResources); }
-        public override void UpdateHour(ResourceDict plotResources) { base.UpdateHour(plotResources); }
-        public override void UpdateDaily(ResourceDict plotResources) { base.UpdateHour(plotResources); }
-        public override void UpdateWeekly(ResourceDict plotResources) { base.UpdateHour(plotResources); }
-        public override void UpdateMonthly(ResourceDict plotResources) { base.UpdateHour(plotResources); }
-        public override void UpdateYearly(ResourceDict plotResources) { base.UpdateHour(plotResources); }
+        public override void Update(ResourceDict pltRes) { base.Update(pltRes); }
 
-        protected void PayTaxes(double plotMoney) {
-            plotMoney += this._income * 0.15;
+        public override void UpdateHour(ResourceDict pltRes) {
+            base.UpdateHour(pltRes);
+        }
+
+        public override void UpdateDaily(ResourceDict pltRes) {
+            base.UpdateDaily(pltRes);
+        }
+
+        public override void UpdateWeekly(ResourceDict pltRes) {
+            base.UpdateWeekly(pltRes);
+        }
+
+        public override void UpdateMonthly(ResourceDict pltRes) {
+            base.UpdateMonthly(pltRes);
+        }
+
+        public override void UpdateQuaterly(ResourceDict pltRes) {
+            base.UpdateQuaterly(pltRes);
+        }
+
+        public override void UpdataBiannually(ResourceDict pltRes) {
+            base.UpdataBiannually(pltRes);
+        }
+
+        public override void UpdateYearly(ResourceDict pltRes) {
+            PayTaxes(pltRes[ResourceType.Money]);
+            base.UpdateYearly(pltRes);
+        }
+        protected void PayTaxes(float plotMoney) {
+            plotMoney += this._income * 0.15f;
         }
     }
 }

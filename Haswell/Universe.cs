@@ -26,6 +26,8 @@ namespace Haswell {
         public event EventHandler<TimeEventArgs> Daily;
         public event EventHandler<TimeEventArgs> Weekly;
         public event EventHandler<TimeEventArgs> Monthly;
+        public event EventHandler<TimeEventArgs> Quarterly;
+        public event EventHandler<TimeEventArgs> Biannually;
         public event EventHandler<TimeEventArgs> Yearly;
 
         public Universe() {
@@ -42,26 +44,27 @@ namespace Haswell {
             DateTime _prevTime = this.CurrentTime;
             Time += Timescale;
             this.CurrentTime = new DateTime(1970, 1, 1).AddMinutes(this.Time / Universe.MinuteLength);
-            if (_prevTime.Hour != this.CurrentTime.Hour)
-            {
+            if (_prevTime.Hour != this.CurrentTime.Hour) {
                 //Todo: don't assume this update is being called once or more per hour. At fast
                 //timescales with low tickrates, this will not be the case!
                 if (Hourly != null) { Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
             }
-            if (_prevTime.Day != this.CurrentTime.Day)
-            {
+            if (_prevTime.Day != this.CurrentTime.Day) {
                 if (Daily != null) { Daily.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
             }
-            if (_prevTime.DayOfWeek != this.CurrentTime.DayOfWeek && this.CurrentTime.DayOfWeek == DayOfWeek.Monday)
-            {
+            if (_prevTime.DayOfWeek != this.CurrentTime.DayOfWeek && this.CurrentTime.DayOfWeek == DayOfWeek.Monday) {
                 if (Weekly != null) { Weekly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
             }
-            if (_prevTime.Month != this.CurrentTime.Month)
-            {
+            if (_prevTime.Month != this.CurrentTime.Month) {
                 if (Monthly != null) { Monthly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
             }
-            if (_prevTime.Year != this.CurrentTime.Year)
-            {
+            if (_prevTime.Month + 3 != this.CurrentTime.Month) {
+                if (Quarterly != null) { Quarterly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+            }
+            if (_prevTime.Month + 6 != this.CurrentTime.Month) {
+                if (Biannually != null) { Biannually.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+            }
+            if (_prevTime.Year != this.CurrentTime.Year) {
                 if (Yearly != null) { Yearly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
             }
 

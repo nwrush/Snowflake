@@ -6,9 +6,9 @@ using System.Text;
 namespace Haswell {
     public class Plot : IComparable<Plot> {
         public enum Zone {
-            residential,
-            commercial,
-            industrial
+            Residential,
+            Commercial,
+            Industrial
         };
 
         private ResourceDict resource;
@@ -80,7 +80,7 @@ namespace Haswell {
         public void UpdateYearly(ResourceDict cityResources) { }
 
         private void UpdateCityResources(ResourceDict cityResources) {
-            foreach (KeyValuePair<ResourceType, int> kvp in this.resource) {
+            foreach (KeyValuePair<ResourceType, float> kvp in this.resource) {
                 if (cityResources.ContainsKey(kvp.Key)) {
                     cityResources[kvp.Key] += kvp.Value;
                 }

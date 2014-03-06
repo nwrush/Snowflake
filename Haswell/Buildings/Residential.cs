@@ -18,7 +18,9 @@ namespace Haswell.Buildings {
             this._income = income;
         }
 
-        public override void Update(ResourceDict pltRes) { base.Update(pltRes); }
+        public override void Update(ResourceDict pltRes) {
+            base.Update(pltRes);
+        }
 
         public override void UpdateHour(ResourceDict pltRes) {
             base.UpdateHour(pltRes);
@@ -50,6 +52,15 @@ namespace Haswell.Buildings {
         }
         protected void PayTaxes(float plotMoney) {
             plotMoney += this._income * 0.15f;
+        }
+
+        public int Residents {
+            get {
+                return this._residents;
+            }
+            set {
+                this._residents = value;
+            }
         }
     }
 }

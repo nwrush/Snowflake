@@ -27,9 +27,7 @@ namespace Haswell {
             this.Deleted += OnDeleted;
         }
 
-        public virtual void Update(ResourceDict plotResources) {
-
-        }
+        public virtual void Update(ResourceDict plotResources) { }
         public virtual void UpdateHour(ResourceDict plotResources) { }
         public virtual void UpdateDaily(ResourceDict plotResources) { }
         public virtual void UpdateWeekly(ResourceDict plotResources) { }

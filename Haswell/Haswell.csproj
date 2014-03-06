@@ -59,6 +59,7 @@
     <Compile Include="City.cs" />
     <Compile Include="Events\TimeEventArgs.cs" />
     <Compile Include="IBuilding.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Universe.cs" />
     <Compile Include="Events\BuildingEventArgs.cs" />
     <Compile Include="Exceptions\BuildingCreationFailedException.cs" />

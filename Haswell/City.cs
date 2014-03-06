@@ -11,6 +11,7 @@ namespace Haswell {
 
         private List<Pipe> pipes;
         private List<Zone> zones;
+        private List<Person> Citizens;
 
         private ResourceDict resources;
 
@@ -30,6 +31,7 @@ namespace Haswell {
 
             this.pipes = new List<Pipe>();
             this.zones = new List<Zone>();
+            this.Citizens = new List<Person>();
 
             initResources();
             initUpdateMethods();
@@ -142,6 +144,7 @@ namespace Haswell {
             foreach (Plot p in this.grid) {
                 p.UpdateYearly(this.resources);
             }
+            this.Citizens.Sort();
         }
 
         public override string ToString() {

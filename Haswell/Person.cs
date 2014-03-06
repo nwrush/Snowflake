@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    class Person {
+    class Person :IComparable<Person>{
         private string _name;
         private int _age;
         private DateTime _birthDay;
@@ -117,6 +117,14 @@ namespace Haswell {
             set {
                 this._employer = value;
             }
+        }
+
+
+        /// <summary>
+        /// Compares this instance of the Person to others based on birthdate
+        /// </summary>
+        public int CompareTo(Person other) {
+            return this._birthDay.CompareTo(other._birthDay);
         }
     }
 }

@@ -15,8 +15,8 @@ namespace Haswell {
         private static Universe activeEnv;
          
         public static void init(string name) {
-            activeCity = new City(name);
             activeEnv = new Universe(/*later we'll pass some regional parameters in here*/);
+            activeCity = new City(name);
             System.IO.File.Delete("Snowflake.log");
         }
 

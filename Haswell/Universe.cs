@@ -32,17 +32,29 @@ namespace Haswell {
         public event EventHandler<TimeEventArgs> Yearly;
 
         private Thread HourlyUpdate;
+        private void InvokeHourlyUpdate() { Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+
         private Thread DailyUpdate;
+        private void InvokeDailyUpdate() { Daily.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+
         private Thread WeeklyUpdate;
+        private void InvokeWeeklyUpdate() { Weekly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+
         private Thread MonthlyUpdate;
+        private void InvokeMonthlyUpdate() { Monthly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+
         private Thread QuaterlyUpdate;
+        private void InvokeQuaterlyUpdate() { Quarterly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+
         private Thread BiannuallyUpdate;
+        private void InvokeBinannuallyUpdate() { Biannually.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+
         private Thread YearlyUpdate;
+        private void InvokeYearlyUpdate() { Yearly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
         public Universe() {
             Timescale = 1.0f;
 
-            
         }
 
         public void Update(float frametime) {
@@ -57,25 +69,43 @@ namespace Haswell {
             if (_prevTime.Hour != this.CurrentTime.Hour) {
                 //Todo: don't assume this update is being called once or more per hour. At fast
                 //timescales with low tickrates, this will not be the case!
-                if (Hourly != null) { Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+                if (Hourly != null) { this.HourlyUpdate = new Thread(this.InvokeHourlyUpdate); this.HourlyUpdate.Start(); }
             }
             if (_prevTime.Day != this.CurrentTime.Day) {
-                if (Daily != null) { Daily.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+                if (Daily != null) {
+                    this.DailyUpdate = new Thread(this.InvokeDailyUpdate);
+                    this.DailyUpdate.Start();
+                }
             }
             if (_prevTime.DayOfWeek != this.CurrentTime.DayOfWeek && this.CurrentTime.DayOfWeek == DayOfWeek.Monday) {
-                if (Weekly != null) { Weekly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+                if (Weekly != null) {
+                    this.WeeklyUpdate = new Thread(this.InvokeWeeklyUpdate);
+                    this.WeeklyUpdate.Start();
+                }
             }
             if (_prevTime.Month != this.CurrentTime.Month) {
-                if (Monthly != null) { Monthly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+                if (Monthly != null) {
+                    this.MonthlyUpdate = new Thread(this.InvokeMonthlyUpdate);
+                    this.MonthlyUpdate.Start();
+                }
             }
             if (_prevTime.Month + 3 != this.CurrentTime.Month) {
-                if (Quarterly != null) { Quarterly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+                if (Quarterly != null) {
+                    this.QuaterlyUpdate = new Thread(this.InvokeQuaterlyUpdate);
+                    this.QuaterlyUpdate.Start();
+                }
             }
             if (_prevTime.Month + 6 != this.CurrentTime.Month) {
-                if (Biannually != null) { Biannually.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+                if (Biannually != null) {
+                    this.BiannuallyUpdate = new Thread(this.InvokeBinannuallyUpdate);
+                    this.BiannuallyUpdate.Start();
+                }
             }
             if (_prevTime.Year != this.CurrentTime.Year) {
-                if (Yearly != null) { Yearly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+                if (Yearly != null) {
+                    this.YearlyUpdate = new Thread(this.InvokeYearlyUpdate);
+                    this.YearlyUpdate.Start();
+                }
             }
 
             //Further on in here, there will be some variables dictating weather conditions...timers and such.

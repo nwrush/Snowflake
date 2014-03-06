@@ -28,11 +28,7 @@ namespace Haswell {
         }
 
         public virtual void Update(ResourceDict plotResources) {
-            foreach (KeyValuePair<ResourceType, int> kvp in this.resouceChanges) {
-                if (plotResources.ContainsKey(kvp.Key)) {
-                    plotResources[kvp.Key] += kvp.Value;
-                }
-            }
+
         }
         public virtual void UpdateHour(ResourceDict plotResources) { }
         public virtual void UpdateDaily(ResourceDict plotResources) { }

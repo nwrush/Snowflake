@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    abstract class Person {
+    class Person {
         private string _name;
         private int _age;
+        private DateTime _birthDay;
 
         private Building _residence;
         private Building _employer;
@@ -37,11 +38,16 @@ namespace Haswell {
         public Person(string name, int age, float health, float education, float happiness, Building residence, Building employer) {
             this._name = name;
             this._age = age;
+            this._birthDay = Controller.Environment.CurrentTime;
             this._health = health;
             this._education = education;
             this._happiness = happiness;
             this._residence = residence;
             this._employer = employer;
+        }
+
+        public double CalculateIncome() {
+            throw new NotImplementedException("Calculate Income is not yet implemmented");
         }
 
         public int Age {

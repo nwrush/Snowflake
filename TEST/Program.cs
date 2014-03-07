@@ -9,9 +9,8 @@ namespace TEST {
         static List<Person> citizens = new List<Person>();
         static void Main(string[] args) {
             Haswell.Controller.init("Help");
-            while (true) {
-                citizens.Add(new Person("asd", 15, 1.0f, 1f, 1f));
-            }
+
+            Console.WriteLine("Done");
             Console.ReadKey();
         }
     }

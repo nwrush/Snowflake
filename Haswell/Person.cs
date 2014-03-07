@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    public class Person :IComparable<Person>{
+    public class Person : IComparable<Person> {
         private string _name;
         private int _age;
-        private DateTime _birthDay;
+        private uint _TTL;
 
         private Building _residence;
         private Building _employer;
@@ -24,7 +24,7 @@ namespace Haswell {
         /// <param name="health">Health of the person as a float between 0 and 1, with 0 as about to die and 1 as completely healthy</param>
         /// <param name="education">Education of the person as a float between 0 and 1, with 0 as no education and 1 as very educated</param>
         /// <param name="happiness">Happiness of the person as a float between 0 and 1, with 0 as very unhappy and 1 as completely satisfied</param>
-        public Person(string name, int age, float health, float education, float happiness) : this(name, age, health, education, happiness, null, null) { }
+        public Person(string name, int age, uint TTL, float health, float education, float happiness) : this(name, age, TTL, health, education, happiness, null, null) { }
         /// <summary>
         /// Constructs a person using the specified parameters
         /// </summary>
@@ -35,10 +35,10 @@ namespace Haswell {
         /// <param name="happiness">Happiness of the person as a float between 0 and 1, with 0 as very unhappy and 1 as completely satisfied</param>
         /// <param name="residence">Building that the person lives in</param>
         /// <param name="employer">Building that the person works at or goes to school at</param>
-        public Person(string name, int age, float health, float education, float happiness, Building residence, Building employer) {
+        public Person(string name, int age, uint TTL, float health, float education, float happiness, Building residence, Building employer) {
             this._name = name;
             this._age = age;
-            this._birthDay = Controller.Environment.CurrentTime;
+            this._TTL = TTL;
             this._health = health;
             this._education = education;
             this._happiness = happiness;
@@ -121,10 +121,22 @@ namespace Haswell {
 
 
         /// <summary>
-        /// Compares this instance of the Person to others based on birthdate
+        /// Compares this instance of the Person to others based on TTL
         /// </summary>
         public int CompareTo(Person other) {
-            return this._birthDay.CompareTo(other._birthDay);
+            return this._TTL.CompareTo(other._TTL);
+        }
+
+        public void UpdateYearly(City city) {
+            this._TTL = GetTTL(city);
+        }
+        /// <summary>
+        /// Calculates the persons new Time to Live based on current enviromental factors
+        /// </summary>
+        /// <param name="city">The city to get the enviromental conditions from</param>
+        /// <returns>The new TTL value</returns>
+        private uint GetTTL(City city) {
+            throw new NotImplementedException();
         }
     }
 }

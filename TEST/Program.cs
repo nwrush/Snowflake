@@ -6,26 +6,13 @@ using Haswell;
 
 namespace TEST {
     class Program {
+        static List<Person> citizens = new List<Person>();
         static void Main(string[] args) {
+            Haswell.Controller.init("Help");
+            while (true) {
+                citizens.Add(new Person("asd", 15, 1.0f, 1f, 1f));
+            }
             Console.ReadKey();
         }
-    }
-    class Fruit {
-        string name;
-        protected Fruit(string n) {
-            this.name = n;
-        }
-        public virtual void Exit() { }
-        public override string ToString() {
-            return this.name;
-        }
-    }
-    class Apple : Fruit {
-        public Apple() : base("Apple") { }
-        public override void Exit() { Environment.Exit(10); }
-    }
-    class Banana : Fruit {
-        public Banana() : base("Banana") { }
-        public override void Exit() { Console.WriteLine("LOL"); }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    class Person :IComparable<Person>{
+    public class Person :IComparable<Person>{
         private string _name;
         private int _age;
         private DateTime _birthDay;

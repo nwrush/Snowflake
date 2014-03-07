@@ -8,6 +8,7 @@ using Snowflake.States;
 
 namespace Snowflake
 {
+    //Todo: Learn C++ and rewrite
     public class Program
     {
         //////////////////////////////////////////////////////////////////////////s

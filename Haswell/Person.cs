@@ -119,7 +119,6 @@ namespace Haswell {
             }
         }
 
-
         /// <summary>
         /// Compares this instance of the Person to others based on TTL
         /// </summary>

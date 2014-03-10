@@ -78,6 +78,12 @@
     <Compile Include="Resources.cs" />
     <Compile Include="Zone.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aardvark\Aardvark.csproj">
+      <Project>{bf4e1ab5-73a4-4fa6-830c-6f9b000a66a4}</Project>
+      <Name>Aardvark</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

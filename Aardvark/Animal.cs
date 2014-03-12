@@ -27,7 +27,7 @@ namespace Aardvark {
         public int CompareTo(Animal other) {
             return this._rank.CompareTo(other._rank);
         }
-        protected virtual void Update() {
+        public virtual void Update() {
 
         }
     }

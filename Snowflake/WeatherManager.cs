@@ -103,10 +103,6 @@ namespace Snowflake {
         public Weather CurrentWeather {
             get {
                 return Weather.Sunny;
-
-                if (Controller.Environment.GetCloudiness() < 0) {
-
-                }
             }
         }
         

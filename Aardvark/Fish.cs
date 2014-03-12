@@ -23,7 +23,7 @@ namespace Aardvark {
 
         public Fish(string name, float health, uint rank) : base(name, health, rank) { }
 
-        protected override void Update() {
+        public override void Update() {
             base.Update();
         }
     }

@@ -5,8 +5,11 @@ using System.Text;
 
 namespace Emma {
     public class Controller {
-        public Controller() {
+        private Haswell.City _activeCity;
 
+        public Controller(Haswell.City city) {
+            this._activeCity = city;
+            
         }
     }
 }

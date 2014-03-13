@@ -99,10 +99,10 @@ namespace Haswell {
         /// <param name="x2">Rightmost x position of the zone (inclusive)</param>
         /// <param name="y2">Bottommost y position of the zone (inclusive)</param>
         /// <returns>The newly created Zone object</returns>
-        public Zone CreateZone(int x1, int y1, int x2, int y2) {
-            this.zones.Add(new Zone(x1, y1, x2, y2));
-
-            throw new NotImplementedException();
+        public Zone CreateZone(int x1, int y1, int x2, int y2,ZoneTypes type) {
+            Zone tmp = new Zone(x1, y1, x2, y2, type);
+            this.zones.Add(tmp);
+            return tmp;
         }
 
         public void Update(float gametime) {

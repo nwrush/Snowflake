@@ -9,11 +9,11 @@ namespace Haswell.Buildings {
         private float _income;
 
         public Residential()
-            : base(Zone.Type.Residential) {
+            : base(Zones.Residential) {
             this.resouceChanges.Add(ResourceType.Money, 100);
         }
         public Residential(int residents, float income)
-            : base(Zone.Type.Residential) {
+            : base(Zones.Residential) {
             this._residents = residents;
             this._income = income;
         }

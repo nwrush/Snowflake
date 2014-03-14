@@ -6,9 +6,9 @@ using System.Text;
 namespace Haswell.Buildings {
     public class Commercial : Building {
 
-        public Commercial() : base(Zone.Type.Commercial) { }
+        public Commercial() : base(Zones.Commercial) { }
         public Commercial(Dictionary<ResourceType, int> r)
-            : base(r, Zone.Type.Commercial) {
+            : base(r, Zones.Commercial) {
             this.resouceChanges.Add(ResourceType.Money, 100);
         }
 

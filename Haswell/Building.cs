@@ -59,7 +59,7 @@ namespace Haswell {
         }
         public Zones Zone {
             get {
-                return this.Zone;
+                return this.zone;
             }
             private set {
                 this.zone = value;

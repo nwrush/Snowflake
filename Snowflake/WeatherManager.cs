@@ -67,14 +67,14 @@ namespace Snowflake {
             float daynight = -(float)System.Math.Cos(t * (2 * pi / CityManager.DayLength));
             float daynightx = (float)System.Math.Sin(t * (2 * pi / CityManager.DayLength));
             float season = -(float)System.Math.Cos((t / 31536000.0) * (2 * pi));
-            sun.Position = new Vector3(10000 * daynightx, 10000 * daynight, 10000.0f * season);
-            CityManager.GuiMgr.SetDebugText(daynight.ToString());
+            sun.Position = new Vector3(0 /*10000 * daynightx*/, 10000 /* * daynight*/, (int)(10000.0f * season));
+            //CityManager.GuiMgr.SetDebugText(daynight.ToString());
 
             //brightness
-            float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(daynight) * System.Math.Pow(daynight, (1.0 / 3.0)));
+            // ----> float multiplier = (float)System.Math.Max(0.0, System.Math.Sign(daynight) * System.Math.Pow(daynight, (1.0 / 3.0)));
             //float shadowCoef = System.Math.Max(1.0f - multiplier, GetCloudiness() * 0.5f + 0.5f);
             //sm.ShadowColour = new ColourValue(shadowCoef, shadowCoef, shadowCoef);
-            sun.DiffuseColour = new ColourValue(0.98f * multiplier, 0.95f * multiplier, 0.9f * multiplier);
+            // ----> sun.DiffuseColour = new ColourValue(0.98f * multiplier, 0.95f * multiplier, 0.9f * multiplier);
             //sm.AmbientLight = new ColourValue(sun.DiffuseColour.r * GetCloudiness() + 0.1f, sun.DiffuseColour.g * GetCloudiness() + 0.1f, sun.DiffuseColour.b * GetCloudiness() + 0.1f);
 
             float col = (float)System.Math.Max(daynight, 0.0) * 0.7f + 0.2f;

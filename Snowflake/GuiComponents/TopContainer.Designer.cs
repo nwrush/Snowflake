@@ -183,16 +183,16 @@ namespace Snowflake.GuiComponents {
             {
                 Location = new Point(manageButton.Location.X + ToolsContainerPanel.Location.X - 0, ParentPanel.Location.Y + ParentPanel.Height)
             };
-            manageToolbar.Buttons().Add("Policy", new PictureButton("TC_buttonDestPolicy")
+            manageToolbar.Buttons().Add("Zoning", new PictureButton()
             {
                 Size = new Size(boxsize, boxsize),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
-                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.manage.Policy"],
-                PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
-                PictureSize = new Size(64, 64),
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Manage.Zoning"],
+                PictureOffset = new Point((boxsize - 96) / 2, (boxsize - 96) / 2),
+                PictureSize = new Size(96, 96),
                 ClickFunc = (object sender) =>
                 {
-
+                    //enter zoning draw mode
                     manageToolbar.Hide();
                 }
             });

@@ -119,7 +119,7 @@ namespace Snowflake.GuiComponents
             {
                 if (expanded && ParentPanel.Height < boxheight)
                 {
-                    _height += ((boxheight - _height) * 0.05f);
+                    _height = Math.Min(_height + 4, boxheight); //((boxheight - _height) * 0.05f);
                     if (_height >= boxheight)
                     {
                         if (FullyShown != null) { FullyShown.Invoke(this, new EventArgs()); }
@@ -129,7 +129,7 @@ namespace Snowflake.GuiComponents
                 }
                 else if (!expanded && ParentPanel.Height > (fullyHide ? 0 : expandersize))
                 {
-                    _height -= ((_height - (fullyHide ? 0 : expandersize)) * 0.05f);
+                    _height = Math.Max(_height - 4, 0); //((_height - (fullyHide ? 0 : expandersize)) * 0.05f);
                     if ((int)_height <= (fullyHide ? 0 : expandersize))
                     {
                         if (FullyHidden != null) { FullyHidden.Invoke(this, new EventArgs()); }
@@ -142,7 +142,7 @@ namespace Snowflake.GuiComponents
             {
                 if (expanded && ParentPanel.Width < boxwidth)
                 {
-                    _width += ((boxwidth - _width) * 0.05f);
+                    _width = Math.Min(_width + 4, boxwidth); //((boxwidth - _width) * 0.05f);
                     if (_width >= boxwidth)
                     {
                         if (FullyShown != null) { FullyShown.Invoke(this, new EventArgs()); }
@@ -152,7 +152,7 @@ namespace Snowflake.GuiComponents
                 }
                 else if (!expanded && ParentPanel.Width > (fullyHide ? 0 : expandersize))
                 {
-                    _width -= ((_width - (fullyHide ? 0 : expandersize)) * 0.05f);
+                    _width = Math.Max(_width - 4, 0); // ((_width - (fullyHide ? 0 : expandersize)) * 0.05f);
                     if ((int)_width <= (fullyHide ? 0 : expandersize))
                     {
                         if (FullyHidden != null) { FullyHidden.Invoke(this, new EventArgs()); }

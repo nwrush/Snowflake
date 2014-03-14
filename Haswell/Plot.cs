@@ -5,12 +5,8 @@ using System.Text;
 
 namespace Haswell {
     public class Plot : IComparable<Plot> {
-        public enum Zone {
-            residential,
-            commercial,
-            industrial
-        };
 
+        private Zones zone;
         private ResourceDict resource;
         private List<Building> buildings;
 
@@ -47,6 +43,9 @@ namespace Haswell {
         /// <param name="b">The building to add to the plot.</param>
         /// <returns>Whether or not building addition was successful.</returns>
         public bool AddBuilding(Building b) {
+            if (b.Zone != this.Zone) {
+                return false;
+            }
             if (plotUsage + b.GetPlotUsage() <= plotCapacity && b.Parent == null) {
                 this.buildings.Add(b);
                 b.Parent = this;
@@ -55,16 +54,13 @@ namespace Haswell {
             return false;
         }
 
-        public void Delete(Building b)
-        {
+        public void Delete(Building b) {
             this.buildings.Remove(b);
             if (b.Parent != null) { b.Parent = null; }
         }
 
-        public void DeleteAllBuildings()
-        {
-            foreach (Building b in buildings)
-            {
+        public void DeleteAllBuildings() {
+            foreach (Building b in buildings) {
                 b.Delete();
             }
             this.buildings.Clear();
@@ -76,8 +72,44 @@ namespace Haswell {
             }
             UpdateCityResources(cityResources);
         }
+        public void UpdateHour(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateHour(this.resource);
+            }
+        }
+        public void UpdateDaily(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateDaily(this.resource);
+            }
+        }
+        public void UpdateWeekly(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateWeekly(this.resource);
+            }
+        }
+        public void UpdateMonthly(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateMonthly(this.resource);
+            }
+        }
+        public void UpdateQuaterly(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateQuaterly(this.resource);
+            }
+        }
+        public void UpdateBiannually(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateBiannually(this.resource);
+            }
+        }
+        public void UpdateYearly(ResourceDict cityResources) {
+            foreach (Building b in buildings) {
+                b.UpdateYearly(this.resource);
+            }
+        }
+
         private void UpdateCityResources(ResourceDict cityResources) {
-            foreach (KeyValuePair<ResourceType, int> kvp in this.resource) {
+            foreach (KeyValuePair<ResourceType, float> kvp in this.resource) {
                 if (cityResources.ContainsKey(kvp.Key)) {
                     cityResources[kvp.Key] += kvp.Value;
                 }
@@ -113,6 +145,15 @@ namespace Haswell {
 
         public override string ToString() {
             return "Plot at (" + this.X + "," + this.Y + ") with " + this.buildings.Count.ToString() + " buildings.";
+        }
+
+        public Zones Zone {
+            get {
+                return this.zone;
+            }
+            private set {
+                this.zone = value;
+            }
         }
     }
 }

@@ -264,7 +264,7 @@ namespace Snowflake {
             }
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
             foreach (Entity ent in this.entities)
             {

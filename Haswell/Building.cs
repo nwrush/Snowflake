@@ -6,7 +6,7 @@ using System.Text;
 namespace Haswell {
     public abstract class Building {
 
-        protected Zone.Type zone;
+        protected Zones zone;
         public Plot Parent;
 
         //Todo: Implement this into the constructor and init function
@@ -14,35 +14,35 @@ namespace Haswell {
         public event EventHandler Deleted;
 
         protected bool Initialized;
-        protected Building(Zone.Type zone) {
+        protected Building(Zones zone) {
             this.resouceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;
             this.Deleted += OnDeleted;
         }
-        protected Building(Dictionary<ResourceType, int> resource, Zone.Type zone)
+
+        protected Building(Dictionary<ResourceType, int> resource, Zones zone)
             : this(zone) {
             this.resouceChanges = resource;
             this.Initialized = true;
             this.Deleted += OnDeleted;
         }
 
-        public virtual void Update(ResourceDict plotResources) {
-            foreach (KeyValuePair<ResourceType, int> kvp in this.resouceChanges) {
-                if (plotResources.ContainsKey(kvp.Key)) {
-                    plotResources[kvp.Key] += kvp.Value;
-                }
-            }
-        }
+        public virtual void Update(ResourceDict plotResources) { }
+        public virtual void UpdateHour(ResourceDict plotResources) { }
+        public virtual void UpdateDaily(ResourceDict plotResources) { }
+        public virtual void UpdateWeekly(ResourceDict plotResources) { }
+        public virtual void UpdateMonthly(ResourceDict plotResources) { }
+        public virtual void UpdateQuaterly(ResourceDict plotResources) { }
+        public virtual void UpdateBiannually(ResourceDict plotResources) { }
+        public virtual void UpdateYearly(ResourceDict plotResources) { }
 
         public void Delete() {
-            if (Deleted != null)
-            {
+            if (Deleted != null) {
                 Deleted.Invoke(this, new EventArgs());
             }
         }
 
-        private void OnDeleted(object sender, EventArgs e)
-        {
+        private void OnDeleted(object sender, EventArgs e) {
             this.Parent.Delete(this);
             this.Parent = null;
             //Do a thing
@@ -56,6 +56,14 @@ namespace Haswell {
         public float GetPlotUsage() {
             return 1.0f;
             //Override in child classes
+        }
+        public Zones Zone {
+            get {
+                return this.Zone;
+            }
+            private set {
+                this.zone = value;
+            }
         }
     }
 }

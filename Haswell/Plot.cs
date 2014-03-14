@@ -6,7 +6,7 @@ using System.Text;
 namespace Haswell {
     public class Plot : IComparable<Plot> {
 
-        private ZoneTypes zone;
+        private Zones zone;
         private ResourceDict resource;
         private List<Building> buildings;
 
@@ -147,7 +147,7 @@ namespace Haswell {
             return "Plot at (" + this.X + "," + this.Y + ") with " + this.buildings.Count.ToString() + " buildings.";
         }
 
-        public ZoneTypes Zone {
+        public Zones Zone {
             get {
                 return this.zone;
             }

@@ -6,7 +6,7 @@ using System.Text;
 namespace Haswell {
     public abstract class Building {
 
-        protected ZoneTypes zone;
+        protected Zones zone;
         public Plot Parent;
 
         //Todo: Implement this into the constructor and init function
@@ -14,13 +14,13 @@ namespace Haswell {
         public event EventHandler Deleted;
 
         protected bool Initialized;
-        protected Building(ZoneTypes zone) {
+        protected Building(Zones zone) {
             this.resouceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;
             this.Deleted += OnDeleted;
         }
 
-        protected Building(Dictionary<ResourceType, int> resource, ZoneTypes zone)
+        protected Building(Dictionary<ResourceType, int> resource, Zones zone)
             : this(zone) {
             this.resouceChanges = resource;
             this.Initialized = true;
@@ -57,7 +57,7 @@ namespace Haswell {
             return 1.0f;
             //Override in child classes
         }
-        public ZoneTypes Zone {
+        public Zones Zone {
             get {
                 return this.Zone;
             }

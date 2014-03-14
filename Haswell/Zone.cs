@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    public enum ZoneTypes {
+    public enum Zones {
         Residential,
         Commercial,
         Industrial,

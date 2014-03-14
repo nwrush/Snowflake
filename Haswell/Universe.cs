@@ -72,37 +72,50 @@ namespace Haswell {
             }
             if (_prevTime.Day != this.CurrentTime.Day) {
                 if (Daily != null) {
+                    if (this.DailyUpdate != null) { this.DailyUpdate.Abort(); }
                     this.DailyUpdate = new Thread(this.InvokeDailyUpdate);
+                    this.DailyUpdate.IsBackground = true;
                     this.DailyUpdate.Start();
                 }
             }
             if (_prevTime.DayOfWeek != this.CurrentTime.DayOfWeek && this.CurrentTime.DayOfWeek == DayOfWeek.Monday) {
                 if (Weekly != null) {
+                    if (this.WeeklyUpdate != null) { this.WeeklyUpdate.Abort(); }
                     this.WeeklyUpdate = new Thread(this.InvokeWeeklyUpdate);
+                    this.WeeklyUpdate.IsBackground = true;
                     this.WeeklyUpdate.Start();
                 }
             }
             if (_prevTime.Month != this.CurrentTime.Month) {
                 if (Monthly != null) {
+                    if (this.MonthlyUpdate != null) { this.MonthlyUpdate.Abort(); }
                     this.MonthlyUpdate = new Thread(this.InvokeMonthlyUpdate);
+                    this.MonthlyUpdate.IsBackground = true;
                     this.MonthlyUpdate.Start();
                 }
             }
-            if (_prevTime.Month + 3 != this.CurrentTime.Month) {
+            if (_prevTime.Month % 3 == 0 && this.CurrentTime.Month % 3 == 1) {
                 if (Quarterly != null) {
+                    if (this.QuaterlyUpdate != null) { this.QuaterlyUpdate.Abort();  }
                     this.QuaterlyUpdate = new Thread(this.InvokeQuaterlyUpdate);
+                    this.QuaterlyUpdate.IsBackground = true;
                     this.QuaterlyUpdate.Start();
                 }
             }
-            if (_prevTime.Month + 6 != this.CurrentTime.Month) {
+            if (_prevTime.Month % 6 == 0 && this.CurrentTime.Month % 6 == 1)
+            {
                 if (Biannually != null) {
+                    if (this.BiannuallyUpdate != null) { this.BiannuallyUpdate.Abort();  }
                     this.BiannuallyUpdate = new Thread(this.InvokeBinannuallyUpdate);
+                    this.BiannuallyUpdate.IsBackground = true;
                     this.BiannuallyUpdate.Start();
                 }
             }
             if (_prevTime.Year != this.CurrentTime.Year) {
                 if (Yearly != null) {
+                    if (this.YearlyUpdate != null) { this.YearlyUpdate.Abort(); }
                     this.YearlyUpdate = new Thread(this.InvokeYearlyUpdate);
+                    this.YearlyUpdate.IsBackground = true;
                     this.YearlyUpdate.Start();
                 }
             }

@@ -173,6 +173,11 @@ namespace Snowflake {
             GameMgr.SetMouseMode(MouseMode.PlacingBuilding);
             GuiMgr.ShowBuildingPlacementPanel();
         }
+
+        public static void BeginZoning()
+        {
+            GameMgr.SetMouseMode(MouseMode.DrawingZone);
+        }
             
         /// <summary>
         /// Update the city

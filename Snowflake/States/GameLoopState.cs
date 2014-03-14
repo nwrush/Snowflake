@@ -34,7 +34,8 @@ namespace Snowflake.States {
         private SceneNode selectionBox;
         private Entity selectionBoxEnt;
         private MouseMode mouseMode = MouseMode.Selection;
-        private RenderableBuilding cursorBuilding;
+        private RenderableBuilding tempBuilding;
+        private Haswell.Zones tempZone;
 
         #region Properties
 
@@ -210,7 +211,7 @@ namespace Snowflake.States {
             this.mouseMode = m;
         }
         public void SetCursorBuilding(RenderableBuilding rb) {
-            this.cursorBuilding = rb;
+            this.tempBuilding = rb;
         }
 
         /// <summary>

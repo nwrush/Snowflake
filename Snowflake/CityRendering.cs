@@ -38,11 +38,13 @@ namespace Snowflake {
                 if (value) {
                     foreach (Entity e in this.entities) {
                         e.SetMaterialName("Ghosting");
+                        e.CastShadows = false;
                     }
                 }
                 else {
                     foreach (Entity e in this.entities) {
                         e.SetMaterialName("Default");
+                        e.CastShadows = true;
                     }
                 }
             }
@@ -128,6 +130,7 @@ namespace Snowflake {
                     //ColourValue c = eMat.GetTechnique(0).GetPass(0).Diffuse;
                     //eMat.GetTechnique(0).GetPass(0).SetDiffuse(c.r, c.g, c.b, 0.5f);
                     e.GetSubEntity(0).SetMaterial(eMat);
+                    e.CastShadows = false;
                 }
                 isGhosted = true;
             }
@@ -145,6 +148,7 @@ namespace Snowflake {
                     //ColourValue c = eMat.GetTechnique(0).GetPass(0).Diffuse;
                     //eMat.GetTechnique(0).GetPass(0).SetDiffuse(c.r, c.g, c.b, 1.0f);
                     e.GetSubEntity(0).SetMaterial(eMat);
+                    e.CastShadows = true;
                 }
                 isGhosted = false;
             }

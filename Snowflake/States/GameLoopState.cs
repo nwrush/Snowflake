@@ -272,7 +272,8 @@ namespace Snowflake.States {
     public enum MouseMode {
         None,
         Selection,
-        PlacingBuilding
+        PlacingBuilding,
+        DrawingZone
     }
 
 } // namespace

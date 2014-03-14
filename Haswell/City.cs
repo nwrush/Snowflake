@@ -10,7 +10,6 @@ namespace Haswell {
         private InfiniteGrid grid;
 
         private List<Pipe> pipes;
-        private List<Zone> zones;
         private List<Person> Citizens;
 
         private ResourceDict resources;
@@ -30,7 +29,6 @@ namespace Haswell {
             this.grid = new InfiniteGrid();
 
             this.pipes = new List<Pipe>();
-            this.zones = new List<Zone>();
             this.Citizens = new List<Person>();
 
             initResources();
@@ -89,20 +87,6 @@ namespace Haswell {
             if (grid.ElementAt(x, y).GetAllBuildings.Count > 0) {
                 grid.ElementAt(x, y).DeleteAllBuildings();
             }
-        }
-
-        /// <summary>
-        /// Creates a zone for automatic building creation by the game's AI
-        /// </summary>
-        /// <param name="x1">Leftmost x position of the zone</param>
-        /// <param name="y1">Topmost y position of the zone</param>
-        /// <param name="x2">Rightmost x position of the zone (inclusive)</param>
-        /// <param name="y2">Bottommost y position of the zone (inclusive)</param>
-        /// <returns>The newly created Zone object</returns>
-        public Zone CreateZone(int x1, int y1, int x2, int y2,ZoneTypes type) {
-            Zone tmp = new Zone(x1, y1, x2, y2, type);
-            this.zones.Add(tmp);
-            return tmp;
         }
 
         public void Update(float gametime) {

@@ -53,7 +53,7 @@ namespace Haswell {
         private void InvokeYearlyUpdate() { Yearly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
         public Universe() {
-            Timescale = 1.0f;
+            Timescale = 20.0f;
 
         }
 

@@ -124,7 +124,9 @@ namespace Haswell {
         /// </summary>
         /// <returns>A float between 0 and 1 where 0 is perfectly clear and 1 is completely overcast</returns>
         public float GetCloudiness() {
-            throw new NotImplementedException();
+            double x = (CurrentTime.Year + CurrentTime.Day / 365.0) * 12.0;
+            double raw = (((Math.Sin(x * (Math.PI / 6) + 1.0) + 0.3 * Math.Sin(x * (0.6666667 * Math.PI) + 0.2)) / (1.3 * 4)) + ((0.5 * Math.Sin(x * 23.4142135 + 2.2324) + 0.5 * Math.Sin(37.7889 + 6.42323)) * 0.5) + 0.5);
+            return (float)Math.Max(Math.Min(raw, 1.0), 0.0);
         }
         /// <summary>
         /// Gets the fog density

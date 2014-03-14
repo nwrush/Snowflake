@@ -5,12 +5,8 @@ using System.Text;
 
 namespace Haswell {
     public class Plot : IComparable<Plot> {
-        public enum Zone {
-            Residential,
-            Commercial,
-            Industrial
-        };
 
+        private Zones zone;
         private ResourceDict resource;
         private List<Building> buildings;
 
@@ -47,6 +43,9 @@ namespace Haswell {
         /// <param name="b">The building to add to the plot.</param>
         /// <returns>Whether or not building addition was successful.</returns>
         public bool AddBuilding(Building b) {
+            if (b.Zone != this.Zone) {
+                return false;
+            }
             if (plotUsage + b.GetPlotUsage() <= plotCapacity && b.Parent == null) {
                 this.buildings.Add(b);
                 b.Parent = this;
@@ -146,6 +145,15 @@ namespace Haswell {
 
         public override string ToString() {
             return "Plot at (" + this.X + "," + this.Y + ") with " + this.buildings.Count.ToString() + " buildings.";
+        }
+
+        public Zones Zone {
+            get {
+                return this.zone;
+            }
+            private set {
+                this.zone = value;
+            }
         }
     }
 }

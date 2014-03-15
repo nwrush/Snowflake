@@ -31,6 +31,11 @@ namespace Snowflake {
         public static Point selectionEnd { get; private set; }
         private static Point selectionOrigin;
 
+        public static Zones scratchZoneType;
+        public static Point scratchZoneStart { get; private set; }
+        public static Point scratchZoneEnd { get; private set; }
+        private static Point scratchZoneOrigin;
+
         public static bool Initialized { get; private set; }
 
         public static Rectangle SelectionBox { 
@@ -39,6 +44,13 @@ namespace Snowflake {
                         new Size((selectionEnd.X > selectionStart.X ? selectionEnd.X - selectionStart.X : 0), 
                                  (selectionEnd.Y > selectionStart.Y ? selectionEnd.Y - selectionStart.Y : 0))); 
             } 
+        }
+        public static Rectangle scratchZoneBox
+        { get
+            { return new Rectangle(scratchZoneStart,
+                        new Size((scratchZoneEnd.X > scratchZoneStart.X ? scratchZoneEnd.X - scratchZoneStart.X : 0),
+                                 (scratchZoneEnd.Y > scratchZoneStart.Y ? scratchZoneEnd.Y - scratchZoneStart.Y : 0)));
+            }
         }
         private static List<Building> selectedBuildings;
 
@@ -206,6 +218,10 @@ namespace Snowflake {
         public static void SetSelectionOrigin(Point p) {
             selectionStart = selectionEnd = selectionOrigin = p;
         }
+        public static void SetScratchZoneOrigin(Point p)
+        {
+            scratchZoneStart = scratchZoneEnd = scratchZoneOrigin = p;
+        }
 
         /// <summary>
         /// Set the selection box,
@@ -220,6 +236,16 @@ namespace Snowflake {
             maxy = Utils3D.Max(selectionOrigin.Y, p.Y);
             selectionStart = new Point(minx, miny);
             selectionEnd = new Point(maxx, maxy);
+        }
+
+        public static void UpdateScratchZoneBox(Point p) {
+            int minx, miny, maxx, maxy;
+            minx = Utils3D.Min(scratchZoneOrigin.X, p.X);
+            miny = Utils3D.Min(scratchZoneOrigin.Y, p.Y);
+            maxx = Utils3D.Max(scratchZoneOrigin.X, p.X);
+            maxy = Utils3D.Max(scratchZoneOrigin.Y, p.Y);
+            scratchZoneStart = new Point(minx, miny);
+            scratchZoneEnd = new Point(maxx, maxy);
         }
 
         /// <summary>
@@ -248,6 +274,11 @@ namespace Snowflake {
             return false;
         }
 
+        public static bool MakeZone()
+        {
+            return SetZoning(scratchZoneBox, scratchZoneType);
+        }
+
         public static void SetMouseMode(MouseMode m) {
             GameMgr.SetMouseMode(m);
         }
@@ -256,6 +287,12 @@ namespace Snowflake {
         /// Clears the selection
         /// </summary>
         public static void ClearSelection() {
+            selectionStart = new Point(Int32.MaxValue - 1, Int32.MaxValue - 1);
+            selectionEnd = new Point(Int32.MaxValue, Int32.MaxValue);
+        }
+
+        public static void ClearScratchZone()
+        {
             selectionStart = new Point(Int32.MaxValue - 1, Int32.MaxValue - 1);
             selectionEnd = new Point(Int32.MaxValue, Int32.MaxValue);
         }

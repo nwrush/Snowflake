@@ -286,12 +286,19 @@ namespace Snowflake.States
             return ContextMenu.Visible == false;
         }
 
+        private bool canZone()
+        {
+            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.DrawingZone;
+        }
+
         private bool canSelect()
         {
             return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.Selection;
         }
 
-        private bool canPlaceBuilding() {
+        private bool canPlaceBuilding() 
+        
+        {
             return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.PlacingBuilding && tempBuilding != null;
         }
     }

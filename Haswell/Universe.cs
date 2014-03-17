@@ -43,8 +43,8 @@ namespace Haswell {
         private Thread MonthlyUpdate;
         private void InvokeMonthlyUpdate() { Monthly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
-        private Thread QuaterlyUpdate;
-        private void InvokeQuaterlyUpdate() { Quarterly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+        private Thread QuarterlyUpdate;
+        private void InvokeQuarterlyUpdate() { Quarterly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
         private Thread BiannuallyUpdate;
         private void InvokeBinannuallyUpdate() { Biannually.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
@@ -96,10 +96,10 @@ namespace Haswell {
             }
             if (_prevTime.Month % 3 == 0 && this.CurrentTime.Month % 3 == 1) {
                 if (Quarterly != null) {
-                    if (this.QuaterlyUpdate != null) { this.QuaterlyUpdate.Abort();  }
-                    this.QuaterlyUpdate = new Thread(this.InvokeQuaterlyUpdate);
-                    this.QuaterlyUpdate.IsBackground = true;
-                    this.QuaterlyUpdate.Start();
+                    if (this.QuarterlyUpdate != null) { this.QuarterlyUpdate.Abort();  }
+                    this.QuarterlyUpdate = new Thread(this.InvokeQuarterlyUpdate);
+                    this.QuarterlyUpdate.IsBackground = true;
+                    this.QuarterlyUpdate.Start();
                 }
             }
             if (_prevTime.Month % 6 == 0 && this.CurrentTime.Month % 6 == 1)

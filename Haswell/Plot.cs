@@ -151,7 +151,7 @@ namespace Haswell {
             get {
                 return this.zone;
             }
-            private set {
+            set {
                 this.zone = value;
             }
         }

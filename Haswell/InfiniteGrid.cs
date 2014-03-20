@@ -5,7 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace Haswell {
-    public class InfiniteGrid : ICollection<Plot> {
+    public class InfiniteGrid : ICollection<Plot>, IEnumerable<Plot> {
         Dictionary<Point, Plot> elements;
 
         public InfiniteGrid() {
@@ -20,20 +20,20 @@ namespace Haswell {
 
         public Plot ElementAt(int x, int y) {
             try {
-                Plot p = elements[new Point(x,y)];
+                Plot p = elements[new Point(x, y)];
                 return p;
             } catch (KeyNotFoundException e) {
                 //For now, add a plot where its trying to find one
                 //In the future, don't catch this exception and let the caller deal with it.
                 System.Diagnostics.Debug.WriteLine(e);
                 Plot p = new Plot(x, y);
-                elements[new Point(x,y)] = p;
+                elements[new Point(x, y)] = p;
                 return p;
             }
         }
         public Plot RemoveAt(int x, int y) {
-            Plot tmp = elements[new Point(x,y)];
-            elements.Remove(new Point(x,y));
+            Plot tmp = elements[new Point(x, y)];
+            elements.Remove(new Point(x, y));
             return tmp;
         }
 
@@ -81,10 +81,10 @@ namespace Haswell {
         }
 
         void ICollection<Plot>.Add(Plot e) {
-            if (elements[new Point(e.X,e.Y)] != null) {
+            if (elements[new Point(e.X, e.Y)] != null) {
                 throw new ElementAlreadyExistsException();
             } else {
-                elements[new Point(e.X,e.Y)] = e;
+                elements[new Point(e.X, e.Y)] = e;
             }
         }
 
@@ -93,8 +93,8 @@ namespace Haswell {
         }
 
         bool ICollection<Plot>.Contains(Plot item) {
-            if (elements[new Point(item.X,item.Y)] != null) {
-                if (item == elements[new Point(item.X,item.Y)]) { return true; }
+            if (elements[new Point(item.X, item.Y)] != null) {
+                if (item == elements[new Point(item.X, item.Y)]) { return true; }
             }
             return false;
         }
@@ -112,7 +112,7 @@ namespace Haswell {
         }
 
         bool ICollection<Plot>.Remove(Plot item) {
-            this.elements.Remove(new Point(item.X,item.Y));
+            this.elements.Remove(new Point(item.X, item.Y));
             return true;
         }
 

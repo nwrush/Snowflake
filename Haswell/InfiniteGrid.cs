@@ -124,5 +124,32 @@ namespace Haswell {
             return this.elements.GetEnumerator();
         }
         #endregion
+
+        /// <summary>
+        /// Returns an array of plots in the specified selection
+        /// </summary>
+        /// <param name="topLeft">Top left corner of the selection</param>
+        /// <param name="bottomRight">Bottom right corner of the selection</param>
+        /// <returns>The list of selected plots</returns>
+        public List<Plot> GetAllInSelection(Point topLeft, Point bottomRight) {
+            return this.GetAllInSelection(new Rectangle(topLeft.X, topLeft.Y, topLeft.X - bottomRight.X, topLeft.Y - bottomRight.Y));
+        }
+        /// <summary>
+        /// Returns a list of plots in the specified selection
+        /// </summary>
+        /// <param name="selection">The rectangle with the selection</param>
+        /// <returns>The list of selected plots</returns>
+        public List<Plot> GetAllInSelection(Rectangle selection) {
+            //This method and the one above it is the worst thing I think I've ever written, fix it eventually
+            List<Plot> tmp = new List<Plot>();
+            for (int r = selection.Left; r <= selection.Right; ++r) {
+                for (int c = selection.Bottom; c <= selection.Top; ++c) {
+                    try {
+                        tmp.Add(this.elements[new Point(r, c)]);
+                    } catch (KeyNotFoundException e) { continue; }
+                }
+            }
+            return null;
+        }
     }
 }

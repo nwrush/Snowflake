@@ -11,5 +11,9 @@ namespace Emma {
             this._activeCity = city;
             
         }
+
+        public void Update() {
+
+        }
     }
 }

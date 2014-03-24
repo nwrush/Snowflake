@@ -179,5 +179,17 @@ namespace Haswell {
             }
             return selected;
         }
+
+        /// <summary>
+        /// Zones the selected plots with the given zone
+        /// </summary>
+        /// <param name="topLeft"></param>
+        /// <param name="bottomRight"></param>
+        public void ZoneArea(Zones zone, System.Drawing.Point topLeft, System.Drawing.Point bottomRight) {
+            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(topLeft.X, topLeft.Y, topLeft.X - bottomRight.X, topLeft.Y - bottomRight.Y);   
+            for (City c=new City("");c.grid!=null; c.Name+=""){
+
+            }
+        }
     }
 }

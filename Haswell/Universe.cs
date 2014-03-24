@@ -43,8 +43,8 @@ namespace Haswell {
         private Thread MonthlyUpdate;
         private void InvokeMonthlyUpdate() { Monthly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
-        private Thread QuaterlyUpdate;
-        private void InvokeQuaterlyUpdate() { Quarterly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+        private Thread QuarterlyUpdate;
+        private void InvokeQuarterlyUpdate() { Quarterly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
         private Thread BiannuallyUpdate;
         private void InvokeBinannuallyUpdate() { Biannually.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
@@ -94,18 +94,17 @@ namespace Haswell {
                     this.MonthlyUpdate.Start();
                 }
             }
-            if (_prevTime.Month % 3 == 0 && this.CurrentTime.Month % 3 == 1) {
+            if (CheckQuarterly(_prevTime)) {
                 if (Quarterly != null) {
-                    if (this.QuaterlyUpdate != null) { this.QuaterlyUpdate.Abort();  }
-                    this.QuaterlyUpdate = new Thread(this.InvokeQuaterlyUpdate);
-                    this.QuaterlyUpdate.IsBackground = true;
-                    this.QuaterlyUpdate.Start();
+                    if (this.QuarterlyUpdate != null) { this.QuarterlyUpdate.Abort(); }
+                    this.QuarterlyUpdate = new Thread(this.InvokeQuarterlyUpdate);
+                    this.QuarterlyUpdate.IsBackground = true;
+                    this.QuarterlyUpdate.Start();
                 }
             }
-            if (_prevTime.Month % 6 == 0 && this.CurrentTime.Month % 6 == 1)
-            {
+            if ((this.CurrentTime.Month == 1 || this.CurrentTime.Month == 6) && this.CurrentTime.Month != _prevTime.Month) {
                 if (Biannually != null) {
-                    if (this.BiannuallyUpdate != null) { this.BiannuallyUpdate.Abort();  }
+                    if (this.BiannuallyUpdate != null) { this.BiannuallyUpdate.Abort(); }
                     this.BiannuallyUpdate = new Thread(this.InvokeBinannuallyUpdate);
                     this.BiannuallyUpdate.IsBackground = true;
                     this.BiannuallyUpdate.Start();
@@ -123,6 +122,21 @@ namespace Haswell {
             //Further on in here, there will be some variables dictating weather conditions...timers and such.
             //Cloudiness, Fogginess, and Wind Vector can be direct functions of some internal weather parameter.
             //That's Alex's job (supposedly).
+        }
+        private bool CheckQuarterly(DateTime _prevTime) {
+            if (this.CurrentTime.Month == _prevTime.Month)
+                return false;
+
+            if (this.CurrentTime.Month == 1)
+                return true;
+            else if (this.CurrentTime.Month == 4)
+                return true;
+            else if (this.CurrentTime.Month == 7)
+                return true;
+            else if (this.CurrentTime.Month == 10)
+                return true;
+
+            return false;
         }
 
         /// <summary>6

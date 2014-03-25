@@ -155,5 +155,10 @@ namespace Haswell {
                 this.zone = value;
             }
         }
+        public ResourceDict Resources {
+            get {
+                return this.resource;
+            }
+        }
     }
 }

@@ -8,13 +8,13 @@ namespace Haswell {
         Plot start;
         Plot end;
         ResourceType resource;
-        float spd;
+        float speed;
 
         public Links(Plot _start, Plot _end, ResourceType _resource, LinkSpeed speed) {
             this.start = _start;
             this.end = _end;
             this.resource = _resource;
-            this.spd = Links.GetSpeed(speed);
+            this.speed = Links.GetSpeed(speed);
         }
         /// <summary>
         /// Gets the speed as a float the link will move resources
@@ -37,8 +37,9 @@ namespace Haswell {
         }
 
         public void MoveResources() {
-            float resourcesToMove = this.start.Resources[resource];
-            //this.start.Resources[resource];
+            float resourcesToMove = this.start.Resources[resource] * this.speed;
+            this.start.Resources[resource] -= resourcesToMove;
+            this.end.Resources[resource] += resourcesToMove;
         }
     }
     //Todo: Enum for link types?

@@ -170,6 +170,15 @@ namespace Snowflake.States
                                 CityManager.SetSelectionOrigin(result.second);
                             }
                         }
+
+                        if (canZone())
+                        {
+                            Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                            if (result.first)
+                            {
+                                CityManager.SetScratchZoneOrigin(result.second);
+                            }
+                        }
                     }
                 }
 
@@ -182,6 +191,15 @@ namespace Snowflake.States
                         {
                             CityManager.UpdateSelectionBox(result.second);
                             UpdateSelectionBox();
+                        }
+                    }
+                    if (canZone())
+                    {
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                        if (result.first)
+                        {
+                            CityManager.UpdateScratchZoneBox(result.second);
+                            //UpdateScratchZoneBox(); <-- actually, implement as a renderable because it'll stick around after you're done
                         }
                     }
                 }

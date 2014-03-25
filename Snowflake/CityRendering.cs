@@ -196,6 +196,32 @@ namespace Snowflake {
         }
     }
 
+    public class RenderablePlot : Renderable
+    {
+        private Plot data;
+
+        public event EventHandler ZoneChanged;
+
+        public RenderablePlot(Plot data)
+        {
+            this.data = data;
+            this.entities = new List<Entity>();
+            this.Name = this.data.GetType().ToString() + "_" + this.GetHashCode();
+
+            data.ZoneChanged += this.ZoneChanged;
+        }
+
+        public override void Create(SceneManager sm, SceneNode cityNode)
+        {
+            base.Create(sm, cityNode);
+
+            Plane plane = new Plane(Vector3.UNIT_Y, 0);
+            MeshManager.Singleton.CreatePlane(this.Name + "_zoneTile", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, PlotWidth, PlotHeight, 1, 1, true, 1, 1, 1, Vector3.UNIT_Z);
+            Entity zoneTile = sm.CreateEntity(this.Name, this.Name + "_zoneTile");
+            this.entities.Add(zoneTile);
+        }
+    }
+
     public class RenderableBuilding : Renderable {
 
         private Building data;

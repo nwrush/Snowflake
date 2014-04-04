@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-    class Links {
+    public class Links {
         Plot start;
         Plot end;
         ResourceType resource;

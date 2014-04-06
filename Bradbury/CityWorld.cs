@@ -17,7 +17,7 @@ namespace Bradbury
         {
             base.Load();
             Level l = new Level(1024, 1024);
-            l.LoadTiles(XDocument.Parse(Resources.Tileset));
+            l.LoadTileset("Tileset");
             this.LoadLevel(l);
         }
     }

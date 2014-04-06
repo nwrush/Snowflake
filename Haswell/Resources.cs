@@ -7,7 +7,7 @@ namespace Haswell {
     /// <summary>
     /// Stuct for holding a resource Value
     /// </summary>
-    public struct Resource {
+    public struct Resource {//Todo: Remove this struct, it isn't used
         float value;
         string name;
         /// <summary>

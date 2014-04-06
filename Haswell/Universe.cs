@@ -31,6 +31,9 @@ namespace Haswell {
         public event EventHandler<TimeEventArgs> Biannually;
         public event EventHandler<TimeEventArgs> Yearly;
 
+        public event EventHandler<BackgroundEventArgs> BackgroundEvents;
+        private Thread BackgroundUpdate;
+
         private Thread HourlyUpdate;
         private void InvokeHourlyUpdate() { Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
@@ -55,6 +58,11 @@ namespace Haswell {
         public Universe() {
             Timescale = 20.0f;
 
+        }
+        private void startBackgroundThread() {
+            
+            BackgroundUpdate.IsBackground = false;
+            BackgroundUpdate.Start();
         }
 
         public void Update(float frametime) {

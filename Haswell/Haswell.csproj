@@ -57,8 +57,11 @@
     <Compile Include="Buildings\Infrastructure.cs" />
     <Compile Include="Buildings\Residential.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="Events\BackgroundEventArgs.cs" />
     <Compile Include="Events\TimeEventArgs.cs" />
     <Compile Include="IBuilding.cs" />
+    <Compile Include="LinkHelper.cs" />
+    <Compile Include="Links.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Universe.cs" />
     <Compile Include="Events\BuildingEventArgs.cs" />
@@ -71,7 +74,6 @@
     <Compile Include="Exceptions\PlotOutOfRangeException.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="InfiniteGrid.cs" />
-    <Compile Include="Pipe.cs" />
     <Compile Include="Plot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceDict.cs" />

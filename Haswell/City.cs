@@ -9,7 +9,7 @@ namespace Haswell {
         private string name;
         private InfiniteGrid grid;
 
-        private List<Pipe> pipes;
+        private List<Links> pipes;
         private List<Person> Citizens;
 
         private ResourceDict resources;
@@ -28,7 +28,7 @@ namespace Haswell {
             this.name = name;
             this.grid = new InfiniteGrid();
 
-            this.pipes = new List<Pipe>();
+            this.pipes = new List<Links>();
             this.Citizens = new List<Person>();
 
             initResources();

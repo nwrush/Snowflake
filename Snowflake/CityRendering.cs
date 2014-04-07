@@ -38,11 +38,13 @@ namespace Snowflake {
                 if (value) {
                     foreach (Entity e in this.entities) {
                         e.SetMaterialName("Ghosting");
+                        e.CastShadows = false;
                     }
                 }
                 else {
                     foreach (Entity e in this.entities) {
                         e.SetMaterialName("Default");
+                        e.CastShadows = true;
                     }
                 }
             }
@@ -128,6 +130,7 @@ namespace Snowflake {
                     //ColourValue c = eMat.GetTechnique(0).GetPass(0).Diffuse;
                     //eMat.GetTechnique(0).GetPass(0).SetDiffuse(c.r, c.g, c.b, 0.5f);
                     e.GetSubEntity(0).SetMaterial(eMat);
+                    e.CastShadows = false;
                 }
                 isGhosted = true;
             }
@@ -145,6 +148,7 @@ namespace Snowflake {
                     //ColourValue c = eMat.GetTechnique(0).GetPass(0).Diffuse;
                     //eMat.GetTechnique(0).GetPass(0).SetDiffuse(c.r, c.g, c.b, 1.0f);
                     e.GetSubEntity(0).SetMaterial(eMat);
+                    e.CastShadows = true;
                 }
                 isGhosted = false;
             }
@@ -189,6 +193,32 @@ namespace Snowflake {
 
         public static List<Entity> GetResourceEntities(Resource r) {
             throw new NotImplementedException();
+        }
+    }
+
+    public class RenderablePlot : Renderable
+    {
+        private Plot data;
+
+        public event EventHandler ZoneChanged;
+
+        public RenderablePlot(Plot data)
+        {
+            this.data = data;
+            this.entities = new List<Entity>();
+            this.Name = this.data.GetType().ToString() + "_" + this.GetHashCode();
+
+            data.ZoneChanged += this.ZoneChanged;
+        }
+
+        public override void Create(SceneManager sm, SceneNode cityNode)
+        {
+            base.Create(sm, cityNode);
+
+            Plane plane = new Plane(Vector3.UNIT_Y, 0);
+            MeshManager.Singleton.CreatePlane(this.Name + "_zoneTile", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, PlotWidth, PlotHeight, 1, 1, true, 1, 1, 1, Vector3.UNIT_Z);
+            Entity zoneTile = sm.CreateEntity(this.Name, this.Name + "_zoneTile");
+            this.entities.Add(zoneTile);
         }
     }
 

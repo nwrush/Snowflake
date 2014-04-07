@@ -20,10 +20,7 @@ namespace Haswell {
         private float plotUsage = 0.0f;
         private float plotCapacity = 1.0f;
 
-        ////These values used until we move to dynamic plots
-        //public const int Width = 120;
-        //public const int Height = 120;
-        //public const int RoadSize = 15;
+        public event EventHandler ZoneChanged;
 
         //Location of the plot in the city grid
         //Minimum city plot value is (0,0)
@@ -155,6 +152,7 @@ namespace Haswell {
             }
             set {
                 this.zone = value;
+                if (this.ZoneChanged != null) { this.ZoneChanged.Invoke(this, new EventArgs()); }
             }
         }
         public ResourceDict Resources {

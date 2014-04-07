@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace Haswell {
     public class City {
@@ -89,6 +90,19 @@ namespace Haswell {
             }
         }
 
+        public void SetZoning(Point p1, Point p2, Zones z)
+        {
+            Point tl = new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y));
+            Point br = new Point(Math.Max(p1.X, p2.X), Math.Max(p1.Y, p2.Y));
+            for (int x = tl.X; x <= br.X; ++x)
+            {
+                for (int y = tl.Y; x <= br.Y; ++y)
+                {
+                    grid.ElementAt(x, y).Zone = z;
+                }
+            }
+        }
+
         public void Update(float gametime) {
             foreach (Plot p in grid) {
                 p.Update(this.resources);
@@ -153,9 +167,9 @@ namespace Haswell {
             }
         }
         public List<Building> GetAllInSelection(int x1, int y1, int x2, int y2) {
-            return this.GetAllInSelection(new System.Drawing.Point(x1, y1), new System.Drawing.Point(x2, y2));
+            return this.GetAllInSelection(new Point(x1, y1), new Point(x2, y2));
         }
-        public List<Building> GetAllInSelection(System.Drawing.Point topLeft, System.Drawing.Point bottomRight) {
+        public List<Building> GetAllInSelection(Point topLeft, Point bottomRight) {
             List<Building> selected = new List<Building>();
 
             for (int r = topLeft.X; r <= bottomRight.X; r++) {

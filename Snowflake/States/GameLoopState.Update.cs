@@ -75,8 +75,8 @@ namespace Snowflake.States
                     Vector3 plotCenter = CityManager.GetPlotCenter(plotCoord);
                     cursorPlane.SetPosition(plotCenter.x, plotCenter.y + 1f, plotCenter.z);
 
-                    if (mouseMode == MouseMode.PlacingBuilding && cursorBuilding != null) {
-                        cursorBuilding.SetPosition(plotCoord.X, plotCoord.Y);
+                    if (mouseMode == MouseMode.PlacingBuilding && tempBuilding != null) {
+                        tempBuilding.SetPosition(plotCoord.X, plotCoord.Y);
                     }
 
                     DebugPanel.SetDebugText(CityManager.GetPlotCoords(intersectionPt).ToString());
@@ -148,15 +148,15 @@ namespace Snowflake.States
                         if (canPlaceBuilding()) {
                             //Do a little reflection to be able to pass the type of the cursor building into the generic method
                             MethodInfo method = typeof(CityManager).GetMethod("NewBuilding");
-                            MethodInfo newBuilding = method.MakeGenericMethod(this.cursorBuilding.GetData().GetType());
-                            newBuilding.Invoke(null, new object[] { this.cursorBuilding.PlotX, this.cursorBuilding.PlotY });
+                            MethodInfo newBuilding = method.MakeGenericMethod(this.tempBuilding.GetData().GetType());
+                            newBuilding.Invoke(null, new object[] { this.tempBuilding.PlotX, this.tempBuilding.PlotY });
                             gConsole.WriteLine("Placing building...");
 
                             if (!mStateMgr.Input.IsKeyDown(KeyCode.KC_LSHIFT))
                             {
                                 //Then dispose the cursor building as the game will be making a new one very shortly
-                                this.cursorBuilding.Dispose();
-                                this.cursorBuilding = null;
+                                this.tempBuilding.Dispose();
+                                this.tempBuilding = null;
                                 this.GuiMgr.HideBuildingPlacementPanel();
                                 this.mouseMode = MouseMode.Selection;
                             }
@@ -168,6 +168,15 @@ namespace Snowflake.States
                             if (result.first)
                             {
                                 CityManager.SetSelectionOrigin(result.second);
+                            }
+                        }
+
+                        if (canZone())
+                        {
+                            Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                            if (result.first)
+                            {
+                                CityManager.SetScratchZoneOrigin(result.second);
                             }
                         }
                     }
@@ -182,6 +191,15 @@ namespace Snowflake.States
                         {
                             CityManager.UpdateSelectionBox(result.second);
                             UpdateSelectionBox();
+                        }
+                    }
+                    if (canZone())
+                    {
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                        if (result.first)
+                        {
+                            CityManager.UpdateScratchZoneBox(result.second);
+                            //UpdateScratchZoneBox(); <-- actually, implement as a renderable because it'll stick around after you're done
                         }
                     }
                 }
@@ -271,7 +289,7 @@ namespace Snowflake.States
         {
             if (CityManager.Initialized)
             {
-                GuiMgr.SetCurrentCursorBuilding(this.cursorBuilding);
+                GuiMgr.SetCurrentCursorBuilding(this.tempBuilding);
                 GuiMgr.Update(frametime);
             }
         }
@@ -286,13 +304,20 @@ namespace Snowflake.States
             return ContextMenu.Visible == false;
         }
 
+        private bool canZone()
+        {
+            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.DrawingZone;
+        }
+
         private bool canSelect()
         {
             return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.Selection;
         }
 
-        private bool canPlaceBuilding() {
-            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.PlacingBuilding && cursorBuilding != null;
+        private bool canPlaceBuilding() 
+        
+        {
+            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.PlacingBuilding && tempBuilding != null;
         }
     }
 }

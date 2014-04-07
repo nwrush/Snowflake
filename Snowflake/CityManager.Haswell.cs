@@ -60,6 +60,33 @@ namespace Snowflake {
             }
         }
 
+        /// <summary>
+        /// Set the Zoning regulation for a plot at the given coordinates
+        /// </summary>
+        /// <param name="p">Point to set the zoning of</param>
+        /// <param name="z">The type of zone to set</param>
+        public static bool SetZoning(Point p, Haswell.Zones z) { return SetZoning(p, p, z); }
+        public static bool SetZoning(Rectangle r, Haswell.Zones z ) { return SetZoning(r.Location, new Point(r.Right, r.Bottom), z); }
+        /// <summary>
+        /// Set the Zoning regulation for a given area defined by the points p1 and p2 at the corners of the area.
+        /// </summary>
+        /// <param name="p1">One corner of the area</param>
+        /// <param name="p2">The corner opposite p2</param>
+        /// <param name="z">The type of zone to set</param>
+        public static bool SetZoning(Point p1, Point p2, Haswell.Zones z)
+        {
+            if (Initialized)
+            {
+                Haswell.Controller.City.SetZoning(new System.Drawing.Point(p1.X, p1.Y), new System.Drawing.Point(p2.X, p2.Y), z);
+                return true;
+            }
+            else
+            {
+                GameConsole.ActiveInstance.WriteError("Unable to set zoning, no city initialized!");
+            }
+            return false;
+        }
+
         public static void DeleteBuilding(int x, int y)
         {
             Haswell.Controller.City.DeleteBuilding(x, y);

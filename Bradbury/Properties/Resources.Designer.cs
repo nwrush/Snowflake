@@ -67,9 +67,19 @@ namespace Bradbury.Properties {
         ///&lt;/tileset&gt;
         ///.
         /// </summary>
-        internal static string Tileset {
+        internal static string Tiles {
             get {
-                return ResourceManager.GetString("Tileset", resourceCulture);
+                return ResourceManager.GetString("Tiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tiles_gfx {
+            get {
+                object obj = ResourceManager.GetObject("Tiles_gfx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

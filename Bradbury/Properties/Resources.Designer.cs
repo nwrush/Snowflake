@@ -62,8 +62,8 @@ namespace Bradbury.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-        ///&lt;tileset name=&quot;Tilezzz&quot; tilewidth=&quot;64&quot; tileheight=&quot;64&quot;&gt;
-        /// &lt;image source=&quot;../../../../../Users/Andy/Pictures/avatars/steamavi_glados_christmas.png&quot; width=&quot;184&quot; height=&quot;184&quot;/&gt;
+        ///&lt;tileset name=&quot;Tiles&quot; tilewidth=&quot;64&quot; tileheight=&quot;64&quot;&gt;
+        /// &lt;image source=&quot;tileset.png&quot; width=&quot;512&quot; height=&quot;512&quot;/&gt;
         ///&lt;/tileset&gt;
         ///.
         /// </summary>

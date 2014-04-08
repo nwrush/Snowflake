@@ -24,6 +24,9 @@ namespace Bradbury
             this.Add(new Entity(new System.Drawing.PointF(-200, -200), new System.Drawing.Size(128, 128), new Texture(Resources.Tiles_gfx)));
 
             this.BackgroundColor = System.Drawing.Color.DarkGreen;
+
+            Camera.X = 512 * this.Level.TileWidth;
+            Camera.Y = 512 * this.Level.TileHeight;
         }
 
         public override void Update(OpenTK.FrameEventArgs e)

@@ -34,7 +34,20 @@ namespace Bradbury
                 this.Camera.X -= Input.MouseDeltaPosition.X *this.Camera.Zoom;
                 this.Camera.Y -= Input.MouseDeltaPosition.Y *this.Camera.Zoom;
             }
-            this.Camera.Zoom *= (float)Math.Pow(1.1, -Input.MouseDeltaScroll);
+
+            if (Input.MouseDeltaScroll != 0)
+            {
+                Console.WriteLine("Before: \nZoom " + this.Camera.Zoom);
+                Console.WriteLine("Delta Scroll " + Input.MouseDeltaScroll + "\n");
+
+                this.Camera.Zoom *= (float)Math.Pow(1.1, -Input.MouseDeltaScroll);
+
+                Console.WriteLine("After: \nZoom " + this.Camera.Zoom + "\n\n");
+            }
+
+            
+
+
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Bradbury
 
             this.Add(new Entity(new System.Drawing.PointF(-200, -200), new System.Drawing.Size(128, 128), new Texture(Resources.Tiles_gfx)));
 
-            this.BackgroundColor = System.Drawing.Color.LawnGreen;
+            this.BackgroundColor = System.Drawing.Color.DarkGreen;
         }
 
         public override void Update(OpenTK.FrameEventArgs e)
@@ -34,20 +34,9 @@ namespace Bradbury
                 this.Camera.X -= Input.MouseDeltaPosition.X *this.Camera.Zoom;
                 this.Camera.Y -= Input.MouseDeltaPosition.Y *this.Camera.Zoom;
             }
-
-            if (Input.MouseDeltaScroll != 0)
-            {
-                Console.WriteLine("Before: \nZoom " + this.Camera.Zoom);
-                Console.WriteLine("Delta Scroll " + Input.MouseDeltaScroll + "\n");
-
-                this.Camera.Zoom *= (float)Math.Pow(1.1, -Input.MouseDeltaScroll);
-
-                Console.WriteLine("After: \nZoom " + this.Camera.Zoom + "\n\n");
-            }
-
             
-
-
+            this.Camera.Zoom *= (float)Math.Pow(1.1, -Input.MouseDeltaScroll);
+            
         }
     }
 }

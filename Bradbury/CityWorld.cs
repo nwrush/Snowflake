@@ -10,6 +10,8 @@ using Bradbury.Properties;
 using SharpGLass;
 using Haswell;
 
+using OpenTK.Input;
+
 namespace Bradbury
 {
     class CityWorld : World
@@ -28,6 +30,15 @@ namespace Bradbury
             Camera.Y = 512 * this.Level.TileHeight;
         }
 
+        //Handy properties
+
+        private Point HoveredTile
+        {
+            get { return new Point(Input.MousePosition.X / Level.TileWidth, Input.MousePosition.Y / Level.TileHeight); }
+        }
+
+        //Update Loops
+
         public override void Update(OpenTK.FrameEventArgs e)
         {
             base.Update(e);
@@ -37,7 +48,7 @@ namespace Bradbury
 
         private void UpdateInput(OpenTK.FrameEventArgs e)
         {
-            if (Input.GetMouseButton(OpenTK.Input.MouseButton.Middle) == Input.KeyState.Down)
+            if (Input.GetMouseButton(MouseButton.Middle) == Input.KeyState.Down)
             {
                 this.Camera.X -= Input.MouseDeltaPosition.X * this.Camera.Zoom;
                 this.Camera.Y -= Input.MouseDeltaPosition.Y * this.Camera.Zoom;
@@ -68,6 +79,7 @@ namespace Bradbury
             {
                 n.DrawLine(new PointF(minx * Level.TileWidth, y * Level.TileHeight), new PointF(maxx * Level.TileWidth, y * Level.TileHeight), Color.FromArgb(64, 0, 0, 0), 2);
             }
+            //Draw rect around current hovered tile
         }
     }
 }

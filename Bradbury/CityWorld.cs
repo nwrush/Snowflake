@@ -8,14 +8,19 @@ using System.Drawing;
 
 using Bradbury.Properties;
 using SharpGLass;
+using SharpGLass.GUI;
 using Haswell;
 
+using OpenTK;
 using OpenTK.Input;
 
 namespace Bradbury
 {
     class CityWorld : World
     {
+        //Initialization
+        private string[] Months = new string[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
+
         public override void Load()
         {
             base.Load();
@@ -28,6 +33,30 @@ namespace Bradbury
 
             Camera.X = 512 * this.Level.TileWidth;
             Camera.Y = 512 * this.Level.TileHeight;
+
+            InitHaswell();
+            CreateGUI();
+        }
+
+        private void InitHaswell()
+        {
+            Haswell.Controller.init("New City");
+        }
+
+        private void CreateGUI()
+        {
+            Label timeLabel = new Label("January 1, 1970 - 0:00")
+            {
+                TextColor=Color.White,
+                Font=new Font(FontFamily.GenericSansSerif, 20),
+                Layer=90,
+                Location = new Point(250, 320)
+            };
+            timeLabel.OnUpdate += (object sender, FrameEventArgs e) => {
+                DateTime newTime = Haswell.Controller.Environment.CurrentTime;
+                timeLabel.Text = newTime.DayOfWeek + ", " + newTime.Day + " " + Months[newTime.Month - 1] + ", " + newTime.Year + " - " + newTime.Hour + ":" + (newTime.Minute < 10 ? ("0" + newTime.Minute.ToString()) : newTime.Minute.ToString());
+            };
+            this.Add(timeLabel);
         }
 
         //Handy properties
@@ -39,14 +68,20 @@ namespace Bradbury
 
         //Update Loops
 
-        public override void Update(OpenTK.FrameEventArgs e)
+        public override void Update(FrameEventArgs e)
         {
             base.Update(e);
 
             UpdateInput(e);
+            UpdateHaswell(e);
         }
 
-        private void UpdateInput(OpenTK.FrameEventArgs e)
+        private void UpdateHaswell(FrameEventArgs e)
+        {
+            Haswell.Controller.Update((float)e.Time);
+        }
+
+        private void UpdateInput(FrameEventArgs e)
         {
             if (Input.GetMouseButton(MouseButton.Middle) == Input.KeyState.Down)
             {
@@ -71,13 +106,17 @@ namespace Bradbury
             int miny = (int)((Camera.Y - Camera.HalfHeight * Camera.Zoom) / Level.TileHeight) - 1;
             int maxy = (int)((Camera.Y + Camera.HalfHeight * Camera.Zoom) / Level.TileHeight) + 1;
 
-            for (int x = minx; x < maxx; ++x)
-            {
-                n.DrawLine(new PointF(x * Level.TileWidth, miny * Level.TileHeight), new PointF(x * Level.TileWidth, maxy * Level.TileHeight), Color.FromArgb(64, 0, 0, 0), 2);
-            }
-            for (int y = miny; y < maxy; ++y)
-            {
-                n.DrawLine(new PointF(minx * Level.TileWidth, y * Level.TileHeight), new PointF(maxx * Level.TileWidth, y * Level.TileHeight), Color.FromArgb(64, 0, 0, 0), 2);
+            float o = Math.Min(64 / Camera.Zoom, 64);
+
+            if ((int)o > 5) { 
+                for (int x = minx; x < maxx; ++x)
+                {
+                    n.DrawLine(new PointF(x * Level.TileWidth, miny * Level.TileHeight), new PointF(x * Level.TileWidth, maxy * Level.TileHeight), Color.FromArgb((int)o, 0, 0, 0), 2);
+                }
+                for (int y = miny; y < maxy; ++y)
+                {
+                    n.DrawLine(new PointF(minx * Level.TileWidth, y * Level.TileHeight), new PointF(maxx * Level.TileWidth, y * Level.TileHeight), Color.FromArgb((int)o, 0, 0, 0), 2);
+                }
             }
             //Draw rect around current hovered tile
             n.DrawRectangle(new PointF(HoveredTile.X * Level.TileWidth, HoveredTile.Y * Level.TileHeight),

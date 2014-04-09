@@ -62,14 +62,24 @@ namespace Bradbury.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-        ///&lt;tileset name=&quot;Tilezzz&quot; tilewidth=&quot;64&quot; tileheight=&quot;64&quot;&gt;
-        /// &lt;image source=&quot;../../../../../Users/Andy/Pictures/avatars/steamavi_glados_christmas.png&quot; width=&quot;184&quot; height=&quot;184&quot;/&gt;
+        ///&lt;tileset name=&quot;Tiles&quot; tilewidth=&quot;64&quot; tileheight=&quot;64&quot;&gt;
+        /// &lt;image source=&quot;tileset.png&quot; width=&quot;512&quot; height=&quot;512&quot;/&gt;
         ///&lt;/tileset&gt;
         ///.
         /// </summary>
-        internal static string Tileset {
+        internal static string Tiles {
             get {
-                return ResourceManager.GetString("Tileset", resourceCulture);
+                return ResourceManager.GetString("Tiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tiles_gfx {
+            get {
+                object obj = ResourceManager.GetObject("Tiles_gfx", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

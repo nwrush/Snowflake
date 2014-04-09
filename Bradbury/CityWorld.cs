@@ -34,7 +34,7 @@ namespace Bradbury
 
         private Point HoveredTile
         {
-            get { return new Point(Input.MousePosition.X / Level.TileWidth, Input.MousePosition.Y / Level.TileHeight); }
+            get { return new Point((int)(PointToWorldRotated(Input.MousePosition).X) / Level.TileWidth, ((int)PointToWorldRotated(Input.MousePosition).Y) / Level.TileHeight); }
         }
 
         //Update Loops
@@ -66,9 +66,9 @@ namespace Bradbury
 
         private void DrawGrid(OpenTK.FrameEventArgs e, Engine n)
         {
-            int minx = (int)((Camera.X - Camera.HalfWidth * Camera.Zoom) / Level.TileWidth);
+            int minx = (int)((Camera.X - Camera.HalfWidth * Camera.Zoom) / Level.TileWidth) - 1;
             int maxx = (int)((Camera.X + Camera.HalfWidth * Camera.Zoom) / Level.TileWidth) + 1;
-            int miny = (int)((Camera.Y - Camera.HalfHeight * Camera.Zoom) / Level.TileHeight);
+            int miny = (int)((Camera.Y - Camera.HalfHeight * Camera.Zoom) / Level.TileHeight) - 1;
             int maxy = (int)((Camera.Y + Camera.HalfHeight * Camera.Zoom) / Level.TileHeight) + 1;
 
             for (int x = minx; x < maxx; ++x)
@@ -80,6 +80,9 @@ namespace Bradbury
                 n.DrawLine(new PointF(minx * Level.TileWidth, y * Level.TileHeight), new PointF(maxx * Level.TileWidth, y * Level.TileHeight), Color.FromArgb(64, 0, 0, 0), 2);
             }
             //Draw rect around current hovered tile
+            n.DrawRectangle(new PointF(HoveredTile.X * Level.TileWidth, HoveredTile.Y * Level.TileHeight),
+                            new PointF((HoveredTile.X + 1) * Level.TileWidth, (HoveredTile.Y + 1) * Level.TileHeight),
+                            Color.FromArgb(128, 255, 255, 192));
         }
     }
 }

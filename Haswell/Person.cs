@@ -4,16 +4,43 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
+    /// <summary>
+    /// Class Person.
+    /// </summary>
     public class Person : IComparable<Person> {
+        /// <summary>
+        /// The _name
+        /// </summary>
         private string _name;
+        /// <summary>
+        /// The _age
+        /// </summary>
         private int _age;
+        /// <summary>
+        /// The _ TTL
+        /// </summary>
         private uint _TTL;
 
+        /// <summary>
+        /// The _residence
+        /// </summary>
         private Building _residence;
+        /// <summary>
+        /// The _employer
+        /// </summary>
         private Building _employer;
 
+        /// <summary>
+        /// The _health
+        /// </summary>
         private float _health;
+        /// <summary>
+        /// The _education
+        /// </summary>
         private float _education;
+        /// <summary>
+        /// The _happiness
+        /// </summary>
         private float _happiness;
 
         /// <summary>
@@ -21,6 +48,7 @@ namespace Haswell {
         /// </summary>
         /// <param name="name">Name of the person to create</param>
         /// <param name="age">Age of the person to create</param>
+        /// <param name="TTL">The TTL.</param>
         /// <param name="health">Health of the person as a float between 0 and 1, with 0 as about to die and 1 as completely healthy</param>
         /// <param name="education">Education of the person as a float between 0 and 1, with 0 as no education and 1 as very educated</param>
         /// <param name="happiness">Happiness of the person as a float between 0 and 1, with 0 as very unhappy and 1 as completely satisfied</param>
@@ -30,6 +58,7 @@ namespace Haswell {
         /// </summary>
         /// <param name="name">Name of the person to create</param>
         /// <param name="age">Age of the person to create</param>
+        /// <param name="TTL">The TTL.</param>
         /// <param name="health">Health of the person as a float between 0 and 1, with 0 as about to die and 1 as completely healthy</param>
         /// <param name="education">Education of the person as a float between 0 and 1, with 0 as no education and 1 as very educated</param>
         /// <param name="happiness">Happiness of the person as a float between 0 and 1, with 0 as very unhappy and 1 as completely satisfied</param>
@@ -46,10 +75,18 @@ namespace Haswell {
             this._employer = employer;
         }
 
+        /// <summary>
+        /// Calculates the income.
+        /// </summary>
+        /// <returns>System.Double.</returns>
         public double CalculateIncome() {
             throw new NotImplementedException("Calculate Income is not yet implemmented");
         }
 
+        /// <summary>
+        /// Gets the age.
+        /// </summary>
+        /// <value>The age.</value>
         public int Age {
             get {
                 return this._age;
@@ -60,6 +97,10 @@ namespace Haswell {
                 this._age = value;
             }
         }
+        /// <summary>
+        /// Gets or sets the health.
+        /// </summary>
+        /// <value>The health.</value>
         public float Health {
             get {
                 return this._health;
@@ -74,6 +115,10 @@ namespace Haswell {
                 this._health = value;
             }
         }
+        /// <summary>
+        /// Gets or sets the education.
+        /// </summary>
+        /// <value>The education.</value>
         public float Education {
             get {
                 return this._education;
@@ -88,6 +133,10 @@ namespace Haswell {
                 this._education = value;
             }
         }
+        /// <summary>
+        /// Gets or sets the happiness.
+        /// </summary>
+        /// <value>The happiness.</value>
         public float Happiness {
             get {
                 return this._happiness;
@@ -102,6 +151,10 @@ namespace Haswell {
                 this._happiness = value;
             }
         }
+        /// <summary>
+        /// Gets the residence.
+        /// </summary>
+        /// <value>The residence.</value>
         public Building Residence {
             get {
                 return this._residence;
@@ -110,6 +163,10 @@ namespace Haswell {
                 this._residence = value;
             }
         }
+        /// <summary>
+        /// Gets or sets the employer.
+        /// </summary>
+        /// <value>The employer.</value>
         public Building Employer {
             get {
                 return this._employer;
@@ -122,10 +179,16 @@ namespace Haswell {
         /// <summary>
         /// Compares this instance of the Person to others based on TTL
         /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns>System.Int32.</returns>
         public int CompareTo(Person other) {
             return this._TTL.CompareTo(other._TTL);
         }
 
+        /// <summary>
+        /// Updates the yearly.
+        /// </summary>
+        /// <param name="city">The city.</param>
         public void UpdateYearly(City city) {
             this._TTL = GetTTL(city);
         }

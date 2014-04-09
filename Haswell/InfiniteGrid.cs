@@ -5,9 +5,18 @@ using System.Text;
 using System.Drawing;
 
 namespace Haswell {
+    /// <summary>
+    /// Class InfiniteGrid.
+    /// </summary>
     public class InfiniteGrid : ICollection<Plot>, IEnumerable<Plot> {
+        /// <summary>
+        /// The elements
+        /// </summary>
         Dictionary<Point, Plot> elements;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InfiniteGrid"/> class.
+        /// </summary>
         public InfiniteGrid() {
             elements = new Dictionary<Point, Plot>();
 
@@ -18,6 +27,12 @@ namespace Haswell {
             }
         }
 
+        /// <summary>
+        /// Elements at.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>Haswell.Plot.</returns>
         public Plot ElementAt(int x, int y) {
             try {
                 Plot p = elements[new Point(x, y)];
@@ -31,12 +46,22 @@ namespace Haswell {
                 return p;
             }
         }
+        /// <summary>
+        /// Removes at.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>Haswell.Plot.</returns>
         public Plot RemoveAt(int x, int y) {
             Plot tmp = elements[new Point(x, y)];
             elements.Remove(new Point(x, y));
             return tmp;
         }
 
+        /// <summary>
+        /// To the grid.
+        /// </summary>
+        /// <returns>Haswell.Plot[].</returns>
         public Plot[,] ToGrid() {
             Plot[,] tmp = null;
             makePlot(tmp);
@@ -44,6 +69,10 @@ namespace Haswell {
             return tmp;
         }
 
+        /// <summary>
+        /// Makes the plot.
+        /// </summary>
+        /// <param name="t">The t.</param>
         private void makePlot(Plot[,] t) {
             int lowX = 0, lowY = 0, highX = 0, highY = 0;
 
@@ -61,6 +90,10 @@ namespace Haswell {
             }
             t = new Plot[highX - lowX, highY - lowY];
         }
+        /// <summary>
+        /// Populates the grid.
+        /// </summary>
+        /// <param name="t">The t.</param>
         private void populateGrid(ref Plot[,] t) {
             foreach (KeyValuePair<Point, Plot> kvp in this.elements) {
                 Plot p = kvp.Value;
@@ -70,7 +103,14 @@ namespace Haswell {
 
         #region ICollection Stuff
         //ICollection
+        /// <summary>
+        /// The is read only
+        /// </summary>
         private bool isReadOnly = false;
+        /// <summary>
+        /// Gets or sets the is read only.
+        /// </summary>
+        /// <value>The is read only.</value>
         public bool IsReadOnly {
             get {
                 return this.isReadOnly;
@@ -80,6 +120,10 @@ namespace Haswell {
             }
         }
 
+        /// <summary>
+        /// Adds.
+        /// </summary>
+        /// <param name="e">The e.</param>
         void ICollection<Plot>.Add(Plot e) {
             if (elements[new Point(e.X, e.Y)] != null) {
                 throw new ElementAlreadyExistsException();
@@ -88,10 +132,18 @@ namespace Haswell {
             }
         }
 
+        /// <summary>
+        /// Clears.
+        /// </summary>
         void ICollection<Plot>.Clear() {
             this.elements.Clear();
         }
 
+        /// <summary>
+        /// Containses.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>System.Boolean.</returns>
         bool ICollection<Plot>.Contains(Plot item) {
             if (elements[new Point(item.X, item.Y)] != null) {
                 if (item == elements[new Point(item.X, item.Y)]) { return true; }
@@ -99,27 +151,53 @@ namespace Haswell {
             return false;
         }
 
+        /// <summary>
+        /// Copies to.
+        /// </summary>
+        /// <param name="array">The array.</param>
+        /// <param name="arrayIndex">Index of the array.</param>
         void ICollection<Plot>.CopyTo(Plot[] array, int arrayIndex) {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the count.
+        /// </summary>
+        /// <value>The count.</value>
         int ICollection<Plot>.Count {
             get { return this.elements.Count; }
         }
 
+        /// <summary>
+        /// Gets the is read only.
+        /// </summary>
+        /// <value>The is read only.</value>
         bool ICollection<Plot>.IsReadOnly {
             get { return this.isReadOnly; }
         }
 
+        /// <summary>
+        /// Removes.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>System.Boolean.</returns>
         bool ICollection<Plot>.Remove(Plot item) {
             this.elements.Remove(new Point(item.X, item.Y));
             return true;
         }
 
+        /// <summary>
+        /// Gets the enumerator.
+        /// </summary>
+        /// <returns>System.Collections.Generic.IEnumerator&lt;Haswell.Plot&gt;.</returns>
         IEnumerator<Plot> IEnumerable<Plot>.GetEnumerator() {
             return this.elements.Values.GetEnumerator();
         }
 
+        /// <summary>
+        /// Gets the enumerator.
+        /// </summary>
+        /// <returns>System.Collections.IEnumerator.</returns>
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
             return this.elements.GetEnumerator();
         }

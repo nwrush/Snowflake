@@ -9,13 +9,40 @@ namespace Haswell {
     /// </summary>
     public class Weather {
 
+        /// <summary>
+        /// Gets the fog.
+        /// </summary>
+        /// <value>The fog.</value>
         public float Fog { get; private set; }
+        /// <summary>
+        /// Gets the clouds.
+        /// </summary>
+        /// <value>The clouds.</value>
         public float Clouds { get; private set; }
+        /// <summary>
+        /// Gets the temporary.
+        /// </summary>
+        /// <value>The temporary.</value>
         public float Temp { get; private set; }
+        /// <summary>
+        /// Gets the wind x.
+        /// </summary>
+        /// <value>The wind x.</value>
         public float WindX { get; private set; }
+        /// <summary>
+        /// Gets the wind y.
+        /// </summary>
+        /// <value>The wind y.</value>
         public float WindY { get; private set; }
+        /// <summary>
+        /// Gets the wind magnitude.
+        /// </summary>
+        /// <value>The wind magnitude.</value>
         public float WindMagnitude { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Weather"/> class.
+        /// </summary>
         public Weather() {
 
         }
@@ -67,9 +94,9 @@ namespace Haswell {
             throw new NotImplementedException();
         }
         /// <summary>
-        /// Gets the current level of precipitation (usually rain unless temp < 0)
+        /// Gets the precipitation rate.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>System.Single.</returns>
         public float GetPrecipitationRate() {
             throw new NotImplementedException();
         }

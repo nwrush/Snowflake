@@ -1,0 +1,29 @@
+material "tree01_01_-_Default"
+{
+	technique tree01_01_-_Default_technique
+	{
+		pass tree01_01_-_Default_standard
+		{
+			cull_hardware none
+			cull_software none
+			lighting off
+
+			scene_blend alpha_blend
+			depth_write off
+
+			texture_unit tree01_01_-_Default_Diffuse#0
+			{
+				texture tree01.png
+				tex_coord_set 0
+				colour_op modulate
+			}
+
+			texture_unit tree01_01_-_Default_Unknown#1
+			{
+				texture tree01_alpha.png
+				tex_coord_set 0
+				colour_op modulate
+			}
+		}
+	}
+}

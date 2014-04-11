@@ -141,6 +141,29 @@ namespace Snowflake {
             world = sm.RootSceneNode.CreateChildSceneNode();
             world.AttachObject(ground);
             //world.Translate(new Vector3(0, -1, 0));
+
+            Random r = new Random();
+            for (int i = 0; i < 100; ++i)
+            {
+                CreateTree(sm, new Vector3((float)(r.NextDouble() * 10000 - 5000), 0, (float)(r.NextDouble() * 10000 - 5000)));
+            }
+        }
+
+        private static void CreateTree(SceneManager sm, Vector3 offset)
+        {
+            Entity tree = sm.CreateEntity("tree01.mesh");
+            SceneNode treeNode = sm.RootSceneNode.CreateChildSceneNode();
+            SceneNode child1 = treeNode.CreateChildSceneNode();
+            child1.AttachObject(tree);
+            child1.Rotate(Vector3.UNIT_X, Mogre.Math.HALF_PI);
+            child1.Rotate(Vector3.UNIT_Z, Mogre.Math.HALF_PI / 2);
+            Entity tree2 = sm.CreateEntity("tree01.mesh");
+            SceneNode child2 = treeNode.CreateChildSceneNode();
+            child2.AttachObject(tree2);
+            child2.Rotate(Vector3.UNIT_X, Mogre.Math.HALF_PI);
+            child2.Rotate(Vector3.UNIT_Z, Mogre.Math.HALF_PI / -2);
+            treeNode.Scale(20, 20, 20);
+            treeNode.Translate(offset.x, offset.y + 30, offset.z);
         }
 
         private static void CreateCity(SceneManager sm) {

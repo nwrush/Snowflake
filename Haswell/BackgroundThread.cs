@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 
 namespace Haswell {
-    private class BackgroundThread {
+    public class BackgroundThread {
 
         private Thread backgroundThread;
         private Queue<EventHandler<TimeEventArgs>> eventsToHandle;
@@ -13,11 +13,20 @@ namespace Haswell {
         public BackgroundThread() {
             backgroundThread = new Thread(BackgroundProcess);
             backgroundThread.IsBackground = true;
+            backgroundThread.Start();
         }
 
         private void BackgroundProcess() {
-            EventHandler<TimeEventArgs> tmp = eventsToHandle.Dequeue();
-            tmp.Invoke(this, new TimeEventArgs(Haswell.Controller.Environment.CurrentTime));
+            while (true) {
+                EventHandler<TimeEventArgs> tmp = eventsToHandle.Dequeue();
+                tmp.Invoke(this, new TimeEventArgs(Haswell.Controller.Environment.CurrentTime));
+            }
+        }
+
+        public Queue<EventHandler<TimeEventArgs>> Events {
+            get {
+                return this.eventsToHandle;
+            }
         }
     }
 }

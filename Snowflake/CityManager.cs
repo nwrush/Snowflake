@@ -25,7 +25,8 @@ namespace Snowflake {
         public static Point Origin { get; private set; }
         private static string cityName;
 
-        private static List<Renderable> cityObjects;
+        public static Dictionary<Building, RenderableBuilding> Buildings;
+        public static Dictionary<Plot, RenderablePlot> Plots;
 
         public static Point selectionStart { get; private set; }
         public static Point selectionEnd { get; private set; }
@@ -107,7 +108,8 @@ namespace Snowflake {
         }
 
         static CityManager() {
-            cityObjects = new List<Renderable>();
+            Plots = new Dictionary<Plot, RenderablePlot>();
+            Buildings = new Dictionary<Building, RenderableBuilding>();
         }
 
         /// <summary>
@@ -183,20 +185,16 @@ namespace Snowflake {
         private static void CreateObjects(SceneManager sm) {
 
             //Todo: initialize objects from Haswell data
-
-            foreach (Renderable r in cityObjects) {
-                r.Create(sm, cityNode);
-            }
         }
 
         private static void CreateBuilding(object sender, BuildingEventArgs e) {
             GameConsole.ActiveInstance.WriteLine("Added a building at " + e.Building.Parent.X + ", " + e.Building.Parent.Y);
             RenderableBuilding rb = new RenderableBuilding(e.Building);
             rb.Create( GameMgr.StateMgr.Engine.SceneMgr, cityNode);
-            cityObjects.Add(rb);
+            Buildings.Add(e.Building, rb);
             rb.Deleted += (object sender2, EventArgs e2) =>
             {
-                cityObjects.Remove(rb);
+                Buildings.Remove(e.Building);
             };
         }
 
@@ -227,7 +225,7 @@ namespace Snowflake {
                     lastTotalTime = totalTime;
                 }
 
-                foreach (Renderable r in cityObjects) {
+                foreach (RenderablePlot r in Plots.Values) {
                     //Check if r needs updating, and if so:
                     try {
                         r.Update();
@@ -280,14 +278,12 @@ namespace Snowflake {
 
                 if (selectedBuildings != null) { selectedBuildings.Clear(); }
                 selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
-                foreach (Renderable r in cityObjects) {
-                    if (r is RenderableBuilding) {
-                        if (selectedBuildings.Contains(((RenderableBuilding)r).GetData())) {
-                            r.Select();
-                        }
-                        else {
-                            r.Deselect();
-                        }
+                foreach (RenderablePlot r in Plots.Values) {
+                    if (selectedBuildings.FindAll(item => r.Data.GetAllBuildings.Contains(item)).Count > 0) {
+                        r.Select();
+                    }
+                    else {
+                        r.Deselect();
                     }
                 }
                 //GameConsole.ActiveInstance.WriteLine("Selecting region " + SelectionBox.ToString());

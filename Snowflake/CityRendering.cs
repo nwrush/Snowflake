@@ -18,8 +18,8 @@ namespace Snowflake {
         public const int PlotWidth = 120;
         public const int PlotHeight = 120;
 
-        protected SceneNode node;
-        protected List<Entity> entities;
+        internal SceneNode node;
+        internal List<Entity> entities;
         protected Vector3 scale;
 
         public event EventHandler Selected;
@@ -203,7 +203,8 @@ namespace Snowflake {
         private SceneNode zoneNode;
 
         public event EventHandler ZoneChanged;
-        public event EventHandler BuildingDeleted;
+        public event EventHandler<BuildingEventArgs> BuildingDeleted;
+        public event EventHandler<BuildingEventArgs> BuildingAdded;
 
         public RenderablePlot(Plot data)
         {
@@ -217,7 +218,9 @@ namespace Snowflake {
 
         public override void Create(SceneManager sm, SceneNode cityNode)
         {
-            foreach (Entity e in GetBuildingEntities(this.GetBuilding(), sm, out this.scale)) { this.entities.Add(e); }
+            foreach (RenderableBuilding rb in this.RenderableBuildings) {
+                rb.Create(sm, this.node);
+            }
             base.Create(sm, cityNode);
 
             Plane plane = new Plane(Vector3.UNIT_Y, 0);
@@ -241,41 +244,36 @@ namespace Snowflake {
             this.SetPosition(data.X, data.Y);
         }
 
-        public static List<Entity> GetBuildingEntities(Building b, SceneManager sm, out Vector3 scale)
+        public override void Update()
         {
-            List<Entity> entList = new List<Entity>();
-            scale = new Vector3(1, 1, 1);
-            ; if (b is Haswell.Buildings.Commercial)
+            base.Update();
+            foreach (RenderableBuilding rb in this.RenderableBuildings)
             {
-                entList.Add(sm.CreateEntity("skyscraper1.mesh"));
-                scale = new Vector3(80.0f, 80.0f, 80.0f);
+                rb.Update();
             }
-            else if (b is Haswell.Buildings.Residential)
-            {
-                entList.Add(sm.CreateEntity("residential1.mesh"));
-                scale = new Vector3(15.0f, 15.0f, 15.0f);
-            }
-            return entList;
         }
 
-        private void OnBuildingDeleted(object sender, EventArgs e)
+        private void OnBuildingDeleted(object sender, BuildingEventArgs e)
         {
-            this.Deselect();
-            this.Dispose();
             if (this.BuildingDeleted != null)
             {
-                this.BuildingDeleted.Invoke(sender, new EventArgs());
+                this.BuildingDeleted.Invoke(sender, e);
             }
         }
 
-        public Building GetBuilding()
+        public Plot Data 
         {
-            return this.data.GetAllBuildings[0];
+            get { return this.data; }
         }
 
-        public Plot GetData()
+        public List<RenderableBuilding> RenderableBuildings
         {
-            return this.data;
+            get
+            {
+                return Data.GetAllBuildings.Where(CityManager.Buildings.ContainsKey)
+                     .Select(x => CityManager.Buildings[x])
+                     .ToList();
+            }
         }
 
         public override void Select()
@@ -305,7 +303,6 @@ namespace Snowflake {
     public class RenderableBuilding : Renderable {
 
         private Building data;
-        private SceneNode selectionBox;
 
         public event EventHandler Deleted;
 
@@ -317,18 +314,9 @@ namespace Snowflake {
             data.Deleted += this.OnBuildingDeleted;
         }
 
-        public override void Create(SceneManager sm, SceneNode cityNode) {
+        public override void Create(SceneManager sm, SceneNode baseNode) {
             foreach (Entity e in GetBuildingEntities(this.data, sm, out this.scale)) { this.entities.Add(e); }
-            base.Create(sm, cityNode);
-
-            selectionBox = this.node.CreateChildSceneNode();
-            Entity selectionBoxEnt = sm.CreateEntity("selectionbox.mesh");
-            selectionBox.AttachObject(selectionBoxEnt);
-            selectionBox.Scale(new Vector3(473.0f / this.scale.x, 473.0f / this.scale.y, 473.0f / this.scale.z));
-            selectionBoxEnt.CastShadows = false;
-            selectionBox.SetVisible(false);
-
-            if (this.data.Parent != null) { this.SetPosition(this.data.Parent.X, this.data.Parent.Y); }
+            base.Create(sm, baseNode);
         }
 
         public static List<Entity> GetBuildingEntities(Building b, SceneManager sm, out Vector3 scale) {
@@ -345,23 +333,12 @@ namespace Snowflake {
             return entList;
         }
 
-        public override void Select()
-        {
- 	        base.Select();
-            this.selectionBox.SetVisible(true);
-        }
-
-        public override void Deselect() {
-            base.Deselect();
-            this.selectionBox.SetVisible(false);
-        }
-
         /// <summary>
         /// Returns the Haswell object providing this renderable's data.
         /// </summary>
         /// <returns>The Haswell object providing this renderable's data.</returns>
-        public Building GetData() {
-            return this.data;
+        public Building Data {
+            get { return this.data; }
         }
 
         private void OnBuildingDeleted(object sender, EventArgs e)

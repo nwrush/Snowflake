@@ -35,7 +35,7 @@ namespace Snowflake.GuiComponents.Windows
             //Assign event handlers for when this window is closed and if the building gets deleted
             //(These panels will be newly created each time you click "properties" on a building, so
             //there's no need to keep them around in memory)
-            b.Deleted += (object sender, EventArgs e) =>
+            b.Deleted += (object sender, BuildingEventArgs e) =>
             {
                 this.Dispose();
             };

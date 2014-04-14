@@ -49,7 +49,7 @@ namespace Snowflake.GuiComponents
                 this.renderBldg = b;
                 renderNode.RemoveAndDestroyAllChildren();
                 Vector3 scale; //useless
-                List<Entity> ents = RenderableBuilding.GetBuildingEntities(b.GetData(), CityManager.Engine.SceneMgr, out scale);
+                List<Entity> ents = RenderableBuilding.GetBuildingEntities(b.Data, CityManager.Engine.SceneMgr, out scale);
                 foreach (Entity ent in ents)
                 {
                     renderNode.AttachObject(ent);

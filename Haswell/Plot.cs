@@ -51,7 +51,11 @@ namespace Haswell {
         /// <summary>
         /// Occurs when a building is deleted
         /// </summary>
-        public event EventHandler BuildingDeleted;
+        public event EventHandler<BuildingEventArgs> BuildingDeleted;
+        /// <summary>
+        /// Occurs when a building is added
+        /// </summary>
+        public event EventHandler<BuildingEventArgs> BuildingAdded;
 
         //Location of the plot in the city grid
         //Minimum city plot value is (0,0)
@@ -74,10 +78,18 @@ namespace Haswell {
 
         }
 
-        private void onBuildingDeleted(object sender, EventArgs e)
+        private void onBuildingDeleted(object sender, BuildingEventArgs e)
         {
             if (this.BuildingDeleted != null) {
                 this.BuildingDeleted.Invoke(sender, e);
+            }
+        }
+
+        private void onBuildingAdded(object sender, BuildingEventArgs e)
+        {
+            if (this.BuildingAdded != null)
+            {
+                this.BuildingAdded.Invoke(sender, e);
             }
         }
 
@@ -95,6 +107,7 @@ namespace Haswell {
                 this.buildings.Add(b);
                 b.Parent = this;
                 b.Deleted += this.onBuildingDeleted;
+                this.onBuildingAdded(b, new BuildingEventArgs(b));
                 return true;
             }
             return false;

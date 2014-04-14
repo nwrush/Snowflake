@@ -26,7 +26,7 @@ namespace Haswell {
         /// <summary>
         /// Occurs when [deleted].
         /// </summary>
-        public event EventHandler Deleted;
+        public event EventHandler<BuildingEventArgs> Deleted;
 
         /// <summary>
         /// The initialized
@@ -100,7 +100,7 @@ namespace Haswell {
         /// </summary>
         public void Delete() {
             if (Deleted != null) {
-                Deleted.Invoke(this, new EventArgs());
+                Deleted.Invoke(this, new BuildingEventArgs(this));
             }
         }
 

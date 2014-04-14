@@ -15,7 +15,7 @@ namespace Snowflake.GuiComponents {
         }
 
         public void Update(float frametime) {
-            UpdateTimeLabel(Haswell.Controller.Environment.CurrentTime);
+            UpdateTimeLabel(Haswell.Controller.CurrentTime);
             cityLabel.Text = CityManager.CityName;
             //timeLabel.Location = new Point((ParentPanel.Width - timeLabel.Width - 10), timeLabel.Location.X);
             //cityLabel.Location = new Point((ParentPanel.Width - cityLabel.Width - 10), timeLabel.Location.X);

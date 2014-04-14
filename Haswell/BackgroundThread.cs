@@ -11,6 +11,7 @@ namespace Haswell {
         private Queue<EventHandler<TimeEventArgs>> eventsToHandle;
 
         public BackgroundThread() {
+            eventsToHandle = new Queue<EventHandler<TimeEventArgs>>();
             backgroundThread = new Thread(BackgroundProcess);
             backgroundThread.IsBackground = true;
             backgroundThread.Start();

@@ -270,7 +270,7 @@ namespace Snowflake {
         {
             get
             {
-                return Data.GetAllBuildings.Where(CityManager.Buildings.ContainsKey)
+                return Data.Buildings.Where(CityManager.Buildings.ContainsKey)
                      .Select(x => CityManager.Buildings[x])
                      .ToList();
             }

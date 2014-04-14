@@ -79,7 +79,7 @@ namespace Haswell {
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         public void DeleteBuilding(int x, int y) {
-            if (grid.ElementAt(x, y).GetAllBuildings.Count > 0) {
+            if (grid.ElementAt(x, y).Buildings.Count > 0) {
                 grid.ElementAt(x, y).DeleteAllBuildings();
             }
         }
@@ -200,7 +200,7 @@ namespace Haswell {
 
             for (int r = topLeft.X; r <= bottomRight.X; r++) {
                 for (int c = topLeft.Y; c <= bottomRight.Y; c++) {
-                    selected.AddRange(this.grid.ElementAt(r, c).GetAllBuildings);
+                    selected.AddRange(this.grid.ElementAt(r, c).Buildings);
                 }
             }
             return selected;

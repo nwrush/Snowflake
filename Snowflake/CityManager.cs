@@ -279,7 +279,7 @@ namespace Snowflake {
                 if (selectedBuildings != null) { selectedBuildings.Clear(); }
                 selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
                 foreach (RenderablePlot r in Plots.Values) {
-                    if (selectedBuildings.FindAll(item => r.Data.GetAllBuildings.Contains(item)).Count > 0) {
+                    if (selectedBuildings.FindAll(item => r.Data.Buildings.Contains(item)).Count > 0) {
                         r.Select();
                     }
                     else {

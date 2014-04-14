@@ -47,8 +47,7 @@ namespace Haswell {
             this.resources[ResourceType.Money] = 10000;
             this.resources[ResourceType.Population] = 10000;
         }
-
-
+        
         void Environment_Hourly(object sender, TimeEventArgs e) { this.UpdateHour(e.Time); }
         void Environment_Daily(object sender, TimeEventArgs e) { this.UpdateDaily(e.Time); }
         void Environment_Weekly(object sender, TimeEventArgs e) { this.UpdateWeekly(e.Time); }

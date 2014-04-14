@@ -7,8 +7,14 @@ namespace Haswell {
     /// <summary>
     /// Stuct for holding a resource Value
     /// </summary>
-    public struct Resource {
+    public struct Resource {//Todo: Remove this struct, it isn't used
+        /// <summary>
+        /// The value
+        /// </summary>
         float value;
+        /// <summary>
+        /// The name
+        /// </summary>
         string name;
         /// <summary>
         /// Initializes a new Resource with the given values
@@ -30,10 +36,25 @@ namespace Haswell {
     /// The different types of resources available
     /// </summary>
     public enum ResourceType {
+        /// <summary>
+        /// The material
+        /// </summary>
         Material,
+        /// <summary>
+        /// The energy
+        /// </summary>
         Energy,
+        /// <summary>
+        /// The money
+        /// </summary>
         Money,
+        /// <summary>
+        /// The population
+        /// </summary>
         Population,
+        /// <summary>
+        /// The none
+        /// </summary>
         None
     };
 }

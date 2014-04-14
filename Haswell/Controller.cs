@@ -11,9 +11,10 @@ namespace Haswell {
     /// Game shouold only make calls to this class
     /// </summary>
     public class Controller {
+
         private static City activeCity;
         private static Universe activeEnv;
-         
+
         public static void init(string name) {
             activeEnv = new Universe(/*later we'll pass some regional parameters in here*/);
             activeCity = new City(name);

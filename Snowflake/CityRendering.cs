@@ -308,9 +308,9 @@ namespace Snowflake {
 
     public class RenderablePipe : Renderable {
 
-        private Pipe data;
+        private Links data;
 
-        public RenderablePipe(Pipe data) {
+        public RenderablePipe(Links data) {
             this.data = data;
         }
 
@@ -319,7 +319,7 @@ namespace Snowflake {
             base.Create(sm, cityNode);
         }
 
-        public static List<Entity> GetPipeEntities(Pipe b) {
+        public static List<Entity> GetPipeEntities(Links b) {
             throw new NotImplementedException();
         }
     }

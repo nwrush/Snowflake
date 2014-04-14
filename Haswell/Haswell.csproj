@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BackgroundThread.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Buildings\Commercial.cs" />
     <Compile Include="Buildings\Industrial.cs" />

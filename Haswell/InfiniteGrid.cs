@@ -27,12 +27,6 @@ namespace Haswell {
             }
         }
 
-        /// <summary>
-        /// Elements at.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>Haswell.Plot.</returns>
         public Plot ElementAt(int x, int y) {
             try {
                 Plot p = elements[new Point(x, y)];
@@ -46,22 +40,12 @@ namespace Haswell {
                 return p;
             }
         }
-        /// <summary>
-        /// Removes at.
-        /// </summary>
-        /// <param name="x">The x.</param>
-        /// <param name="y">The y.</param>
-        /// <returns>Haswell.Plot.</returns>
         public Plot RemoveAt(int x, int y) {
             Plot tmp = elements[new Point(x, y)];
             elements.Remove(new Point(x, y));
             return tmp;
         }
 
-        /// <summary>
-        /// To the grid.
-        /// </summary>
-        /// <returns>Haswell.Plot[].</returns>
         public Plot[,] ToGrid() {
             Plot[,] tmp = null;
             makePlot(tmp);
@@ -69,10 +53,6 @@ namespace Haswell {
             return tmp;
         }
 
-        /// <summary>
-        /// Makes the plot.
-        /// </summary>
-        /// <param name="t">The t.</param>
         private void makePlot(Plot[,] t) {
             int lowX = 0, lowY = 0, highX = 0, highY = 0;
 
@@ -204,7 +184,7 @@ namespace Haswell {
         #endregion
 
         /// <summary>
-        /// Returns an array of plots in the specified selection
+        /// Returns a List of plots in the specified selection
         /// </summary>
         /// <param name="topLeft">Top left corner of the selection</param>
         /// <param name="bottomRight">Bottom right corner of the selection</param>
@@ -222,12 +202,11 @@ namespace Haswell {
             List<Plot> tmp = new List<Plot>();
             for (int r = selection.Left; r <= selection.Right; ++r) {
                 for (int c = selection.Bottom; c <= selection.Top; ++c) {
-                    try {
-                        tmp.Add(this.elements[new Point(r, c)]);
-                    } catch (KeyNotFoundException e) { continue; }
+                    if(this.elements.ContainsKey(new Point(r,c)))
+                        tmp.Add(this.elements[new Point(r,c)]);
                 }
             }
-            return null;
+            return tmp;
         }
     }
 }

@@ -10,36 +10,15 @@ namespace Haswell {
     /// </summary>
     public class City {
 
-        /// <summary>
-        /// The name
-        /// </summary>
         private string name;
-        /// <summary>
-        /// The grid
-        /// </summary>
         private InfiniteGrid grid;
 
-        /// <summary>
-        /// The pipes
-        /// </summary>
         private List<Links> pipes;
-        /// <summary>
-        /// The citizens
-        /// </summary>
         private List<Person> Citizens;
 
-        /// <summary>
-        /// The resources
-        /// </summary>
         private ResourceDict resources;
 
-        /// <summary>
-        /// Occurs when [building created].
-        /// </summary>
         public event EventHandler<BuildingEventArgs> BuildingCreated;
-        /// <summary>
-        /// Occurs when [building updated].
-        /// </summary>
         public event EventHandler<BuildingEventArgs> BuildingUpdated;
 
         /// <summary>
@@ -57,7 +36,6 @@ namespace Haswell {
             this.Citizens = new List<Person>();
 
             initResources();
-            initUpdateMethods();
         }
         /// <summary>
         /// Sets the default Resource values
@@ -69,61 +47,14 @@ namespace Haswell {
             this.resources[ResourceType.Money] = 10000;
             this.resources[ResourceType.Population] = 10000;
         }
-        /// <summary>
-        /// Adds the timed event handlers to the controller
-        /// </summary>
-        private void initUpdateMethods() {
-            Controller.Environment.Hourly += Environment_Hourly;
-            Controller.Environment.Daily += Environment_Daily;
-            Controller.Environment.Weekly += Environment_Weekly;
-            Controller.Environment.Monthly += Environment_Monthly;
-            Controller.Environment.Quarterly += Environment_Quarterly;
-            Controller.Environment.Biannually += Environment_Biannually;
-            Controller.Environment.Yearly += Environment_Yearly;
-        }
 
 
-        /// <summary>
-        /// Environment_s the hourly.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="Haswell.TimeEventArgs"/> instance containing the event data.</param>
         void Environment_Hourly(object sender, TimeEventArgs e) { this.UpdateHour(e.Time); }
-        /// <summary>
-        /// Environment_s the daily.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="Haswell.TimeEventArgs"/> instance containing the event data.</param>
         void Environment_Daily(object sender, TimeEventArgs e) { this.UpdateDaily(e.Time); }
-        /// <summary>
-        /// Environment_s the weekly.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="Haswell.TimeEventArgs"/> instance containing the event data.</param>
         void Environment_Weekly(object sender, TimeEventArgs e) { this.UpdateWeekly(e.Time); }
-        /// <summary>
-        /// Environment_s the monthly.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="Haswell.TimeEventArgs"/> instance containing the event data.</param>
         void Environment_Monthly(object sender, TimeEventArgs e) { this.UpdateMonthly(e.Time); }
-        /// <summary>
-        /// Environment_s the quarterly.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="Haswell.TimeEventArgs"/> instance containing the event data.</param>
         void Environment_Quarterly(object sender, TimeEventArgs e) { this.UpdateQuaterly(e.Time); }
-        /// <summary>
-        /// Environment_s the biannually.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="Haswell.TimeEventArgs"/> instance containing the event data.</param>
         void Environment_Biannually(object sender, TimeEventArgs e) { this.UpdateBiannually(e.Time); }
-        /// <summary>
-        /// Environment_s the yearly.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="Haswell.TimeEventArgs"/> instance containing the event data.</param>
         void Environment_Yearly(object sender, TimeEventArgs e) { this.UpdateYearly(e.Time); }
 
         /// <summary>
@@ -154,12 +85,6 @@ namespace Haswell {
             }
         }
 
-        /// <summary>
-        /// Sets the zoning.
-        /// </summary>
-        /// <param name="p1">The p1.</param>
-        /// <param name="p2">The p2.</param>
-        /// <param name="z">The z.</param>
         public void SetZoning(Point p1, Point p2, Zones z)
         {
             Point tl = new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y));
@@ -182,64 +107,36 @@ namespace Haswell {
                 p.Update(this.resources);
             }
         }
-        /// <summary>
-        /// Updates the hour.
-        /// </summary>
-        /// <param name="time">The time.</param>
         public void UpdateHour(DateTime time) {
             foreach (Plot p in this.grid) {
                 p.UpdateHour(this.resources);
             }
         }
-        /// <summary>
-        /// Updates the daily.
-        /// </summary>
-        /// <param name="time">The time.</param>
         public void UpdateDaily(DateTime time) {
             foreach (Plot p in this.grid) {
                 p.UpdateDaily(this.resources);
             }
         }
-        /// <summary>
-        /// Updates the weekly.
-        /// </summary>
-        /// <param name="time">The time.</param>
         public void UpdateWeekly(DateTime time) {
             foreach (Plot p in this.grid) {
                 p.UpdateWeekly(this.resources);
             }
         }
-        /// <summary>
-        /// Updates the monthly.
-        /// </summary>
-        /// <param name="time">The time.</param>
         public void UpdateMonthly(DateTime time) {
             foreach (Plot p in this.grid) {
                 p.UpdateMonthly(this.resources);
             }
         }
-        /// <summary>
-        /// Updates the quaterly.
-        /// </summary>
-        /// <param name="time">The time.</param>
         public void UpdateQuaterly(DateTime time) {
             foreach (Plot p in this.grid) {
                 p.UpdateQuaterly(this.resources);
             }
         }
-        /// <summary>
-        /// Updates the biannually.
-        /// </summary>
-        /// <param name="time">The time.</param>
         public void UpdateBiannually(DateTime time) {
             foreach (Plot p in this.grid) {
                 p.UpdateBiannually(this.resources);
             }
         }
-        /// <summary>
-        /// Updates the yearly.
-        /// </summary>
-        /// <param name="time">The time.</param>
         public void UpdateYearly(DateTime time) {
             foreach (Plot p in this.grid) {
                 p.UpdateYearly(this.resources);
@@ -247,10 +144,6 @@ namespace Haswell {
             this.Citizens.Sort();
         }
 
-        /// <summary>
-        /// To the string.
-        /// </summary>
-        /// <returns>System.String.</returns>
         public override string ToString() {
             return "City " + this.name + ", with a population of " + this.Resources[ResourceType.Population] + ".";
         }

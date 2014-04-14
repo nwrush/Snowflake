@@ -10,15 +10,7 @@ namespace Haswell {
     /// </summary>
     public class Universe {
 
-        /// <summary>
-        /// Gets the time.
-        /// </summary>
-        /// <value>The time.</value>
         public float Time { get; private set; }
-        /// <summary>
-        /// Gets the timescale.
-        /// </summary>
-        /// <value>The timescale.</value>
         public float Timescale { get; private set; }
 
 
@@ -28,37 +20,30 @@ namespace Haswell {
 
         public DateTime CurrentTime { get; private set; }
 
-        public event EventHandler<TimeEventArgs> Hourly;
-        public event EventHandler<TimeEventArgs> Daily;
-        public event EventHandler<TimeEventArgs> Weekly;
-        public event EventHandler<TimeEventArgs> Monthly;
-        public event EventHandler<TimeEventArgs> Quarterly;
-        public event EventHandler<TimeEventArgs> Biannually;
-        public event EventHandler<TimeEventArgs> Yearly;
 
         public event EventHandler<BackgroundEventArgs> BackgroundEvents;
         private Thread BackgroundUpdate;
 
-        private Thread HourlyUpdate;
-        private void InvokeHourlyUpdate() { Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+        //private Thread HourlyUpdate;
+        //private void InvokeHourlyUpdate() { Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
-        private Thread DailyUpdate;
-        private void InvokeDailyUpdate() { Daily.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+        //private Thread DailyUpdate;
+        //private void InvokeDailyUpdate() { Daily.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
-        private Thread WeeklyUpdate;
-        private void InvokeWeeklyUpdate() { Weekly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+        //private Thread WeeklyUpdate;
+        //private void InvokeWeeklyUpdate() { Weekly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
-        private Thread MonthlyUpdate;
-        private void InvokeMonthlyUpdate() { Monthly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+        //private Thread MonthlyUpdate;
+        //private void InvokeMonthlyUpdate() { Monthly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
-        private Thread QuarterlyUpdate;
-        private void InvokeQuarterlyUpdate() { Quarterly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+        //private Thread QuarterlyUpdate;
+        //private void InvokeQuarterlyUpdate() { Quarterly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
-        private Thread BiannuallyUpdate;
-        private void InvokeBinannuallyUpdate() { Biannually.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+        //private Thread BiannuallyUpdate;
+        //private void InvokeBinannuallyUpdate() { Biannually.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
-        private Thread YearlyUpdate;
-        private void InvokeYearlyUpdate() { Yearly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
+        //private Thread YearlyUpdate;
+        //private void InvokeYearlyUpdate() { Yearly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
         public Universe() {
             Timescale = 20.0f;
@@ -79,58 +64,58 @@ namespace Haswell {
             DateTime _prevTime = this.CurrentTime;
             Time += Timescale;
             this.CurrentTime = new DateTime(1970, 1, 1).AddMinutes(this.Time / Universe.MinuteLength);
-            if (_prevTime.Hour != this.CurrentTime.Hour) {
-                //Don't assume this update is being called once or more per hour. At fast timescales with low tickrates, this will not be the case!
-                if (Hourly != null) { this.HourlyUpdate = new Thread(this.InvokeHourlyUpdate); this.HourlyUpdate.Start(); }
-            }
-            if (_prevTime.Day != this.CurrentTime.Day) {
-                if (Daily != null) {
-                    if (this.DailyUpdate != null) { this.DailyUpdate.Abort(); }
-                    this.DailyUpdate = new Thread(this.InvokeDailyUpdate);
-                    this.DailyUpdate.IsBackground = true;
-                    this.DailyUpdate.Start();
-                }
-            }
-            if (_prevTime.DayOfWeek != this.CurrentTime.DayOfWeek && this.CurrentTime.DayOfWeek == DayOfWeek.Monday) {
-                if (Weekly != null) {
-                    if (this.WeeklyUpdate != null) { this.WeeklyUpdate.Abort(); }
-                    this.WeeklyUpdate = new Thread(this.InvokeWeeklyUpdate);
-                    this.WeeklyUpdate.IsBackground = true;
-                    this.WeeklyUpdate.Start();
-                }
-            }
-            if (_prevTime.Month != this.CurrentTime.Month) {
-                if (Monthly != null) {
-                    if (this.MonthlyUpdate != null) { this.MonthlyUpdate.Abort(); }
-                    this.MonthlyUpdate = new Thread(this.InvokeMonthlyUpdate);
-                    this.MonthlyUpdate.IsBackground = true;
-                    this.MonthlyUpdate.Start();
-                }
-            }
-            if (CheckQuarterly(_prevTime)) {
-                if (Quarterly != null) {
-                    if (this.QuarterlyUpdate != null) { this.QuarterlyUpdate.Abort(); }
-                    this.QuarterlyUpdate = new Thread(this.InvokeQuarterlyUpdate);
-                    this.QuarterlyUpdate.IsBackground = true;
-                    this.QuarterlyUpdate.Start();
-                }
-            }
-            if ((this.CurrentTime.Month == 1 || this.CurrentTime.Month == 6) && this.CurrentTime.Month != _prevTime.Month) {
-                if (Biannually != null) {
-                    if (this.BiannuallyUpdate != null) { this.BiannuallyUpdate.Abort(); }
-                    this.BiannuallyUpdate = new Thread(this.InvokeBinannuallyUpdate);
-                    this.BiannuallyUpdate.IsBackground = true;
-                    this.BiannuallyUpdate.Start();
-                }
-            }
-            if (_prevTime.Year != this.CurrentTime.Year) {
-                if (Yearly != null) {
-                    if (this.YearlyUpdate != null) { this.YearlyUpdate.Abort(); }
-                    this.YearlyUpdate = new Thread(this.InvokeYearlyUpdate);
-                    this.YearlyUpdate.IsBackground = true;
-                    this.YearlyUpdate.Start();
-                }
-            }
+            //if (_prevTime.Hour != this.CurrentTime.Hour) {
+            //    //Don't assume this update is being called once or more per hour. At fast timescales with low tickrates, this will not be the case!
+            //    if (Hourly != null) { this.HourlyUpdate = new Thread(this.InvokeHourlyUpdate); this.HourlyUpdate.Start(); }
+            //}
+            //if (_prevTime.Day != this.CurrentTime.Day) {
+            //    if (Daily != null) {
+            //        if (this.DailyUpdate != null) { this.DailyUpdate.Abort(); }
+            //        this.DailyUpdate = new Thread(this.InvokeDailyUpdate);
+            //        this.DailyUpdate.IsBackground = true;
+            //        this.DailyUpdate.Start();
+            //    }
+            //}
+            //if (_prevTime.DayOfWeek != this.CurrentTime.DayOfWeek && this.CurrentTime.DayOfWeek == DayOfWeek.Monday) {
+            //    if (Weekly != null) {
+            //        if (this.WeeklyUpdate != null) { this.WeeklyUpdate.Abort(); }
+            //        this.WeeklyUpdate = new Thread(this.InvokeWeeklyUpdate);
+            //        this.WeeklyUpdate.IsBackground = true;
+            //        this.WeeklyUpdate.Start();
+            //    }
+            //}
+            //if (_prevTime.Month != this.CurrentTime.Month) {
+            //    if (Monthly != null) {
+            //        if (this.MonthlyUpdate != null) { this.MonthlyUpdate.Abort(); }
+            //        this.MonthlyUpdate = new Thread(this.InvokeMonthlyUpdate);
+            //        this.MonthlyUpdate.IsBackground = true;
+            //        this.MonthlyUpdate.Start();
+            //    }
+            //}
+            //if (CheckQuarterly(_prevTime)) {
+            //    if (Quarterly != null) {
+            //        if (this.QuarterlyUpdate != null) { this.QuarterlyUpdate.Abort(); }
+            //        this.QuarterlyUpdate = new Thread(this.InvokeQuarterlyUpdate);
+            //        this.QuarterlyUpdate.IsBackground = true;
+            //        this.QuarterlyUpdate.Start();
+            //    }
+            //}
+            //if ((this.CurrentTime.Month == 1 || this.CurrentTime.Month == 6) && this.CurrentTime.Month != _prevTime.Month) {
+            //    if (Biannually != null) {
+            //        if (this.BiannuallyUpdate != null) { this.BiannuallyUpdate.Abort(); }
+            //        this.BiannuallyUpdate = new Thread(this.InvokeBinannuallyUpdate);
+            //        this.BiannuallyUpdate.IsBackground = true;
+            //        this.BiannuallyUpdate.Start();
+            //    }
+            //}
+            //if (_prevTime.Year != this.CurrentTime.Year) {
+            //    if (Yearly != null) {
+            //        if (this.YearlyUpdate != null) { this.YearlyUpdate.Abort(); }
+            //        this.YearlyUpdate = new Thread(this.InvokeYearlyUpdate);
+            //        this.YearlyUpdate.IsBackground = true;
+            //        this.YearlyUpdate.Start();
+            //    }
+            //}
         }
         private bool CheckQuarterly(DateTime _prevTime) {
             if (this.CurrentTime.Month == _prevTime.Month)

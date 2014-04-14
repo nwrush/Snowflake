@@ -131,7 +131,7 @@ namespace Snowflake.States {
             GuiMgr.CreateDefaultGui(StateMgr.GuiSystem);
             GuiMgr.HideBuildingPlacementPanel();
         }
-
+        #region Console Commands
         /// <summary>
         /// Register the console commands 
         /// </summary>
@@ -206,6 +206,7 @@ namespace Snowflake.States {
                 }
             }, "Adds a building at x, y"));
         }
+        #endregion
 
         public void SetMouseMode(MouseMode m) {
             this.mouseMode = m;

@@ -48,6 +48,10 @@ namespace Haswell {
         /// Occurs when [zone changed].
         /// </summary>
         public event EventHandler ZoneChanged;
+        /// <summary>
+        /// Occurs when a building is deleted
+        /// </summary>
+        public event EventHandler BuildingDeleted;
 
         //Location of the plot in the city grid
         //Minimum city plot value is (0,0)
@@ -70,6 +74,13 @@ namespace Haswell {
 
         }
 
+        private void onBuildingDeleted(object sender, EventArgs e)
+        {
+            if (this.BuildingDeleted != null) {
+                this.BuildingDeleted.Invoke(sender, e);
+            }
+        }
+
         /// <summary>
         /// Attempts to add a building to this plot. If successful, returns true, otherwise
         /// returns false.
@@ -83,6 +94,7 @@ namespace Haswell {
             if (plotUsage + b.GetPlotUsage() <= plotCapacity && b.Parent == null) {
                 this.buildings.Add(b);
                 b.Parent = this;
+                b.Deleted += this.onBuildingDeleted;
                 return true;
             }
             return false;

@@ -21,9 +21,6 @@ namespace Haswell {
         public DateTime CurrentTime { get; private set; }
 
 
-        public event EventHandler<BackgroundEventArgs> BackgroundEvents;
-        private Thread BackgroundUpdate;
-
         //private Thread HourlyUpdate;
         //private void InvokeHourlyUpdate() { Hourly.Invoke(this, new TimeEventArgs(this.CurrentTime)); }
 
@@ -47,12 +44,6 @@ namespace Haswell {
 
         public Universe() {
             Timescale = 20.0f;
-
-        }
-        private void startBackgroundThread() {
-            
-            BackgroundUpdate.IsBackground = false;
-            BackgroundUpdate.Start();
         }
 
         public void Update(float frametime) {
@@ -66,7 +57,7 @@ namespace Haswell {
             this.CurrentTime = new DateTime(1970, 1, 1).AddMinutes(this.Time / Universe.MinuteLength);
             //if (_prevTime.Hour != this.CurrentTime.Hour) {
             //    //Don't assume this update is being called once or more per hour. At fast timescales with low tickrates, this will not be the case!
-            //    if (Hourly != null) { this.HourlyUpdate = new Thread(this.InvokeHourlyUpdate); this.HourlyUpdate.Start(); }
+                
             //}
             //if (_prevTime.Day != this.CurrentTime.Day) {
             //    if (Daily != null) {

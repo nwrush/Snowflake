@@ -106,6 +106,8 @@ namespace Haswell {
                 p.Update(this.resources);
             }
         }
+
+        public delegate void UpdateDelegate(DateTime time);
         public void UpdateHour(DateTime time) {
             foreach (Plot p in this.grid) {
                 p.UpdateHour(this.resources);

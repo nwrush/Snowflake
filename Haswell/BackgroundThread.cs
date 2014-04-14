@@ -19,6 +19,9 @@ namespace Haswell {
 
         private void BackgroundProcess() {
             while (true) {
+                if (this.eventsToHandle.Count == 0)
+                    continue;
+
                 EventHandler<TimeEventArgs> tmp = eventsToHandle.Dequeue();
                 tmp.Invoke(this, new TimeEventArgs(Haswell.Controller.CurrentTime));
             }

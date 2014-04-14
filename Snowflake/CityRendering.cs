@@ -199,8 +199,11 @@ namespace Snowflake {
     public class RenderablePlot : Renderable
     {
         private Plot data;
+        private SceneNode selectionBoxNode;
+        private SceneNode zoneNode;
 
         public event EventHandler ZoneChanged;
+        public event EventHandler BuildingDeleted;
 
         public RenderablePlot(Plot data)
         {
@@ -209,16 +212,93 @@ namespace Snowflake {
             this.Name = this.data.GetType().ToString() + "_" + this.GetHashCode();
 
             data.ZoneChanged += this.ZoneChanged;
+            data.BuildingDeleted += this.OnBuildingDeleted;
         }
 
         public override void Create(SceneManager sm, SceneNode cityNode)
         {
+            foreach (Entity e in GetBuildingEntities(this.GetBuilding(), sm, out this.scale)) { this.entities.Add(e); }
             base.Create(sm, cityNode);
 
             Plane plane = new Plane(Vector3.UNIT_Y, 0);
             MeshManager.Singleton.CreatePlane(this.Name + "_zoneTile", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, PlotWidth, PlotHeight, 1, 1, true, 1, 1, 1, Vector3.UNIT_Z);
             Entity zoneTile = sm.CreateEntity(this.Name, this.Name + "_zoneTile");
-            this.entities.Add(zoneTile);
+
+            zoneNode = this.node.CreateChildSceneNode();
+            zoneNode.AttachObject(zoneTile);
+            zoneNode.Scale(new Vector3(473.0f / this.scale.x, 473.0f / this.scale.y, 473.0f / this.scale.z));
+            zoneTile.CastShadows = false;
+            zoneNode.SetVisible(false);
+
+            selectionBoxNode = this.node.CreateChildSceneNode();
+            Entity selectionBoxEnt = sm.CreateEntity("selectionbox.mesh");
+
+            selectionBoxNode.AttachObject(selectionBoxEnt);
+            selectionBoxNode.Scale(new Vector3(473.0f / this.scale.x, 473.0f / this.scale.y, 473.0f / this.scale.z));
+            selectionBoxEnt.CastShadows = false;
+            selectionBoxNode.SetVisible(false);
+
+            this.SetPosition(data.X, data.Y);
+        }
+
+        public static List<Entity> GetBuildingEntities(Building b, SceneManager sm, out Vector3 scale)
+        {
+            List<Entity> entList = new List<Entity>();
+            scale = new Vector3(1, 1, 1);
+            ; if (b is Haswell.Buildings.Commercial)
+            {
+                entList.Add(sm.CreateEntity("skyscraper1.mesh"));
+                scale = new Vector3(80.0f, 80.0f, 80.0f);
+            }
+            else if (b is Haswell.Buildings.Residential)
+            {
+                entList.Add(sm.CreateEntity("residential1.mesh"));
+                scale = new Vector3(15.0f, 15.0f, 15.0f);
+            }
+            return entList;
+        }
+
+        private void OnBuildingDeleted(object sender, EventArgs e)
+        {
+            this.Deselect();
+            this.Dispose();
+            if (this.BuildingDeleted != null)
+            {
+                this.BuildingDeleted.Invoke(sender, new EventArgs());
+            }
+        }
+
+        public Building GetBuilding()
+        {
+            return this.data.GetAllBuildings[0];
+        }
+
+        public Plot GetData()
+        {
+            return this.data;
+        }
+
+        public override void Select()
+        {
+            base.Select();
+            this.selectionBoxNode.SetVisible(true);
+        }
+
+        public override void Deselect()
+        {
+            base.Deselect();
+            this.selectionBoxNode.SetVisible(false);
+        }
+
+        public override void Dispose()
+        {
+            foreach (Entity ent in this.entities)
+            {
+                ent.DetachFromParent();
+                ent.Dispose();
+            }
+            node.RemoveAndDestroyAllChildren();
+            node.Dispose();
         }
     }
 

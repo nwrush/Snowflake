@@ -1,0 +1,20 @@
+ - Refactor RenderablePlot to use RenderableBuildings instead of incorporating them directly
+	 - This is so that virtual buildings will work, and so multiple buildings would be nice
+
+ - Instead of keeping a List in CityManager, keep two Dictionarys. One <Building, RenderableBuilding> and one <Plot, RenderablePlot>. This will allow for faster lookup esp. for finding renderable equivs of haswell objects
+ - Add events to Haswell.Plot for building addition and a few other useful events. Keep non-plot-affecting building events to Haswell.Building. 
+
+ - Add functions/lookup tables to CityManager to find buildings/plots by coordinates. 
+Allows for easy lookup from mouse input and suchs
+
+ - Fix everything in CityManager to use the new system
+
+ - Add concommands for manual zone setting to see if zone graphics work and Haswell responds appropriately. IF so, then do ghost zone setting.
+
+ - Add input cancelling for building creation, zone drawing
+
+
+
+ - Then do pipes.
+
+ - And maybe roads.

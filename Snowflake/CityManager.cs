@@ -64,26 +64,26 @@ namespace Snowflake {
         //////TIME
         public static float Time {
             get {
-                return Controller.Environment.Time;
+                return Controller.Time;
             }
         }
         public static float Timescale {
             get {
-                return Controller.Environment.Timescale;
+                return Controller.Timescale;
             }
         }
         private static float totalTime;
         private static float lastTotalTime;
-        public static float MinuteLength { get { return Universe.MinuteLength; } }
-        public static float HourLength { get { return Universe.HourLength; } }
-        public static float DayLength { get { return Universe.DayLength; } }
+        public static float MinuteLength { get { return Controller.MinuteLength; } }
+        public static float HourLength { get { return Controller.HourLength; } }
+        public static float DayLength { get { return Controller.DayLength; } }
 
         /// <summary>
         /// Sets the amount by which the game time is incremented every tick
         /// </summary>
         /// <param name="timescale"></param>
         public static void SetTimescale(float timescale) {
-            Controller.Environment.SetTimescale(timescale);
+            Controller.SetTimescale(timescale);
         }
 
         /// <summary>

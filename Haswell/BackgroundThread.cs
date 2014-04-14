@@ -20,7 +20,7 @@ namespace Haswell {
         private void BackgroundProcess() {
             while (true) {
                 EventHandler<TimeEventArgs> tmp = eventsToHandle.Dequeue();
-                tmp.Invoke(this, new TimeEventArgs(Haswell.Controller.Environment.CurrentTime));
+                tmp.Invoke(this, new TimeEventArgs(Haswell.Controller.CurrentTime));
             }
         }
 

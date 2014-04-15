@@ -211,7 +211,20 @@ namespace Snowflake.States {
                 {
                     int x1, y1, x2, y2;
                     Haswell.Zones z;
-
+                    if (Int32.TryParse(args[1], out x1) && Int32.TryParse(args[2], out y1) && Enum.TryParse<Haswell.Zones>(args[0], true, out z))
+                    {
+                        if (args.Length == 3) { CityManager.SetZoning(new Point(x1, y1), z); }
+                        else if (Int32.TryParse(args[3], out x2) && Int32.TryParse(args[4], out y2)) {
+                            CityManager.SetZoning(new Point(x1, y1), new Point(x2, y2), z);
+                        }
+                        else {
+                            gConsole.WriteLine("x2 and y2 must be valid integers!");
+                        }
+                    }
+                    else
+                    {
+                        gConsole.WriteLine("x1 and y1 must be valid integers and z must be a valid zone!");
+                    }
                 }
             }, "Sets zone z from x1, y1 to x2, y2"));
         }

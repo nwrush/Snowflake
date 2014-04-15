@@ -90,7 +90,7 @@ namespace Haswell {
             Point br = new Point(Math.Max(p1.X, p2.X), Math.Max(p1.Y, p2.Y));
             for (int x = tl.X; x <= br.X; ++x)
             {
-                for (int y = tl.Y; x <= br.Y; ++y)
+                for (int y = tl.Y; y <= br.Y; ++y)
                 {
                     grid.ElementAt(x, y).Zone = z;
                 }

@@ -89,6 +89,7 @@ namespace Snowflake {
                             if (!CityManager.Plots.ContainsKey(Haswell.Controller.City.Grid.ElementAt(x, y)))
                             {
                                 RenderablePlot rp = new RenderablePlot(Haswell.Controller.City.Grid.ElementAt(x, y));
+                                rp.Create(SceneMgr, cityNode);
                                 CityManager.Plots[Haswell.Controller.City.Grid.ElementAt(x, y)] = rp;
                             }
                         }

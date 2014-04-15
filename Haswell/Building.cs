@@ -6,7 +6,7 @@ using System.Text;
 namespace Haswell {
         public abstract class Building {
 
-        protected Zones zone;
+        protected readonly Zones _zone;
         public Plot Parent;
 
         //Todo: Implement this into the constructor and init function
@@ -64,10 +64,7 @@ namespace Haswell {
 
         public Zones Zone {
             get {
-                return this.zone;
-            }
-            private set {
-                this.zone = value;
+                return this._zone;
             }
         }
     }

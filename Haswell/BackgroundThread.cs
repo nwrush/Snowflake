@@ -8,12 +8,13 @@ namespace Haswell {
     public class BackgroundThread {
 
         private Thread backgroundThread;
-        private Queue<EventHandler<TimeEventArgs>> eventsToHandle;
+        private Queue<Controller.UpdateDelegate> eventsToHandle;
 
         public BackgroundThread() {
-            eventsToHandle = new Queue<EventHandler<TimeEventArgs>>();
+            eventsToHandle = new Queue<Controller.UpdateDelegate>();
             backgroundThread = new Thread(BackgroundProcess);
             backgroundThread.IsBackground = true;
+            backgroundThread.Name = "Haswell Timed Updates";
             backgroundThread.Start();
         }
 
@@ -22,12 +23,12 @@ namespace Haswell {
                 if (this.eventsToHandle.Count == 0)
                     continue;
 
-                EventHandler<TimeEventArgs> tmp = eventsToHandle.Dequeue();
-                tmp.Invoke(this, new TimeEventArgs(Haswell.Controller.CurrentTime));
+                Controller.UpdateDelegate tmp = eventsToHandle.Dequeue();
+                tmp(Controller.CurrentTime);
             }
         }
 
-        public Queue<EventHandler<TimeEventArgs>> Events {
+        public Queue<Controller.UpdateDelegate> Events {
             get {
                 return this.eventsToHandle;
             }

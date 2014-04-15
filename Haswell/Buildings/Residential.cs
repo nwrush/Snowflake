@@ -76,11 +76,11 @@ namespace Haswell.Buildings {
         }
 
         /// <summary>
-        /// Updates the quaterly.
+        /// Updates the Quarterly.
         /// </summary>
         /// <param name="pltRes">The PLT resource.</param>
-        public override void UpdateQuaterly(ResourceDict pltRes) {
-            base.UpdateQuaterly(pltRes);
+        public override void UpdateQuarterly(ResourceDict pltRes) {
+            base.UpdateQuarterly(pltRes);
         }
 
         /// <summary>

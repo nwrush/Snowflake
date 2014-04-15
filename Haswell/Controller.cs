@@ -30,25 +30,25 @@ namespace Haswell {
         }
         private static void CheckTimedUpdates(DateTime _prevTime, DateTime time) {
             if (_prevTime.Hour != time.Hour) {
-
+                backgroundThread.Events.Enqueue(UpdateHour);
             }
             if (_prevTime.Day != time.Day) {
-
+                backgroundThread.Events.Enqueue(UpdateDaily);
             }
             if (_prevTime.DayOfWeek != time.DayOfWeek && time.DayOfWeek == DayOfWeek.Monday) {
-
+                backgroundThread.Events.Enqueue(UpdateWeekly);
             }
             if (_prevTime.Month != time.Month) {
-
+                backgroundThread.Events.Enqueue(UpdateMonthly);
             }
             if (CheckQuarterly(_prevTime, time)) {
-
+                backgroundThread.Events.Enqueue(UpdateQuarterly);
             }
             if ((time.Month == 1 || time.Month == 6) && time.Month != _prevTime.Month) {
-
+                backgroundThread.Events.Enqueue(UpdateBiannually);
             }
             if (_prevTime.Year != time.Year) {
-
+                backgroundThread.Events.Enqueue(UpdateYearly);
             }
         }
         private static bool CheckQuarterly(DateTime _prevTime, DateTime _time) {
@@ -79,6 +79,9 @@ namespace Haswell {
         }
         private static void UpdateMonthly(DateTime time) {
             activeCity.UpdateMonthly(time);
+        }
+        private static void UpdateQuarterly(DateTime time) {
+            activeCity.UpdateQuarterly(time);
         }
         private static void UpdateBiannually(DateTime time) {
             activeCity.UpdateBiannually(time);

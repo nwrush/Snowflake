@@ -52,7 +52,7 @@ namespace Haswell {
         void Environment_Daily(object sender, TimeEventArgs e) { this.UpdateDaily(e.Time); }
         void Environment_Weekly(object sender, TimeEventArgs e) { this.UpdateWeekly(e.Time); }
         void Environment_Monthly(object sender, TimeEventArgs e) { this.UpdateMonthly(e.Time); }
-        void Environment_Quarterly(object sender, TimeEventArgs e) { this.UpdateQuaterly(e.Time); }
+        void Environment_Quarterly(object sender, TimeEventArgs e) { this.UpdateQuarterly(e.Time); }
         void Environment_Biannually(object sender, TimeEventArgs e) { this.UpdateBiannually(e.Time); }
         void Environment_Yearly(object sender, TimeEventArgs e) { this.UpdateYearly(e.Time); }
 
@@ -128,9 +128,9 @@ namespace Haswell {
                 p.UpdateMonthly(this.resources);
             }
         }
-        public void UpdateQuaterly(DateTime time) {
+        public void UpdateQuarterly(DateTime time) {
             foreach (Plot p in this.grid) {
-                p.UpdateQuaterly(this.resources);
+                p.UpdateQuarterly(this.resources);
             }
         }
         public void UpdateBiannually(DateTime time) {

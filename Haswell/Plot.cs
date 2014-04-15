@@ -119,9 +119,9 @@ namespace Haswell {
                 b.UpdateMonthly(this.resource);
             }
         }
-        public void UpdateQuaterly(ResourceDict cityResources) {
+        public void UpdateQuarterly(ResourceDict cityResources) {
             foreach (Building b in buildings) {
-                b.UpdateQuaterly(this.resource);
+                b.UpdateQuarterly(this.resource);
             }
         }
         public void UpdateBiannually(ResourceDict cityResources) {

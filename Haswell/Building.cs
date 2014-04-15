@@ -80,10 +80,10 @@ namespace Haswell {
         /// <param name="plotResources">The plot resources.</param>
         public virtual void UpdateMonthly(ResourceDict plotResources) { }
         /// <summary>
-        /// Updates the quaterly.
+        /// Updates the Quarterly.
         /// </summary>
         /// <param name="plotResources">The plot resources.</param>
-        public virtual void UpdateQuaterly(ResourceDict plotResources) { }
+        public virtual void UpdateQuarterly(ResourceDict plotResources) { }
         /// <summary>
         /// Updates the biannually.
         /// </summary>

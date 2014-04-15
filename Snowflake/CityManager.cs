@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 using Mogre;
 using Miyagi.Common.Data;
@@ -189,17 +190,35 @@ namespace Snowflake {
 
         private static void CreateBuilding(object sender, BuildingEventArgs e) {
             GameConsole.ActiveInstance.WriteLine("Added a building at " + e.Building.Parent.X + ", " + e.Building.Parent.Y);
+
             RenderableBuilding rb = new RenderableBuilding(e.Building);
-            rb.Create( GameMgr.StateMgr.Engine.SceneMgr, cityNode);
-            Buildings.Add(e.Building, rb);
+            if (!Buildings.ContainsKey(e.Building)) { Buildings.Add(e.Building, rb); }
+
+            RenderablePlot rp;
+            if (Plots.ContainsKey(e.Building.Parent)) { rp = Plots[e.Building.Parent]; rb.Create(SceneMgr, cityNode); }
+            else { 
+                rp = new RenderablePlot(e.Building.Parent);
+                rp.Create(SceneMgr, cityNode);
+                Plots.Add(e.Building.Parent, rp);
+            }
+
             rb.Deleted += (object sender2, EventArgs e2) =>
             {
                 Buildings.Remove(e.Building);
             };
         }
 
+        public static bool RenderablePlotExistsAtCoordinate(Point coord)
+        {
+            return Plots[Haswell.Controller.City.Grid.ElementAt(coord.X, coord.Y)] != null;
+        }
+
         public static void CreateBuildingOnCursor() {
-            RenderableBuilding rb = new RenderableBuilding(new Residential());
+            CreateBuildingOnCursor(new Residential());
+        }
+        public static void CreateBuildingOnCursor(Building template)
+        {
+            RenderableBuilding rb = new RenderableBuilding(template);
             rb.Create(GameMgr.StateMgr.Engine.SceneMgr, cityNode);
             rb.IsVirtual = true;
             GameMgr.SetCursorBuilding(rb);
@@ -273,14 +292,15 @@ namespace Snowflake {
         /// Takes the active selection and performs the selection action on all the things contained within.
         /// </summary>
         public static bool MakeSelection() {
-            //Todo: make selection
+
             if (SelectionBox.Left != Int32.MaxValue - 1 && SelectionBox.Top != Int32.MaxValue - 1) {
 
                 if (selectedBuildings != null) { selectedBuildings.Clear(); }
                 selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
                 foreach (RenderablePlot r in Plots.Values) {
-                    if (selectedBuildings.FindAll(item => r.Data.Buildings.Contains(item)).Count > 0) {
+                    if (selectedBuildings.Intersect(r.Data.Buildings).Count() > 0) {
                         r.Select();
+                        GameConsole.ActiveInstance.WriteLine("Selecting building");
                     }
                     else {
                         r.Deselect();

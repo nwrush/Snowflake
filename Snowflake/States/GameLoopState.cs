@@ -205,6 +205,15 @@ namespace Snowflake.States {
                     }
                 }
             }, "Adds a building at x, y"));
+            gConsole.AddCommand("setzone", new ConsoleCommand((string[] args) => {
+                if (args.Length != 3 && args.Length != 5) { gConsole.WriteLine("Usage: setzone <z> <x1> <y1> [<x2> <y2>]"); }
+                else
+                {
+                    int x1, y1, x2, y2;
+                    Haswell.Zones z;
+
+                }
+            }, "Sets zone z from x1, y1 to x2, y2"));
         }
         #endregion
 

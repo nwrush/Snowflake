@@ -9,7 +9,7 @@ namespace Haswell {
     /// </summary>
     public class Plot : IComparable<Plot> {
 
-        private Zones zone;
+        private Zones zone = Zones.Unzoned;
         private ResourceDict resource;
         private List<Building> buildings;
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 using Mogre;
 using Miyagi.Common.Data;
@@ -77,7 +78,24 @@ namespace Snowflake {
         {
             if (Initialized)
             {
-                Haswell.Controller.City.SetZoning(new System.Drawing.Point(p1.X, p1.Y), new System.Drawing.Point(p2.X, p2.Y), z);
+                Point tl = new Point(System.Math.Min(p1.X, p2.X), System.Math.Min(p1.Y, p2.Y));
+                Point br = new Point(System.Math.Max(p1.X, p2.X), System.Math.Max(p1.Y, p2.Y));
+                Haswell.Controller.City.SetZoning(new System.Drawing.Point(tl.X, tl.Y), new System.Drawing.Point(br.X, br.Y), z);
+                Thread iter = new Thread(() => {
+                    for (int x = tl.X; x <= br.X; ++x)
+                    {
+                        for (int y = tl.Y; y <= br.Y; ++y)
+                        {
+                            if (!CityManager.Plots.ContainsKey(Haswell.Controller.City.Grid.ElementAt(x, y)))
+                            {
+                                RenderablePlot rp = new RenderablePlot(Haswell.Controller.City.Grid.ElementAt(x, y));
+                                CityManager.Plots[Haswell.Controller.City.Grid.ElementAt(x, y)] = rp;
+                            }
+                        }
+                    }
+                });
+                iter.IsBackground = true;
+                iter.Start();
                 return true;
             }
             else

@@ -9,6 +9,10 @@ namespace Haswell {
     /// </summary>
     public enum Zones {
         /// <summary>
+        /// An unzoned tile
+        /// </summary>
+        Unzoned,
+        /// <summary>
         /// The residential
         /// </summary>
         Residential,

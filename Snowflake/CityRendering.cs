@@ -65,7 +65,7 @@ namespace Snowflake {
         /// <param name="sm">Scenemanager to add the scenenode to</param>
         /// /// <param name="cityNode">City Node to add a child to</param>
         public virtual void Create(SceneManager sm, SceneNode cityNode) {
-            node = cityNode.CreateChildSceneNode(this.Name);
+            node = cityNode.CreateChildSceneNode();
             foreach (Entity e in this.entities) {
                 node.AttachObject(e);
             }
@@ -78,7 +78,7 @@ namespace Snowflake {
         /// </summary>
         /// <param name="plotx">X Position in plot coords of this instance</param>
         /// <param name="ploty">Y Position in plot coords of this instance</param>
-        public void SetPosition(int plotx, int ploty) {
+        public virtual void SetPosition(int plotx, int ploty) {
             PlotX = plotx;
             PlotY = ploty;
             Vector3 plotcenter = CityManager.GetPlotCenter(plotx, ploty);
@@ -168,13 +168,24 @@ namespace Snowflake {
         }
 
         public virtual void Dispose() {
-            node.ParentSceneNode.RemoveChild(node);
-            foreach (Entity e in entities) {
-                e.Dispose();
+            if (node != null)
+            {
+                node.ParentSceneNode.RemoveChild(node);
+                node.RemoveAndDestroyAllChildren();
+                ClearEntities();
+                node.Dispose();
+                node = null;
+            }
+        }
+
+        protected virtual void ClearEntities()
+        {
+            foreach (Entity ent in entities)
+            {
+                ent.DetachFromParent();
+                ent.Dispose();
             }
             entities.Clear();
-            node.Dispose();
-            node = null;
         }
     }
 
@@ -212,36 +223,50 @@ namespace Snowflake {
             this.entities = new List<Entity>();
             this.Name = this.data.GetType().ToString() + "_" + this.GetHashCode();
 
-            data.ZoneChanged += this.ZoneChanged;
+            data.ZoneChanged += this.OnZoneChanged;
             data.BuildingDeleted += this.OnBuildingDeleted;
+            data.BuildingAdded += this.OnBuildingAdded;
         }
 
         public override void Create(SceneManager sm, SceneNode cityNode)
-        {
-            foreach (RenderableBuilding rb in this.RenderableBuildings) {
-                rb.Create(sm, this.node);
-            }
+        {            
             base.Create(sm, cityNode);
+
+            foreach (RenderableBuilding rb in this.RenderableBuildings)
+            {
+                rb.Create(sm, cityNode);
+            }
 
             Plane plane = new Plane(Vector3.UNIT_Y, 0);
             MeshManager.Singleton.CreatePlane(this.Name + "_zoneTile", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, PlotWidth, PlotHeight, 1, 1, true, 1, 1, 1, Vector3.UNIT_Z);
             Entity zoneTile = sm.CreateEntity(this.Name, this.Name + "_zoneTile");
 
-            zoneNode = this.node.CreateChildSceneNode();
+            zoneNode = cityNode.CreateChildSceneNode();
             zoneNode.AttachObject(zoneTile);
-            zoneNode.Scale(new Vector3(473.0f / this.scale.x, 473.0f / this.scale.y, 473.0f / this.scale.z));
+            
             zoneTile.CastShadows = false;
+            zoneNode.Translate(new Vector3(0, 100, 0));
             zoneNode.SetVisible(false);
 
-            selectionBoxNode = this.node.CreateChildSceneNode();
+            selectionBoxNode = cityNode.CreateChildSceneNode();
             Entity selectionBoxEnt = sm.CreateEntity("selectionbox.mesh");
 
             selectionBoxNode.AttachObject(selectionBoxEnt);
-            selectionBoxNode.Scale(new Vector3(473.0f / this.scale.x, 473.0f / this.scale.y, 473.0f / this.scale.z));
+            selectionBoxNode.SetScale(new Vector3(473.0f, 473.0f, 473.0f));
             selectionBoxEnt.CastShadows = false;
             selectionBoxNode.SetVisible(false);
 
             this.SetPosition(data.X, data.Y);
+
+            if (this.Data.Zone != Zones.Unzoned) { this.OnZoneChanged(this.Data, new EventArgs()); }
+        }
+
+        public override void SetPosition(int plotx, int ploty)
+        {
+            base.SetPosition(plotx, ploty);
+            Vector3 plotcenter = CityManager.GetPlotCenter(plotx, ploty);
+            if (zoneNode != null) { zoneNode.SetPosition(plotcenter.x, plotcenter.y + 1, plotcenter.z); }
+            if (selectionBoxNode != null) { selectionBoxNode.SetPosition(plotcenter.x, plotcenter.y, plotcenter.z); }
         }
 
         public override void Update()
@@ -253,8 +278,34 @@ namespace Snowflake {
             }
         }
 
+        private void OnZoneChanged(object sender, EventArgs e)
+        {
+            //Switch based on zone type
+            MaterialPtr eMat = ((Entity)zoneNode.GetAttachedObject(0)).GetSubEntity(0).GetMaterial();
+            eMat = eMat.Clone(eMat.Name + "_zone_" + this.Name);
+            eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+            eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+            eMat.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 0.2f, 0.2f, 0.5f);
+            ((Entity)zoneNode.GetAttachedObject(0)).GetSubEntity(0).SetMaterial(eMat);
+            zoneNode.SetVisible(true);
+
+            if (this.ZoneChanged != null)
+            {
+                this.ZoneChanged.Invoke(sender, e);
+            }
+        }
+
+        private void OnBuildingAdded(object sender, BuildingEventArgs e)
+        {
+            if (this.BuildingAdded != null)
+            {
+                this.BuildingAdded.Invoke(sender, e);
+            }
+        }
+
         private void OnBuildingDeleted(object sender, BuildingEventArgs e)
         {
+            this.Deselect();
             if (this.BuildingDeleted != null)
             {
                 this.BuildingDeleted.Invoke(sender, e);
@@ -287,17 +338,6 @@ namespace Snowflake {
             base.Deselect();
             this.selectionBoxNode.SetVisible(false);
         }
-
-        public override void Dispose()
-        {
-            foreach (Entity ent in this.entities)
-            {
-                ent.DetachFromParent();
-                ent.Dispose();
-            }
-            node.RemoveAndDestroyAllChildren();
-            node.Dispose();
-        }
     }
 
     public class RenderableBuilding : Renderable {
@@ -315,14 +355,18 @@ namespace Snowflake {
         }
 
         public override void Create(SceneManager sm, SceneNode baseNode) {
+            this.Dispose();
+
             foreach (Entity e in GetBuildingEntities(this.data, sm, out this.scale)) { this.entities.Add(e); }
             base.Create(sm, baseNode);
+
+            if (Data.Parent != null) { this.SetPosition(Data.Parent.X, Data.Parent.Y); }
         }
 
         public static List<Entity> GetBuildingEntities(Building b, SceneManager sm, out Vector3 scale) {
             List<Entity> entList = new List<Entity>();
             scale = new Vector3(1, 1, 1);
-;            if (b is Haswell.Buildings.Commercial) {
+            if (b is Haswell.Buildings.Commercial) {
                 entList.Add(sm.CreateEntity("skyscraper1.mesh"));
                 scale = new Vector3(80.0f, 80.0f, 80.0f);
             }
@@ -345,21 +389,11 @@ namespace Snowflake {
         {
             this.Deselect();
             this.Dispose();
+            this.data = null;
             if (this.Deleted != null)
             {
                 this.Deleted.Invoke(sender, new EventArgs());
             }
-        }
-
-        public override void Dispose()
-        {
-            foreach (Entity ent in this.entities)
-            {
-                ent.DetachFromParent();
-                ent.Dispose();
-            }
-            node.RemoveAndDestroyAllChildren();
-            node.Dispose();
         }
     }
 

@@ -10,8 +10,10 @@ namespace TEST {
         static void Main(string[] args) {
             Haswell.Controller.init("Help");
 
-            Console.WriteLine("Done");
-            Console.ReadKey();
+        PissOffAndy:
+            Haswell.Controller.Update(1f);
+        Console.WriteLine("Update");
+            goto PissOffAndy;
         }
     }
 }

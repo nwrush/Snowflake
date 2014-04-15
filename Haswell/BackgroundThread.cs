@@ -14,6 +14,7 @@ namespace Haswell {
             eventsToHandle = new Queue<Controller.UpdateDelegate>();
             backgroundThread = new Thread(BackgroundProcess);
             backgroundThread.IsBackground = true;
+            backgroundThread.Name = "Haswell Timed Updates";
             backgroundThread.Start();
         }
 

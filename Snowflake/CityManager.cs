@@ -146,7 +146,7 @@ namespace Snowflake {
             //world.Translate(new Vector3(0, -1, 0));
 
             Random r = new Random();
-            for (int i = 0; i < 100; ++i)
+            for (int i = 0; i < 10; ++i)
             {
                 CreateTree(sm, new Vector3((float)(r.NextDouble() * 10000 - 5000), 0, (float)(r.NextDouble() * 10000 - 5000)));
             }

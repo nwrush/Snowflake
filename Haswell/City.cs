@@ -65,7 +65,7 @@ namespace Haswell {
         /// <param name="y">The plot Y of the building</param>
         public void CreateBuilding<T>(int x, int y) where T : Building, new() {
             Building b = new T();
-            if (grid.ElementAt(x, y).AddBuilding(b)) {
+            if (grid.ElementAt(x, y).AddBuilding(b)&&grid.ElementAt(x,y).Zone==b.Zone) {
                 BuildingCreated.Invoke(this, new BuildingEventArgs(b));
                 return;
             }

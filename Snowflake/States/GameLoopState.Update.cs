@@ -155,10 +155,8 @@ namespace Snowflake.States
                             if (!mStateMgr.Input.IsKeyDown(KeyCode.KC_LSHIFT))
                             {
                                 //Then dispose the cursor building as the game will be making a new one very shortly
-                                this.tempBuilding.Dispose();
-                                this.tempBuilding = null;
-                                this.GuiMgr.HideBuildingPlacementPanel();
-                                this.mouseMode = MouseMode.Selection;
+                                CancelBuildingPlacement();
+                                mouseMode = MouseMode.Selection;
                             }
                         }
 
@@ -278,6 +276,20 @@ namespace Snowflake.States
                 {
                     CityManager.DeleteSelectedBuildings();
                 }
+
+                if (mStateMgr.Input.WasKeyPressed(KeyCode.KC_ESCAPE))
+                {
+                    if (mouseMode == MouseMode.PlacingBuilding) { CancelBuildingPlacement(); }
+                    else if (mouseMode == MouseMode.DrawingZone) { 
+                        CityManager.ClearScratchZone();
+                        scratchZone.SetVisible(false);
+                    }
+                    else if (mouseMode == MouseMode.Selection)
+                    {
+                        CityManager.DeselectBuildings();
+                    }
+                    mouseMode = MouseMode.Selection;
+                }
             }
 
             // check if the escape key was pressed
@@ -286,6 +298,13 @@ namespace Snowflake.States
                 // quit the application
                 mStateMgr.RequestShutdown();
             }
+        }
+
+        private void CancelBuildingPlacement()
+        {
+            this.tempBuilding.Dispose();
+            this.tempBuilding = null;
+            this.GuiMgr.HideBuildingPlacementPanel();
         }
 
         private void UpdateSelectionBox()

@@ -17,8 +17,8 @@ namespace Snowflake.GuiComponents
     public partial class ExpanderToolbar
     {
         private Panel ParentPanel;
-        public Dictionary<string, Button> buttons { get; protected set; }
-        public Dictionary<string, Button> Buttons() { return buttons; }
+        protected Dictionary<string, Button> Buttons;
+        protected Dictionary<string, ExpanderToolbar> Children;
 
         private int boxwidth;
         private int expandersize;
@@ -54,7 +54,7 @@ namespace Snowflake.GuiComponents
                 if (this.expanded) { this.Contract(); }
                 else { this.Expand(); }
             };
-            buttons.Add("Expand", expandButton);
+            if (!Buttons.ContainsKey("Expand")) { Buttons.Add("Expand", expandButton); }
 
             ParentPanel = new Panel(this.GetType().ToString() + "_" + this.GetHashCode().ToString() + "_Parent")
             {
@@ -69,7 +69,7 @@ namespace Snowflake.GuiComponents
                 ResizeThreshold = new Thickness(0),
                 BorderStyle =
                 {
-                    Thickness = (vertical ? new Thickness(1, 0, 1, 1) : new Thickness(0, 1, 1, 1))
+                    Thickness = (vertical ? new Thickness(1, 0, 1, 1) : new Thickness(0, 2, 2, 2))
                 },
                 Skin = ResourceManager.Skins["BlackPanelSkin"],
                 AlwaysOnBottom = true,
@@ -79,18 +79,18 @@ namespace Snowflake.GuiComponents
                 }
             };
 
-            foreach (Button b in buttons.Values)
+            foreach (Button b in Buttons.Values)
             {
                 ParentPanel.Controls.Add(b);
             }
 
             if (vertical)
             {
-                boxheight = expandersize + boxwidth * (buttons.Count - 1) + padding * (buttons.Count);
+                boxheight = expandersize + boxwidth * (Buttons.Count - 1) + padding * (Buttons.Count);
             }
             if (horizontal)
             {
-                boxwidth = expandersize + boxheight * (buttons.Count - 1) + padding * (buttons.Count);
+                boxwidth = expandersize + boxheight * (Buttons.Count - 1) + padding * (Buttons.Count);
             }
 
             gui.Controls.Add(ParentPanel);

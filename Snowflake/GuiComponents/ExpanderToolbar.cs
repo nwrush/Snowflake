@@ -20,6 +20,7 @@ namespace Snowflake.GuiComponents
         private float _height;
         private float _width;
         public bool visible = false;
+        public bool fullyHidden = true;
         public Point Location;
 
         public event EventHandler Hidden;
@@ -36,7 +37,8 @@ namespace Snowflake.GuiComponents
             expandersize = _expandersize;
             if (expandersize <= 0) { fullyHide = true; }
 
-            buttons = new Dictionary<string, Miyagi.UI.Controls.Button>();
+            Buttons = new Dictionary<string, Miyagi.UI.Controls.Button>();
+            Children = new Dictionary<string, ExpanderToolbar>();
         }
         public ExpanderToolbar() : this(true, 48, 48, 3, 32)  { }
 
@@ -59,37 +61,81 @@ namespace Snowflake.GuiComponents
         /// <summary>
         /// Shows (expands) the toolbar
         /// </summary>
-        public void Show() { Expand(); visible = true; if (Shown != null) { Shown.Invoke(this, new EventArgs()); } }
+        public void Show() { Expand(); if (Shown != null) { Shown.Invoke(this, new EventArgs()); } }
         /// <summary>
         /// Expands the toolbar
         /// </summary>
         public void Expand()
         {
+            visible = true;
             expanded = true;
-            if (buttons.ContainsKey("Expand")) { ((PictureButton)buttons["Expand"]).Picture = ResourceManager.Skins["Control"].SubSkins["Control.Expand"]; }
+            fullyHidden = false;
+            if (Buttons.ContainsKey("Expand")) { ((PictureButton)Buttons["Expand"]).Picture = ResourceManager.Skins["Control"].SubSkins["Control.Expand"]; }
         }
         /// <summary>
         /// Hides (contracts) the toolbar
         /// </summary>
-        public void Hide() { Contract(); visible = false; if (Hidden != null) { Hidden.Invoke(this, new EventArgs()); } }
+        public void Hide() { Contract(); if (Hidden != null) { Hidden.Invoke(this, new EventArgs()); } }
         /// <summary>
         /// Contracts the toolbar
         /// </summary>
         public void Contract()
         {
             expanded = false;
-            if (buttons.ContainsKey("Expand")) { ((PictureButton)buttons["Expand"]).Picture = ResourceManager.Skins["Control"].SubSkins["Control.Contract"]; }
+            visible = false; 
+            if (Buttons.ContainsKey("Expand")) { ((PictureButton)Buttons["Expand"]).Picture = ResourceManager.Skins["Control"].SubSkins["Control.Contract"]; }
+            foreach (ExpanderToolbar child in this.Children.Values)
+            {
+                child.Contract();
+            }
         }
         /// <summary>
-        /// Returns whether or not the toolbar is visible
+        /// Adds a button
         /// </summary>
-        /// <returns>Bool: is the toolbar visible?</returns>
-        public bool Visible() { return visible; }
+        /// <param name="name">Name of the button</param>
+        /// <param name="button">The button instance to add</param>
+        /// <param name="child">An optional child toolbar to associate with the button</param>
+        public void AddButton(string name, Button button, ExpanderToolbar child = null)
+        {
+            if (child != null)
+            {
+                Children.Add(name, child);
+                child.CreateGui(ParentPanel.GUI);
+                button.Click += (object sender, EventArgs e) =>
+                {
+                    if (child.visible) { child.Hide(); }
+                    else { child.Show(); }
+                };
+            }
+            //ParentPanel.Controls.Add(button);
+            Buttons.Add(name, button);
+        }
+        /// <summary>
+        /// Adds a child toolbar
+        /// </summary>
+        /// <param name="name">Name of the child toolbar</param>
+        /// <param name="child">The ExpanderToolbar instance to set as child</param>
+        public void AddChild(string name, ExpanderToolbar child)
+        {
+            Children.Add(name, child);
+            child.CreateGui(ParentPanel.GUI);
+            if (Buttons.ContainsKey(name))
+            {
+                Buttons[name].Click += (object sender, EventArgs e) =>
+                {
+                    if (child.visible) { child.Hide(); }
+                    else { child.Show(); }
+                };
+            }
+        }
+
+        public Button GetButton(string name) { return this.Buttons[name]; }
+        public ExpanderToolbar GetChild(string name) { return this.Children[name]; }
 
         protected void RedoLayout()
         {
             int i = 1;
-            foreach (KeyValuePair<string, Button> kvp in buttons)
+            foreach (KeyValuePair<string, Button> kvp in Buttons)
             {
                 if (vertical) { kvp.Value.Location = new Point(0, (int)_height - expandersize - boxwidth * i - padding * (2 * i - 1)); }
                 else if (horizontal) { kvp.Value.Location = new Point((int)_width - expandersize - boxheight * i - padding * (2 * i - 1), 0); }
@@ -112,6 +158,14 @@ namespace Snowflake.GuiComponents
                 }
             }
         }
+        private bool childrenContracted()
+        {
+            foreach (ExpanderToolbar child in this.Children.Values)
+            {
+                if (!child.fullyHidden) { return false; }
+            }
+            return true;
+        }
         public void Update(float frametime)
         {
             this.ParentPanel.Location = this.Location;
@@ -127,12 +181,13 @@ namespace Snowflake.GuiComponents
                     ParentPanel.Height = (int)_height;
                     RedoLayout();
                 }
-                else if (!expanded && ParentPanel.Height > (fullyHide ? 0 : expandersize))
+                else if (!expanded && ParentPanel.Height > (fullyHide ? 0 : expandersize) && childrenContracted())
                 {
                     _height = Math.Max(_height - 4 * frametime, 0); //((_height - (fullyHide ? 0 : expandersize)) * 0.05f);
                     if ((int)_height <= (fullyHide ? 0 : expandersize))
                     {
                         if (FullyHidden != null) { FullyHidden.Invoke(this, new EventArgs()); }
+                        fullyHidden = true;
                     }
                     ParentPanel.Height = (int)_height;
                     RedoLayout();
@@ -150,16 +205,22 @@ namespace Snowflake.GuiComponents
                     ParentPanel.Width = (int)_width;
                     RedoLayout();
                 }
-                else if (!expanded && ParentPanel.Width > (fullyHide ? 0 : expandersize))
+                else if (!expanded && ParentPanel.Width > (fullyHide ? 0 : expandersize) && childrenContracted())
                 {
                     _width = Math.Max(_width - 4 * frametime, 0); // ((_width - (fullyHide ? 0 : expandersize)) * 0.05f);
                     if ((int)_width <= (fullyHide ? 0 : expandersize))
                     {
                         if (FullyHidden != null) { FullyHidden.Invoke(this, new EventArgs()); }
+                        fullyHidden = true;
                     }
                     ParentPanel.Width = (int)_width;
                     RedoLayout();
                 }
+            }
+
+            foreach (ExpanderToolbar child in this.Children.Values)
+            {
+                child.Update(frametime);
             }
         }
 

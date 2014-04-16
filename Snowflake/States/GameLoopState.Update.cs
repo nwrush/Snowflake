@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Linq;
 
 using Mogre;
 
@@ -263,6 +264,15 @@ namespace Snowflake.States
                     if (mStateMgr.Input.IsKeyDown(KeyCode.KC_E))
                     {
                         angle -= 0.01f;
+                    }
+                }
+                if (mStateMgr.Input.WasKeyPressed(KeyCode.KC_TAB))
+                {
+                    if (mouseMode == MouseMode.DrawingZone)
+                    {
+                        int[] mouseModeVals = (int[])(Enum.GetValues(typeof(Haswell.Zones)));
+                        CityManager.scratchZoneType = (Haswell.Zones)System.Math.Max(((int)CityManager.scratchZoneType + 1) % mouseModeVals.Length, 1);
+                        UpdateScratchZoneBoxZone(CityManager.scratchZoneType);
                     }
                 }
 

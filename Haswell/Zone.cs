@@ -11,26 +11,26 @@ namespace Haswell {
         /// <summary>
         /// An unzoned tile
         /// </summary>
-        Unzoned,
+        Unzoned = 0,
         /// <summary>
         /// The residential
         /// </summary>
-        Residential,
+        Residential = 1,
         /// <summary>
         /// The commercial
         /// </summary>
-        Commercial,
+        Commercial = 2,
         /// <summary>
         /// The industrial
         /// </summary>
-        Industrial,
+        Industrial = 3,
         /// <summary>
         /// The conservation
         /// </summary>
-        Conservation,
+        Conservation = 4,
         /// <summary>
         /// The infrastructure
         /// </summary>
-        Infrastructure
+        Infrastructure = 5
     };
 }

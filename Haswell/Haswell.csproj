@@ -64,6 +64,7 @@
     <Compile Include="LinkHelper.cs" />
     <Compile Include="Links.cs" />
     <Compile Include="Person.cs" />
+    <Compile Include="Road.cs" />
     <Compile Include="Time.cs" />
     <Compile Include="Events\BuildingEventArgs.cs" />
     <Compile Include="Exceptions\BuildingCreationFailedException.cs" />

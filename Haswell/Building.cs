@@ -15,6 +15,7 @@ namespace Haswell {
 
         protected bool Initialized;
         protected Building(Zones zone) {
+            this._zone = zone;
             this.resouceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;
             this.Deleted += OnDeleted;

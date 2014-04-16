@@ -282,31 +282,15 @@ namespace Snowflake {
         {
             if (this.data.Zone == Zones.Unzoned) { zoneNode.SetVisible(false); }
             else { 
-                
-                MaterialPtr eMat = ((Entity)zoneNode.GetAttachedObject(0)).GetSubEntity(0).GetMaterial();
-                eMat = eMat.Clone(eMat.Name + "_zone_" + this.Name);
-                eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-                eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
-                //Switch based on zone type
-                switch (this.data.Zone) { 
-                    case Zones.Residential:
-                        eMat.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 0.5f, 0.2f, 0.5f);
-                        break;
-                    case Zones.Industrial:
-                        eMat.GetTechnique(0).GetPass(0).SetDiffuse(0.5f, 0.5f, 0.5f, 0.5f);
-                        break;
-                    case Zones.Infrastructure:
-                        eMat.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 0.2f, 1.0f, 0.5f);
-                        break;
-                    case Zones.Conservation:
-                        eMat.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 1.0f, 0.2f, 0.5f);
-                        break;
-                    default:
-                        eMat.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 2.0f, 1.0f, 0.5f);
-                        break;
-                }
 
-                ((Entity)zoneNode.GetAttachedObject(0)).GetSubEntity(0).SetMaterial(eMat);
+                ((Entity)zoneNode.GetAttachedObject(0)).GetSubEntity(0).SetMaterial(
+                    GetZoneColoredMaterial(
+                    ((Entity)zoneNode
+                    .GetAttachedObject(0))
+                    .GetSubEntity(0)
+                    .GetMaterial(),
+                    this.data.Zone));
+
                 zoneNode.SetVisible(true);
             }
 
@@ -314,6 +298,34 @@ namespace Snowflake {
             {
                 this.ZoneChanged.Invoke(sender, e);
             }
+        }
+
+        public static MaterialPtr GetZoneColoredMaterial(MaterialPtr eMat, Zones z)
+        {
+            //Todo: Update this to index each zone's material so that they don't have to each create their own.
+            eMat = eMat.Clone(eMat.Name + "_zone_" + DateTime.Now.ToString());
+            eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+            eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+            //Switch based on zone type
+            switch (z)
+            {
+                case Zones.Residential:
+                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 0.5f, 0.2f, 0.5f);
+                    break;
+                case Zones.Industrial:
+                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(0.5f, 0.5f, 0.5f, 0.5f);
+                    break;
+                case Zones.Infrastructure:
+                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 0.2f, 1.0f, 0.5f);
+                    break;
+                case Zones.Conservation:
+                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 1.0f, 0.2f, 0.5f);
+                    break;
+                default:
+                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 2.0f, 1.0f, 0.5f);
+                    break;
+            }
+            return eMat;
         }
 
         private void OnBuildingAdded(object sender, BuildingEventArgs e)

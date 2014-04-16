@@ -33,9 +33,10 @@ namespace Snowflake.States {
         private Entity cursorPlaneEnt;
         private SceneNode selectionBox;
         private Entity selectionBoxEnt;
+        private SceneNode scratchZone;
+        private Entity scratchZoneEnt;
         private MouseMode mouseMode = MouseMode.Selection;
         private RenderableBuilding tempBuilding;
-        private Haswell.Zones tempZone;
 
         #region Properties
 
@@ -95,19 +96,33 @@ namespace Snowflake.States {
 
             setupCamera(engine);
 
+            //Cursor plane
             cursorPlane = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("cursorPlane");
             cursorPlaneEnt = engine.SceneMgr.CreateEntity("cursorPlaneEnt", "cursorplane.mesh");
             cursorPlane.AttachObject(cursorPlaneEnt);
             cursorPlane.Scale(new Vector3(SCALEFACTOR, SCALEFACTOR, SCALEFACTOR));
             cursorPlaneEnt.CastShadows = false;
 
+            //Selection box
             selectionBox = engine.SceneMgr.RootSceneNode.CreateChildSceneNode("selectionBox");
             selectionBoxEnt = engine.SceneMgr.CreateEntity("selectionBoxEnt", "selectionbox.mesh");
             selectionBox.AttachObject(selectionBoxEnt);
             selectionBox.Scale(new Vector3(SCALEFACTOR, SCALEFACTOR / 2.0f, SCALEFACTOR));
             selectionBoxEnt.CastShadows = false;
-
             selectionBox.SetVisible(false);
+
+            //Scratch zone
+            Plane plane = new Plane(Vector3.UNIT_Y, 0);
+            MeshManager.Singleton.CreatePlane("scratchZonePlane", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, Renderable.PlotWidth, Renderable.PlotHeight, 1, 1, true, 1, 1, 1, Vector3.UNIT_Z);
+            scratchZoneEnt = engine.SceneMgr.CreateEntity("scratchZoneNode", "scratchZonePlane");
+
+            scratchZone = engine.SceneMgr.RootSceneNode.CreateChildSceneNode();
+            scratchZone.AttachObject(scratchZoneEnt);
+
+            scratchZoneEnt.CastShadows = false;
+            scratchZone.Translate(new Vector3(0, 1, 0));
+            scratchZone.SetVisible(false);
+
 
             WeatherMgr.CreateScene(engine.SceneMgr);
             CityManager.CreateScene(engine.SceneMgr);

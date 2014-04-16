@@ -199,7 +199,7 @@ namespace Snowflake.States
                         if (result.first)
                         {
                             CityManager.UpdateScratchZoneBox(result.second);
-                            //UpdateScratchZoneBox(); <-- actually, implement as a renderable because it'll stick around after you're done
+                            UpdateScratchZoneBox();
                         }
                     }
                 }
@@ -224,8 +224,9 @@ namespace Snowflake.States
                         {
                             CityManager.UpdateScratchZoneBox(result.second);
                         }
-                        //UpdateScratchZoneBox();
+                        UpdateScratchZoneBox();
                         CityManager.MakeZone();
+                        scratchZone.SetVisible(false);
 
                     }
                 }
@@ -295,6 +296,24 @@ namespace Snowflake.States
             selectionBox.SetPosition(center.x, center.y, center.z);
             selectionBox.SetScale(CityManager.SelectionBox.Width * SCALEFACTOR + SCALEFACTOR, SCALEFACTOR / 2.0f, CityManager.SelectionBox.Height * SCALEFACTOR + SCALEFACTOR);
             selectionBox.SetVisible(true);
+        }
+        private void UpdateScratchZoneBox()
+        {
+            Vector3 center = (CityManager.GetPlotCenter(CityManager.scratchZoneBox.Left, CityManager.scratchZoneBox.Top)
+                + CityManager.GetPlotCenter(CityManager.scratchZoneBox.Right, CityManager.scratchZoneBox.Bottom))
+                 * 0.5f;
+            scratchZone.SetPosition(center.x, center.y + 1.0f, center.z);
+            scratchZone.SetScale(CityManager.scratchZoneBox.Width + 1, 1.0f, CityManager.scratchZoneBox.Height + 1);
+            scratchZone.SetVisible(true);
+        }
+        public void UpdateScratchZoneBoxZone(Zones z)
+        {
+            scratchZoneEnt.GetSubEntity(0).SetMaterial(
+                RenderablePlot.GetZoneColoredMaterial(
+                scratchZoneEnt
+                .GetSubEntity(0)
+                .GetMaterial(),
+                z));
         }
         public void UpdateGUI(float frametime)
         {

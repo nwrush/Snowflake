@@ -16,7 +16,6 @@ namespace Snowflake.GuiComponents {
 
         private Queue<float> _lastFrametimes;
         private List<Label> debugTexts;
-        private int _oldDebugtextsLen = 0;
 
         public static DebugPanel ActiveInstance;
 

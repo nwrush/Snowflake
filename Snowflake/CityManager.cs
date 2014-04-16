@@ -232,6 +232,7 @@ namespace Snowflake {
             {
                 GameMgr.SetMouseMode(MouseMode.DrawingZone);
                 scratchZoneType = z;
+                GameMgr.UpdateScratchZoneBoxZone(scratchZoneType);
             }
         }
             

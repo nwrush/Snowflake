@@ -25,6 +25,7 @@ namespace Snowflake {
         private static SceneNode world;
         public static Point Origin { get; private set; }
         private static string cityName;
+        public static bool ShowZones = true;
 
         public static Dictionary<Building, RenderableBuilding> Buildings;
         public static Dictionary<Plot, RenderablePlot> Plots;

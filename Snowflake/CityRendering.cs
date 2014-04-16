@@ -276,6 +276,14 @@ namespace Snowflake {
             {
                 rb.Update();
             }
+            if (CityManager.ShowZones && this.data.Zone != Zones.Unzoned)
+            {
+                zoneNode.SetVisible(true);
+            }
+            else
+            {
+                zoneNode.SetVisible(false);
+            }
         }
 
         private void OnZoneChanged(object sender, EventArgs e)

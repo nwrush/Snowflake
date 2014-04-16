@@ -23,16 +23,22 @@ namespace Haswell.Buildings {
             base.UpdateHour(plotResources);
         }
         public override void UpdateDaily(ResourceDict plotResources) {
-            base.UpdateHour(plotResources);
+            base.UpdateDaily(plotResources);
         }
         public override void UpdateWeekly(ResourceDict plotResources) {
-            base.UpdateHour(plotResources);
+            base.UpdateWeekly(plotResources);
         }
         public override void UpdateMonthly(ResourceDict plotResources) {
-            base.UpdateHour(plotResources);
+            base.UpdateMonthly(plotResources);
+        }
+        public override void UpdateQuarterly(ResourceDict plotResources) {
+            base.UpdateQuarterly(plotResources);
+        }
+        public override void UpdateBiannually(ResourceDict plotResources) {
+            base.UpdateBiannually(plotResources);
         }
         public override void UpdateYearly(ResourceDict plotResources) {
-            base.UpdateHour(plotResources);
+            base.UpdateYearly(plotResources);
         }
     }
 }

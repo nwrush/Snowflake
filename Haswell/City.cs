@@ -5,9 +5,6 @@ using System.Text;
 using System.Drawing;
 
 namespace Haswell {
-    /// <summary>
-    /// Class City.
-    /// </summary>
     public class City {
 
         private string name;
@@ -38,7 +35,7 @@ namespace Haswell {
             initResources();
         }
         /// <summary>
-        /// Sets the default Resource values
+        /// Set the default resource value
         /// </summary>
         private void initResources() {
             this.resources = new ResourceDict();

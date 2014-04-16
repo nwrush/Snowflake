@@ -90,10 +90,14 @@ namespace Snowflake.GuiComponents {
             buildButton = new PictureButton("ToolsPanel_btnBuild") {
                 Location = new Point(panelSize.Width - boxsize - padding, 0),
                 Size = new Size(boxsize, boxsize),
-                TextStyle = new TextStyle() {
+                Text = "BUILD",
+                TextStyle = new TextStyle()
+                {
                     ForegroundColour = Colours.White,
-                    Alignment = Alignment.BottomCenter
+                    Alignment = Alignment.BottomCenter,
+                    Font = ResourceManager.Fonts["Section"]
                 },
+                Padding = new Thickness(0, 0, 0, 8),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build"],
                 PictureSize = new Size(picsize, picsize),
@@ -164,10 +168,14 @@ namespace Snowflake.GuiComponents {
             manageButton = new PictureButton("ToolsPanel_btnManage") {
                 Location = new Point(panelSize.Width - boxsize * 2 - padding * 3, 0),
                 Size = new Size(boxsize, boxsize),
-                TextStyle = new TextStyle() {
+                Text = "MANAGE",
+                TextStyle = new TextStyle()
+                {
                     ForegroundColour = Colours.White,
-                    Alignment = Alignment.BottomCenter
+                    Alignment = Alignment.BottomCenter,
+                    Font = ResourceManager.Fonts["Section"]
                 },
+                Padding = new Thickness(0, 0, 0, 8),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Manage"],
                 PictureSize = new Size(picsize, picsize),
@@ -202,10 +210,13 @@ namespace Snowflake.GuiComponents {
             governButton = new PictureButton("ToolsPanel_btnGovern") {
                 Location = new Point(panelSize.Width - boxsize * 3 - padding * 5, 0),
                 Size = new Size(boxsize, boxsize),
+                Text = "GOVERN",
                 TextStyle = new TextStyle() {
                     ForegroundColour = Colours.White,
-                    Alignment = Alignment.BottomCenter
+                    Alignment = Alignment.BottomCenter,
+                    Font = ResourceManager.Fonts["Section"]
                 },
+                Padding = new Thickness(0, 0, 0, 8),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Govern"],
                 PictureSize = new Size(picsize, picsize),

@@ -293,7 +293,7 @@ namespace Snowflake.States
             }
 
             // check if the escape key was pressed
-            if (mStateMgr.Input.WasKeyPressed(KeyCode.KC_EQUALS))
+            if (mStateMgr.Input.WasKeyPressed(KeyCode.KC_W) && mStateMgr.Input.IsKeyDown(KeyCode.KC_LCONTROL))
             {
                 // quit the application
                 mStateMgr.RequestShutdown();

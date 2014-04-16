@@ -226,9 +226,13 @@ namespace Snowflake {
             GuiMgr.ShowBuildingPlacementPanel();
         }
 
-        public static void BeginZoning()
+        public static void BeginZoning(Zones z)
         {
-            GameMgr.SetMouseMode(MouseMode.DrawingZone);
+            if (z != Zones.Unzoned)
+            {
+                GameMgr.SetMouseMode(MouseMode.DrawingZone);
+                scratchZoneType = z;
+            }
         }
             
         /// <summary>

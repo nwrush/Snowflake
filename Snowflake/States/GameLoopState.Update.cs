@@ -217,6 +217,17 @@ namespace Snowflake.States
                         CityManager.MakeSelection();
                         selectionBox.SetVisible(false);
                     }
+                    if (canZone())
+                    {
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                        if (result.first)
+                        {
+                            CityManager.UpdateScratchZoneBox(result.second);
+                        }
+                        //UpdateScratchZoneBox();
+                        CityManager.MakeZone();
+
+                    }
                 }
 
                 if (mStateMgr.Input.MouseMoveZ != 0.0f)
@@ -292,6 +303,7 @@ namespace Snowflake.States
                 GuiMgr.SetCurrentCursorBuilding(this.tempBuilding);
                 GuiMgr.Update(frametime);
             }
+            GuiMgr.DebugPanel[4] = mouseMode.ToString();
         }
 
         private bool selboxShouldUpate()

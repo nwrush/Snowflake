@@ -193,6 +193,7 @@ namespace Snowflake.GuiComponents {
                 ClickFunc = (object sender) =>
                 {
                     //enter zoning draw mode
+                    CityManager.BeginZoning(Haswell.Zones.Residential);
                     manageToolbar.Hide();
                 }
             });

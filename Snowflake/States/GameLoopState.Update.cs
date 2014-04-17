@@ -117,23 +117,26 @@ namespace Snowflake.States
                         {
                             CityManager.UpdateSelectionBox(result.second);
                         }
-                        UpdateSelectionBox();
-                        CityManager.MakeSelection();
-
-                        if (CityManager.GetSelectedBuildings().Count > 0)
+                        if (canSelect())
                         {
-                            ContextMenu.AddButton("Properties...", (object sender, EventArgs e) =>
+                            UpdateSelectionBox();
+                            CityManager.MakeSelection();
+
+                            if (CityManager.GetSelectedBuildings().Count > 0)
                             {
-                                int i = 0;
-                                foreach (Building b in CityManager.GetSelectedBuildings())
+                                ContextMenu.AddButton("Properties...", (object sender, EventArgs e) =>
                                 {
-                                    BuildingPropertiesWindow bpw = new BuildingPropertiesWindow(b);
-                                    bpw.CreateGui(this.GuiMgr.GetGui());
-                                    bpw.Location += new Point(i * 24, i * 24);
-                                    ++i;
-                                }
-                                ContextMenu.RemoveButton("Properties...");
-                            });
+                                    int i = 0;
+                                    foreach (Building b in CityManager.GetSelectedBuildings())
+                                    {
+                                        BuildingPropertiesWindow bpw = new BuildingPropertiesWindow(b);
+                                        bpw.CreateGui(this.GuiMgr.GetGui());
+                                        bpw.Location += new Point(i * 24, i * 24);
+                                        ++i;
+                                    }
+                                    ContextMenu.RemoveButton("Properties...");
+                                });
+                            }
                         }
                         CityManager.ClearSelection();
                         ContextMenu.Visible = true;
@@ -200,33 +203,6 @@ namespace Snowflake.States
                             CityManager.UpdateScratchZoneBox(result.second);
                             UpdateScratchZoneBox();
                         }
-                    }
-                }
-
-                if (mStateMgr.Input.WasMouseButtonReleased(MouseButtonID.MB_Left))
-                {
-                    if (canSelect())
-                    {
-                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
-                        if (result.first)
-                        {
-                            CityManager.UpdateSelectionBox(result.second);
-                        }
-                        UpdateSelectionBox();
-                        CityManager.MakeSelection();
-                        selectionBox.SetVisible(false);
-                    }
-                    if (canZone())
-                    {
-                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
-                        if (result.first)
-                        {
-                            CityManager.UpdateScratchZoneBox(result.second);
-                        }
-                        UpdateScratchZoneBox();
-                        CityManager.MakeZone();
-                        scratchZone.SetVisible(false);
-
                     }
                 }
 
@@ -299,6 +275,35 @@ namespace Snowflake.States
                         CityManager.DeselectBuildings();
                     }
                     mouseMode = MouseMode.Selection;
+                }
+            }
+            //Handle Mouse release (this should happen even if you go into a UI element)
+            if (mStateMgr.Input.WasMouseButtonReleased(MouseButtonID.MB_Left))
+            {
+                if (mouseMode == MouseMode.Selection && CityManager.SelectionOriginIsValid())
+                {
+                    Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                    if (result.first)
+                    {
+                        CityManager.UpdateSelectionBox(result.second);
+                    }
+                    UpdateSelectionBox();
+                    CityManager.MakeSelection();
+                    CityManager.ClearSelection();
+                    selectionBox.SetVisible(false);
+                }
+                if (mouseMode == MouseMode.DrawingZone && CityManager.ScratchZoneOriginIsValid())
+                {
+                    Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                    if (result.first)
+                    {
+                        CityManager.UpdateScratchZoneBox(result.second);
+                    }
+                    UpdateScratchZoneBox();
+                    CityManager.MakeZone();
+                    CityManager.ClearScratchZone();
+                    scratchZone.SetVisible(false);
+
                 }
             }
 

@@ -22,6 +22,8 @@ namespace Snowflake {
         private TopContainer topContainer;
         private BuildingPlacementPanel bldgPlacePanel;
 
+        private InfoPopup ip;
+
         #region Properties
 
         public DebugPanel DebugPanel {
@@ -55,7 +57,9 @@ namespace Snowflake {
             topContainer = new TopContainer();
             bldgPlacePanel = new BuildingPlacementPanel();
 
-            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow, bldgPlacePanel });
+            ip = new InfoPopup("This is an info popup :D");
+
+            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow, bldgPlacePanel, ip });
 
             Gui = new GUI();
             GuiSystem.GUIManager.GUIs.Add(Gui);

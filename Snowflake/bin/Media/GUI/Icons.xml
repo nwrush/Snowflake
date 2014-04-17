@@ -514,6 +514,26 @@
           <Y>0</Y>
         </ScrollVector>
       </SubSkin>
+      <SubSkin Name="Control.Info">
+        <Frames>
+          <Frame>
+            <FileName>icons.png</FileName>
+            <Duration>0</Duration>
+            <UV>
+              <X>0.75</X>
+              <Y>0.125</Y>
+              <Width>0.125</Width>
+              <Height>0.125</Height>
+            </UV>
+          </Frame>
+        </Frames>
+        <GpuPrograms />
+        <FrameAnimationMode>ForwardOnce</FrameAnimationMode>
+        <ScrollVector>
+          <X>0</X>
+          <Y>0</Y>
+        </ScrollVector>
+      </SubSkin>
     </SubSkins>
   </Skin>
 </Skins>

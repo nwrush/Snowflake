@@ -249,6 +249,7 @@ namespace Snowflake.States {
         public void SetMouseMode(MouseMode m) {
             this.mouseMode = m;
         }
+        public MouseMode GetMouseMode() { return this.mouseMode; }
         public void SetCursorBuilding(RenderableBuilding rb) {
             this.tempBuilding = rb;
         }

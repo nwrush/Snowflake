@@ -14,7 +14,9 @@ using Snowflake.Modules;
 namespace Snowflake.GuiComponents {
     public partial class TopContainer {
         public Panel ParentPanel;
-        private PictureButton weatherIcon; //Todo: turn into a button to display the weather
+        private PictureButton weatherIcon;
+        private CheckBox zoneOption;
+        private Label zoneOptionLabel;
 
         private Panel ToolsContainerPanel;
         private PictureButton buildButton;
@@ -69,6 +71,31 @@ namespace Snowflake.GuiComponents {
                     Font = ResourceManager.Fonts["Section"],
                     Alignment = Alignment.BottomCenter,
                     ForegroundColour = Colours.White
+                }
+            };
+
+            zoneOption = new CheckBox("ZoneOption")
+            {
+                Skin = ResourceManager.Skins["BlackCheckBoxSkin"],
+                Location = new Point(160, 20),
+                Size = new Size(16, 16),
+
+                BorderStyle = new BorderStyle()
+                {
+                    Thickness = new Thickness(1, 1, 1, 1)
+                }
+            };
+            zoneOptionLabel = new Label("ZoneOptionLabel")
+            {
+                Text = "Show Zones",
+                AutoSize = true,
+                Location = new Point(180, 20),
+                TextStyle = new TextStyle()
+                {
+                    Alignment = Alignment.TopLeft,
+                    ForegroundColour = Colours.White,
+                    Multiline = false,
+                    Font = ResourceManager.Fonts["Heading"]
                 }
             };
 
@@ -385,7 +412,7 @@ namespace Snowflake.GuiComponents {
 
             StatsContainerPanel.Controls.AddRange(pbHappiness, pbAffluence, pbEnvquality, labelMoney, labelPopulation, textMoney, textPopulation);
 
-            ParentPanel.Controls.AddRange(weatherIcon, ToolsContainerPanel, StatsContainerPanel);
+            ParentPanel.Controls.AddRange(weatherIcon, zoneOption, zoneOptionLabel, ToolsContainerPanel, StatsContainerPanel);
             gui.Controls.Add(ParentPanel);
         }
     }

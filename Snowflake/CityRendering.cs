@@ -276,7 +276,7 @@ namespace Snowflake {
             {
                 rb.Update();
             }
-            if (CityManager.ShowZones && this.data.Zone != Zones.Unzoned)
+            if ((CityManager.ShowZones || CityManager.GetMouseMode() == States.MouseMode.DrawingZone) && this.data.Zone != Zones.Unzoned)
             {
                 zoneNode.SetVisible(true);
             }

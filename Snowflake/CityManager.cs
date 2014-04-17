@@ -324,9 +324,8 @@ namespace Snowflake {
             return SetZoning(scratchZoneBox, scratchZoneType);
         }
 
-        public static void SetMouseMode(MouseMode m) {
-            GameMgr.SetMouseMode(m);
-        }
+        public static void SetMouseMode(MouseMode m) { GameMgr.SetMouseMode(m); }
+        public static MouseMode GetMouseMode() { return GameMgr.GetMouseMode(); }
 
         /// <summary>
         /// Clears the selection

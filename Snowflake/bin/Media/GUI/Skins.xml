@@ -8,8 +8,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5644531</X>
-              <Y>0.3818359</Y>
+              <X>0.5</X>
+              <Y>0.25</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -28,8 +28,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5009766</X>
-              <Y>0.3818359</Y>
+              <X>0.5</X>
+              <Y>0.3125</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -48,8 +48,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5644531</X>
-              <Y>0.3183594</Y>
+              <X>0.5</X>
+              <Y>0.25</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -72,8 +72,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5009766</X>
-              <Y>0.3183594</Y>
+              <X>0.625</X>
+              <Y>0.25</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -92,8 +92,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.8779297</X>
-              <Y>0</Y>
+              <X>0.625</X>
+              <Y>0.3125</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -116,8 +116,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5009766</X>
-              <Y>0.2861328</Y>
+              <X>0.75</X>
+              <Y>0</Y>
               <Width>0.125</Width>
               <Height>0.03125</Height>
             </UV>
@@ -136,8 +136,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.7519531</X>
-              <Y>0</Y>
+              <X>0.75</X>
+              <Y>0.03125</Y>
               <Width>0.125</Width>
               <Height>0.03125</Height>
             </UV>
@@ -200,8 +200,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.8779297</X>
-              <Y>0.06347656</Y>
+              <X>0.5625</X>
+              <Y>0.375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -220,8 +220,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.7519531</X>
-              <Y>0.1904297</Y>
+              <X>0.5625</X>
+              <Y>0.4375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -240,8 +240,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.8789062</X>
-              <Y>0.1904297</Y>
+              <X>0.8125</X>
+              <Y>0.1875</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -260,10 +260,10 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.94140625</X>
-              <Y>0.159179688</Y>
-              <Width>0.03125</Width>
-              <Height>0.03125</Height>
+              <X>0.4375</X>
+              <Y>0.5</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
             </UV>
           </Frame>
         </Frames>
@@ -304,8 +304,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.8779297</X>
-              <Y>0.1269531</Y>
+              <X>0.75</X>
+              <Y>0.125</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -364,10 +364,10 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.94140625</X>
-              <Y>0.159179688</Y>
-              <Width>0.03125</Width>
-              <Height>0.03125</Height>
+              <X>0.4375</X>
+              <Y>0.5</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
             </UV>
           </Frame>
         </Frames>
@@ -384,8 +384,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.8779297</X>
-              <Y>0.06347656</Y>
+              <X>0.5625</X>
+              <Y>0.375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -404,8 +404,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.7519531</X>
-              <Y>0.1904297</Y>
+              <X>0.5625</X>
+              <Y>0.4375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -424,8 +424,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.8789062</X>
-              <Y>0.1904297</Y>
+              <X>0.8125</X>
+              <Y>0.1875</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -468,8 +468,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.6914062</X>
-              <Y>0.3818359</Y>
+              <X>0.75</X>
+              <Y>0.25</Y>
               <Width>0.01953125</Width>
               <Height>0.08789063</Height>
             </UV>
@@ -492,8 +492,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5009766</X>
-              <Y>0.2539062</Y>
+              <X>0.75</X>
+              <Y>0.34375</Y>
               <Width>0.25</Width>
               <Height>0.03125</Height>
             </UV>
@@ -512,8 +512,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.9414062</X>
-              <Y>0.06347656</Y>
+              <X>0.875</X>
+              <Y>0.0625</Y>
               <Width>0.03125</Width>
               <Height>0.03125</Height>
             </UV>
@@ -536,8 +536,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5009766</X>
-              <Y>0.2539062</Y>
+              <X>0.75</X>
+              <Y>0.34375</Y>
               <Width>0.25</Width>
               <Height>0.03125</Height>
             </UV>
@@ -556,8 +556,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.7519531</X>
-              <Y>0.25390625</Y>
+              <X>0.75</X>
+              <Y>0.1875</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -600,8 +600,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.7519531</X>
-              <Y>0.25390625</Y>
+              <X>0.75</X>
+              <Y>0.1875</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -644,8 +644,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5009766</X>
-              <Y>0.2539062</Y>
+              <X>0.75</X>
+              <Y>0.34375</Y>
               <Width>0.25</Width>
               <Height>0.03125</Height>
             </UV>
@@ -664,8 +664,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.6279297</X>
-              <Y>0.3183594</Y>
+              <X>0.5</X>
+              <Y>0.375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -684,8 +684,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.6279297</X>
-              <Y>0.3818359</Y>
+              <X>0.5</X>
+              <Y>0.4375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -728,7 +728,7 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5009766</X>
+              <X>0.5</X>
               <Y>0</Y>
               <Width>0.25</Width>
               <Height>0.0625</Height>
@@ -748,8 +748,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.500977</X>
-              <Y>0.06347656</Y>
+              <X>0.5</X>
+              <Y>0.0625</Y>
               <Width>0.25</Width>
               <Height>0.0625</Height>
             </UV>
@@ -792,8 +792,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.5009766</X>
-              <Y>0.2539062</Y>
+              <X>0.75</X>
+              <Y>0.34375</Y>
               <Width>0.25</Width>
               <Height>0.03125</Height>
             </UV>
@@ -812,8 +812,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.6279297</X>
-              <Y>0.3183594</Y>
+              <X>0.5</X>
+              <Y>0.375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -832,8 +832,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.6279297</X>
-              <Y>0.3818359</Y>
+              <X>0.5</X>
+              <Y>0.4375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -852,8 +852,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.8154297</X>
-              <Y>0.1904297</Y>
+              <X>0.75</X>
+              <Y>0.1875</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -872,10 +872,10 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.94140625</X>
-              <Y>0.159179688</Y>
-              <Width>0.03125</Width>
-              <Height>0.03125</Height>
+              <X>0.4375</X>
+              <Y>0.5</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
             </UV>
           </Frame>
         </Frames>
@@ -892,7 +892,7 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.9414062</X>
+              <X>0.8750625</X>
               <Y>0</Y>
               <Width>0.03125</Width>
               <Height>0.03125</Height>
@@ -912,8 +912,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.7519531</X>
-              <Y>0.06347656</Y>
+              <X>0.75</X>
+              <Y>0</Y>
               <Width>0.125</Width>
               <Height>0.03125</Height>
             </UV>
@@ -932,8 +932,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.7519531</X>
-              <Y>0.1269531</Y>
+              <X>0.75</X>
+              <Y>0.03125</Y>
               <Width>0.125</Width>
               <Height>0.03125</Height>
             </UV>
@@ -972,8 +972,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.8779297</X>
-              <Y>0.06347656</Y>
+              <X>0.5625</X>
+              <Y>0.375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -992,8 +992,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.7519531</X>
-              <Y>0.1904297</Y>
+              <X>0.5625</X>
+              <Y>0.4375</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -1012,8 +1012,8 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.8789062</X>
-              <Y>0.1904297</Y>
+              <X>0.8125</X>
+              <Y>0.1875</Y>
               <Width>0.0625</Width>
               <Height>0.0625</Height>
             </UV>
@@ -1032,10 +1032,10 @@
             <FileName>texture.png</FileName>
             <Duration>0</Duration>
             <UV>
-              <X>0.94140625</X>
-              <Y>0.159179688</Y>
-              <Width>0.03125</Width>
-              <Height>0.03125</Height>
+              <X>0.4375</X>
+              <Y>0.5</Y>
+              <Width>0.0625</Width>
+              <Height>0.0625</Height>
             </UV>
           </Frame>
         </Frames>

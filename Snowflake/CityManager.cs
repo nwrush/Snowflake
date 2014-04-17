@@ -25,6 +25,7 @@ namespace Snowflake {
         private static SceneNode world;
         public static Point Origin { get; private set; }
         private static string cityName;
+        public static bool ShowZones = true;
 
         public static Dictionary<Building, RenderableBuilding> Buildings;
         public static Dictionary<Plot, RenderablePlot> Plots;
@@ -298,7 +299,7 @@ namespace Snowflake {
         /// </summary>
         public static bool MakeSelection() {
 
-            if (SelectionBox.Left != Int32.MaxValue - 1 && SelectionBox.Top != Int32.MaxValue - 1) {
+            if (SelectionBox.Left != Int32.MaxValue - 1 && SelectionBox.Top != Int32.MaxValue - 1 && selectionEnd.X != Int32.MaxValue && selectionEnd.Y != Int32.MaxValue) {
 
                 if (selectedBuildings != null) { selectedBuildings.Clear(); }
                 selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
@@ -323,9 +324,8 @@ namespace Snowflake {
             return SetZoning(scratchZoneBox, scratchZoneType);
         }
 
-        public static void SetMouseMode(MouseMode m) {
-            GameMgr.SetMouseMode(m);
-        }
+        public static void SetMouseMode(MouseMode m) { GameMgr.SetMouseMode(m); }
+        public static MouseMode GetMouseMode() { return GameMgr.GetMouseMode(); }
 
         /// <summary>
         /// Clears the selection
@@ -333,12 +333,22 @@ namespace Snowflake {
         public static void ClearSelection() {
             selectionStart = new Point(Int32.MaxValue - 1, Int32.MaxValue - 1);
             selectionEnd = new Point(Int32.MaxValue, Int32.MaxValue);
+            selectionOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
+        }
+        public static bool SelectionOriginIsValid()
+        {
+            return selectionOrigin != new Point(Int32.MaxValue, Int32.MaxValue);
+        }
+        public static bool ScratchZoneOriginIsValid()
+        {
+            return scratchZoneOrigin != new Point(Int32.MaxValue, Int32.MaxValue);
         }
 
         public static void ClearScratchZone()
         {
-            selectionStart = new Point(Int32.MaxValue - 1, Int32.MaxValue - 1);
-            selectionEnd = new Point(Int32.MaxValue, Int32.MaxValue);
+            scratchZoneStart = new Point(Int32.MaxValue - 1, Int32.MaxValue - 1);
+            scratchZoneEnd = new Point(Int32.MaxValue, Int32.MaxValue);
+            scratchZoneOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
         }
 
         public static void DeleteSelectedBuildings()

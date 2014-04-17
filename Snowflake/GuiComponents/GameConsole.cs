@@ -51,7 +51,7 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         /// <param name="text"></param>
         public void Echo(string text) {
-            this.AddLabel(text, Colours.Black);
+            this.AddLabel(text, Colours.White);
         }
         private void AddLabel(string text, Colour col) {
             if (this.outputPanel != null) {

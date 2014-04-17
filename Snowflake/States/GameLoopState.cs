@@ -242,12 +242,14 @@ namespace Snowflake.States {
                     }
                 }
             }, "Sets zone z from x1, y1 to x2, y2"));
+            gConsole.AddCommand("togglezones", new ConsoleCommand((string[] args) => { CityManager.ShowZones = !CityManager.ShowZones; }, "Toggles showing zones."));
         }
         #endregion
 
         public void SetMouseMode(MouseMode m) {
             this.mouseMode = m;
         }
+        public MouseMode GetMouseMode() { return this.mouseMode; }
         public void SetCursorBuilding(RenderableBuilding rb) {
             this.tempBuilding = rb;
         }

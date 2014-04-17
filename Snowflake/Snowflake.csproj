@@ -107,6 +107,10 @@
       <DependentUpon>GameConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiComponents\IGuiComponent.cs" />
+    <Compile Include="GuiComponents\InfoPopup.cs" />
+    <Compile Include="GuiComponents\InfoPopup.Designer.cs">
+      <DependentUpon>InfoPopup.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\PictureButton.cs" />
     <Compile Include="GuiComponents\TopContainer.cs" />
     <Compile Include="GuiComponents\TopContainer.Designer.cs">

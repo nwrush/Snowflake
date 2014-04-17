@@ -54,10 +54,10 @@ namespace Snowflake.GuiComponents {
                         }
                     }
                 },
-                Skin = ResourceManager.Skins["PanelSkin"],
+                Skin = ResourceManager.Skins["BlackPanelSkin"],
                 TextStyle = new TextStyle() {
                     Font = ResourceManager.Fonts["Courier"],
-                    ForegroundColour = Colours.Black,
+                    ForegroundColour = Colours.White,
                     Multiline = true,
                     Alignment = Alignment.TopLeft
                 },
@@ -68,19 +68,19 @@ namespace Snowflake.GuiComponents {
                 Location = new Point(0, 360),
                 Padding = new Thickness(9, 0, 8, 0),
                 TextStyle = {
-                    ForegroundColour = Colours.Black,
+                    ForegroundColour = Colours.White,
                     Font = ResourceManager.Fonts["Courier"]
                 },
                 TextBoxStyle = {
                     CaretStyle = {
                         Size = new Size(2, 16),
-                        Colour = Colours.Black,
+                        Colour = Colours.White,
                     }
                 },
                 BorderStyle = {
                     Thickness = new Thickness(2, 2, 2, 2),
                 },
-                Skin = ResourceManager.Skins["PanelSkin"],
+                Skin = ResourceManager.Skins["BlackPanelSkin"],
                 ClearTextOnSubmit = true,
                 DefocusOnSubmit = false,
             };

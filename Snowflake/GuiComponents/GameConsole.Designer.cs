@@ -30,7 +30,7 @@ namespace Snowflake.GuiComponents {
                 TabStop = false,
                 TabIndex = 0,
                 Throwable = true,
-                Size = new Size(516, 360),
+                Size = new Size(508, 360),
                 Movable = false,
                 ResizeMode = ResizeModes.None,
                 Location = new Point(0, 0),

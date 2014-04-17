@@ -19,6 +19,12 @@ namespace Snowflake.GuiComponents {
             UpdateStats(frametime);
             UpdateWeather(frametime);
             UpdateChildren(frametime);
+            UpdateOptions(frametime);
+        }
+
+        private void UpdateOptions(float frametime)
+        {
+            if (zoneOption.Checked != CityManager.ShowZones) { zoneOption.Checked = CityManager.ShowZones; }
         }
 
         private void UpdateChildren(float frametime)

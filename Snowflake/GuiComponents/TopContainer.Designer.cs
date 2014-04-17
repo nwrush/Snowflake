@@ -15,6 +15,8 @@ namespace Snowflake.GuiComponents {
     public partial class TopContainer {
         public Panel ParentPanel;
         private PictureButton weatherIcon;
+
+        private Panel OptionsPanel;
         private CheckBox zoneOption;
         private Label zoneOptionLabel;
 
@@ -74,10 +76,18 @@ namespace Snowflake.GuiComponents {
                 }
             };
 
+            OptionsPanel = new Panel("OptionsPanel_ParentPanel")
+            {
+                Location = new Point(140, 0),
+                Size = new Size(140, 120),
+                Movable = false,
+                Throwable = false,
+                ResizeMode = ResizeModes.None,
+            };
             zoneOption = new CheckBox("ZoneOption")
             {
                 Skin = ResourceManager.Skins["BlackCheckBoxSkin"],
-                Location = new Point(160, 20),
+                Location = new Point(20, 20),
                 Size = new Size(16, 16),
 
                 BorderStyle = new BorderStyle()
@@ -85,19 +95,24 @@ namespace Snowflake.GuiComponents {
                     Thickness = new Thickness(1, 1, 1, 1)
                 }
             };
+            zoneOption.Click += (object sender, EventArgs e) =>
+            {
+                CityManager.ShowZones = zoneOption.Checked;
+            };
             zoneOptionLabel = new Label("ZoneOptionLabel")
             {
                 Text = "Show Zones",
                 AutoSize = true,
-                Location = new Point(180, 20),
+                Location = new Point(44, 22),
                 TextStyle = new TextStyle()
                 {
                     Alignment = Alignment.TopLeft,
                     ForegroundColour = Colours.White,
                     Multiline = false,
-                    Font = ResourceManager.Fonts["Heading"]
+                    Font = ResourceManager.Fonts["Section"]
                 }
             };
+            OptionsPanel.Controls.AddRange(zoneOption, zoneOptionLabel);
 
             ///
 
@@ -412,7 +427,7 @@ namespace Snowflake.GuiComponents {
 
             StatsContainerPanel.Controls.AddRange(pbHappiness, pbAffluence, pbEnvquality, labelMoney, labelPopulation, textMoney, textPopulation);
 
-            ParentPanel.Controls.AddRange(weatherIcon, zoneOption, zoneOptionLabel, ToolsContainerPanel, StatsContainerPanel);
+            ParentPanel.Controls.AddRange(weatherIcon, OptionsPanel, ToolsContainerPanel, StatsContainerPanel);
             gui.Controls.Add(ParentPanel);
         }
     }

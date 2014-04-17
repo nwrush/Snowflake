@@ -18,3 +18,5 @@ Allows for easy lookup from mouse input and suchs
  - Then do pipes.
 
  - And maybe roads.
+
+_frametime = _stopwatch.ElapsedTicks / 500.0f;

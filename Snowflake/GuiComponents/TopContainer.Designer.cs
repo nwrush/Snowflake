@@ -37,6 +37,9 @@ namespace Snowflake.GuiComponents {
         private Label textMoney;
         private Label textPopulation;
 
+        private Label currentActionLabel;
+        private Label currentActionLabelShadow;
+
         public void CreateGui(GUI gui) {
             //store game width and height
             int gw = gui.MiyagiSystem.RenderManager.MainViewport.Size.Width;
@@ -429,6 +432,34 @@ namespace Snowflake.GuiComponents {
 
             ParentPanel.Controls.AddRange(weatherIcon, OptionsPanel, ToolsContainerPanel, StatsContainerPanel);
             gui.Controls.Add(ParentPanel);
+
+            currentActionLabel = new Label("CurrentActionLabel")
+            {
+                AutoSize = true,
+                Location = new Point(50, 150),
+                TextStyle = new TextStyle()
+                {
+                    Alignment = Alignment.TopLeft,
+                    ForegroundColour = Colours.White,
+                    Multiline = false,
+                    Font = ResourceManager.Fonts["Heading"]
+                },
+                Text = ""
+            };
+            currentActionLabelShadow = new Label("CurrentActionLabel")
+            {
+                AutoSize = true,
+                Location = new Point(currentActionLabel.Location.X + 1, currentActionLabel.Location.Y + 1),
+                TextStyle = new TextStyle()
+                {
+                    Alignment = Alignment.TopLeft,
+                    ForegroundColour = Colours.Black,
+                    Multiline = false,
+                    Font = ResourceManager.Fonts["Heading"]
+                },
+                Text = ""
+            };
+            gui.Controls.AddRange(currentActionLabelShadow, currentActionLabel);
         }
     }
 }

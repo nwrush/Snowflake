@@ -20,6 +20,32 @@ namespace Snowflake.GuiComponents {
             UpdateWeather(frametime);
             UpdateChildren(frametime);
             UpdateOptions(frametime);
+            UpdateAction(frametime);
+        }
+
+        private void UpdateAction(float frametime)
+        {
+            switch (CityManager.GetMouseMode())
+            {
+                case States.MouseMode.Selection:
+                    setCurrentAction("Selecting");
+                    break;
+                case States.MouseMode.PlacingBuilding:
+                    setCurrentAction("Placing Building");
+                    break;
+                case States.MouseMode.DrawingZone:
+                    setCurrentAction("Drawing Zone: " + CityManager.scratchZoneType.ToString());
+                    break;
+                default:
+                    setCurrentAction(" ");
+                    break;
+            }
+        }
+
+        private void setCurrentAction(string text)
+        {
+            currentActionLabel.Text = text;
+            currentActionLabelShadow.Text = text;
         }
 
         private void UpdateOptions(float frametime)

@@ -8,6 +8,7 @@ namespace Snowflake.GuiComponents
     public partial class InfoPopup : IGuiComponent
     {
         private string _text;
+        public float TimeToLive;
         public InfoPopup(string text = " ")
         {
             this._text = text;
@@ -25,12 +26,14 @@ namespace Snowflake.GuiComponents
 
         public void Update(float frametime)
         {
+            TimeToLive -= frametime;
             return;
         }
 
         public void Dispose()
         {
-            return;
+            ParentPanel.Controls.Clear();
+            ParentPanel.Dispose();
         }
     }
 }

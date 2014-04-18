@@ -70,7 +70,7 @@ namespace Snowflake.GuiComponents
             {
                 _targetYaw -= Mogre.Math.HALF_PI;
             };
-            ParentPanel.Controls.AddRange(Renderbox, RotateLeft, RotateRight);
+            ParentPanel.Controls.AddRange(Renderbox); //, RotateLeft, RotateRight);
 
             gui.Controls.Add(ParentPanel);
         }

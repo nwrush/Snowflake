@@ -7,6 +7,7 @@ namespace Haswell {
         public abstract class Building {
 
         protected readonly Zones _zone;
+        protected Facing _facing;
         private Plot parent;
 
         //Todo: Implement this into the constructor and init function
@@ -19,6 +20,7 @@ namespace Haswell {
             this.resouceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;
             this.Deleted += OnDeleted;
+            this._facing = Facing.North;
         }
         protected Building(Dictionary<ResourceType, int> resource, Zones zone)
             : this(zone) {
@@ -66,6 +68,13 @@ namespace Haswell {
         public Zones Zone {
             get {
                 return this._zone;
+            }
+        }
+        public Facing Facing
+        {
+            get
+            {
+                return this._facing;
             }
         }
         public Plot Parent {

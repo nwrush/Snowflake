@@ -246,9 +246,7 @@ namespace Snowflake.States
                 {
                     if (mouseMode == MouseMode.DrawingZone)
                     {
-                        int[] mouseModeVals = (int[])(Enum.GetValues(typeof(Haswell.Zones)));
-                        CityManager.scratchZoneType = (Haswell.Zones)System.Math.Max(((int)CityManager.scratchZoneType + 1) % (mouseModeVals.Length - 1), 1);
-                        UpdateScratchZoneBoxZone(CityManager.scratchZoneType);
+                        CycleDrawnZone();
                     }
                 }
 
@@ -313,6 +311,13 @@ namespace Snowflake.States
                 // quit the application
                 mStateMgr.RequestShutdown();
             }
+        }
+
+        private void CycleDrawnZone()
+        {
+            int[] mouseModeVals = (int[])(Enum.GetValues(typeof(Haswell.Zones)));
+            CityManager.scratchZoneType = (Haswell.Zones)System.Math.Max(((int)CityManager.scratchZoneType + 1) % (mouseModeVals.Length - 1), 1);
+            UpdateScratchZoneBoxZone(CityManager.scratchZoneType);
         }
 
         private void CancelBuildingPlacement()

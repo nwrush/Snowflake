@@ -54,6 +54,7 @@
     <Compile Include="BackgroundThread.cs" />
     <Compile Include="Building.cs" />
     <Compile Include="Buildings\Commercial.cs" />
+    <Compile Include="Facing.cs" />
     <Compile Include="Buildings\Industrial.cs" />
     <Compile Include="Buildings\Infrastructure.cs" />
     <Compile Include="Buildings\Residential.cs" />

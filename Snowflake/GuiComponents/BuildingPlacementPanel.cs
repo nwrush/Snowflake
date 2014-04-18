@@ -64,10 +64,10 @@ namespace Snowflake.GuiComponents
         {
             //if (_targetYaw > Mogre.Math.HALF_PI) { _targetYaw -= Mogre.Math.PI; }
             //if (_targetYaw < -Mogre.Math.HALF_PI) { _targetYaw += Mogre.Math.PI; }
-            _currentYaw += (_targetYaw - _currentYaw) * 0.05f;
+            _currentYaw += 0.01f; //+= (_targetYaw - _currentYaw) * 0.05f;
             renderNode.ResetOrientation();
             renderNode.Yaw(_currentYaw);
-            DebugPanel.ActiveInstance[1] = ("Target yaw: " + _targetYaw.ToString("0.00") + "\n Actual Yaw: " + renderNode.Orientation.Yaw.ValueRadians.ToString("0.00"));
+            //DebugPanel.ActiveInstance[1] = ("Target yaw: " + _targetYaw.ToString("0.00") + "\n Actual Yaw: " + renderNode.Orientation.Yaw.ValueRadians.ToString("0.00"));
         }
 
         public void Dispose() { }

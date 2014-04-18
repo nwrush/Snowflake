@@ -414,6 +414,14 @@ namespace Snowflake {
             return entList;
         }
 
+        public override void Update()
+        {
+            base.Update();
+
+            Mogre.Degree ang = new Mogre.Degree((int)this.data.Facing);
+            this.node.SetDirection(new Vector3(Mogre.Math.Cos(ang), 0, Mogre.Math.Sin(ang)));
+        }
+
         /// <summary>
         /// Returns the Haswell object providing this renderable's data.
         /// </summary>

@@ -22,8 +22,6 @@ namespace Snowflake {
         private TopContainer topContainer;
         private BuildingPlacementPanel bldgPlacePanel;
 
-        private InfoPopup ip;
-
         #region Properties
 
         public DebugPanel DebugPanel {
@@ -57,14 +55,19 @@ namespace Snowflake {
             topContainer = new TopContainer();
             bldgPlacePanel = new BuildingPlacementPanel();
 
-            ip = new InfoPopup("This is an info popup :D");
-
-            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow, bldgPlacePanel, ip });
+            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow, bldgPlacePanel});
 
             Gui = new GUI();
             GuiSystem.GUIManager.GUIs.Add(Gui);
 
             this.InitGui(Gui);
+        }
+
+        public void AddInfoPopup(string text)
+        {
+            InfoPopup ip = new InfoPopup(text);
+            ip.CreateGui(Gui);
+            GuiComponents.Add(ip);
         }
 
         public void InitGui(GUI gui) {
@@ -116,6 +119,14 @@ namespace Snowflake {
         public void Update(float frametime) {
             foreach (IGuiComponent c in GuiComponents) {
                 c.Update(frametime);
+            }
+            foreach (InfoPopup ip in GuiComponents.FindAll(item => item is InfoPopup))
+            {
+                if (ip.TimeToLive <= 0)
+                {
+                    ip.Dispose();
+                    GuiComponents.Remove(ip);
+                }
             }
         }
     }

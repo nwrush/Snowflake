@@ -20,3 +20,6 @@ Allows for easy lookup from mouse input and suchs
  - And maybe roads.
 
 _frametime = _stopwatch.ElapsedTicks / 500.0f;
+
++X is north
++Y is east

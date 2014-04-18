@@ -20,13 +20,14 @@ namespace Haswell {
             this.resouceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;
             this.Deleted += OnDeleted;
-            this._facing = Facing.North;
+            this._facing = Facing.East;
         }
         protected Building(Dictionary<ResourceType, int> resource, Zones zone)
             : this(zone) {
             this.resouceChanges = resource;
             this.Initialized = true;
             this.Deleted += OnDeleted;
+            this._facing = Facing.East;
         }
 
         /// <summary>

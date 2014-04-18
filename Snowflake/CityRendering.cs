@@ -419,8 +419,8 @@ namespace Snowflake {
             base.Update();
 
             Mogre.Degree ang = new Mogre.Degree((int)this.data.Facing);
-            Snowflake.GuiComponents.DebugPanel.ActiveInstance[1] = ang.ValueDegrees.ToString() + " deg, " + ang.ValueRadians.ToString() + " rad";
-            //this.node.SetOrientation(Quaternion.Slerp(ang.ValueRadians)); //I think I'm dying
+            Vector3 dir = new Vector3(Mogre.Math.Cos(ang), 0, Mogre.Math.Sin(ang));
+            this.node.Orientation = Vector3.UNIT_X.GetRotationTo(dir);
         }
 
         /// <summary>

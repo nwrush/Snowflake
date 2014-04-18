@@ -311,7 +311,11 @@ namespace Snowflake.GuiComponents {
             manageButton.MouseClick += (object sender, MouseButtonEventArgs e) =>
             {
                 if (manageToolbar.visible) { manageToolbar.Hide(); }
-                else { manageToolbar.Show(); }
+                else { 
+                    manageToolbar.Show();
+                    buildToolbar.Hide();
+                    governToolbar.Hide();
+                }
             };
 
             manageToolbar = new ExpanderToolbar(true, boxsize, boxsize * 1, 3, 0)
@@ -360,7 +364,11 @@ namespace Snowflake.GuiComponents {
             governButton.MouseClick += (object sender, MouseButtonEventArgs e) =>
             {
                 if (governToolbar.visible) { governToolbar.Hide(); }
-                else { governToolbar.Show(); }
+                else { 
+                    governToolbar.Show();
+                    buildToolbar.Hide();
+                    manageToolbar.Hide();
+                }
             };
 
             governToolbar = new ExpanderToolbar(true, boxsize, boxsize * 1, 3, 0)

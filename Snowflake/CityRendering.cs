@@ -232,7 +232,7 @@ namespace Snowflake {
         {            
             base.Create(sm, cityNode);
 
-            this.RenderableBuilding.Create(sm, cityNode);
+            if (this.RenderableBuilding != null) { this.RenderableBuilding.Create(sm, cityNode); }
 
             Plane plane = new Plane(Vector3.UNIT_Y, 0);
             MeshManager.Singleton.CreatePlane(this.Name + "_zoneTile", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, PlotWidth, PlotHeight, 1, 1, true, 1, 1, 1, Vector3.UNIT_Z);
@@ -269,7 +269,7 @@ namespace Snowflake {
         public override void Update()
         {
             base.Update();
-            this.RenderableBuilding.Update();
+            if (this.RenderableBuilding != null) { this.RenderableBuilding.Update(); }
             if ((CityManager.ShowZones || CityManager.GetMouseMode() == States.MouseMode.DrawingZone) && this.data.Zone != Zones.Unzoned)
             {
                 zoneNode.SetVisible(true);
@@ -356,7 +356,7 @@ namespace Snowflake {
         {
             get
             {
-                if (CityManager.Buildings.ContainsKey(this.data.Building))
+                if (this.data.Building != null && CityManager.Buildings.ContainsKey(this.data.Building))
                 {
                     return CityManager.Buildings[this.data.Building];
                 }

@@ -306,11 +306,15 @@ namespace Snowflake {
 
                 List<Building> lastSelectedBuildings = selectedBuildings;
                 selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
-                lastSelectedBuildings = (List<Building>)lastSelectedBuildings.Except(selectedBuildings);
-
-                foreach (Building b in lastSelectedBuildings)
+                if (lastSelectedBuildings != null)
                 {
-                    Plots[b.Parent].Deselect();
+                    selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
+                    var toDeselect = (lastSelectedBuildings.Except(selectedBuildings));
+
+                    foreach (Building b in toDeselect)
+                    {
+                        Plots[b.Parent].Deselect();
+                    }
                 }
                 foreach (Building b in selectedBuildings)
                 {

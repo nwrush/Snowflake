@@ -18,6 +18,12 @@ namespace Snowflake.GuiComponents
             return;
         }
 
+        public int Y
+        {
+            get { return this.ParentPanel.Top; }
+            set { this.ParentPanel.Top = value; }
+        }
+
         public string Text
         {
             get { return this._text; }

@@ -112,6 +112,9 @@ namespace Snowflake {
         static CityManager() {
             Plots = new Dictionary<Plot, RenderablePlot>();
             Buildings = new Dictionary<Building, RenderableBuilding>();
+
+            selectionOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
+            scratchZoneOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
         }
 
         /// <summary>

@@ -67,7 +67,14 @@ namespace Haswell {
                 return;
             }
 
-            throw new Exceptions.BuildingCreationFailedException("Building creation failed");
+            if (grid.ElementAt(x, y).Zone != b.Zone)
+            {
+                throw new Exceptions.BuildingCreationFailedException("Cannot create this type of building in " + grid.ElementAt(x, y).Zone.ToString() + " plot!");
+            }
+            else
+            {
+                throw new Exceptions.BuildingCreationFailedException("Building creation failed");
+            }
         }
 
         /// <summary>

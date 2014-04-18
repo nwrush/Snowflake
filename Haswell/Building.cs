@@ -7,7 +7,7 @@ namespace Haswell {
         public abstract class Building {
 
         protected readonly Zones _zone;
-        public Plot Parent;
+        private Plot parent;
 
         //Todo: Implement this into the constructor and init function
         protected Dictionary<ResourceType, int> resouceChanges;
@@ -66,6 +66,14 @@ namespace Haswell {
         public Zones Zone {
             get {
                 return this._zone;
+            }
+        }
+        public Plot Parent {
+            get {
+                return this.parent;
+            }
+            set {
+                this.parent = value;
             }
         }
     }

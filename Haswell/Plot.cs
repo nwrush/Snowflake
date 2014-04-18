@@ -82,29 +82,37 @@ namespace Haswell {
         }
 
         public void Update(ResourceDict cityResources) {
-            this.building.Update(this.resource);
+            if (this.Building != null)
+                this.building.Update(this.resource);
             UpdateCityResources(cityResources);
         }
         public void UpdateHour(ResourceDict cityResources) {
-            this.building.UpdateHour(this.resource);
+            if (this.Building != null)
+                this.building.UpdateHour(this.resource);
         }
         public void UpdateDaily(ResourceDict cityResources) {
-            this.building.UpdateDaily(this.resource);
+            if (this.Building != null)
+                this.building.UpdateDaily(this.resource);
         }
         public void UpdateWeekly(ResourceDict cityResources) {
-            this.building.UpdateWeekly(this.resource);
+            if (this.Building != null)
+                this.building.UpdateWeekly(this.resource);
         }
         public void UpdateMonthly(ResourceDict cityResources) {
-            this.building.UpdateMonthly(this.resource);
+            if (this.Building != null)
+                this.building.UpdateMonthly(this.resource);
         }
         public void UpdateQuarterly(ResourceDict cityResources) {
-            this.building.UpdateQuarterly(this.resource);
+            if (this.Building != null)
+                this.building.UpdateQuarterly(this.resource);
         }
         public void UpdateBiannually(ResourceDict cityResources) {
-            this.building.UpdateBiannually(this.resource);
+            if (this.Building != null)
+                this.building.UpdateBiannually(this.resource);
         }
         public void UpdateYearly(ResourceDict cityResources) {
-            this.building.UpdateYearly(this.resource);
+            if (this.Building != null)
+                this.building.UpdateYearly(this.resource);
         }
 
         private void UpdateCityResources(ResourceDict cityResources) {

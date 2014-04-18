@@ -247,7 +247,7 @@ namespace Snowflake.States
                     if (mouseMode == MouseMode.DrawingZone)
                     {
                         int[] mouseModeVals = (int[])(Enum.GetValues(typeof(Haswell.Zones)));
-                        CityManager.scratchZoneType = (Haswell.Zones)System.Math.Max(((int)CityManager.scratchZoneType + 1) % mouseModeVals.Length, 1);
+                        CityManager.scratchZoneType = (Haswell.Zones)System.Math.Max(((int)CityManager.scratchZoneType + 1) % (mouseModeVals.Length - 1), 1);
                         UpdateScratchZoneBoxZone(CityManager.scratchZoneType);
                     }
                 }

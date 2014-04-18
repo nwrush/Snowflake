@@ -29,7 +29,7 @@ namespace Snowflake.GuiComponents {
         }
         private void create()
         {
-            this.ParentChanged += (object sender, EventArgs e) => { CreatePictureBox(); this.Parent.Controls.Add(this.picturePanel); };
+            this.ParentChanged += (object sender, EventArgs e) => { if (this.Parent != null) { CreatePictureBox(); this.Parent.Controls.Add(this.picturePanel); } };
             _pictureSize = this.Size;
             this.Click += (object sender, EventArgs e) => { if (ClickFunc != null) { ClickFunc.Invoke(sender); }  };
         }

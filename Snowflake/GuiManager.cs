@@ -63,10 +63,11 @@ namespace Snowflake {
             this.InitGui(Gui);
         }
 
-        public void AddInfoPopup(string text)
+        public void AddInfoPopup(string text, float ttl = 2000)
         {
             InfoPopup ip = new InfoPopup(text);
             ip.CreateGui(Gui);
+            ip.TimeToLive = ttl;
             GuiComponents.Add(ip);
         }
 
@@ -120,13 +121,17 @@ namespace Snowflake {
             foreach (IGuiComponent c in GuiComponents) {
                 c.Update(frametime);
             }
+            int i = 1;
+            int gh = Gui.MiyagiSystem.RenderManager.MainViewport.Size.Height;
             foreach (InfoPopup ip in GuiComponents.FindAll(item => item is InfoPopup))
             {
+                ip.Y = gh - i * ip.ParentPanel.Height;
                 if (ip.TimeToLive <= 0)
                 {
                     ip.Dispose();
                     GuiComponents.Remove(ip);
                 }
+                ++i;
             }
         }
     }

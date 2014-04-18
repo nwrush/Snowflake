@@ -54,6 +54,7 @@ namespace Snowflake {
                 try { Haswell.Controller.City.CreateBuilding<T>(x, y); }
                 catch (BuildingCreationFailedException e) {
                     GameConsole.ActiveInstance.WriteLine(e.Message);
+                    GuiMgr.AddInfoPopup(e.Message);
                 }
             }
             else {

@@ -444,7 +444,8 @@ namespace Snowflake.GuiComponents {
                     Multiline = false,
                     Font = ResourceManager.Fonts["Heading"]
                 },
-                Text = ""
+                Text = "",
+                HitTestVisible = false
             };
             currentActionLabelShadow = new Label("CurrentActionLabel")
             {
@@ -457,7 +458,8 @@ namespace Snowflake.GuiComponents {
                     Multiline = false,
                     Font = ResourceManager.Fonts["Heading"]
                 },
-                Text = ""
+                Text = "",
+                HitTestVisible = false
             };
             gui.Controls.AddRange(currentActionLabelShadow, currentActionLabel);
         }

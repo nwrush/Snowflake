@@ -199,7 +199,9 @@ namespace Haswell {
 
             for (int r = topLeft.X; r <= bottomRight.X; r++) {
                 for (int c = topLeft.Y; c <= bottomRight.Y; c++) {
-                    selected.Add(this.grid.ElementAt(r, c).Building);
+                    if (this.grid.ElementAt(r, c).Building != null) {
+                        selected.Add(this.grid.ElementAt(r, c).Building);
+                    }
                 }
             }
             return selected;

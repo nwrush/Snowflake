@@ -19,8 +19,11 @@ namespace Snowflake.GuiComponents
         private bool horizontal { get { return !vertical; } set { vertical = !value; } }
         private float _height;
         private float _width;
+        private int _basex;
+        private int _basey;
         public bool visible = false;
         public bool fullyHidden = true;
+        public bool reverse = false;
         public Point Location;
 
         public event EventHandler Hidden;
@@ -28,13 +31,14 @@ namespace Snowflake.GuiComponents
         public event EventHandler Shown;
         public event EventHandler FullyShown;
 
-        public ExpanderToolbar(bool _vertical, int _boxwidth, int _boxheight, int _padding, int _expandersize)
+        public ExpanderToolbar(bool _vertical, int _boxwidth, int _boxheight, int _padding, int _expandersize, bool _reverse = false)
         {
             vertical = _vertical;
             boxwidth = _boxwidth;
             boxheight = _boxheight;
             padding = _padding;
             expandersize = _expandersize;
+            reverse = _reverse;
             if (expandersize <= 0) { fullyHide = true; }
 
             Buttons = new Dictionary<string, Miyagi.UI.Controls.Button>();
@@ -46,6 +50,8 @@ namespace Snowflake.GuiComponents
         {
             _height = 0;
             _width = 0;
+            _basex = Location.X;
+            _basey = Location.Y;
             if (vertical) { ParentPanel.Height = (fullyHide ? 0 : expandersize); }
             if (horizontal) { ParentPanel.Width = (fullyHide ? 0 : expandersize); }
             RedoLayout();
@@ -134,11 +140,29 @@ namespace Snowflake.GuiComponents
 
         protected void RedoLayout()
         {
-            int i = 1;
+            int i = reverse ? 0 : 1;
             foreach (KeyValuePair<string, Button> kvp in Buttons)
             {
-                if (vertical) { kvp.Value.Location = new Point(0, (int)_height - expandersize - boxwidth * i - padding * (2 * i - 1)); }
-                else if (horizontal) { kvp.Value.Location = new Point((int)_width - expandersize - boxheight * i - padding * (2 * i - 1), 0); }
+                if (vertical) {
+                    if (reverse)
+                    {
+                        kvp.Value.Location = new Point(0, boxwidth * i + padding * (2 * i - 1));
+                    }
+                    else
+                    {
+                        kvp.Value.Location = new Point(0, (int)_height - expandersize - boxwidth * i - padding * (2 * i - 1));
+                    }
+                }
+                else if (horizontal) {
+                    if (reverse)
+                    {
+                        kvp.Value.Location = new Point(boxheight * i + padding * (2 * i - 1), 0);
+                    }
+                    else
+                    {
+                        kvp.Value.Location = new Point((int)_width - expandersize - boxheight * i - padding * (2 * i - 1), 0);
+                    }
+                }
                 if (kvp.Key == "Expand") { continue; }
                 ++i;
             }
@@ -147,13 +171,13 @@ namespace Snowflake.GuiComponents
                 {
                     ParentPanel.BorderStyle = new Miyagi.UI.Controls.Styles.BorderStyle()
                     {
-                        Thickness = new Miyagi.Common.Data.Thickness(0, 1, 0, 1)
+                        Thickness = new Miyagi.Common.Data.Thickness(0, 0, 0, 0)
                     };
                 }
                 else {
                     ParentPanel.BorderStyle = new Miyagi.UI.Controls.Styles.BorderStyle()
                     {
-                        Thickness = new Miyagi.Common.Data.Thickness(0, 1, 1, 1)
+                        Thickness = new Miyagi.Common.Data.Thickness(reverse ? 1 : 0, 0, 0, 1)
                     };
                 }
             }
@@ -216,6 +240,7 @@ namespace Snowflake.GuiComponents
                     ParentPanel.Width = (int)_width;
                     RedoLayout();
                 }
+                if (reverse) { ParentPanel.Left = (int)(_basex - ParentPanel.Width); }
             }
 
             foreach (ExpanderToolbar child in this.Children.Values)

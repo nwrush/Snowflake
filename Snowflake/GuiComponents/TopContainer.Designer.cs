@@ -11,6 +11,8 @@ using Miyagi.UI.Controls.Styles;
 
 using Snowflake.Modules;
 
+using Haswell.Buildings;
+
 namespace Snowflake.GuiComponents {
     public partial class TopContainer {
         public Panel ParentPanel;
@@ -149,7 +151,12 @@ namespace Snowflake.GuiComponents {
             };
             buildButton.MouseClick += (object sender, MouseButtonEventArgs e) => {
                 if (buildToolbar.visible) { buildToolbar.Hide(); }
-                else { buildToolbar.Show(); }
+                else
+                {
+                    buildToolbar.Show(); 
+                    manageToolbar.Hide();
+                    governToolbar.Hide();
+                }
             };
 
             buildToolbar = new ExpanderToolbar(true, boxsize, boxsize * 2, 3, 0)
@@ -195,9 +202,9 @@ namespace Snowflake.GuiComponents {
             });
             buildToolbar.CreateGui(gui);
 
-            ExpanderToolbar buildingsBar = new ExpanderToolbar(false, boxsize, boxsize, 3, 0)
+            ExpanderToolbar buildingsBar = new ExpanderToolbar(false, boxsize * 4, boxsize, 3, 0, true)
             {
-                Location = new Point(buildToolbar.Location.X + buildToolbar.Width, buildToolbar.Location.Y),
+                Location = new Point(buildToolbar.Location.X, buildToolbar.Location.Y),
             };
             buildingsBar.AddButton("New Residential Building", new PictureButton()
             {
@@ -216,14 +223,71 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
-                    CityManager.CreateBuildingOnCursor();
-                    buildingsBar.Hide();
-                    EventHandler hidefunc = null;
-                    hidefunc = (object sender2, EventArgs e) => {
-                        buildToolbar.Hide();
-                        buildingsBar.FullyHidden -= hidefunc;
-                    };
-                    buildingsBar.FullyHidden += hidefunc;
+                    CityManager.CreateBuildingOnCursor(new Residential());
+                    buildToolbar.Hide();
+                }
+            });
+            buildingsBar.AddButton("New Commercial Building", new PictureButton()
+            {
+                Size = new Size(boxsize, boxsize),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Text = "COMMERCIAL",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.White,
+                    Alignment = Alignment.BottomCenter,
+                    Font = ResourceManager.Fonts["Section"]
+                },
+                Padding = new Thickness(0, 0, 0, 8),
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewResidential"],
+                PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
+                PictureSize = new Size(64, 64),
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.CreateBuildingOnCursor(new Commercial());
+                    buildToolbar.Hide();
+                }
+            });
+            buildingsBar.AddButton("New Industrial Building", new PictureButton()
+            {
+                Size = new Size(boxsize, boxsize),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Text = "INDUSTRIAL",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.White,
+                    Alignment = Alignment.BottomCenter,
+                    Font = ResourceManager.Fonts["Section"]
+                },
+                Padding = new Thickness(0, 0, 0, 8),
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewResidential"],
+                PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
+                PictureSize = new Size(64, 64),
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.CreateBuildingOnCursor(new Industrial());
+                    buildToolbar.Hide();
+                }
+            });
+            buildingsBar.AddButton("New Infrastructure Building", new PictureButton()
+            {
+                Size = new Size(boxsize, boxsize),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Text = "INFRASTRUCTURE",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.White,
+                    Alignment = Alignment.BottomCenter,
+                    Font = ResourceManager.Fonts["Section"]
+                },
+                Padding = new Thickness(0, 0, 0, 8),
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewResidential"],
+                PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
+                PictureSize = new Size(64, 64),
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.CreateBuildingOnCursor(new Infrastructure());
+                    buildToolbar.Hide();
                 }
             });
             buildToolbar.AddChild("New Building", buildingsBar);

@@ -55,7 +55,7 @@ namespace Snowflake.GuiComponents {
             };
             this.LocationChanged += (object sender, ChangedValueEventArgs<Point> e) => {
                 if (_picture != null) {
-                    picturePanel.Location = e.NewValue + new Point(this.Padding.Left, this.Padding.Top) + _pictureOffset;
+                    picturePanel.Location = this.Location + new Point(this.Padding.Left, this.Padding.Top) + _pictureOffset;
                 }
             };
         }

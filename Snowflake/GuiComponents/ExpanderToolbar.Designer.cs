@@ -47,7 +47,8 @@ namespace Snowflake.GuiComponents
                 },
                 Picture = ResourceManager.Skins["Control"].SubSkins["Control.Expand"],
                 PictureSize = new Size(16, 16),
-                PictureOffset = new Point((boxwidth - 16) / 2, (expandersize - 16) / 2)
+                PictureOffset = new Point((boxwidth - 16) / 2, (expandersize - 16) / 2),
+                Visible = expandersize > 0
             };
             expandButton.MouseClick += (object sender, MouseButtonEventArgs e) =>
             {
@@ -65,7 +66,7 @@ namespace Snowflake.GuiComponents
                 Movable = false,
                 ResizeMode = ResizeModes.None,
                 MinSize = (vertical ? new Size(boxwidth, expandersize) : new Size(expandersize, boxheight)),
-                MaxSize = new Size(boxwidth, boxheight),
+                //MaxSize = new Size(boxwidth, boxheight),
                 ResizeThreshold = new Thickness(0),
                 BorderStyle =
                 {

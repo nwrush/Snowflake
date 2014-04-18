@@ -23,7 +23,7 @@ namespace Haswell {
             Point loc = new Point(this.Parent.X, this.Parent.Y);
 
             if (this.GetType() == grid.ElementAt(loc.X + 1, loc.Y).GetType()) {
-                this.connections[0] = grid.ElementAt(loc.X + 1, loc.Y);
+                //this.connections[0] = grid.ElementAt(loc.X + 1, loc.Y);
             }
         }
     }

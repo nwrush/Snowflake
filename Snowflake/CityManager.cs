@@ -301,21 +301,21 @@ namespace Snowflake {
         /// Takes the active selection and performs the selection action on all the things contained within.
         /// </summary>
         public static bool MakeSelection() {
-
+            //first check to see if the selection box is valid
             if (SelectionBox.Left != Int32.MaxValue - 1 && SelectionBox.Top != Int32.MaxValue - 1 && selectionEnd.X != Int32.MaxValue && selectionEnd.Y != Int32.MaxValue) {
 
-                if (selectedBuildings != null) { selectedBuildings.Clear(); }
+                List<Building> lastSelectedBuildings = selectedBuildings;
                 selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
-                foreach (RenderablePlot r in Plots.Values) {
-                    if (selectedBuildings.Intersect(r.Data.Buildings).Count() > 0) {
-                        r.Select();
-                        GameConsole.ActiveInstance.WriteLine("Selecting building");
-                    }
-                    else {
-                        r.Deselect();
-                    }
+                lastSelectedBuildings = (List<Building>)lastSelectedBuildings.Except(selectedBuildings);
+
+                foreach (Building b in lastSelectedBuildings)
+                {
+                    Plots[b.Parent].Deselect();
                 }
-                //GameConsole.ActiveInstance.WriteLine("Selecting region " + SelectionBox.ToString());
+                foreach (Building b in selectedBuildings)
+                {
+                    Plots[b.Parent].Select();
+                }
                 return true;
                 
             }

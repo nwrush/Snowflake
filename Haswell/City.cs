@@ -44,7 +44,7 @@ namespace Haswell {
             this.resources[ResourceType.Money] = 10000;
             this.resources[ResourceType.Population] = 10000;
         }
-        
+
         void Environment_Hourly(object sender, TimeEventArgs e) { this.UpdateHour(e.Time); }
         void Environment_Daily(object sender, TimeEventArgs e) { this.UpdateDaily(e.Time); }
         void Environment_Weekly(object sender, TimeEventArgs e) { this.UpdateWeekly(e.Time); }
@@ -62,7 +62,7 @@ namespace Haswell {
         /// <param name="y">The plot Y of the building</param>
         public void CreateBuilding<T>(int x, int y) where T : Building, new() {
             Building b = new T();
-            if (grid.ElementAt(x, y).AddBuilding(b)&&grid.ElementAt(x,y).Zone==b.Zone) {
+            if (grid.ElementAt(x, y).AddBuilding(b) && grid.ElementAt(x, y).Zone == b.Zone) {
                 BuildingCreated.Invoke(this, new BuildingEventArgs(b));
                 return;
             }
@@ -83,19 +83,14 @@ namespace Haswell {
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
         public void DeleteBuilding(int x, int y) {
-            if (grid.ElementAt(x, y).Buildings.Count > 0) {
-                grid.ElementAt(x, y).DeleteAllBuildings();
-            }
+            grid.ElementAt(x, y).Delete();
         }
 
-        public void SetZoning(Point p1, Point p2, Zones z)
-        {
+        public void SetZoning(Point p1, Point p2, Zones z) {
             Point tl = new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y));
             Point br = new Point(Math.Max(p1.X, p2.X), Math.Max(p1.Y, p2.Y));
-            for (int x = tl.X; x <= br.X; ++x)
-            {
-                for (int y = tl.Y; y <= br.Y; ++y)
-                {
+            for (int x = tl.X; x <= br.X; ++x) {
+                for (int y = tl.Y; y <= br.Y; ++y) {
                     grid.ElementAt(x, y).Zone = z;
                 }
             }
@@ -204,7 +199,7 @@ namespace Haswell {
 
             for (int r = topLeft.X; r <= bottomRight.X; r++) {
                 for (int c = topLeft.Y; c <= bottomRight.Y; c++) {
-                    selected.AddRange(this.grid.ElementAt(r, c).Buildings);
+                    selected.Add(this.grid.ElementAt(r, c).Building);
                 }
             }
             return selected;
@@ -217,8 +212,8 @@ namespace Haswell {
         /// <param name="topLeft">The top left.</param>
         /// <param name="bottomRight">The bottom right.</param>
         public void ZoneArea(Zones zone, System.Drawing.Point topLeft, System.Drawing.Point bottomRight) {
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(topLeft.X, topLeft.Y, topLeft.X - bottomRight.X, topLeft.Y - bottomRight.Y);   
-            for (City c=new City("");c.grid!=null; c.Name+=""){
+            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(topLeft.X, topLeft.Y, topLeft.X - bottomRight.X, topLeft.Y - bottomRight.Y);
+            for (City c = new City(""); c.grid != null; c.Name += "") {
 
             }
         }

@@ -11,7 +11,7 @@ namespace Haswell {
 
         private Zones zone = Zones.Unzoned;
         private ResourceDict resource;
-        private List<Building> buildings;
+        private Building building;
 
         //Todo: Implement this list
         private List<Plot> neighbors;
@@ -39,24 +39,20 @@ namespace Haswell {
 
         public Plot(int x, int y) {
             this.resource = new ResourceDict();
-            this.buildings = new List<Building>();
 
             this.plotX = x;
             this.plotY = y;
 
         }
 
-        private void onBuildingDeleted(object sender, BuildingEventArgs e)
-        {
+        private void onBuildingDeleted(object sender, BuildingEventArgs e) {
             if (this.BuildingDeleted != null) {
                 this.BuildingDeleted.Invoke(sender, e);
             }
         }
 
-        private void onBuildingAdded(object sender, BuildingEventArgs e)
-        {
-            if (this.BuildingAdded != null)
-            {
+        private void onBuildingAdded(object sender, BuildingEventArgs e) {
+            if (this.BuildingAdded != null) {
                 this.BuildingAdded.Invoke(sender, e);
             }
         }
@@ -71,8 +67,8 @@ namespace Haswell {
             if (b.Zone != this.Zone) {
                 return false;
             }
-            if (plotUsage + b.GetPlotUsage() <= plotCapacity && b.Parent == null) {
-                this.buildings.Add(b);
+            if (b.Parent == null) {
+                this.building = b;
                 b.Parent = this;
                 b.Deleted += this.onBuildingDeleted;
                 this.onBuildingAdded(b, new BuildingEventArgs(b));
@@ -81,58 +77,34 @@ namespace Haswell {
             return false;
         }
 
-        public void Delete(Building b) {
-            this.buildings.Remove(b);
-            if (b.Parent != null) { b.Parent = null; }
-        }
-
-        public void DeleteAllBuildings() {
-            foreach (Building b in buildings) {
-                b.Delete();
-            }
-            this.buildings.Clear();
+        public void Delete() {
+            this.building = null;
         }
 
         public void Update(ResourceDict cityResources) {
-            foreach (Building b in buildings) {
-                b.Update(this.resource);
-            }
+            this.building.Update(this.resource);
             UpdateCityResources(cityResources);
         }
         public void UpdateHour(ResourceDict cityResources) {
-            foreach (Building b in buildings) {
-                b.UpdateHour(this.resource);
-            }
+            this.building.UpdateHour(this.resource);
         }
         public void UpdateDaily(ResourceDict cityResources) {
-            foreach (Building b in buildings) {
-                b.UpdateDaily(this.resource);
-            }
+            this.building.UpdateDaily(this.resource);
         }
         public void UpdateWeekly(ResourceDict cityResources) {
-            foreach (Building b in buildings) {
-                b.UpdateWeekly(this.resource);
-            }
+            this.building.UpdateWeekly(this.resource);
         }
         public void UpdateMonthly(ResourceDict cityResources) {
-            foreach (Building b in buildings) {
-                b.UpdateMonthly(this.resource);
-            }
+            this.building.UpdateMonthly(this.resource);
         }
         public void UpdateQuarterly(ResourceDict cityResources) {
-            foreach (Building b in buildings) {
-                b.UpdateQuarterly(this.resource);
-            }
+            this.building.UpdateQuarterly(this.resource);
         }
         public void UpdateBiannually(ResourceDict cityResources) {
-            foreach (Building b in buildings) {
-                b.UpdateBiannually(this.resource);
-            }
+            this.building.UpdateBiannually(this.resource);
         }
         public void UpdateYearly(ResourceDict cityResources) {
-            foreach (Building b in buildings) {
-                b.UpdateYearly(this.resource);
-            }
+            this.building.UpdateYearly(this.resource);
         }
 
         private void UpdateCityResources(ResourceDict cityResources) {
@@ -151,7 +123,7 @@ namespace Haswell {
         }
 
         public override string ToString() {
-            return "Plot at (" + this.X + "," + this.Y + ") with " + this.buildings.Count.ToString() + " buildings.";
+            return "Plot at (" + this.X + "," + this.Y + ").";
         }
 
         /// <summary>
@@ -184,7 +156,7 @@ namespace Haswell {
             get {
                 return this.plotY;
             }
-        }        
+        }
         /// <summary>
         /// Sets the neighbors.
         /// </summary>
@@ -194,9 +166,12 @@ namespace Haswell {
                 this.neighbors = value;
             }
         }
-        public List<Building> Buildings {
+        /// <summary>
+        /// Gets the Building located on this plot
+        /// </summary>
+        public Building Building {
             get {
-                return this.buildings;
+                return this.building;
             }
         }
     }

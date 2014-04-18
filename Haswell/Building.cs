@@ -48,7 +48,7 @@ namespace Haswell {
         }
 
         private void OnDeleted(object sender, EventArgs e) {
-            this.Parent.Delete(this);
+            this.Parent.Delete();
             this.Parent = null;
             //Do a thing
         }

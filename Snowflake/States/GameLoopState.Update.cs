@@ -183,7 +183,14 @@ namespace Snowflake.States
                     Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                     if (result.first)
                     {
-                        Haswell.Controller.City.CreateBuilding<Road>(result.second.X, result.second.Y);
+                        try
+                        {
+                            Haswell.Controller.City.CreateBuilding<Road>(result.second.X, result.second.Y);
+                        }
+                        catch (Haswell.Exceptions.BuildingCreationFailedException e)
+                        {
+                            gConsole.WriteLine(e.Message);
+                        }
                     }
                     
                 }
@@ -409,7 +416,7 @@ namespace Snowflake.States
 
         private bool canZone()
         {
-            return notInteractingWithGUI() && mouseMode == MouseMode.DrawingRoad;
+            return notInteractingWithGUI() && mouseMode == MouseMode.DrawingZone;
         }
 
         private bool canSelect()

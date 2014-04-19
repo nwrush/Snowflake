@@ -62,12 +62,20 @@ namespace Haswell {
         /// <param name="y">The plot Y of the building</param>
         public void CreateBuilding<T>(int x, int y) where T : Building, new() {
             Building b = new T();
-            if (grid.ElementAt(x, y).AddBuilding(b) && grid.ElementAt(x, y).Zone == b.Zone) {
+            if (grid.ElementAt(x, y).AddBuilding(b)) { //Zone check already happens in AddBuilding
                 BuildingCreated.Invoke(this, new BuildingEventArgs(b));
                 return;
             }
 
-            if (grid.ElementAt(x, y).Zone != b.Zone)
+            if (b is Road)
+            {
+                throw new Exceptions.BuildingCreationFailedException("Unable to create road here!");
+            }
+            else if (grid.ElementAt(x, y).Building != null)
+            {
+                throw new Exceptions.BuildingCreationFailedException("Unable to place building - there's already something there!");
+            }
+            else if (grid.ElementAt(x, y).Zone != b.Zone)
             {
                 throw new Exceptions.BuildingCreationFailedException("Cannot create this type of building in " + grid.ElementAt(x, y).Zone.ToString() + " plot!");
             }

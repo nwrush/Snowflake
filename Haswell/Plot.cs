@@ -64,10 +64,10 @@ namespace Haswell {
         /// <param name="b">The building to add to the plot.</param>
         /// <returns>Whether or not building addition was successful.</returns>
         public bool AddBuilding(Building b) {
-            if (b.Zone != this.Zone) {
+            if (b.Zone != this.Zone && !(b is Road)) {
                 return false;
             }
-            if (b.Parent == null) {
+            if (b.Parent == null && this.Building == null) {
                 this.building = b;
                 b.Parent = this;
                 b.Deleted += this.onBuildingDeleted;

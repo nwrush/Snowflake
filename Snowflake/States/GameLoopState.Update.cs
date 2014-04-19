@@ -309,22 +309,8 @@ namespace Snowflake.States
             if (mStateMgr.Input.WasKeyPressed(KeyCode.KC_W) && mStateMgr.Input.IsKeyDown(KeyCode.KC_LCONTROL))
             {
                 // quit the application
-                mStateMgr.RequestShutdown();
+                StartShutdown();
             }
-        }
-
-        private void CycleDrawnZone()
-        {
-            int[] mouseModeVals = (int[])(Enum.GetValues(typeof(Haswell.Zones)));
-            CityManager.scratchZoneType = (Haswell.Zones)System.Math.Max(((int)CityManager.scratchZoneType + 1) % (mouseModeVals.Length - 1), 1);
-            UpdateScratchZoneBoxZone(CityManager.scratchZoneType);
-        }
-
-        private void CancelBuildingPlacement()
-        {
-            this.tempBuilding.Dispose();
-            this.tempBuilding = null;
-            this.GuiMgr.HideBuildingPlacementPanel();
         }
 
         private void UpdateSelectionBox()

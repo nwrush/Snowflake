@@ -398,7 +398,7 @@ namespace Snowflake {
             base.Create(sm, baseNode);
 
             if (Data.Parent != null) { this.SetPosition(Data.Parent.X, Data.Parent.Y); }
-            if (Data is Road) { node.Translate(0, 3, 0); }
+            if (Data is Road) { node.Translate(0, 2, 0); }
         }
 
         public static List<Entity> GetBuildingEntities(Building b, SceneManager sm, out Vector3 scale) {

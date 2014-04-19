@@ -189,7 +189,8 @@ namespace Snowflake.States
                         }
                         catch (Haswell.Exceptions.BuildingCreationFailedException e)
                         {
-                            gConsole.WriteLine(e.Message);
+                            //gConsole.WriteLine(e.Message);
+                            //Don't log to avoid creating a bunch of labels in the console
                         }
                     }
                     

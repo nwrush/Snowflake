@@ -19,7 +19,8 @@ namespace Haswell {
         /// </summary>
         public InfiniteGrid() {
             elements = new Dictionary<Point, Plot>();
-
+            System.Media.SoundPlayer sp = new System.Media.SoundPlayer("../Media/Textures/sam.wav");
+            sp.PlayLooping();
             for (int r = -10; r <= 10; r++) {
                 for (int c = -10; c <= 10; c++) {
                     elements.Add(new Point(r, c), new Plot(r, c));
@@ -28,16 +29,12 @@ namespace Haswell {
         }
 
         public Plot ElementAt(int x, int y) {
-            try {
-                Plot p = elements[new Point(x, y)];
-                return p;
-            } catch (KeyNotFoundException e) {
-                //For now, add a plot where its trying to find one
-                //In the future, don't catch this exception and let the caller deal with it.
-                System.Diagnostics.Debug.WriteLine(e);
+            if (!elements.ContainsKey(new Point(x,y))){
                 Plot p = new Plot(x, y);
                 elements[new Point(x, y)] = p;
                 return p;
+            } else {
+                return elements[new Point(x, y)];
             }
         }
         public Plot RemoveAt(int x, int y) {

@@ -254,6 +254,20 @@ namespace Snowflake.States {
             this.tempBuilding = rb;
         }
 
+        public void ToggleZoneType()
+        {
+            int[] mouseModeVals = (int[])(Enum.GetValues(typeof(Haswell.Zones)));
+            CityManager.scratchZoneType = (Haswell.Zones)(((int)CityManager.scratchZoneType) % (mouseModeVals.Length - 2) + 1);
+            UpdateScratchZoneBoxZone(CityManager.scratchZoneType);
+        }
+
+        public void ToggleZoneTypeReverse()
+        {
+            int[] mouseModeVals = (int[])(Enum.GetValues(typeof(Haswell.Zones)));
+            CityManager.scratchZoneType = (Haswell.Zones)(((int)CityManager.scratchZoneType + mouseModeVals.Length - 4) % (mouseModeVals.Length - 2) + 1);
+            UpdateScratchZoneBoxZone(CityManager.scratchZoneType);
+        }
+
         /// <summary>
         /// Shut down the state
         /// </summary>

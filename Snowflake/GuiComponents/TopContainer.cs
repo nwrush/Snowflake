@@ -40,10 +40,29 @@ namespace Snowflake.GuiComponents {
                     setCurrentAction(" ");
                     break;
             }
+            if (CityManager.GetMouseMode() == States.MouseMode.DrawingZone)
+            {
+                toggleZoneTypeLeft.Visible =
+                    toggleZoneTypeRight.Visible =
+                    toggleZoneTypeLeft.HitTestVisible =
+                    toggleZoneTypeRight.HitTestVisible = 
+                    actionPanel.HitTestVisible = true;
+                toggleZoneTypeRight.Left = 50 + currentActionLabel.Width + 3;
+            }
+            else
+            {
+                toggleZoneTypeLeft.Visible =
+                    toggleZoneTypeRight.Visible =
+                    toggleZoneTypeLeft.HitTestVisible =
+                    toggleZoneTypeRight.HitTestVisible = 
+                    actionPanel.HitTestVisible = false;
+            }
+            actionPanel.Width = currentActionLabel.Width + 90;
         }
 
         private void setCurrentAction(string text)
         {
+            currentActionLabel.Width = currentActionLabelShadow.Width = 0;
             currentActionLabel.Text = text;
             currentActionLabelShadow.Text = text;
         }

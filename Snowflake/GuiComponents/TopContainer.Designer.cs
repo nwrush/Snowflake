@@ -39,8 +39,11 @@ namespace Snowflake.GuiComponents {
         private Label textMoney;
         private Label textPopulation;
 
+        private Panel actionPanel;
         private Label currentActionLabel;
         private Label currentActionLabelShadow;
+        private PictureButton toggleZoneTypeLeft;
+        private PictureButton toggleZoneTypeRight;
 
         public void CreateGui(GUI gui) {
             //store game width and height
@@ -505,10 +508,18 @@ namespace Snowflake.GuiComponents {
             ParentPanel.Controls.AddRange(weatherIcon, OptionsPanel, ToolsContainerPanel, StatsContainerPanel);
             gui.Controls.Add(ParentPanel);
 
+            actionPanel = new Panel("ToolsPanel_ActionPanel") {
+                Location = new Point(0, 140),
+                Size = new Size(350, 40),
+                Movable = false,
+                Throwable = false,
+                ResizeMode = ResizeModes.None,
+                HitTestVisible = true
+            };
             currentActionLabel = new Label("CurrentActionLabel")
             {
                 AutoSize = true,
-                Location = new Point(50, 150),
+                Location = new Point(50, 10),
                 TextStyle = new TextStyle()
                 {
                     Alignment = Alignment.TopLeft,
@@ -533,7 +544,38 @@ namespace Snowflake.GuiComponents {
                 Text = "",
                 HitTestVisible = false
             };
-            gui.Controls.AddRange(currentActionLabelShadow, currentActionLabel);
+            toggleZoneTypeLeft = new PictureButton()
+            {
+                Location = new Point(5, 8),
+                Size = new Size(32, 32),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Left"],
+                PictureSize = new Size( 16, 16),
+                PictureOffset = new Point(8, 8),
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.GameMgr.ToggleZoneTypeReverse();
+                },
+                Visible = false,
+                HitTestVisible = false
+            };
+            toggleZoneTypeRight = new PictureButton()
+            {
+                Location = new Point(20 + currentActionLabel.Width + 5, 8),
+                Size = new Size(32, 32),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Right"],
+                PictureSize = new Size(16, 16),
+                PictureOffset = new Point(8, 8),
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.GameMgr.ToggleZoneType();
+                },
+                Visible = false,
+                HitTestVisible = false
+            };
+            actionPanel.Controls.AddRange(currentActionLabelShadow, currentActionLabel, toggleZoneTypeLeft, toggleZoneTypeRight);
+            gui.Controls.Add(actionPanel);
         }
     }
 }

@@ -43,6 +43,7 @@ namespace Snowflake.GuiComponents {
                 Throwable = false,
                 ResizeMode = ResizeModes.None,
                 HitTestVisible = false,
+                Visible = this.Visible
             };
 
             //bind event handlers for button hover and leave
@@ -57,6 +58,10 @@ namespace Snowflake.GuiComponents {
                 if (_picture != null) {
                     picturePanel.Location = this.Location + new Point(this.Padding.Left, this.Padding.Top) + _pictureOffset;
                 }
+            };
+            this.VisibleChanged += (object sender, EventArgs e) =>
+            {
+                picturePanel.Visible = this.Visible;
             };
         }
 

@@ -254,6 +254,43 @@ namespace Snowflake.States {
             this.tempBuilding = rb;
         }
 
+        private void CancelCurrentAction()
+        {
+            if (mouseMode == MouseMode.PlacingBuilding) { CancelBuildingPlacement(); }
+            else if (mouseMode == MouseMode.DrawingZone)
+            {
+                CityManager.ClearScratchZone();
+                scratchZone.SetVisible(false);
+            }
+            else if (mouseMode == MouseMode.Selection)
+            {
+                CityManager.DeselectBuildings();
+            }
+            mouseMode = MouseMode.Selection;
+        }
+
+        private void ToggleConsole() { gConsole.Visible = !gConsole.Visible; }
+
+        private void CameraLeft(int speed = 10)
+        {
+            focalPoint.Translate(new Vector3((-dist + speed) * Mogre.Math.Sin(angle), 0, -(-dist + speed) * Mogre.Math.Cos(angle)));
+        }
+
+        private void CameraForward(int speed = 10)
+        {
+            focalPoint.Translate(new Vector3((-dist + speed) * Mogre.Math.Cos(angle), 0, (-dist + speed) * Mogre.Math.Sin(angle)));
+        }
+
+        private void CameraRight(int speed = 10)
+        {
+            focalPoint.Translate(new Vector3(-(-dist + speed) * Mogre.Math.Sin(angle), 0, (-dist + speed) * Mogre.Math.Cos(angle)));
+        }
+
+        private void CameraBackward(int speed = 10)
+        {
+            focalPoint.Translate(new Vector3(-(-dist + speed) * Mogre.Math.Cos(angle), 0, -(-dist + speed) * Mogre.Math.Sin(angle)));
+        }
+
         public void ToggleZoneType()
         {
             int[] mouseModeVals = (int[])(Enum.GetValues(typeof(Haswell.Zones)));

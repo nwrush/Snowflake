@@ -368,10 +368,6 @@ namespace Snowflake {
 
         public static void DeselectBuildings()
         {
-            foreach (Building b in selectedBuildings)
-            {
-                Plots[b.Parent].Deselect();
-            }
             selectedBuildings.Clear();
         }
 

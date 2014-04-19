@@ -65,15 +65,16 @@ namespace Snowflake.States
             MoisManager input = mStateMgr.Input;
 
             HandleMouseMove(input);
-            if (mStateMgr.Input.WasMouseButtonPressed(MouseButtonID.MB_Left)) { HandleMiddleMousePressed(input); }
+            if (mStateMgr.Input.WasMouseButtonPressed(MouseButtonID.MB_Left)) { HandleLeftMousePressed(input); }
             if (mStateMgr.Input.WasMouseButtonPressed(MouseButtonID.MB_Middle)) { HandleMiddleMousePressed(input); }
-            if (mStateMgr.Input.WasMouseButtonPressed(MouseButtonID.MB_Right)) { HandleMiddleMousePressed(input); }
+            if (mStateMgr.Input.WasMouseButtonPressed(MouseButtonID.MB_Right)) { HandleRightMousePressed(input); }
             if (mStateMgr.Input.IsMouseButtonDown(MouseButtonID.MB_Left)) { HandleLeftMouseHeld(input); }
             if (mStateMgr.Input.IsMouseButtonDown(MouseButtonID.MB_Middle)) { HandleMiddleMouseHeld(input); }
             if (mStateMgr.Input.IsMouseButtonDown(MouseButtonID.MB_Right)) { HandleRightMouseHeld(input); }
-            if (mStateMgr.Input.WasMouseButtonReleased(MouseButtonID.MB_Left)) { HandleMiddleMouseReleased(input); }
+            if (mStateMgr.Input.WasMouseButtonReleased(MouseButtonID.MB_Left)) { HandleLeftMouseReleased(input); }
             if (mStateMgr.Input.WasMouseButtonReleased(MouseButtonID.MB_Middle)) { HandleMiddleMouseReleased(input); }
-            if (mStateMgr.Input.WasMouseButtonReleased(MouseButtonID.MB_Right)) { HandleMiddleMouseReleased(input); }
+            if (mStateMgr.Input.WasMouseButtonReleased(MouseButtonID.MB_Right)) { HandleRightMouseReleased(input); }
+            HandleKeyboard(input);
         }
 
         private void HandleMouseMove(MoisManager input)
@@ -129,7 +130,7 @@ namespace Snowflake.States
 
                     if (canSelect())
                     {
-                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                         if (result.first)
                         {
                             CityManager.SetSelectionOrigin(result.second);
@@ -138,7 +139,7 @@ namespace Snowflake.States
 
                     if (canZone())
                     {
-                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                        Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                         if (result.first)
                         {
                             CityManager.SetScratchZoneOrigin(result.second);
@@ -154,7 +155,7 @@ namespace Snowflake.States
             {
                 if (canSelect())
                 {
-                    Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                    Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                     if (result.first)
                     {
                         CityManager.UpdateSelectionBox(result.second);
@@ -163,7 +164,7 @@ namespace Snowflake.States
                 }
                 if (canZone())
                 {
-                    Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                    Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                     if (result.first)
                     {
                         CityManager.UpdateScratchZoneBox(result.second);
@@ -177,7 +178,7 @@ namespace Snowflake.States
         {
             if (mouseMode == MouseMode.Selection && CityManager.SelectionOriginIsValid())
             {
-                Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                 if (result.first)
                 {
                     CityManager.UpdateSelectionBox(result.second);
@@ -189,7 +190,7 @@ namespace Snowflake.States
             }
             if (mouseMode == MouseMode.DrawingZone && CityManager.ScratchZoneOriginIsValid())
             {
-                Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(mStateMgr.Input));
+                Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                 if (result.first)
                 {
                     CityManager.UpdateScratchZoneBox(result.second);
@@ -291,6 +292,45 @@ namespace Snowflake.States
 
         private void HandleKeyboard(MoisManager input)
         {
+
+            if (!StateManager.SupressGameControl)
+            {
+                if (viewShouldUpdate())
+                {
+                    //WASD Control
+                    int speed = 10;
+                    if (input.IsKeyDown(KeyCode.KC_A)) { CameraLeft(speed); }
+                    if (input.IsKeyDown(KeyCode.KC_W)) { CameraForward(speed); }
+                    if (input.IsKeyDown(KeyCode.KC_D)) { CameraRight(speed); }
+                    if (input.IsKeyDown(KeyCode.KC_S)) { CameraBackward(speed); }
+
+                    //Q and E to rotate
+                    if (input.IsKeyDown(KeyCode.KC_Q)) { angle += 0.01f; }
+                    if (input.IsKeyDown(KeyCode.KC_E)) { angle -= 0.01f; }
+                }
+
+                //Tab to cycle zones
+                if (input.WasKeyPressed(KeyCode.KC_TAB))
+                {
+                    if (mouseMode == MouseMode.DrawingZone)
+                    {
+                        CycleDrawnZone();
+                    }
+                }
+
+                //Toggle the console with `
+                if (input.WasKeyPressed(KeyCode.KC_GRAVE)) { ToggleConsole(); }
+
+                //Delete buildings with delete key
+                if (input.WasKeyPressed(KeyCode.KC_DELETE)) { CityManager.DeleteSelectedBuildings(); }
+
+                //Escape to cancel current action
+                if (input.WasKeyPressed(KeyCode.KC_ESCAPE)) { CancelCurrentAction(); }
+
+            }
+
+            //Ctrl + W to quit the application
+            if (input.WasKeyPressed(KeyCode.KC_W) && input.IsKeyDown(KeyCode.KC_LCONTROL)) { StartShutdown(); }
 
         }
 

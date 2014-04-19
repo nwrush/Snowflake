@@ -112,6 +112,7 @@ namespace Snowflake.States
                 if (!ContextMenu.HitTest(MousePosition(input)))
                 {
                     ContextMenu.Visible = false;
+
                     if (canPlaceBuilding())
                     {
                         //Do a little reflection to be able to pass the type of the cursor building into the generic method
@@ -159,7 +160,10 @@ namespace Snowflake.States
                     if (result.first)
                     {
                         CityManager.UpdateSelectionBox(result.second);
-                        UpdateSelectionBox();
+                        if (CityManager.SelectionIsValid())
+                        {
+                            UpdateSelectionBox();
+                        }
                     }
                 }
                 if (canZone())
@@ -168,15 +172,27 @@ namespace Snowflake.States
                     if (result.first)
                     {
                         CityManager.UpdateScratchZoneBox(result.second);
-                        UpdateScratchZoneBox();
+                        if (CityManager.ScratchZoneIsValid())
+                        {
+                            UpdateScratchZoneBox();
+                        }
                     }
+                }
+                if (canRoad())
+                {
+                    Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
+                    if (result.first)
+                    {
+                        Haswell.Controller.City.CreateBuilding<Road>(result.second.X, result.second.Y);
+                    }
+                    
                 }
             }
         }
 
         private void HandleLeftMouseReleased(MoisManager input)
         {
-            if (mouseMode == MouseMode.Selection && CityManager.SelectionOriginIsValid())
+            if (mouseMode == MouseMode.Selection && CityManager.SelectionIsValid())
             {
                 Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                 if (result.first)
@@ -188,7 +204,7 @@ namespace Snowflake.States
                 CityManager.ClearSelection();
                 selectionBox.SetVisible(false);
             }
-            if (mouseMode == MouseMode.DrawingZone && CityManager.ScratchZoneOriginIsValid())
+            if (mouseMode == MouseMode.DrawingZone && CityManager.ScratchZoneIsValid())
             {
                 Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                 if (result.first)
@@ -381,14 +397,24 @@ namespace Snowflake.States
             return ContextMenu.Visible == false;
         }
 
+        private bool notInteractingWithGUI()
+        {
+            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null;
+        }
+
+        private bool canRoad()
+        {
+             return notInteractingWithGUI() && mouseMode == MouseMode.DrawingRoad;
+        }
+
         private bool canZone()
         {
-            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.DrawingZone;
+            return notInteractingWithGUI() && mouseMode == MouseMode.DrawingRoad;
         }
 
         private bool canSelect()
         {
-            return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.Selection;
+            return notInteractingWithGUI() && mouseMode == MouseMode.Selection;
         }
 
         private bool canPlaceBuilding() 

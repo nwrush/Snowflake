@@ -302,7 +302,7 @@ namespace Snowflake {
         /// </summary>
         public static bool MakeSelection() {
             //first check to see if the selection box is valid
-            if (SelectionBox.Left != Int32.MaxValue - 1 && SelectionBox.Top != Int32.MaxValue - 1 && selectionEnd.X != Int32.MaxValue && selectionEnd.Y != Int32.MaxValue) {
+            if (SelectionIsValid()) {
 
                 List<Building> lastSelectedBuildings = selectedBuildings;
                 selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
@@ -342,14 +342,6 @@ namespace Snowflake {
             selectionEnd = new Point(Int32.MaxValue, Int32.MaxValue);
             selectionOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
         }
-        public static bool SelectionOriginIsValid()
-        {
-            return selectionOrigin != new Point(Int32.MaxValue, Int32.MaxValue);
-        }
-        public static bool ScratchZoneOriginIsValid()
-        {
-            return scratchZoneOrigin != new Point(Int32.MaxValue, Int32.MaxValue);
-        }
 
         public static void ClearScratchZone()
         {
@@ -357,6 +349,20 @@ namespace Snowflake {
             scratchZoneEnd = new Point(Int32.MaxValue, Int32.MaxValue);
             scratchZoneOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
         }
+
+        public static bool SelectionIsValid()
+        {
+            return selectionStart != new Point(Int32.MaxValue - 1, Int32.MaxValue - 1) &&
+            selectionEnd != new Point(Int32.MaxValue, Int32.MaxValue) &&
+            selectionOrigin != new Point(Int32.MaxValue, Int32.MaxValue);
+        }
+        public static bool ScratchZoneIsValid()
+        {
+            return scratchZoneStart != new Point(Int32.MaxValue - 1, Int32.MaxValue - 1) &&
+            scratchZoneEnd != new Point(Int32.MaxValue, Int32.MaxValue) &&
+            scratchZoneOrigin != new Point(Int32.MaxValue, Int32.MaxValue);
+        }
+
 
         public static void DeleteSelectedBuildings()
         {

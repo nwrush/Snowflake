@@ -203,12 +203,34 @@ namespace Snowflake.GuiComponents {
                 PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
                 PictureSize = new Size(64, 64)
             });
+            buildToolbar.AddButton("Create Road", new PictureButton("TC_buttonDrawRoad")
+            {
+                Size = new Size(120, 120),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Text = "CREATE ROAD",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.White,
+                    Alignment = Alignment.BottomCenter,
+                    Font = ResourceManager.Fonts["Section"]
+                },
+                Padding = new Thickness(0, 0, 0, 8),
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewBuilding"],
+                PictureOffset = new Point(32, 32),
+                PictureSize = new Size(64, 64),
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.SetMouseMode(States.MouseMode.DrawingRoad);
+                    buildToolbar.Hide();
+                }
+            });
             buildToolbar.CreateGui(gui);
 
             ExpanderToolbar buildingsBar = new ExpanderToolbar(false, boxsize * 4, boxsize, 3, 0, true)
             {
                 Location = new Point(buildToolbar.Location.X, buildToolbar.Location.Y),
             };
+
             buildingsBar.AddButton("New Residential Building", new PictureButton()
             {
                 Size = new Size(boxsize, boxsize),

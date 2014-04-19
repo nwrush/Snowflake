@@ -411,6 +411,15 @@ namespace Snowflake {
                 entList.Add(sm.CreateEntity("residential1.mesh"));
                 scale = new Vector3(15.0f, 15.0f, 15.0f);
             }
+            else if (b is Haswell.Road)
+            {
+                Plane plane = new Plane(Vector3.UNIT_Y, 0);
+                string id = b.GetType().ToString() + "_" + b.GetHashCode();
+                MeshManager.Singleton.CreatePlane(id + "_roadTile", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, PlotWidth, PlotHeight, 1, 1, true, 1, 1, 1, Vector3.UNIT_Z);
+                Entity roadTile = sm.CreateEntity(id, id + "_roadTile");
+                entList.Add(roadTile);
+                scale = new Vector3(1, 1, 1);
+            }
             return entList;
         }
 

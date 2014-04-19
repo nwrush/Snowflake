@@ -41,18 +41,18 @@ namespace Snowflake {
 
         public static bool Initialized { get; private set; }
 
-        public static Rectangle SelectionBox { 
-            get { 
-                return new Rectangle(selectionStart, 
-                        new Size((selectionEnd.X > selectionStart.X ? selectionEnd.X - selectionStart.X : 0), 
-                                 (selectionEnd.Y > selectionStart.Y ? selectionEnd.Y - selectionStart.Y : 0))); 
-            } 
+        public static Rectangle SelectionBox {
+            get {
+                return new Rectangle(selectionStart,
+                        new Size((selectionEnd.X > selectionStart.X ? selectionEnd.X - selectionStart.X : 0),
+                                 (selectionEnd.Y > selectionStart.Y ? selectionEnd.Y - selectionStart.Y : 0)));
+            }
         }
-        public static Rectangle scratchZoneBox
-        { get
-            { return new Rectangle(scratchZoneStart,
-                        new Size((scratchZoneEnd.X > scratchZoneStart.X ? scratchZoneEnd.X - scratchZoneStart.X : 0),
-                                 (scratchZoneEnd.Y > scratchZoneStart.Y ? scratchZoneEnd.Y - scratchZoneStart.Y : 0)));
+        public static Rectangle scratchZoneBox {
+            get {
+                return new Rectangle(scratchZoneStart,
+                          new Size((scratchZoneEnd.X > scratchZoneStart.X ? scratchZoneEnd.X - scratchZoneStart.X : 0),
+                                   (scratchZoneEnd.Y > scratchZoneStart.Y ? scratchZoneEnd.Y - scratchZoneStart.Y : 0)));
             }
         }
         private static List<Building> selectedBuildings;
@@ -113,6 +113,8 @@ namespace Snowflake {
             Plots = new Dictionary<Plot, RenderablePlot>();
             Buildings = new Dictionary<Building, RenderableBuilding>();
 
+            selectedBuildings = new List<Building>();
+
             selectionOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
             scratchZoneOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
         }
@@ -139,7 +141,7 @@ namespace Snowflake {
         /// Set up terrain
         /// </summary>
         private static void CreateTerrain(SceneManager sm) {
-           
+
             Plane plane = new Plane(Vector3.UNIT_Y, 0);
             MeshManager.Singleton.CreatePlane("ground", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, 10000, 10000, 100, 100, true, 1, 5, 5, Vector3.UNIT_Z);
 
@@ -150,14 +152,12 @@ namespace Snowflake {
             //world.Translate(new Vector3(0, -1, 0));
 
             Random r = new Random();
-            for (int i = 0; i < 10; ++i)
-            {
+            for (int i = 0; i < 10; ++i) {
                 CreateTree(sm, new Vector3((float)(r.NextDouble() * 10000 - 5000), 0, (float)(r.NextDouble() * 10000 - 5000)));
             }
         }
 
-        private static void CreateTree(SceneManager sm, Vector3 offset)
-        {
+        private static void CreateTree(SceneManager sm, Vector3 offset) {
             Entity tree = sm.CreateEntity("tree01.mesh");
             SceneNode treeNode = sm.RootSceneNode.CreateChildSceneNode();
             SceneNode child1 = treeNode.CreateChildSceneNode();
@@ -179,7 +179,7 @@ namespace Snowflake {
             //CreateRoads(sm);
             CreateObjects(sm);
         }
-        
+
         private static void CreateRoads(SceneManager sm) {
 
             //Todo: initialize roads from Haswell data
@@ -199,29 +199,25 @@ namespace Snowflake {
             if (!Buildings.ContainsKey(e.Building)) { Buildings.Add(e.Building, rb); }
 
             RenderablePlot rp;
-            if (Plots.ContainsKey(e.Building.Parent)) { rp = Plots[e.Building.Parent]; rb.Create(SceneMgr, cityNode); }
-            else { 
+            if (Plots.ContainsKey(e.Building.Parent)) { rp = Plots[e.Building.Parent]; rb.Create(SceneMgr, cityNode); } else {
                 rp = new RenderablePlot(e.Building.Parent);
                 rp.Create(SceneMgr, cityNode);
                 Plots.Add(e.Building.Parent, rp);
             }
 
-            rb.Deleted += (object sender2, EventArgs e2) =>
-            {
+            rb.Deleted += (object sender2, EventArgs e2) => {
                 Buildings.Remove(e.Building);
             };
         }
 
-        public static bool RenderablePlotExistsAtCoordinate(Point coord)
-        {
+        public static bool RenderablePlotExistsAtCoordinate(Point coord) {
             return Plots[Haswell.Controller.City.Grid.ElementAt(coord.X, coord.Y)] != null;
         }
 
         public static void CreateBuildingOnCursor() {
             CreateBuildingOnCursor(new Residential());
         }
-        public static void CreateBuildingOnCursor(Building template)
-        {
+        public static void CreateBuildingOnCursor(Building template) {
             RenderableBuilding rb = new RenderableBuilding(template);
             rb.Create(GameMgr.StateMgr.Engine.SceneMgr, cityNode);
             rb.IsVirtual = true;
@@ -230,16 +226,14 @@ namespace Snowflake {
             GuiMgr.ShowBuildingPlacementPanel();
         }
 
-        public static void BeginZoning(Zones z)
-        {
-            if (z != Zones.Unzoned)
-            {
+        public static void BeginZoning(Zones z) {
+            if (z != Zones.Unzoned) {
                 GameMgr.SetMouseMode(MouseMode.DrawingZone);
                 scratchZoneType = z;
                 GameMgr.UpdateScratchZoneBoxZone(scratchZoneType);
             }
         }
-            
+
         /// <summary>
         /// Update the city
         /// </summary>
@@ -247,7 +241,7 @@ namespace Snowflake {
         public static void Update(float frametime) {
             totalTime += frametime;
             if (Initialized) {
-                
+
                 if ((totalTime - lastTotalTime) / 1000.0 >= 1 / 30.0) {
                     UpdateHaswell((totalTime - lastTotalTime));
                     lastTotalTime = totalTime;
@@ -267,8 +261,7 @@ namespace Snowflake {
         public static void SetSelectionOrigin(Point p) {
             selectionStart = selectionEnd = selectionOrigin = p;
         }
-        public static void SetScratchZoneOrigin(Point p)
-        {
+        public static void SetScratchZoneOrigin(Point p) {
             scratchZoneStart = scratchZoneEnd = scratchZoneOrigin = p;
         }
 
@@ -306,28 +299,24 @@ namespace Snowflake {
 
                 List<Building> lastSelectedBuildings = selectedBuildings;
                 selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
-                if (lastSelectedBuildings != null)
-                {
+                if (lastSelectedBuildings != null) {
                     selectedBuildings = Haswell.Controller.City.GetAllInSelection(selectionStart.X, selectionStart.Y, selectionEnd.X, selectionEnd.Y);
                     var toDeselect = lastSelectedBuildings.Except(selectedBuildings).Where(item => item.Parent != null);
 
-                    foreach (Building b in toDeselect)
-                    {
+                    foreach (Building b in toDeselect) {
                         Plots[b.Parent].Deselect();
                     }
                 }
-                foreach (Building b in selectedBuildings)
-                {
+                foreach (Building b in selectedBuildings) {
                     Plots[b.Parent].Select();
                 }
                 return true;
-                
+
             }
             return false;
         }
 
-        public static bool MakeZone()
-        {
+        public static bool MakeZone() {
             return SetZoning(scratchZoneBox, scratchZoneType);
         }
 
@@ -343,42 +332,36 @@ namespace Snowflake {
             selectionOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
         }
 
-        public static void ClearScratchZone()
-        {
+        public static void ClearScratchZone() {
             scratchZoneStart = new Point(Int32.MaxValue - 1, Int32.MaxValue - 1);
             scratchZoneEnd = new Point(Int32.MaxValue, Int32.MaxValue);
             scratchZoneOrigin = new Point(Int32.MaxValue, Int32.MaxValue);
         }
 
-        public static bool SelectionIsValid()
-        {
+        public static bool SelectionIsValid() {
             return selectionStart != new Point(Int32.MaxValue - 1, Int32.MaxValue - 1) &&
             selectionEnd != new Point(Int32.MaxValue, Int32.MaxValue) &&
             selectionOrigin != new Point(Int32.MaxValue, Int32.MaxValue);
         }
-        public static bool ScratchZoneIsValid()
-        {
+        public static bool ScratchZoneIsValid() {
             return scratchZoneStart != new Point(Int32.MaxValue - 1, Int32.MaxValue - 1) &&
             scratchZoneEnd != new Point(Int32.MaxValue, Int32.MaxValue) &&
             scratchZoneOrigin != new Point(Int32.MaxValue, Int32.MaxValue);
         }
 
 
-        public static void DeleteSelectedBuildings()
-        {
-            foreach (Building b in selectedBuildings)
-            {
+        public static void DeleteSelectedBuildings() {
+            foreach (Building b in selectedBuildings) {
                 b.Delete();
             }
         }
 
-        public static void DeselectBuildings()
-        {
-            selectedBuildings.Clear();
+        public static void DeselectBuildings() {
+            if (selectedBuildings.Count < 0)
+                selectedBuildings.Clear();
         }
 
-        public static List<Building> GetSelectedBuildings()
-        {
+        public static List<Building> GetSelectedBuildings() {
             return selectedBuildings;
         }
 
@@ -410,19 +393,17 @@ namespace Snowflake {
         public static Vector3 GetPlotCenter(Point plotCoord) {
             if (!(Origin.X == 0 && Origin.Y == 0)) {
                 //Todo: account for terrain height
-                return new Vector3((plotCoord.X + Origin.X) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f), 
+                return new Vector3((plotCoord.X + Origin.X) * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f),
                                     0.0f,
                                     (plotCoord.Y + Origin.Y) * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
-            }
-            else {
+            } else {
                 return new Vector3(plotCoord.X * Renderable.PlotWidth + (Renderable.PlotWidth * 0.5f),
                     0.0f,
                     plotCoord.Y * Renderable.PlotHeight + (Renderable.PlotHeight * 0.5f));
             }
         }
 
-        public static void Quit()
-        {
+        public static void Quit() {
             GameMgr.StartShutdown();
             //Todo: fancy UI for asking if the player is really absolutely sure they want to quit without saving their life's work
         }

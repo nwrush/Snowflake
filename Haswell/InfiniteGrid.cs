@@ -19,8 +19,6 @@ namespace Haswell {
         /// </summary>
         public InfiniteGrid() {
             elements = new Dictionary<Point, Plot>();
-            System.Media.SoundPlayer sp = new System.Media.SoundPlayer("../Media/Textures/sam.wav");
-            sp.PlayLooping();
             for (int r = -10; r <= 10; r++) {
                 for (int c = -10; c <= 10; c++) {
                     elements.Add(new Point(r, c), new Plot(r, c));

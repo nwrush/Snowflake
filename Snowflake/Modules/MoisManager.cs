@@ -80,7 +80,14 @@ namespace Snowflake.Modules
 			// initialize input manager
 			ParamList pl = new ParamList();
 			pl.Insert("WINDOW", _windowHandle.ToString());
-			mInputMgr = InputManager.CreateInputSystem(pl);
+            try
+            {
+                mInputMgr = InputManager.CreateInputSystem(pl);
+            }
+            catch (AccessViolationException e)
+            {
+
+            }
 			if (mInputMgr == null)
 				return false;
 

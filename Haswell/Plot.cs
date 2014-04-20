@@ -40,10 +40,12 @@ namespace Haswell {
         internal Plot(int x, int y, InfiniteGrid grid) {
             this.grid = grid;
             initialize(x, y);
+            this.resource = new ResourceDict();
         }
 
         public Plot(int x, int y) {
             initialize(x, y);
+            this.resource = new ResourceDict();
         }
         /// <summary>
         /// Performs construction functions that must be done after the grid is non-null
@@ -53,7 +55,6 @@ namespace Haswell {
         private void initialize(int x, int y)
         {
             this.hookedPlots = new List<Plot>();
-            this.resource = new ResourceDict();
 
             this.plotX = x;
             this.plotY = y;
@@ -121,10 +122,6 @@ namespace Haswell {
                 this.building.Update(this.resource);
             UpdateCityResources(cityResources);
         }
-        public void UpdateHour(ResourceDict cityResources) {
-            if (this.Building != null)
-                this.building.UpdateHour(this.resource);
-        }
         public void UpdateDaily(ResourceDict cityResources) {
             if (this.Building != null)
                 this.building.UpdateDaily(this.resource);
@@ -151,11 +148,7 @@ namespace Haswell {
         }
 
         private void UpdateCityResources(ResourceDict cityResources) {
-            foreach (KeyValuePair<ResourceType, float> kvp in this.resource) {
-                if (cityResources.ContainsKey(kvp.Key)) {
-                    cityResources[kvp.Key] += kvp.Value;
-                }
-            }
+            cityResources += this.resource;
         }
 
         public Dictionary<Direction, Plot> GetAdjacentPlots()

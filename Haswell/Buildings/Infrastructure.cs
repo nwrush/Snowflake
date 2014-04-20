@@ -14,9 +14,6 @@ namespace Haswell.Buildings {
         public override void Update(ResourceDict plotResources) {
             base.Update(plotResources);
         }
-        public override void UpdateHour(ResourceDict plotResources) {
-            base.UpdateHour(plotResources);
-        }
         public override void UpdateDaily(ResourceDict plotResources) {
             base.UpdateDaily(plotResources);
         }

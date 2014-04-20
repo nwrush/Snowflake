@@ -17,7 +17,6 @@ namespace Haswell {
         private ResourceDict resources;
 
         public event EventHandler<BuildingEventArgs> BuildingCreated;
-        public event EventHandler<BuildingEventArgs> BuildingUpdated;
 
         /// <summary>
         /// Creates a city and initialize's it with the given sides

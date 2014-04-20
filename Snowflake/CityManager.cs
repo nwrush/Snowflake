@@ -151,10 +151,10 @@ namespace Snowflake {
             world.AttachObject(ground);
             //world.Translate(new Vector3(0, -1, 0));
 
-            Random r = new Random();
+            /*Random r = new Random();
             for (int i = 0; i < 10; ++i) {
                 CreateTree(sm, new Vector3((float)(r.NextDouble() * 10000 - 5000), 0, (float)(r.NextDouble() * 10000 - 5000)));
-            }
+            }*/
         }
 
         private static void CreateTree(SceneManager sm, Vector3 offset) {

@@ -21,7 +21,7 @@ namespace Haswell {
             backgroundThread = new BackgroundThread();
 
             //Time Values
-            Timescale = 20.0f;
+            Timescale = 100.0f;
         }
 
         public static void Update(float frametime) {

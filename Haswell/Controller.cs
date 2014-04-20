@@ -31,6 +31,8 @@ namespace Haswell {
             DateTime _prevTime = CurrentTime;
             Time += Timescale;
             CurrentTime = new DateTime(1970, 1, 1).AddMinutes(Time / MinuteLength);
+
+            CheckTimedUpdates(_prevTime, CurrentTime);
         }
         private static void CheckTimedUpdates(DateTime _prevTime, DateTime time) {
             if (_prevTime.Hour != time.Hour) {

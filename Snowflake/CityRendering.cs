@@ -524,32 +524,72 @@ namespace Snowflake {
                 tBend.Visible = true;
                 fourWay.Visible = straight.Visible = turn.Visible = false;
 
-
-            }
-            else 
-            {
-                straight.Visible = fourWay.Visible = tBend.Visible = turn.Visible = false;
-
-                if (neighbors.Count == 2)
+                if (!neighbors.ContainsKey(Direction.North))
                 {
-                    if (isStraight(neighbors.Keys.First(), neighbors.Keys.Last()))
+                    
+                }
+                else if (!neighbors.ContainsKey(Direction.East))
+                {
+                    baseRotation = new Quaternion(-Mogre.Math.HALF_PI, Vector3.UNIT_Y);
+                }
+                else if (!neighbors.ContainsKey(Direction.South))
+                {
+                    baseRotation = new Quaternion(Mogre.Math.PI, Vector3.UNIT_Y);
+                }
+                else if (!neighbors.ContainsKey(Direction.West))
+                {
+                    baseRotation = new Quaternion(Mogre.Math.HALF_PI, Vector3.UNIT_Y);
+                }
+            }
+            else if (neighbors.Count == 2)
+            {
+                if (isStraight(neighbors.Keys.First(), neighbors.Keys.Last()))
+                {
+                    if (neighbors.Keys.First() == Direction.North || neighbors.Keys.First() == Direction.South)
                     {
-                        if (neighbors.Keys.First() == Direction.North || neighbors.Keys.First() == Direction.South)
-                        {
-                            baseRotation = Vector3.UNIT_X.GetRotationTo(Vector3.UNIT_Z);
-                        }
-                        straight.Visible = true;
-                        
+                        baseRotation = new Quaternion(Mogre.Math.HALF_PI, Vector3.UNIT_Y);
                     }
-                    else
-                    {
-                        turn.Visible = true;
-                    }
+
+                    straight.Visible = true;
+                    fourWay.Visible = turn.Visible = tBend.Visible = false;
                 }
                 else
                 {
-                    straight.Visible = true;
+                    if (neighbors.ContainsKey(Direction.North) && neighbors.ContainsKey(Direction.East))
+                    {
+                        baseRotation = new Quaternion(Mogre.Math.HALF_PI, Vector3.UNIT_Y);
+                    }
+                    else if (neighbors.ContainsKey(Direction.East) && neighbors.ContainsKey(Direction.South))
+                    {
+                        //baseRotation = new Quaternion(Mogre.Math.PI, Vector3.UNIT_Y);
+                    }
+                    else if (neighbors.ContainsKey(Direction.South) && neighbors.ContainsKey(Direction.West))
+                    {
+                        baseRotation = new Quaternion(-Mogre.Math.HALF_PI, Vector3.UNIT_Y);
+                    }
+                    else if (neighbors.ContainsKey(Direction.West) && neighbors.ContainsKey(Direction.North))
+                    {
+                        baseRotation = new Quaternion(Mogre.Math.PI, Vector3.UNIT_Y);
+                    }
+
+                    turn.Visible = true;
+                    fourWay.Visible = straight.Visible = tBend.Visible = false;
                 }
+            }
+            else if (neighbors.Count == 1)
+            {
+                if (neighbors.Keys.First() == Direction.North || neighbors.Keys.First() == Direction.South)
+                {
+                    baseRotation = new Quaternion(Mogre.Math.HALF_PI, Vector3.UNIT_Y);
+                }
+
+                straight.Visible = true;
+                fourWay.Visible = turn.Visible = tBend.Visible = false;
+            }
+            else
+            {
+                straight.Visible = true;
+                fourWay.Visible = turn.Visible = tBend.Visible = false;
             }
         }
 

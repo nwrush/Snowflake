@@ -53,7 +53,7 @@ namespace Snowflake.GuiComponents
 
                 foreach (Entity ent in ents)
                 {
-                    renderNode.AttachObject(ent);
+                    renderNode.AttachObject(ent.Clone(ent.Name + "1"));
                 }
                 renderNode.SetScale(b.scale);
                 renderNode.Orientation = b.rotation;

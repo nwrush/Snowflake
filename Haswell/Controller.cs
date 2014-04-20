@@ -9,6 +9,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Haswell {
+    public delegate void Serialized();
     public static partial class Controller {
 
         private static City activeCity;
@@ -101,18 +102,17 @@ namespace Haswell {
             Process.Start("Log.exe", msg);
         }
 
-        public static delegate void Serialized(object sender, Haswell.Events.SerializationEventArgs e);
+
         public static event Serialized OnSerialized;
         /// <summary>
         /// Saves a copy of the current city to City.bin
         /// </summary>
         public static void Save() {
-            return;
             BinaryFormatter serializer = new BinaryFormatter();
             Stream stream = new FileStream("TSPI.city", FileMode.Create, FileAccess.Write, FileShare.None);
             serializer.Serialize(stream, activeCity);
             stream.Close();
-            OnSerialized.Invoke(null, new Events.SerializationEventArgs());
+            OnSerialized.Invoke();
         }
 
         public static event Serialized OnDeserialized;
@@ -126,7 +126,7 @@ namespace Haswell {
             FileStream stream = new FileStream("TSPI.city", FileMode.Open, FileAccess.Read, FileShare.None);
             City c = (City)deserializer.Deserialize(stream);
             activeCity = c;
-            OnDeserialized.Invoke(null, new Events.SerializationEventArgs());
+            OnDeserialized.Invoke();
         }
 
         public static City City {

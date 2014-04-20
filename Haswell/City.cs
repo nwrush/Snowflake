@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace Haswell {
+    [Serializable]
     public class City {
 
         private string name;

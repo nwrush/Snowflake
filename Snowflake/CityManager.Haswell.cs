@@ -13,6 +13,7 @@ using Snowflake.States;
 using Haswell;
 using Haswell.Buildings;
 using Haswell.Exceptions;
+using Haswell.Events;
 
 using Vector3 = Mogre.Vector3;
 using Rectangle = Miyagi.Common.Data.Rectangle;
@@ -32,6 +33,8 @@ namespace Snowflake {
                 Origin = new Point(originx, originy);
                 Haswell.Controller.init(cityName ?? "New City");
                 Haswell.Controller.City.BuildingCreated += CreateBuilding;
+                Haswell.Controller.OnSerialized += OnSave;
+                Haswell.Controller.OnDeserialized += OnLoad;
                 Initialized = true;
             }
             else {
@@ -124,11 +127,23 @@ namespace Snowflake {
             GuiMgr.AddInfoPopup("Saving game...");
         }
 
+        public static void OnSave()
+        {
+            GameConsole.ActiveInstance.WriteLine("Game Saved.");
+            GuiMgr.AddInfoPopup("Game Saved.");
+        }
+
         public static void Load()
         {
             Haswell.Controller.Load();
             GameConsole.ActiveInstance.WriteLine("Loading game...");
             GuiMgr.AddInfoPopup("Loading game...");
+        }
+
+        public static void OnLoad()
+        {
+            GameConsole.ActiveInstance.WriteLine("Game Loaded.");
+            GuiMgr.AddInfoPopup("Game Loaded.");
         }
     }
 }

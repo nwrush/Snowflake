@@ -16,6 +16,9 @@ namespace Haswell {
 
         private List<Links> Links;
 
+        internal InfiniteGrid grid;
+        internal List<Plot> hookedPlots;
+
         public event EventHandler ZoneChanged;
         /// <summary>
         /// Occurs when a building is deleted
@@ -25,17 +28,55 @@ namespace Haswell {
         /// Occurs when a building is added
         /// </summary>
         public event EventHandler<BuildingEventArgs> BuildingAdded;
+        /// <summary>
+        /// Occurs when an adjacent plot fires a BuildingAdded event
+        /// </summary>
+        public event EventHandler<BuildingEventArgs> AdjacentBuildingChanged;
 
         //Location of the plot in the city grid
         //Minimum city plot value is (0,0)
         int plotX, plotY;
 
+        internal Plot(int x, int y, InfiniteGrid grid) {
+            this.grid = grid;
+            initialize(x, y);
+        }
+
         public Plot(int x, int y) {
+            initialize(x, y);
+        }
+        /// <summary>
+        /// Performs construction functions that must be done after the grid is non-null
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        private void initialize(int x, int y)
+        {
+            this.hookedPlots = new List<Plot>();
             this.resource = new ResourceDict();
 
             this.plotX = x;
             this.plotY = y;
 
+            UpdateAdjacentEventHandlers();
+        }
+
+        internal void UpdateAdjacentEventHandlers()
+        {
+            foreach (Plot p in GetAdjacentPlots().Values)
+            {
+                if (!p.hookedPlots.Contains(this))
+                {
+                    p.BuildingAdded += InvokeAdjacentEvent;
+                    p.UpdateAdjacentEventHandlers();
+                    p.hookedPlots.Add(this);
+                }
+            }
+        }
+
+        private void InvokeAdjacentEvent(object sender, BuildingEventArgs e)
+        {
+            if (AdjacentBuildingChanged != null) { AdjacentBuildingChanged.Invoke(sender, e); }
         }
 
         private void onBuildingDeleted(object sender, BuildingEventArgs e) {
@@ -114,6 +155,36 @@ namespace Haswell {
                     cityResources[kvp.Key] += kvp.Value;
                 }
             }
+        }
+
+        public Dictionary<Direction, Plot> GetAdjacentPlots()
+        {
+            Dictionary<Direction, Plot> adj = new Dictionary<Direction, Plot>();
+            InfiniteGrid _grid;
+
+            if (this.grid != null) { _grid = this.grid; }
+            else { _grid = Controller.City.Grid; }
+
+            foreach (Plot p in _grid.GetNeighbors(this))
+            {
+                if (p.X > X)
+                { //+X direction, or North
+                    adj[Direction.North] = p;
+                }
+                else if (p.X < X) //-X direction, or South
+                {
+                    adj[Direction.South] = p;
+                }
+                else if (p.Y > Y) //+Y direction, or East
+                {
+                    adj[Direction.East] = p;
+                }
+                else if (p.Y < Y) //-Y direction, or West
+                {
+                    adj[Direction.West] = p;
+                }
+            }
+            return adj;
         }
 
 

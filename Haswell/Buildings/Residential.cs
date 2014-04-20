@@ -23,10 +23,8 @@ namespace Haswell.Buildings {
         public override void Update(ResourceDict pltRes) {
             base.Update(pltRes);
         }
-        public override void UpdateHour(ResourceDict pltRes) {
-            base.UpdateHour(pltRes);
-        }
         public override void UpdateDaily(ResourceDict pltRes) {
+            PayTaxes(pltRes);
             base.UpdateDaily(pltRes);
         }
         public override void UpdateWeekly(ResourceDict pltRes) {
@@ -42,11 +40,11 @@ namespace Haswell.Buildings {
             base.UpdateBiannually(pltRes);
         }
         public override void UpdateYearly(ResourceDict pltRes) {
-            PayTaxes(pltRes[ResourceType.Money]);
+            PayTaxes(pltRes);
             base.UpdateYearly(pltRes);
         }
-        protected void PayTaxes(float plotMoney) {
-            plotMoney += this._income * 0.15f;
+        protected void PayTaxes(ResourceDict plot) {
+            plot[ResourceType.Money] += this._income * 0.15f;
         }
 
         public int Residents {

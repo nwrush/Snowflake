@@ -35,9 +35,6 @@ namespace Haswell {
             CheckTimedUpdates(_prevTime, CurrentTime);
         }
         private static void CheckTimedUpdates(DateTime _prevTime, DateTime time) {
-            if (_prevTime.Hour != time.Hour) {
-                backgroundThread.Events.Enqueue(UpdateHour);
-            }
             if (_prevTime.Day != time.Day) {
                 backgroundThread.Events.Enqueue(UpdateDaily);
             }
@@ -74,9 +71,6 @@ namespace Haswell {
         }
 
         public delegate void UpdateDelegate(DateTime time);
-        private static void UpdateHour(DateTime time) {
-            activeCity.UpdateHour(time);
-        }
         private static void UpdateDaily(DateTime time) {
             activeCity.UpdateDaily(time);
         }

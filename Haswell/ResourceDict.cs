@@ -204,7 +204,7 @@ namespace Haswell {
             sb += "Energy: " + this.resources[ResourceType.Energy].ToString() + "\n";
             sb += "Material: " + this.resources[ResourceType.Material].ToString() + "\n";
             sb += "Money: " + this.resources[ResourceType.Money].ToString() + "\n";
-            sb += "Energy: " + this.resources[ResourceType.Energy].ToString();
+            sb += "Population: " + this.resources[ResourceType.Population].ToString();
             return sb;
         }
     }

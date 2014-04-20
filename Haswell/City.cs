@@ -46,7 +46,6 @@ namespace Haswell {
             this.resources[ResourceType.Population] = 10000;
         }
 
-        void Environment_Hourly(object sender, TimeEventArgs e) { this.UpdateHour(e.Time); }
         void Environment_Daily(object sender, TimeEventArgs e) { this.UpdateDaily(e.Time); }
         void Environment_Weekly(object sender, TimeEventArgs e) { this.UpdateWeekly(e.Time); }
         void Environment_Monthly(object sender, TimeEventArgs e) { this.UpdateMonthly(e.Time); }
@@ -126,11 +125,6 @@ namespace Haswell {
         }
 
         public delegate void UpdateDelegate(DateTime time);
-        public void UpdateHour(DateTime time) {
-            foreach (Plot p in this.grid) {
-                p.UpdateHour(this.resources);
-            }
-        }
         public void UpdateDaily(DateTime time) {
             foreach (Plot p in this.grid) {
                 p.UpdateDaily(this.resources);

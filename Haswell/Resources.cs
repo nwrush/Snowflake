@@ -51,10 +51,6 @@ namespace Haswell {
         /// <summary>
         /// The population
         /// </summary>
-        Population,
-        /// <summary>
-        /// The none
-        /// </summary>
-        None
+        Population
     };
 }

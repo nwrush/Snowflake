@@ -63,26 +63,36 @@ namespace Haswell {
         /// <param name="y">The plot Y of the building</param>
         public void CreateBuilding<T>(int x, int y) where T : Building, new() {
             Building b = new T();
+
             if (grid.ElementAt(x, y).AddBuilding(b)) { //Zone check already happens in AddBuilding
                 BuildingCreated.Invoke(this, new BuildingEventArgs(b));
                 return;
             }
 
-            if (b is Road)
-            {
-                throw new Exceptions.BuildingCreationFailedException("Unable to create road here!");
-            }
-            else if (grid.ElementAt(x, y).Building != null)
-            {
+            if (grid.ElementAt(x, y).Building != null) {
                 throw new Exceptions.BuildingCreationFailedException("Unable to place building - there's already something there!");
-            }
-            else if (grid.ElementAt(x, y).Zone != b.Zone)
-            {
+            } else if (grid.ElementAt(x, y).Zone != b.Zone) {
                 throw new Exceptions.BuildingCreationFailedException("Cannot create this type of building in " + grid.ElementAt(x, y).Zone.ToString() + " plot!");
-            }
-            else
-            {
+            } else {
                 throw new Exceptions.BuildingCreationFailedException("Building creation failed");
+            }
+        }
+        /// <summary>
+        /// Called by Snowflake when the user requests the creation of a road
+        /// </summary>
+        /// <param name="x">The plot X of the road</param>
+        /// <param name="y">The plot Y of the road</param>
+        public void CreateRoad(int x, int y) {
+            Road r = new Road();
+
+            grid.ElementAt(x, y).Zone = r.Zone;
+
+            if (grid.ElementAt(x, y).Building != null) {
+                return;
+            }
+            if (grid.ElementAt(x, y).AddBuilding(r)) {
+                BuildingCreated.Invoke(this, new BuildingEventArgs(r));
+                return;
             }
         }
 

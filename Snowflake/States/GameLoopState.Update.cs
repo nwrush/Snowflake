@@ -185,7 +185,7 @@ namespace Snowflake.States
                     {
                         try
                         {
-                            Haswell.Controller.City.CreateBuilding<Road>(result.second.X, result.second.Y);
+                            Haswell.Controller.City.CreateRoad(result.second.X, result.second.Y);
                         }
                         catch (Haswell.Exceptions.BuildingCreationFailedException e)
                         {

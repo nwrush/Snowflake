@@ -86,7 +86,7 @@ namespace Snowflake.GuiComponents {
                 Picture = ResourceManager.Skins["Control"].SubSkins["Control.Save"],
                 ClickFunc = (object sender) =>
                 {
-                    //Haswell.Controller.Save();
+                    Haswell.Controller.Save();
                 }
             };
 
@@ -94,7 +94,10 @@ namespace Snowflake.GuiComponents {
                 Location = new Point(0, boxheight - expandersize - boxwidth * 3 - padding * 3),
                 Size = new Size(boxwidth, boxwidth),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
-                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Load"]
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Load"],
+                ClickFunc = (object sender) => {
+                    Haswell.Controller.Load();
+                }
             };
 
             optionsButton = new PictureButton("CP_optionsBtn") {

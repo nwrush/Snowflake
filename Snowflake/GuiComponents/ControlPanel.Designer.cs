@@ -86,7 +86,7 @@ namespace Snowflake.GuiComponents {
                 Picture = ResourceManager.Skins["Control"].SubSkins["Control.Save"],
                 ClickFunc = (object sender) =>
                 {
-                    Haswell.Controller.Save();
+                    CityManager.Save();
                 }
             };
 
@@ -96,7 +96,7 @@ namespace Snowflake.GuiComponents {
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
                 Picture = ResourceManager.Skins["Control"].SubSkins["Control.Load"],
                 ClickFunc = (object sender) => {
-                    Haswell.Controller.Load();
+                    CityManager.Load();
                 }
             };
 

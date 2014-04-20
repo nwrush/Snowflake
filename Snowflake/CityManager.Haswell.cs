@@ -116,5 +116,19 @@ namespace Snowflake {
                 DebugPanel.ActiveInstance[2] = (e.Message);
             }
         }
+
+        public static void Save()
+        {
+            Haswell.Controller.Save();
+            GameConsole.ActiveInstance.WriteLine("Saving game...");
+            GuiMgr.AddInfoPopup("Saving game...");
+        }
+
+        public static void Load()
+        {
+            Haswell.Controller.Load();
+            GameConsole.ActiveInstance.WriteLine("Loading game...");
+            GuiMgr.AddInfoPopup("Loading game...");
+        }
     }
 }

@@ -60,6 +60,8 @@ namespace Haswell {
             return adj;
         }
 
+        public event EventHandler WeeklyUpdate;
+
         /// <summary>
         /// Updates the specified plot resources.
         /// </summary>
@@ -68,7 +70,7 @@ namespace Haswell {
 
         public virtual void UpdateHour(ResourceDict plotResources) { }
         public virtual void UpdateDaily(ResourceDict plotResources) { }
-        public virtual void UpdateWeekly(ResourceDict plotResources) { }
+        public virtual void UpdateWeekly(ResourceDict plotResources) { if (WeeklyUpdate != null) { WeeklyUpdate.Invoke(this, new EventArgs()); } }
         public virtual void UpdateMonthly(ResourceDict plotResources) { }
         public virtual void UpdateQuarterly(ResourceDict plotResources) { }
         public virtual void UpdateBiannually(ResourceDict plotResources) { }

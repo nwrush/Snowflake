@@ -416,7 +416,7 @@ namespace Snowflake {
                 scale = new Vector3(80.0f, 80.0f, 80.0f);
             }
             else if (this.Data is Haswell.Buildings.Residential) {
-                entList.Add(sm.CreateEntity("residential_house.mesh"));
+                entList.Add(sm.CreateEntity(this.Name + "_" + this.GetHashCode() + "_house", "residential_house.mesh"));
                 scale = new Vector3(15.0f, 15.0f, 15.0f);
                 rotation = Vector3.UNIT_Z.GetRotationTo(Vector3.UNIT_X);
             }
@@ -459,11 +459,15 @@ namespace Snowflake {
         private Entity tBend;
         private Entity fourWay;
 
-        private bool _dirty;
+        private int _dirty;
 
         public RenderableRoad(Road data) : base(data) { 
             data.Parent.AdjacentBuildingChanged += (object sender, BuildingEventArgs e) => {
-                _dirty = true;
+                _dirty = 4;
+            };
+            data.WeeklyUpdate += (object sender, EventArgs e) =>
+            {
+                _dirty = 1;
             };
         }
 
@@ -512,10 +516,14 @@ namespace Snowflake {
         {
             base.Update();
 
-            if (_dirty)
+            if (_dirty == 0)
             {
                 UpdateModel();
-                _dirty = false;
+                _dirty = -1;
+            }
+            else if (_dirty > 0)
+            {
+                _dirty -= 1;
             }
         }
 

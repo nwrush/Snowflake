@@ -12,20 +12,20 @@ namespace Haswell {
         private Plot parent;
 
         //Todo: Implement this into the constructor and init function
-        protected Dictionary<ResourceType, int> resouceChanges;
+        protected Dictionary<ResourceType, int> resourceChanges;
         public event EventHandler<BuildingEventArgs> Deleted;
 
         protected bool Initialized;
         protected Building(Zones zone) {
             this._zone = zone;
-            this.resouceChanges = new Dictionary<ResourceType, int>();
+            this.resourceChanges = new Dictionary<ResourceType, int>();
             this.Initialized = true;
             this.Deleted += OnDeleted;
             this._facing = Direction.North;
         }
         protected Building(Dictionary<ResourceType, int> resource, Zones zone)
             : this(zone) {
-            this.resouceChanges = resource;
+            this.resourceChanges = resource;
             this.Initialized = true;
             this.Deleted += OnDeleted;
             this._facing = Direction.North;

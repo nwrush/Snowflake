@@ -12,7 +12,7 @@ namespace Haswell.Buildings {
 
         public Residential()
             : base(Zones.Residential) {
-            this.resouceChanges.Add(ResourceType.Money, 100);
+            this.resourceChanges.Add(ResourceType.Money, 100);
         }
         public Residential(int residents, float income)
             : base(Zones.Residential) {

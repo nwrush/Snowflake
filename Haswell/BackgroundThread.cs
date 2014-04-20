@@ -24,7 +24,7 @@ namespace Haswell {
                     continue;
 
                 Controller.UpdateDelegate tmp = eventsToHandle.Dequeue();
-                tmp(Controller.CurrentTime);
+                if (tmp != null) { tmp(Controller.CurrentTime); }
             }
         }
 

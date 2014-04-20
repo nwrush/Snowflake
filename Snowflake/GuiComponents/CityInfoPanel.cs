@@ -26,7 +26,7 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         /// <param name="newTime">The new date and time</param>
         private void UpdateTimeLabel(DateTime newTime) {
-            this.timeLabelShadow.Text = this.timeLabel.Text = newTime.DayOfWeek + ", " + newTime.Day + " " + Months[newTime.Month - 1] + ", " + newTime.Year + " - " + newTime.Hour + ":" + (newTime.Minute < 10 ? ("0" + newTime.Minute.ToString()) : newTime.Minute.ToString());
+            this.timeLabelShadow.Text = this.timeLabel.Text = newTime.DayOfWeek + ", " + newTime.Day + " " + Months[newTime.Month - 1] + ", " + newTime.Year; // + " - " + newTime.Hour + ":" + (newTime.Minute < 10 ? ("0" + newTime.Minute.ToString()) : newTime.Minute.ToString());
         }
 
         public void Dispose() {

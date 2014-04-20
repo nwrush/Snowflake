@@ -21,19 +21,30 @@ namespace Haswell {
             elements = new Dictionary<Point, Plot>();
             for (int r = -10; r <= 10; r++) {
                 for (int c = -10; c <= 10; c++) {
-                    elements.Add(new Point(r, c), new Plot(r, c));
+                    elements.Add(new Point(r, c), new Plot(r, c, this));
                 }
             }
         }
 
-        public Plot ElementAt(int x, int y) {
+        public Plot ElementAt(int x, int y, bool ensureExists=true) {
             if (!elements.ContainsKey(new Point(x,y))){
-                Plot p = new Plot(x, y);
-                elements[new Point(x, y)] = p;
-                return p;
+                if (ensureExists)
+                {
+                    Plot p = new Plot(x, y, this);
+                    elements[new Point(x, y)] = p;
+                    return p;
+                }
+                else
+                {
+                    return null;
+                }
             } else {
                 return elements[new Point(x, y)];
             }
+        }
+        public bool Exists(int x, int y)
+        {
+            return elements.ContainsKey(new Point(x, y)) && elements[new Point(x, y)] != null;
         }
         public Plot RemoveAt(int x, int y) {
             Plot tmp = elements[new Point(x, y)];
@@ -51,10 +62,10 @@ namespace Haswell {
         public List<Plot> GetNeighbors(Plot p)
         {
             List<Plot> neighbors = new List<Plot>();
-            neighbors.Add(ElementAt(p.X + 1, p.Y));
-            neighbors.Add(ElementAt(p.X - 1, p.Y));
-            neighbors.Add(ElementAt(p.X, p.Y + 1));
-            neighbors.Add(ElementAt(p.X, p.Y - 1));
+            if (Exists(p.X + 1, p.Y)) { neighbors.Add(ElementAt(p.X + 1, p.Y, false)); }
+            if (Exists(p.X - 1, p.Y)) { neighbors.Add(ElementAt(p.X - 1, p.Y, false)); }
+            if (Exists(p.X, p.Y + 1)) { neighbors.Add(ElementAt(p.X, p.Y + 1, false)); }
+            if (Exists(p.X, p.Y - 1)) { neighbors.Add(ElementAt(p.X, p.Y - 1, false)); }
             return neighbors;
         }
 

@@ -30,34 +30,10 @@ namespace Haswell {
             this._facing = Direction.North;
         }
 
-        public Dictionary<Direction, Plot> GetAdjacentPlots()
-        {
-            Dictionary<Direction, Plot> adj = new Dictionary<Direction, Plot>();
-            foreach (Plot p in Controller.City.Grid.GetNeighbors(this.Parent))
-            {
-                if (p.X > this.parent.X) { //+X direction, or North
-                    adj[Direction.North] = p;
-                }
-                else if (p.X < this.parent.X) //-X direction, or South
-                {
-                    adj[Direction.South] = p;
-                }
-                else if (p.Y > this.parent.Y) //+Y direction, or East
-                {
-                    adj[Direction.East] = p;
-                }
-                else if (p.Y < this.parent.Y) //-Y direction, or West
-                {
-                    adj[Direction.West] = p;
-                }
-            }
-            return adj;
-        }
-
         public Dictionary<Direction, Building> GetAdjacentBuildings()
         {
             Dictionary<Direction, Building> adj = new Dictionary<Direction, Building>();
-            foreach (KeyValuePair<Direction, Plot> kvp in GetAdjacentPlots())
+            foreach (KeyValuePair<Direction, Plot> kvp in Parent.GetAdjacentPlots())
             {
                 if (kvp.Value.Building != null)
                 {

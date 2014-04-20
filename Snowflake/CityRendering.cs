@@ -459,12 +459,18 @@ namespace Snowflake {
         private Entity tBend;
         private Entity fourWay;
 
-        public RenderableRoad(Road data) : base(data) { }
+        public RenderableRoad(Road data) : base(data) { 
+            data.Parent.AdjacentBuildingChanged += (object sender, BuildingEventArgs e) => {
+                UpdateModel();
+            };
+        }
 
         public override void Create(SceneManager sm, SceneNode baseNode)
         {
             this.entities = GetBuildingEntities(sm, out this.scale, out this.baseRotation);
             base.Create(sm, baseNode);
+
+            UpdateModel();
         }
         public override List<Entity> GetBuildingEntities(SceneManager sm, out Vector3 scale, out Quaternion rotation)
         {
@@ -503,9 +509,6 @@ namespace Snowflake {
         public override void Update()
         {
             base.Update();
-
-            //Todo: This should only happen on certain events, like creation and adjacent cell updates
-            UpdateModel();
 
         }
 

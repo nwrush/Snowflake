@@ -459,9 +459,11 @@ namespace Snowflake {
         private Entity tBend;
         private Entity fourWay;
 
+        private bool _dirty;
+
         public RenderableRoad(Road data) : base(data) { 
             data.Parent.AdjacentBuildingChanged += (object sender, BuildingEventArgs e) => {
-                UpdateModel();
+                _dirty = true;
             };
         }
 
@@ -510,6 +512,11 @@ namespace Snowflake {
         {
             base.Update();
 
+            if (_dirty)
+            {
+                UpdateModel();
+                _dirty = false;
+            }
         }
 
         public void UpdateModel()

@@ -264,7 +264,7 @@ namespace Snowflake.GuiComponents {
                     Font = ResourceManager.Fonts["Section"]
                 },
                 Padding = new Thickness(0, 0, 0, 8),
-                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewResidential"],
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewBuilding"],
                 PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>

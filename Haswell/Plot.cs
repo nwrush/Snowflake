@@ -13,15 +13,7 @@ namespace Haswell {
         private ResourceDict resource;
         private Building building;
 
-        //Todo: Implement this list
-        private List<Plot> neighbors;
-
         private List<Links> Links;
-
-        //Buildings use up different amounts of space on the plot
-        //For ex. if a building takes up 5, and the plot has 47/50, then building creation will fail.
-        private float plotUsage = 0.0f;
-        private float plotCapacity = 1.0f;
 
         public event EventHandler ZoneChanged;
         /// <summary>
@@ -163,15 +155,6 @@ namespace Haswell {
         public int Y {
             get {
                 return this.plotY;
-            }
-        }
-        /// <summary>
-        /// Sets the neighbors.
-        /// </summary>
-        /// <value>The neighbors.</value>
-        public List<Plot> Neighbors {
-            set {
-                this.neighbors = value;
             }
         }
         /// <summary>

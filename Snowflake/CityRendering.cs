@@ -20,7 +20,9 @@ namespace Snowflake {
 
         internal SceneNode node;
         internal List<Entity> entities;
-        protected Vector3 scale;
+        internal Vector3 scale;
+        internal Quaternion rotation;
+        protected Quaternion baseRotation;
 
         public event EventHandler Selected;
         public event EventHandler Deselected;
@@ -57,6 +59,11 @@ namespace Snowflake {
         public int PlotX { get; private set; }
         public int PlotY { get; private set; }
 
+        public Renderable()
+        {
+            baseRotation = rotation = Quaternion.IDENTITY;
+            scale = Vector3.UNIT_SCALE;
+        }
         /// <summary>
         /// Create the SceneNode and Entities associated with this renderable object.
         /// When overriding, create Entities first, then call base.Create();
@@ -69,7 +76,8 @@ namespace Snowflake {
             foreach (Entity e in this.entities) {
                 node.AttachObject(e);
             }
-            node.Scale(this.scale);
+            node.SetScale(this.scale);
+            node.Orientation = this.rotation;
             isVisible = true;
         }
 
@@ -193,7 +201,7 @@ namespace Snowflake {
 
         private Resource data;
 
-        public RenderableResource(Resource data) {
+        public RenderableResource(Resource data) : base() {
             this.data = data;
         }
 
@@ -217,7 +225,7 @@ namespace Snowflake {
         public event EventHandler<BuildingEventArgs> BuildingDeleted;
         public event EventHandler<BuildingEventArgs> BuildingAdded;
 
-        public RenderablePlot(Plot data)
+        public RenderablePlot(Plot data) : base()
         {
             this.data = data;
             this.entities = new List<Entity>();
@@ -383,7 +391,7 @@ namespace Snowflake {
 
         public event EventHandler Deleted;
 
-        public RenderableBuilding(Building data) {
+        public RenderableBuilding(Building data) : base() {
             this.data = data;
             this.entities = new List<Entity>();
             this.Name = this.data.GetType().ToString() + "_" + this.GetHashCode();
@@ -392,34 +400,25 @@ namespace Snowflake {
         }
 
         public override void Create(SceneManager sm, SceneNode baseNode) {
-            this.Dispose();
-
-            foreach (Entity e in GetBuildingEntities(this.data, sm, out this.scale)) { this.entities.Add(e); }
+            foreach (Entity e in GetBuildingEntities(sm, out this.scale, out this.baseRotation)) { this.entities.Add(e); }
             base.Create(sm, baseNode);
 
             if (Data.Parent != null) { this.SetPosition(Data.Parent.X, Data.Parent.Y); }
             if (Data is Road) { node.Translate(0, 2, 0); }
         }
 
-        public static List<Entity> GetBuildingEntities(Building b, SceneManager sm, out Vector3 scale) {
+        public virtual List<Entity> GetBuildingEntities(SceneManager sm, out Vector3 scale, out Quaternion rotation) {
             List<Entity> entList = new List<Entity>();
             scale = new Vector3(1, 1, 1);
-            if (b is Haswell.Buildings.Commercial) {
+            rotation = Quaternion.IDENTITY;
+            if (this.Data is Haswell.Buildings.Commercial) {
                 entList.Add(sm.CreateEntity("skyscraper1.mesh"));
                 scale = new Vector3(80.0f, 80.0f, 80.0f);
             }
-            else if (b is Haswell.Buildings.Residential) {
-                entList.Add(sm.CreateEntity("residential1.mesh"));
+            else if (this.Data is Haswell.Buildings.Residential) {
+                entList.Add(sm.CreateEntity("residential_house.mesh"));
                 scale = new Vector3(15.0f, 15.0f, 15.0f);
-            }
-            else if (b is Haswell.Road)
-            {
-                Plane plane = new Plane(Vector3.UNIT_Y, 0);
-                string id = b.GetType().ToString() + "_" + b.GetHashCode();
-                MeshManager.Singleton.CreatePlane(id + "_roadTile", ResourceGroupManager.DEFAULT_RESOURCE_GROUP_NAME, plane, PlotWidth, PlotHeight, 1, 1, true, 1, 1, 1, Vector3.UNIT_Z);
-                Entity roadTile = sm.CreateEntity(id, id + "_roadTile");
-                entList.Add(roadTile);
-                scale = new Vector3(1, 1, 1);
+                rotation = Vector3.UNIT_Z.GetRotationTo(Vector3.UNIT_X);
             }
             return entList;
         }
@@ -430,7 +429,7 @@ namespace Snowflake {
 
             Mogre.Degree ang = new Mogre.Degree((int)this.data.Facing);
             Vector3 dir = new Vector3(Mogre.Math.Cos(ang), 0, Mogre.Math.Sin(ang));
-            this.node.Orientation = Vector3.UNIT_X.GetRotationTo(dir);
+            this.node.Orientation = baseRotation * Vector3.UNIT_X.GetRotationTo(dir);
         }
 
         /// <summary>
@@ -453,11 +452,121 @@ namespace Snowflake {
         }
     }
 
+    public class RenderableRoad : RenderableBuilding
+    {
+        private Entity straight;
+        private Entity turn;
+        private Entity tBend;
+        private Entity fourWay;
+
+        public RenderableRoad(Road data) : base(data) { }
+
+        public override void Create(SceneManager sm, SceneNode baseNode)
+        {
+            this.entities = GetBuildingEntities(sm, out this.scale, out this.baseRotation);
+            base.Create(sm, baseNode);
+        }
+        public override List<Entity> GetBuildingEntities(SceneManager sm, out Vector3 scale, out Quaternion rotation)
+        {
+            List<Entity> entList = new List<Entity>();
+            scale = new Vector3(1, 1, 1);
+            rotation = Quaternion.IDENTITY;
+            
+            Dictionary<Direction, Building> neighbors = new Dictionary<Direction, Building>();
+            neighbors = this.Data.GetAdjacentBuildings();
+            
+            fourWay = sm.CreateEntity("road_4-way.mesh");
+            fourWay.CastShadows = false;
+            fourWay.Visible = false;
+            entList.Add(fourWay);
+            
+            tBend = sm.CreateEntity("road_t-bend.mesh");
+            tBend.CastShadows = false;
+            tBend.Visible = false;
+            entList.Add(tBend);
+
+            turn = sm.CreateEntity("road_curve.mesh");
+            turn.CastShadows = false;
+            turn.Visible = false;
+            entList.Add(turn);
+
+            straight = sm.CreateEntity("road_straight.mesh");
+            straight.CastShadows = false;
+            straight.Visible = false;
+            entList.Add(straight);
+
+            scale = new Vector3(34.0f, 34.0f, 34.0f);
+
+            return entList;
+        }
+
+        public override void Update()
+        {
+            base.Update();
+
+            //Todo: This should only happen on certain events, like creation and adjacent cell updates
+            UpdateModel();
+
+        }
+
+        public void UpdateModel()
+        {
+            Dictionary<Direction, Building> neighbors = new Dictionary<Direction, Building>();
+            neighbors = this.Data.GetAdjacentBuildings();
+
+            if (neighbors.Count == 4)
+            {
+                fourWay.Visible = true;
+                tBend.Visible = straight.Visible = turn.Visible = false;
+            }
+            else if (neighbors.Count == 3)
+            {
+                tBend.Visible = true;
+                fourWay.Visible = straight.Visible = turn.Visible = false;
+
+
+            }
+            else 
+            {
+                straight.Visible = fourWay.Visible = tBend.Visible = turn.Visible = false;
+
+                if (neighbors.Count == 2)
+                {
+                    if (isStraight(neighbors.Keys.First(), neighbors.Keys.Last()))
+                    {
+                        if (neighbors.Keys.First() == Direction.North || neighbors.Keys.First() == Direction.South)
+                        {
+                            baseRotation = Vector3.UNIT_X.GetRotationTo(Vector3.UNIT_Z);
+                        }
+                        straight.Visible = true;
+                        
+                    }
+                    else
+                    {
+                        turn.Visible = true;
+                    }
+                }
+                else
+                {
+                    straight.Visible = true;
+                }
+            }
+        }
+
+        private bool isStraight(Direction d1, Direction d2)
+        {
+            return (d1 == Direction.North && d2 == Direction.South) ||
+                (d1 == Direction.South && d2 == Direction.North) ||
+                (d1 == Direction.East && d2 == Direction.West) ||
+                (d1 == Direction.West && d2 == Direction.East);
+        }
+    }
+
     public class RenderablePipe : Renderable {
 
         private Links data;
 
-        public RenderablePipe(Links data) {
+        public RenderablePipe(Links data) : base() {
             this.data = data;
         }
 

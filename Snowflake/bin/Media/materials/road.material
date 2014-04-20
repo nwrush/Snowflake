@@ -1,12 +1,68 @@
-material Road
+material "road_01_-_Default"
 {
-	technique
+	technique road_01_-_Default_technique
 	{
-		pass
+		pass road_01_-_Default_standard
 		{
-			texture_unit
+			ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0 0 0 0 25.5
+			emissive 0 0 0 1
+
+			scene_blend alpha_blend
+			depth_write off
+
+			texture_unit road_01_-_Default_Diffuse#0
 			{
-				texture road.tga
+				texture road_road_straight.png
+				tex_coord_set 0
+				colour_op modulate
+			}
+		}
+	}
+}
+material "road_02_-_Default"
+{
+	technique road_02_-_Default_technique
+	{
+		pass road_02_-_Default_standard
+		{
+			ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0 0 0 0 25.5
+			emissive 0 0 0 1
+
+			scene_blend alpha_blend
+			depth_write off
+
+			texture_unit road_02_-_Default_Diffuse#0
+			{
+				texture road_road_tbend.png
+				tex_coord_set 0
+				colour_op modulate
+			}
+		}
+	}
+}
+material "road_03_-_Default"
+{
+	technique road_03_-_Default_technique
+	{
+		pass road_03_-_Default_standard
+		{
+			ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0 0 0 0 25.5
+			emissive 0 0 0 1
+
+			scene_blend alpha_blend
+			depth_write off
+
+			texture_unit road_03_-_Default_Diffuse#0
+			{
+				texture road_road_4-way.png
+				tex_coord_set 0
+				colour_op modulate
 			}
 		}
 	}

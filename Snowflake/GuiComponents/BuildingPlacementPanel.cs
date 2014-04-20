@@ -48,15 +48,15 @@ namespace Snowflake.GuiComponents
             {
                 this.renderBldg = b;
                 renderNode.RemoveAndDestroyAllChildren();
-                Vector3 scale; //useless
 
-                List<Entity> ents = RenderableBuilding.GetBuildingEntities(b.Data, CityManager.Engine.SceneMgr, out scale);
+                List<Entity> ents = b.entities;
 
                 foreach (Entity ent in ents)
                 {
                     renderNode.AttachObject(ent);
                 }
-                renderNode.SetScale(scale);
+                renderNode.SetScale(b.scale);
+                renderNode.Orientation = b.rotation;
             }
         }
 

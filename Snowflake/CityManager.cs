@@ -195,7 +195,13 @@ namespace Snowflake {
         private static void CreateBuilding(object sender, BuildingEventArgs e) {
             GameConsole.ActiveInstance.WriteLine("Added a building at " + e.Building.Parent.X + ", " + e.Building.Parent.Y);
 
-            RenderableBuilding rb = new RenderableBuilding(e.Building);
+            RenderableBuilding rb;
+            if (e.Building is Road) {
+                rb = new RenderableRoad((Road)e.Building);
+            }
+            else {
+                rb = new RenderableBuilding(e.Building);
+            }
             if (!Buildings.ContainsKey(e.Building)) { Buildings.Add(e.Building, rb); }
 
             RenderablePlot rp;

@@ -68,12 +68,13 @@ namespace Haswell {
                 {
                     p.BuildingAdded += InvokeAdjacentEvent;
                     p.UpdateAdjacentEventHandlers();
+                    p.InvokeAdjacentEvent(this, new BuildingEventArgs(this.Building));
                     p.hookedPlots.Add(this);
                 }
             }
         }
 
-        private void InvokeAdjacentEvent(object sender, BuildingEventArgs e)
+        internal void InvokeAdjacentEvent(object sender, BuildingEventArgs e)
         {
             if (AdjacentBuildingChanged != null) { AdjacentBuildingChanged.Invoke(sender, e); }
         }

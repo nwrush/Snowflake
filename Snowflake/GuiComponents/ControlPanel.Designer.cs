@@ -83,7 +83,11 @@ namespace Snowflake.GuiComponents {
                 Location = new Point(0, boxheight - expandersize - boxwidth * 2 - padding),
                 Size = new Size(boxwidth, boxwidth),
                 Skin = ResourceManager.Skins["ClearButtonSkin"],
-                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Save"]
+                Picture = ResourceManager.Skins["Control"].SubSkins["Control.Save"],
+                ClickFunc = (object sender) =>
+                {
+                    //Haswell.Controller.Save();
+                }
             };
 
             loadButton = new PictureButton("CP_loadBtn") {

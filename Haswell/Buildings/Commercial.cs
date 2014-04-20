@@ -7,6 +7,7 @@ namespace Haswell.Buildings {
     /// <summary>
     /// Class Commercial.
     /// </summary>
+    [Serializable]
     public class Commercial : Building, IBuilding {
 
         public Commercial() : base(Zones.Commercial) { }

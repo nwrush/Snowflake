@@ -62,7 +62,6 @@
     <Compile Include="Events\BackgroundEventArgs.cs" />
     <Compile Include="Events\TimeEventArgs.cs" />
     <Compile Include="IBuilding.cs" />
-    <Compile Include="LinkHelper.cs" />
     <Compile Include="Links.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Road.cs" />

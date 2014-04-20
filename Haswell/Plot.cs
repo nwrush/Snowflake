@@ -14,7 +14,7 @@ namespace Haswell {
         private ResourceDict resource;
         private Building building;
 
-        private List<Links> Links;
+        //private List<Links> Links;
 
         internal InfiniteGrid grid;
         internal List<Plot> hookedPlots;

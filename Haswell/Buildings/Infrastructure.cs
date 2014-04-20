@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell.Buildings {
+    [Serializable]
     public class Infrastructure : Building {
         public Infrastructure()
             : base(Zones.Infrastructure) {

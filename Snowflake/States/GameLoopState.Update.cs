@@ -20,17 +20,14 @@ using MOIS;
 using Vector3 = Mogre.Vector3;
 using Quaternion = Mogre.Quaternion;
 
-namespace Snowflake.States
-{
-    public partial class GameLoopState
-    {
+namespace Snowflake.States {
+    public partial class GameLoopState {
 
         /// <summary>
         /// Update the game
         /// </summary>
         /// <param name="_frameTime"></param>
-        public override void Update(float _frameTime)
-        {
+        public override void Update(float _frameTime) {
             // check if the state was initialized before
             if (StateMgr == null)
                 return;
@@ -38,8 +35,7 @@ namespace Snowflake.States
             UpdateCameraPosition();
             HandleInput(StateMgr);
 
-            if (CityManager.Initialized)
-            {
+            if (CityManager.Initialized) {
                 CityManager.Update(_frameTime);
                 UpdateGUI(_frameTime);
             }
@@ -48,8 +44,7 @@ namespace Snowflake.States
             DebugPanel.UpdateFPS(_frameTime);
         }
 
-        private void UpdateCameraPosition()
-        {
+        private void UpdateCameraPosition() {
             StateMgr.Engine.Camera.Position = new Vector3(focalPoint.Position.x + (-500) * Mogre.Math.Cos(angle), 500, focalPoint.Position.z + -(500) * Mogre.Math.Sin(angle));
             StateMgr.Engine.Camera.Position += StateMgr.Engine.Camera.Direction * (float)(System.Math.Pow(dist, 3) + 100.0f);
         }
@@ -58,8 +53,7 @@ namespace Snowflake.States
         /// Provide input handling during the game.
         /// </summary>
         /// <param name="mStateMgr"></param>
-        private void HandleInput(StateManager mStateMgr)
-        {
+        private void HandleInput(StateManager mStateMgr) {
             // get reference to the ogre manager
             OgreManager engine = mStateMgr.Engine;
             MoisManager input = mStateMgr.Input;
@@ -77,72 +71,59 @@ namespace Snowflake.States
             HandleKeyboard(input);
         }
 
-        private void HandleMouseMove(MoisManager input)
-        {
+        private void HandleMouseMove(MoisManager input) {
             Ray mouseRay = GetSelectionRay(input.MousePosX, input.MousePosY);
 
             Mogre.Pair<bool, float> intersection = mouseRay.Intersects(new Plane(Vector3.UNIT_Y, Vector3.ZERO));
-            if (intersection.first && selboxShouldUpate())
-            {
+            if (intersection.first && selboxShouldUpate()) {
                 Vector3 intersectionPt = mouseRay.Origin + mouseRay.Direction * intersection.second;
                 Point plotCoord = CityManager.GetPlotCoords(intersectionPt);
                 Vector3 plotCenter = CityManager.GetPlotCenter(plotCoord);
                 cursorPlane.SetPosition(plotCenter.x, plotCenter.y + 1f, plotCenter.z);
 
-                if (mouseMode == MouseMode.PlacingBuilding && tempBuilding != null)
-                {
+                if (mouseMode == MouseMode.PlacingBuilding && tempBuilding != null) {
                     tempBuilding.SetPosition(plotCoord.X, plotCoord.Y);
                 }
 
                 DebugPanel.SetDebugText(CityManager.GetPlotCoords(intersectionPt).ToString());
             }
 
-            if (input.MouseMoveZ != 0.0f)
-            {
+            if (input.MouseMoveZ != 0.0f) {
                 dist += input.MouseMoveZ * 0.002f;
                 if (dist < -14.0f) { dist = -14.0f; }
                 if (dist > 0.0f) { dist = 0.0f; }
             }
         }
 
-        private void HandleLeftMousePressed(MoisManager input)
-        {
-            if (!StateManager.SupressGameControl)
-            {
-                if (!ContextMenu.HitTest(MousePosition(input)))
-                {
+        private void HandleLeftMousePressed(MoisManager input) {
+            if (!StateManager.SupressGameControl) {
+                if (!ContextMenu.HitTest(MousePosition(input))) {
                     ContextMenu.Visible = false;
 
-                    if (canPlaceBuilding())
-                    {
+                    if (canPlaceBuilding()) {
                         //Do a little reflection to be able to pass the type of the cursor building into the generic method
                         MethodInfo method = typeof(CityManager).GetMethod("NewBuilding");
                         MethodInfo newBuilding = method.MakeGenericMethod(this.tempBuilding.Data.GetType());
                         newBuilding.Invoke(null, new object[] { this.tempBuilding.PlotX, this.tempBuilding.PlotY });
                         gConsole.WriteLine("Placing building...");
 
-                        if (!input.IsKeyDown(KeyCode.KC_LSHIFT))
-                        {
+                        if (!input.IsKeyDown(KeyCode.KC_LSHIFT)) {
                             //Then dispose the cursor building as the game will be making a new one very shortly
                             CancelBuildingPlacement();
                             mouseMode = MouseMode.Selection;
                         }
                     }
 
-                    if (canSelect())
-                    {
+                    if (canSelect()) {
                         Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
-                        if (result.first)
-                        {
+                        if (result.first) {
                             CityManager.SetSelectionOrigin(result.second);
                         }
                     }
 
-                    if (canZone())
-                    {
+                    if (canZone()) {
                         Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
-                        if (result.first)
-                        {
+                        if (result.first) {
                             CityManager.SetScratchZoneOrigin(result.second);
                         }
                     }
@@ -150,61 +131,40 @@ namespace Snowflake.States
             }
         }
 
-        private void HandleLeftMouseHeld(MoisManager input)
-        {
-            if (!StateManager.SupressGameControl)
-            {
-                if (canSelect())
-                {
+        private void HandleLeftMouseHeld(MoisManager input) {
+            if (!StateManager.SupressGameControl) {
+                if (canSelect()) {
                     Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
-                    if (result.first)
-                    {
+                    if (result.first) {
                         CityManager.UpdateSelectionBox(result.second);
-                        if (CityManager.SelectionIsValid())
-                        {
+                        if (CityManager.SelectionIsValid()) {
                             UpdateSelectionBox();
                         }
                     }
                 }
-                if (canZone())
-                {
+                if (canZone()) {
                     Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
-                    if (result.first)
-                    {
+                    if (result.first) {
                         CityManager.UpdateScratchZoneBox(result.second);
-                        if (CityManager.ScratchZoneIsValid())
-                        {
+                        if (CityManager.ScratchZoneIsValid()) {
                             UpdateScratchZoneBox();
                         }
                     }
                 }
-                if (canRoad())
-                {
+                if (canRoad()) {
                     Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
-                    if (result.first)
-                    {
-                        try
-                        {
-                            Haswell.Controller.City.CreateRoad(result.second.X, result.second.Y);
-                        }
-                        catch (Haswell.Exceptions.BuildingCreationFailedException e)
-                        {
-                            //gConsole.WriteLine(e.Message);
-                            //Don't log to avoid creating a bunch of labels in the console
-                        }
+                    if (result.first) {
+                        Haswell.Controller.City.CreateRoad(result.second.X, result.second.Y);
                     }
-                    
+
                 }
             }
         }
 
-        private void HandleLeftMouseReleased(MoisManager input)
-        {
-            if (mouseMode == MouseMode.Selection && CityManager.SelectionIsValid())
-            {
+        private void HandleLeftMouseReleased(MoisManager input) {
+            if (mouseMode == MouseMode.Selection && CityManager.SelectionIsValid()) {
                 Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
-                if (result.first)
-                {
+                if (result.first) {
                     CityManager.UpdateSelectionBox(result.second);
                 }
                 UpdateSelectionBox();
@@ -212,11 +172,9 @@ namespace Snowflake.States
                 CityManager.ClearSelection();
                 selectionBox.SetVisible(false);
             }
-            if (mouseMode == MouseMode.DrawingZone && CityManager.ScratchZoneIsValid())
-            {
+            if (mouseMode == MouseMode.DrawingZone && CityManager.ScratchZoneIsValid()) {
                 Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
-                if (result.first)
-                {
+                if (result.first) {
                     CityManager.UpdateScratchZoneBox(result.second);
                 }
                 UpdateScratchZoneBox();
@@ -227,17 +185,13 @@ namespace Snowflake.States
             }
         }
 
-        private void HandleMiddleMousePressed(MoisManager input)
-        {
+        private void HandleMiddleMousePressed(MoisManager input) {
 
         }
 
-        private void HandleMiddleMouseHeld(MoisManager input)
-        {
-            if (!StateManager.SupressGameControl)
-            {
-                if (viewShouldUpdate())
-                {
+        private void HandleMiddleMouseHeld(MoisManager input) {
+            if (!StateManager.SupressGameControl) {
+                if (viewShouldUpdate()) {
                     //Mouse rotate control
                     angle += input.MouseMoveX * 0.01f;
                     //mStateMgr.Input += mStateMgr.Input.MouseMoveX; //Enable this if you ever figure out how to prevent the mouse from moving
@@ -247,48 +201,36 @@ namespace Snowflake.States
                     focalPoint.Translate(new Vector3(mouseMoveRotated.y, 0, mouseMoveRotated.x));
                     mStateMgr.GuiSystem.GUIManager.Cursor.SetActiveMode(CursorMode.ResizeTop);*/
 
-                    if (!ContextMenu.HitTest(MousePosition(input)))
-                    {
+                    if (!ContextMenu.HitTest(MousePosition(input))) {
                         ContextMenu.Visible = false;
                     }
                 }
             }
         }
 
-        private void HandleMiddleMouseReleased(MoisManager input)
-        {
+        private void HandleMiddleMouseReleased(MoisManager input) {
 
         }
 
-        private void HandleRightMousePressed(MoisManager input)
-        {
-            if (!StateManager.SupressGameControl)
-            {
-                if (ContextMenu.Visible == true && !ContextMenu.HitTest(MousePosition(input)))
-                {
+        private void HandleRightMousePressed(MoisManager input) {
+            if (!StateManager.SupressGameControl) {
+                if (ContextMenu.Visible == true && !ContextMenu.HitTest(MousePosition(input))) {
                     ContextMenu.Visible = false;
-                }
-                else
-                {
+                } else {
                     ContextMenu.Location = new Point(input.MousePosX, input.MousePosY);
 
                     Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
-                    if (result.first)
-                    {
+                    if (result.first) {
                         CityManager.UpdateSelectionBox(result.second);
                     }
-                    if (canSelect())
-                    {
+                    if (canSelect()) {
                         UpdateSelectionBox();
                         CityManager.MakeSelection();
 
-                        if (CityManager.GetSelectedBuildings().Count > 0)
-                        {
-                            ContextMenu.AddButton("Properties...", (object sender, EventArgs e) =>
-                            {
+                        if (CityManager.GetSelectedBuildings().Count > 0) {
+                            ContextMenu.AddButton("Properties...", (object sender, EventArgs e) => {
                                 int i = 0;
-                                foreach (Building b in CityManager.GetSelectedBuildings())
-                                {
+                                foreach (Building b in CityManager.GetSelectedBuildings()) {
                                     BuildingPropertiesWindow bpw = new BuildingPropertiesWindow(b);
                                     bpw.CreateGui(this.GuiMgr.GetGui());
                                     bpw.Location += new Point(i * 24, i * 24);
@@ -304,23 +246,18 @@ namespace Snowflake.States
             }
         }
 
-        private void HandleRightMouseHeld(MoisManager input)
-        {
+        private void HandleRightMouseHeld(MoisManager input) {
 
         }
 
-        private void HandleRightMouseReleased(MoisManager input)
-        {
+        private void HandleRightMouseReleased(MoisManager input) {
 
         }
 
-        private void HandleKeyboard(MoisManager input)
-        {
+        private void HandleKeyboard(MoisManager input) {
 
-            if (!StateManager.SupressGameControl)
-            {
-                if (viewShouldUpdate())
-                {
+            if (!StateManager.SupressGameControl) {
+                if (viewShouldUpdate()) {
                     //WASD Control
                     int speed = 10;
                     if (input.IsKeyDown(KeyCode.KC_A)) { CameraLeft(speed); }
@@ -334,10 +271,8 @@ namespace Snowflake.States
                 }
 
                 //Tab to cycle zones
-                if (input.WasKeyPressed(KeyCode.KC_TAB))
-                {
-                    if (mouseMode == MouseMode.DrawingZone)
-                    {
+                if (input.WasKeyPressed(KeyCode.KC_TAB)) {
+                    if (mouseMode == MouseMode.DrawingZone) {
                         CycleDrawnZone();
                     }
                 }
@@ -358,8 +293,7 @@ namespace Snowflake.States
 
         }
 
-        private void UpdateSelectionBox()
-        {
+        private void UpdateSelectionBox() {
             Vector3 center = (CityManager.GetPlotCenter(CityManager.SelectionBox.Left, CityManager.SelectionBox.Top)
                 + CityManager.GetPlotCenter(CityManager.SelectionBox.Right, CityManager.SelectionBox.Bottom))
                  * 0.5f;
@@ -367,8 +301,7 @@ namespace Snowflake.States
             selectionBox.SetScale(CityManager.SelectionBox.Width * SCALEFACTOR + SCALEFACTOR, SCALEFACTOR / 2.0f, CityManager.SelectionBox.Height * SCALEFACTOR + SCALEFACTOR);
             selectionBox.SetVisible(true);
         }
-        private void UpdateScratchZoneBox()
-        {
+        private void UpdateScratchZoneBox() {
             Vector3 center = (CityManager.GetPlotCenter(CityManager.scratchZoneBox.Left, CityManager.scratchZoneBox.Top)
                 + CityManager.GetPlotCenter(CityManager.scratchZoneBox.Right, CityManager.scratchZoneBox.Bottom))
                  * 0.5f;
@@ -376,8 +309,7 @@ namespace Snowflake.States
             scratchZone.SetScale(CityManager.scratchZoneBox.Width + 1, 1.0f, CityManager.scratchZoneBox.Height + 1);
             scratchZone.SetVisible(true);
         }
-        public void UpdateScratchZoneBoxZone(Zones z)
-        {
+        public void UpdateScratchZoneBoxZone(Zones z) {
             scratchZoneEnt.GetSubEntity(0).SetMaterial(
                 RenderablePlot.GetZoneColoredMaterial(
                 scratchZoneEnt
@@ -385,49 +317,39 @@ namespace Snowflake.States
                 .GetMaterial(),
                 z));
         }
-        public void UpdateGUI(float frametime)
-        {
-            if (CityManager.Initialized)
-            {
+        public void UpdateGUI(float frametime) {
+            if (CityManager.Initialized) {
                 GuiMgr.SetCurrentCursorBuilding(this.tempBuilding);
                 GuiMgr.Update(frametime);
             }
             GuiMgr.DebugPanel[4] = mouseMode.ToString();
         }
 
-        private bool selboxShouldUpate()
-        {
+        private bool selboxShouldUpate() {
             return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null;
         }
 
-        private bool viewShouldUpdate()
-        {
+        private bool viewShouldUpdate() {
             return ContextMenu.Visible == false;
         }
 
-        private bool notInteractingWithGUI()
-        {
+        private bool notInteractingWithGUI() {
             return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null;
         }
 
-        private bool canRoad()
-        {
-             return notInteractingWithGUI() && mouseMode == MouseMode.DrawingRoad;
+        private bool canRoad() {
+            return notInteractingWithGUI() && mouseMode == MouseMode.DrawingRoad;
         }
 
-        private bool canZone()
-        {
+        private bool canZone() {
             return notInteractingWithGUI() && mouseMode == MouseMode.DrawingZone;
         }
 
-        private bool canSelect()
-        {
+        private bool canSelect() {
             return notInteractingWithGUI() && mouseMode == MouseMode.Selection;
         }
 
-        private bool canPlaceBuilding() 
-        
-        {
+        private bool canPlaceBuilding() {
             return ContextMenu.Visible == false && StateMgr.GuiSystem.GUIManager.GetTopControlAt(MousePosition(StateMgr.Input)) == null && mouseMode == MouseMode.PlacingBuilding && tempBuilding != null;
         }
     }

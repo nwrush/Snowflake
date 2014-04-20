@@ -104,8 +104,9 @@ namespace Haswell {
         /// Saves a copy of the current city to City.bin
         /// </summary>
         public static void Save() {
+            return;
             IFormatter serializer = new BinaryFormatter();
-            Stream stream = new FileStream(Controller.City.Name + ".city", FileMode.Create, FileAccess.Write, FileShare.None);
+            Stream stream = new FileStream("TSPI.city", FileMode.Create, FileAccess.Write, FileShare.None);
             serializer.Serialize(stream, activeCity);
             stream.Close();
         }
@@ -113,9 +114,10 @@ namespace Haswell {
         /// Load a copy of the city from a binary file
         /// </summary>
         public static void Load() {
+            return;
             BinaryFormatter deserializer = new BinaryFormatter();
             //Todo: Better way to get the name of the city
-            FileStream stream = new FileStream("Help.city", FileMode.Open, FileAccess.Read, FileShare.None);
+            FileStream stream = new FileStream("TSPI.city", FileMode.Open, FileAccess.Read, FileShare.None);
             City c = (City)deserializer.Deserialize(stream);
             activeCity = c;
         }

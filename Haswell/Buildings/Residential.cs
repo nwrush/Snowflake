@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell.Buildings {
+    [Serializable]
     public class Residential : Building, IBuilding {
 
         private int _residents;

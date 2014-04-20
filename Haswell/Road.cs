@@ -5,6 +5,7 @@ using System.Text;
 using System.Drawing;
 
 namespace Haswell {
+    [Serializable]
     public class Road : Buildings.Infrastructure {
         public Road[] connections;
         int speed;//In mph?

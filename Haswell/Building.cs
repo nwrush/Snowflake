@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 
 namespace Haswell {
-        public abstract class Building {
+    [Serializable]
+    public abstract class Building {
 
         protected readonly Zones _zone;
         protected Direction _facing;
@@ -30,23 +31,18 @@ namespace Haswell {
             this._facing = Direction.North;
         }
 
-        public Dictionary<Direction, Plot> GetAdjacentPlots()
-        {
+        public Dictionary<Direction, Plot> GetAdjacentPlots() {
             Dictionary<Direction, Plot> adj = new Dictionary<Direction, Plot>();
-            foreach (Plot p in Controller.City.Grid.GetNeighbors(this.Parent))
-            {
+            foreach (Plot p in Controller.City.Grid.GetNeighbors(this.Parent)) {
                 if (p.X > this.parent.X) { //+X direction, or North
                     adj[Direction.North] = p;
-                }
-                else if (p.X < this.parent.X) //-X direction, or South
+                } else if (p.X < this.parent.X) //-X direction, or South
                 {
                     adj[Direction.South] = p;
-                }
-                else if (p.Y > this.parent.Y) //+Y direction, or East
+                } else if (p.Y > this.parent.Y) //+Y direction, or East
                 {
                     adj[Direction.East] = p;
-                }
-                else if (p.Y < this.parent.Y) //-Y direction, or West
+                } else if (p.Y < this.parent.Y) //-Y direction, or West
                 {
                     adj[Direction.West] = p;
                 }
@@ -54,13 +50,10 @@ namespace Haswell {
             return adj;
         }
 
-        public Dictionary<Direction, Building> GetAdjacentBuildings()
-        {
+        public Dictionary<Direction, Building> GetAdjacentBuildings() {
             Dictionary<Direction, Building> adj = new Dictionary<Direction, Building>();
-            foreach (KeyValuePair<Direction, Plot> kvp in GetAdjacentPlots())
-            {
-                if (kvp.Value.Building != null)
-                {
+            foreach (KeyValuePair<Direction, Plot> kvp in GetAdjacentPlots()) {
+                if (kvp.Value.Building != null) {
                     adj[kvp.Key] = kvp.Value.Building;
                 }
             }
@@ -108,10 +101,8 @@ namespace Haswell {
                 return this._zone;
             }
         }
-        public Direction Facing
-        {
-            get
-            {
+        public Direction Facing {
+            get {
                 return this._facing;
             }
         }

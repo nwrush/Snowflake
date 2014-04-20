@@ -8,6 +8,7 @@ namespace Haswell {
     /// <summary>
     /// Class InfiniteGrid.
     /// </summary>
+    [Serializable]
     public class InfiniteGrid : ICollection<Plot>, IEnumerable<Plot> {
         /// <summary>
         /// The elements

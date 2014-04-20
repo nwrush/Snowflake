@@ -10,10 +10,9 @@ namespace TEST {
         static void Main(string[] args) {
             Haswell.Controller.init("Help");
 
-            while (true) {
-                Haswell.Controller.Update(1f);
-                Console.WriteLine("Update");
-            }
+            Haswell.Controller.Save();
+            Haswell.Controller.Load();
+            Haswell.Controller.Update(1f);
         }
     }
 }

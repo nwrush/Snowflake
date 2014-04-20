@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Haswell
 {
-    public enum Facing
+    public enum Direction
     {
-        North = 0, 
-        East = 90,
-        South = 180,
-        West = 270
+        North = 0, // +X direction
+        East = 90, //+Y direction
+        South = 180, //-X direction
+        West = 270 //-Y direction
     }
 }

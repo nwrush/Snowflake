@@ -48,6 +48,16 @@ namespace Haswell {
             return tmp;
         }
 
+        public List<Plot> GetNeighbors(Plot p)
+        {
+            List<Plot> neighbors = new List<Plot>();
+            neighbors.Add(ElementAt(p.X + 1, p.Y));
+            neighbors.Add(ElementAt(p.X - 1, p.Y));
+            neighbors.Add(ElementAt(p.X, p.Y + 1));
+            neighbors.Add(ElementAt(p.X, p.Y - 1));
+            return neighbors;
+        }
+
         private void makePlot(Plot[,] t) {
             int lowX = 0, lowY = 0, highX = 0, highY = 0;
 

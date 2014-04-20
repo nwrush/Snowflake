@@ -100,16 +100,21 @@ namespace Haswell {
             Process p = new Process();
             Process.Start("Log.exe", msg);
         }
+
+        public static delegate void Serialized(object sender, Haswell.Events.SerializationEventArgs e);
+        public static event Serialized OnSerialized;
         /// <summary>
         /// Saves a copy of the current city to City.bin
         /// </summary>
         public static void Save() {
             return;
-            IFormatter serializer = new BinaryFormatter();
+            BinaryFormatter serializer = new BinaryFormatter();
             Stream stream = new FileStream("TSPI.city", FileMode.Create, FileAccess.Write, FileShare.None);
             serializer.Serialize(stream, activeCity);
             stream.Close();
+            OnSerialized.Invoke(null, new Events.SerializationEventArgs());
         }
+
         /// <summary>
         /// Load a copy of the city from a binary file
         /// </summary>

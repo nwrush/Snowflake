@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Diagnostics;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Haswell {
     public static partial class Controller {
@@ -96,6 +99,25 @@ namespace Haswell {
             msg += " " + "\"" + e.StackTrace + "\"";
             Process p = new Process();
             Process.Start("Log.exe", msg);
+        }
+        /// <summary>
+        /// Saves a copy of the current city to City.bin
+        /// </summary>
+        public static void Save() {
+            IFormatter serializer = new BinaryFormatter();
+            Stream stream = new FileStream(Controller.City.Name + ".city", FileMode.Create, FileAccess.Write, FileShare.None);
+            serializer.Serialize(stream, activeCity);
+            stream.Close();
+        }
+        /// <summary>
+        /// Load a copy of the city from a binary file
+        /// </summary>
+        public static void Load() {
+            BinaryFormatter deserializer = new BinaryFormatter();
+            //Todo: Better way to get the name of the city
+            FileStream stream = new FileStream("Help.city", FileMode.Open, FileAccess.Read, FileShare.None);
+            City c = (City)deserializer.Deserialize(stream);
+            activeCity = c;
         }
 
         public static City City {

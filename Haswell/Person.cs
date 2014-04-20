@@ -7,6 +7,7 @@ namespace Haswell {
     /// <summary>
     /// Class Person.
     /// </summary>
+    [Serializable]
     public class Person : IComparable<Person> {
         /// <summary>
         /// The _name

@@ -7,6 +7,7 @@ namespace Haswell {
     /// <summary>
     /// Class Links.
     /// </summary>
+    [Serializable]
     public class Links {
         Plot start;
         Plot end;

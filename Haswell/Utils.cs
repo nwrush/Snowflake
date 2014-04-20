@@ -11,10 +11,9 @@ namespace Haswell {
 
         public static void SerializeCity(City c) {
             IFormatter serializer = new BinaryFormatter();
-            Stream stream = new FileStream("City.bin", FileMode.Create, FileAccess.Write, FileShare.None);
+            Stream stream = new FileStream(Controller.City.Name+".city", FileMode.Create, FileAccess.Write, FileShare.None);
             serializer.Serialize(stream, c);
             stream.Close();
         }
-
     }
 }

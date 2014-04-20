@@ -7,6 +7,7 @@ namespace Haswell {
     /// <summary>
     /// Class Plot.
     /// </summary>
+    [Serializable]
     public class Plot : IComparable<Plot> {
 
         private Zones zone = Zones.Unzoned;

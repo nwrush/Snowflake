@@ -2,6 +2,9 @@
 [Oo]bj/
 NetworkTest/
 
+#Project Specific Binary Files
+*.city
+
 # mstest test results
 TestResults
 

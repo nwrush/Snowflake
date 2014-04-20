@@ -115,6 +115,7 @@ namespace Haswell {
             OnSerialized.Invoke(null, new Events.SerializationEventArgs());
         }
 
+        public static event Serialized OnDeserialized;
         /// <summary>
         /// Load a copy of the city from a binary file
         /// </summary>
@@ -125,6 +126,7 @@ namespace Haswell {
             FileStream stream = new FileStream("TSPI.city", FileMode.Open, FileAccess.Read, FileShare.None);
             City c = (City)deserializer.Deserialize(stream);
             activeCity = c;
+            OnDeserialized.Invoke(null, new Events.SerializationEventArgs());
         }
 
         public static City City {

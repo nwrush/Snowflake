@@ -443,11 +443,13 @@ namespace Snowflake {
         {
             this.Deselect();
             this.Dispose();
+            Building b = this.data;
             this.data = null;
             if (this.Deleted != null)
             {
                 this.Deleted.Invoke(sender, new EventArgs());
             }
+            CityManager.Buildings.Remove(b);
         }
     }
 

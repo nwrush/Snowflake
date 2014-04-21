@@ -116,7 +116,7 @@ namespace Haswell {
         /// Load a copy of the city from a binary file
         /// </summary>
         public static void Load() {
-            return;
+            //return;
             BinaryFormatter deserializer = new BinaryFormatter();
             //Todo: Better way to get the name of the city
             FileStream stream = new FileStream("TSPI.city", FileMode.Open, FileAccess.Read, FileShare.None);

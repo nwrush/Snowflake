@@ -16,19 +16,14 @@ namespace Haswell {
         public event EventHandler<BuildingEventArgs> Deleted;
 
         protected bool Initialized;
-        protected Building(Zones zone) {
+        protected Building(Zones zone) : this(new Dictionary<ResourceType, int>(), zone) { }
+        protected Building(Dictionary<ResourceType, int> resource, Zones zone) 
+        {
             this._zone = zone;
-            this.resourceChanges = new Dictionary<ResourceType, int>();
-            this.Initialized = true;
-            this.Deleted += OnDeleted;
-            this._facing = Direction.North;
-        }
-        protected Building(Dictionary<ResourceType, int> resource, Zones zone)
-            : this(zone) {
             this.resourceChanges = resource;
             this.Initialized = true;
             this.Deleted += OnDeleted;
-            this._facing = Direction.North;
+            UpdateFacing();
         }
 
         public Dictionary<Direction, Plot> GetAdjacentPlots() {
@@ -70,11 +65,31 @@ namespace Haswell {
 
         public virtual void UpdateHour(ResourceDict plotResources) { }
         public virtual void UpdateDaily(ResourceDict plotResources) { }
-        public virtual void UpdateWeekly(ResourceDict plotResources) { if (WeeklyUpdate != null) { WeeklyUpdate.Invoke(this, new EventArgs()); } }
+        public virtual void UpdateWeekly(ResourceDict plotResources) { 
+            if (WeeklyUpdate != null) { WeeklyUpdate.Invoke(this, new EventArgs()); }
+            UpdateFacing();
+        }
         public virtual void UpdateMonthly(ResourceDict plotResources) { }
         public virtual void UpdateQuarterly(ResourceDict plotResources) { }
         public virtual void UpdateBiannually(ResourceDict plotResources) { }
         public virtual void UpdateYearly(ResourceDict plotResources) { }
+
+
+        public virtual void UpdateFacing()
+        {
+            Dictionary<Direction, Building> adj = GetAdjacentBuildings();
+            if (adj.Values.OfType<Road>().Count() > 0)
+            {
+                foreach (KeyValuePair<Direction,Building> kvp in adj)
+                {
+                    if (kvp.Value is Road)
+                    {
+                        this._facing = kvp.Key;
+                        return;
+                    }
+                }
+            }
+        }
 
         public void Delete() {
             if (Deleted != null) {

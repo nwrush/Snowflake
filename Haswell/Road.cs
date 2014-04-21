@@ -35,5 +35,10 @@ namespace Haswell {
                 this.connections[3] = (Road)grid.ElementAt(loc.X, loc.Y - 1).Building;
             }
         }
+
+        public override void UpdateFacing()
+        {
+            return; //Don't do normal facing updates
+        }
     }
 }

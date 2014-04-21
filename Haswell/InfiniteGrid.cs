@@ -63,10 +63,13 @@ namespace Haswell {
         public List<Plot> GetNeighbors(Plot p)
         {
             List<Plot> neighbors = new List<Plot>();
-            if (Exists(p.X + 1, p.Y)) { neighbors.Add(ElementAt(p.X + 1, p.Y, false)); }
-            if (Exists(p.X - 1, p.Y)) { neighbors.Add(ElementAt(p.X - 1, p.Y, false)); }
-            if (Exists(p.X, p.Y + 1)) { neighbors.Add(ElementAt(p.X, p.Y + 1, false)); }
-            if (Exists(p.X, p.Y - 1)) { neighbors.Add(ElementAt(p.X, p.Y - 1, false)); }
+            if (p != null)
+            {
+                if (Exists(p.X + 1, p.Y)) { neighbors.Add(ElementAt(p.X + 1, p.Y, false)); }
+                if (Exists(p.X - 1, p.Y)) { neighbors.Add(ElementAt(p.X - 1, p.Y, false)); }
+                if (Exists(p.X, p.Y + 1)) { neighbors.Add(ElementAt(p.X, p.Y + 1, false)); }
+                if (Exists(p.X, p.Y - 1)) { neighbors.Add(ElementAt(p.X, p.Y - 1, false)); }
+            }
             return neighbors;
         }
 

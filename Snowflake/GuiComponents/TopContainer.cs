@@ -36,6 +36,12 @@ namespace Snowflake.GuiComponents {
                 case States.MouseMode.DrawingZone:
                     setCurrentAction("Drawing Zone: " + CityManager.scratchZoneType.ToString());
                     break;
+                case States.MouseMode.DeletingZone:
+                    setCurrentAction("Clearing Zone");
+                    break;
+                case States.MouseMode.DrawingRoad:
+                    setCurrentAction("Drawing Road");
+                    break;
                 default:
                     setCurrentAction(" ");
                     break;

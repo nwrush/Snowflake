@@ -347,6 +347,28 @@ namespace Snowflake.GuiComponents {
             {
                 Location = new Point(manageButton.Location.X + ToolsContainerPanel.Location.X - 0, ParentPanel.Location.Y + ParentPanel.Height)
             };
+            manageToolbar.AddButton("Clear Zoning", new PictureButton()
+            {
+                Size = new Size(boxsize, boxsize),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Text = "CLEAR ZONING",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.White,
+                    Alignment = Alignment.BottomCenter,
+                    Font = ResourceManager.Fonts["Section"]
+                },
+                Padding = new Thickness(0, 0, 0, 8),
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Manage.Zoning"],
+                PictureOffset = new Point((boxsize - 96) / 2, (boxsize - 96) / 2),
+                PictureSize = new Size(96, 96),
+                ClickFunc = (object sender) =>
+                {
+                    //enter zoning draw mode
+                    CityManager.BeginZoning(Haswell.Zones.Unzoned);
+                    manageToolbar.Hide();
+                }
+            });
             manageToolbar.AddButton("Zoning", new PictureButton()
             {
                 Size = new Size(boxsize, boxsize),

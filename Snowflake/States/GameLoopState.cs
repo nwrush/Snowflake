@@ -380,8 +380,9 @@ namespace Snowflake.States {
         None,
         Selection,
         PlacingBuilding,
+        DrawingRoad,
         DrawingZone,
-        DrawingRoad
+        DeletingZone
     }
 
 } // namespace

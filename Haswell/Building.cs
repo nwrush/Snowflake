@@ -132,7 +132,7 @@ namespace Haswell {
             set {
                 if (this.parent != null) { this.parent.AdjacentBuildingChanged -= OnAdjacent; }
                 this.parent = value;
-                this.parent.AdjacentBuildingChanged += OnAdjacent;
+                if (this.parent != null) { this.parent.AdjacentBuildingChanged += OnAdjacent; }
             }
         }
     }

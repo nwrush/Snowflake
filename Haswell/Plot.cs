@@ -55,6 +55,10 @@ namespace Haswell {
         private void initialize(int x, int y)
         {
             this.hookedPlots = new List<Plot>();
+            this.BuildingAdded += (object sender, BuildingEventArgs e) =>
+            {
+                e.Building.UpdateFacing();
+            };
 
             this.plotX = x;
             this.plotY = y;

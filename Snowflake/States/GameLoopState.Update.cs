@@ -293,6 +293,14 @@ namespace Snowflake.States {
 
         }
 
+        private void OnMouseModeChanged(MouseMode oldMouseMode, MouseMode newMouseMode)
+        {
+            if (oldMouseMode == MouseMode.PlacingBuilding)
+            {
+                CancelBuildingPlacement();
+            }
+        }
+
         private void UpdateSelectionBox() {
             Vector3 center = (CityManager.GetPlotCenter(CityManager.SelectionBox.Left, CityManager.SelectionBox.Top)
                 + CityManager.GetPlotCenter(CityManager.SelectionBox.Right, CityManager.SelectionBox.Bottom))

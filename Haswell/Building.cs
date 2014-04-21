@@ -23,7 +23,6 @@ namespace Haswell {
             this.resourceChanges = resource;
             this.Initialized = true;
             this.Deleted += OnDeleted;
-            UpdateFacing();
         }
 
         public Dictionary<Direction, Plot> GetAdjacentPlots() {
@@ -74,7 +73,10 @@ namespace Haswell {
         public virtual void UpdateBiannually(ResourceDict plotResources) { }
         public virtual void UpdateYearly(ResourceDict plotResources) { }
 
-
+        private void OnAdjacent(object sender, BuildingEventArgs e)
+        {
+            UpdateFacing();
+        }
         public virtual void UpdateFacing()
         {
             Dictionary<Direction, Building> adj = GetAdjacentBuildings();
@@ -128,7 +130,9 @@ namespace Haswell {
                 return this.parent;
             }
             set {
+                if (this.parent != null) { this.parent.AdjacentBuildingChanged -= OnAdjacent; }
                 this.parent = value;
+                this.parent.AdjacentBuildingChanged += OnAdjacent;
             }
         }
     }

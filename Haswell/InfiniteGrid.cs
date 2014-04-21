@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace Haswell {
     /// <summary>
     /// Class InfiniteGrid.
     /// </summary>
     [Serializable]
-    public class InfiniteGrid : ICollection<Plot>, IEnumerable<Plot> {
+    public class InfiniteGrid : ICollection<Plot>, IEnumerable<Plot>, ISerializable {
         /// <summary>
         /// The elements
         /// </summary>
@@ -27,24 +28,20 @@ namespace Haswell {
             }
         }
 
-        public Plot ElementAt(int x, int y, bool ensureExists=true) {
-            if (!elements.ContainsKey(new Point(x,y))){
-                if (ensureExists)
-                {
+        public Plot ElementAt(int x, int y, bool ensureExists = true) {
+            if (!elements.ContainsKey(new Point(x, y))) {
+                if (ensureExists) {
                     Plot p = new Plot(x, y, this);
                     elements[new Point(x, y)] = p;
                     return p;
-                }
-                else
-                {
+                } else {
                     return null;
                 }
             } else {
                 return elements[new Point(x, y)];
             }
         }
-        public bool Exists(int x, int y)
-        {
+        public bool Exists(int x, int y) {
             return elements.ContainsKey(new Point(x, y)) && elements[new Point(x, y)] != null;
         }
         public Plot RemoveAt(int x, int y) {
@@ -60,8 +57,7 @@ namespace Haswell {
             return tmp;
         }
 
-        public List<Plot> GetNeighbors(Plot p)
-        {
+        public List<Plot> GetNeighbors(Plot p) {
             List<Plot> neighbors = new List<Plot>();
             if (Exists(p.X + 1, p.Y)) { neighbors.Add(ElementAt(p.X + 1, p.Y, false)); }
             if (Exists(p.X - 1, p.Y)) { neighbors.Add(ElementAt(p.X - 1, p.Y, false)); }
@@ -219,11 +215,15 @@ namespace Haswell {
             List<Plot> tmp = new List<Plot>();
             for (int r = selection.Left; r <= selection.Right; ++r) {
                 for (int c = selection.Bottom; c <= selection.Top; ++c) {
-                    if(this.elements.ContainsKey(new Point(r,c)))
-                        tmp.Add(this.elements[new Point(r,c)]);
+                    if (this.elements.ContainsKey(new Point(r, c)))
+                        tmp.Add(this.elements[new Point(r, c)]);
                 }
             }
             return tmp;
+        }
+
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) {
+            info.AddValue("Elements", this.elements);
         }
     }
 }

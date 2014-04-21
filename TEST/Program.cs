@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Drawing;
 using Haswell;
 
 namespace TEST {
@@ -10,9 +11,9 @@ namespace TEST {
         static void Main(string[] args) {
             Haswell.Controller.init("Help");
 
-            Haswell.Controller.Save();
-            Haswell.Controller.Load();
-            Haswell.Controller.Update(1f);
+            Point p = new Point(12, 12);
+            Console.WriteLine(p);
+            Console.ReadKey();
         }
     }
 }

@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 
 namespace Haswell {
     /// <summary>
     /// Class Plot.
     /// </summary>
     [Serializable]
-    public class Plot : IComparable<Plot> {
+    public class Plot : IComparable<Plot>,ISerializable {
 
         private Zones zone = Zones.Unzoned;
         private ResourceDict resource;
@@ -230,6 +231,10 @@ namespace Haswell {
             get {
                 return this.building;
             }
+        }
+
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) {
+            
         }
     }
 }

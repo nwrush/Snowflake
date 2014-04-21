@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Runtime.Serialization;
 
 namespace Haswell {
     [Serializable]
-    public class City {
+    public class City:ISerializable {
 
         private string name;
         private InfiniteGrid grid;
@@ -230,6 +231,17 @@ namespace Haswell {
             for (City c = new City(""); c.grid != null; c.Name += "") {
 
             }
+        }
+
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) {
+            info.AddValue("City Name", name);
+
+            info.AddValue("Resource-Money",Resources[ResourceType.Money]);
+            info.AddValue("Resource-Pop", Resources[ResourceType.Population]);
+            info.AddValue("Resource-Energy", Resources[ResourceType.Energy]);
+            info.AddValue("Resource-Material", Resources[ResourceType.Material]);
+
+            info.AddValue("Grid", this.grid);
         }
     }
 }

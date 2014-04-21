@@ -104,11 +104,12 @@ namespace Haswell {
         /// Saves a copy of the current city to City.bin
         /// </summary>
         public static void Save() {
-            BinaryFormatter serializer = new BinaryFormatter();
-            Stream stream = new FileStream("TSPI.city", FileMode.Create, FileAccess.Write, FileShare.None);
-            serializer.Serialize(stream, activeCity);
-            stream.Close();
-            OnSerialized.Invoke();
+            return;
+            //BinaryFormatter serializer = new BinaryFormatter();
+            //Stream stream = new FileStream("TSPI.city", FileMode.Create, FileAccess.Write, FileShare.None);
+            //serializer.Serialize(stream, activeCity);
+            //stream.Close();
+            //OnSerialized.Invoke();
         }
 
         public static event Serialized OnDeserialized;
@@ -117,12 +118,12 @@ namespace Haswell {
         /// </summary>
         public static void Load() {
             return;
-            BinaryFormatter deserializer = new BinaryFormatter();
-            //Todo: Better way to get the name of the city
-            FileStream stream = new FileStream("TSPI.city", FileMode.Open, FileAccess.Read, FileShare.None);
-            City c = (City)deserializer.Deserialize(stream);
-            activeCity = c;
-            OnDeserialized.Invoke();
+            //BinaryFormatter deserializer = new BinaryFormatter();
+            ////Todo: Better way to get the name of the city
+            //FileStream stream = new FileStream("TSPI.city", FileMode.Open, FileAccess.Read, FileShare.None);
+            //City c = (City)deserializer.Deserialize(stream);
+            //activeCity = c;
+            //OnDeserialized.Invoke();
         }
 
         public static City City {

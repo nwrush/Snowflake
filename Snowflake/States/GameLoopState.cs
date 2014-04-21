@@ -247,6 +247,7 @@ namespace Snowflake.States {
         #endregion
 
         public void SetMouseMode(MouseMode m) {
+            this.OnMouseModeChanged(this.mouseMode, m);
             this.mouseMode = m;
         }
         public MouseMode GetMouseMode() { return this.mouseMode; }
@@ -379,8 +380,9 @@ namespace Snowflake.States {
         None,
         Selection,
         PlacingBuilding,
+        DrawingRoad,
         DrawingZone,
-        DrawingRoad
+        DeletingZone
     }
 
 } // namespace

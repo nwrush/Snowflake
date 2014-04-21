@@ -235,9 +235,14 @@ namespace Snowflake {
         public static void BeginZoning(Zones z) {
             if (z != Zones.Unzoned) {
                 GameMgr.SetMouseMode(MouseMode.DrawingZone);
-                scratchZoneType = z;
-                GameMgr.UpdateScratchZoneBoxZone(scratchZoneType);
             }
+            else
+            {
+                GameMgr.SetMouseMode(MouseMode.DeletingZone);
+            }
+            scratchZoneType = z;
+            GameMgr.UpdateScratchZoneBoxZone(scratchZoneType);
+
         }
 
         /// <summary>

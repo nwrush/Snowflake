@@ -20,19 +20,43 @@ namespace Haswell {
         internal InfiniteGrid grid;
         internal List<Plot> hookedPlots;
 
-        public event EventHandler ZoneChanged;
+        public event EventHandler ZoneChanged
+        {
+            add { _zoneChanged += value; }
+            remove { _zoneChanged -= value; }
+        }
+        [NonSerialized]
+        private EventHandler _zoneChanged;
         /// <summary>
         /// Occurs when a building is deleted
         /// </summary>
-        public event EventHandler<BuildingEventArgs> BuildingDeleted;
+        public event EventHandler<BuildingEventArgs> BuildingDeleted
+        {
+            add { _buildingDeleted += value; }
+            remove { _buildingDeleted -= value; }
+        }
+        [NonSerialized]
+        private EventHandler<BuildingEventArgs> _buildingDeleted;
         /// <summary>
         /// Occurs when a building is added
         /// </summary>
-        public event EventHandler<BuildingEventArgs> BuildingAdded;
+        public event EventHandler<BuildingEventArgs> BuildingAdded
+        {
+            add { _buildingAdded += value; }
+            remove { _buildingAdded -= value; }
+        }
+        [NonSerialized]
+        private EventHandler<BuildingEventArgs> _buildingAdded;
         /// <summary>
         /// Occurs when an adjacent plot fires a BuildingAdded event
         /// </summary>
-        public event EventHandler<BuildingEventArgs> AdjacentBuildingChanged;
+        public event EventHandler<BuildingEventArgs> AdjacentBuildingChanged
+        {
+            add { _adjacentBuildingChanged += value; }
+            remove { _adjacentBuildingChanged -= value; }
+        }
+        [NonSerialized]
+        private EventHandler<BuildingEventArgs> _adjacentBuildingChanged;
 
         //Location of the plot in the city grid
         //Minimum city plot value is (0,0)
@@ -56,6 +80,10 @@ namespace Haswell {
         private void initialize(int x, int y)
         {
             this.hookedPlots = new List<Plot>();
+            this.BuildingAdded += (object sender, BuildingEventArgs e) =>
+            {
+                e.Building.UpdateFacing();
+            };
 
             this.plotX = x;
             this.plotY = y;
@@ -79,18 +107,18 @@ namespace Haswell {
 
         internal void InvokeAdjacentEvent(object sender, BuildingEventArgs e)
         {
-            if (AdjacentBuildingChanged != null) { AdjacentBuildingChanged.Invoke(sender, e); }
+            if (_adjacentBuildingChanged != null) { _adjacentBuildingChanged.Invoke(sender, e); }
         }
 
         private void onBuildingDeleted(object sender, BuildingEventArgs e) {
-            if (this.BuildingDeleted != null) {
-                this.BuildingDeleted.Invoke(sender, e);
+            if (this._buildingDeleted != null) {
+                this._buildingDeleted.Invoke(sender, e);
             }
         }
 
         private void onBuildingAdded(object sender, BuildingEventArgs e) {
-            if (this.BuildingAdded != null) {
-                this.BuildingAdded.Invoke(sender, e);
+            if (this._buildingAdded != null) {
+                this._buildingAdded.Invoke(sender, e);
             }
         }
 
@@ -203,7 +231,7 @@ namespace Haswell {
             }
             set {
                 this.zone = value;
-                if (this.ZoneChanged != null) { this.ZoneChanged.Invoke(this, new EventArgs()); }
+                if (this._zoneChanged != null) { this._zoneChanged.Invoke(this, new EventArgs()); }
             }
         }
         /// <summary>

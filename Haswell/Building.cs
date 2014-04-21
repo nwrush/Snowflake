@@ -13,22 +13,22 @@ namespace Haswell {
 
         //Todo: Implement this into the constructor and init function
         protected Dictionary<ResourceType, int> resourceChanges;
-        public event EventHandler<BuildingEventArgs> Deleted;
+        public event EventHandler<BuildingEventArgs> Deleted
+        {
+            add { _deleted += value; }
+            remove { _deleted -= value; }
+        }
+        [NonSerialized]
+        private EventHandler<BuildingEventArgs> _deleted;
 
         protected bool Initialized;
-        protected Building(Zones zone) {
+        protected Building(Zones zone) : this(new Dictionary<ResourceType, int>(), zone) { }
+        protected Building(Dictionary<ResourceType, int> resource, Zones zone) 
+        {
             this._zone = zone;
-            this.resourceChanges = new Dictionary<ResourceType, int>();
-            this.Initialized = true;
-            this.Deleted += OnDeleted;
-            this._facing = Direction.North;
-        }
-        protected Building(Dictionary<ResourceType, int> resource, Zones zone)
-            : this(zone) {
             this.resourceChanges = resource;
             this.Initialized = true;
             this.Deleted += OnDeleted;
-            this._facing = Direction.North;
         }
 
         public Dictionary<Direction, Plot> GetAdjacentPlots() {
@@ -60,6 +60,14 @@ namespace Haswell {
             return adj;
         }
 
+        public event EventHandler WeeklyUpdate
+        {
+            add { _weeklyUpdate += value; }
+            remove { _weeklyUpdate -= value; }
+        }
+        [NonSerialized]
+        private EventHandler _weeklyUpdate;
+
         /// <summary>
         /// Updates the specified plot resources.
         /// </summary>
@@ -68,15 +76,38 @@ namespace Haswell {
 
         public virtual void UpdateHour(ResourceDict plotResources) { }
         public virtual void UpdateDaily(ResourceDict plotResources) { }
-        public virtual void UpdateWeekly(ResourceDict plotResources) { }
+        public virtual void UpdateWeekly(ResourceDict plotResources) { 
+            if (_weeklyUpdate != null) { _weeklyUpdate.Invoke(this, new EventArgs()); }
+            UpdateFacing();
+        }
         public virtual void UpdateMonthly(ResourceDict plotResources) { }
         public virtual void UpdateQuarterly(ResourceDict plotResources) { }
         public virtual void UpdateBiannually(ResourceDict plotResources) { }
         public virtual void UpdateYearly(ResourceDict plotResources) { }
 
+        private void OnAdjacent(object sender, BuildingEventArgs e)
+        {
+            UpdateFacing();
+        }
+        public virtual void UpdateFacing()
+        {
+            Dictionary<Direction, Building> adj = GetAdjacentBuildings();
+            if (adj.Values.OfType<Road>().Count() > 0)
+            {
+                foreach (KeyValuePair<Direction,Building> kvp in adj)
+                {
+                    if (kvp.Value is Road)
+                    {
+                        this._facing = kvp.Key;
+                        return;
+                    }
+                }
+            }
+        }
+
         public void Delete() {
-            if (Deleted != null) {
-                Deleted.Invoke(this, new BuildingEventArgs(this));
+            if (_deleted != null) {
+                _deleted.Invoke(this, new BuildingEventArgs(this));
             }
         }
 
@@ -111,7 +142,9 @@ namespace Haswell {
                 return this.parent;
             }
             set {
+                if (this.parent != null) { this.parent.AdjacentBuildingChanged -= OnAdjacent; }
                 this.parent = value;
+                if (this.parent != null) { this.parent.AdjacentBuildingChanged += OnAdjacent; }
             }
         }
     }

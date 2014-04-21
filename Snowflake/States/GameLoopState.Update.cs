@@ -121,7 +121,7 @@ namespace Snowflake.States {
                         }
                     }
 
-                    if (canZone()) {
+                    if (canZone() || canUnzone()) {
                         Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                         if (result.first) {
                             CityManager.SetScratchZoneOrigin(result.second);
@@ -142,7 +142,7 @@ namespace Snowflake.States {
                         }
                     }
                 }
-                if (canZone()) {
+                if (canZone() || canUnzone()) {
                     Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                     if (result.first) {
                         CityManager.UpdateScratchZoneBox(result.second);
@@ -172,7 +172,7 @@ namespace Snowflake.States {
                 CityManager.ClearSelection();
                 selectionBox.SetVisible(false);
             }
-            if (mouseMode == MouseMode.DrawingZone && CityManager.ScratchZoneIsValid()) {
+            if ((canZone() || canUnzone()) && CityManager.ScratchZoneIsValid()) {
                 Mogre.Pair<bool, Point> result = getPlotCoordsFromScreenPoint(MousePosition(input));
                 if (result.first) {
                     CityManager.UpdateScratchZoneBox(result.second);
@@ -293,6 +293,14 @@ namespace Snowflake.States {
 
         }
 
+        private void OnMouseModeChanged(MouseMode oldMouseMode, MouseMode newMouseMode)
+        {
+            if (oldMouseMode == MouseMode.PlacingBuilding)
+            {
+                CancelBuildingPlacement();
+            }
+        }
+
         private void UpdateSelectionBox() {
             Vector3 center = (CityManager.GetPlotCenter(CityManager.SelectionBox.Left, CityManager.SelectionBox.Top)
                 + CityManager.GetPlotCenter(CityManager.SelectionBox.Right, CityManager.SelectionBox.Bottom))
@@ -343,6 +351,11 @@ namespace Snowflake.States {
 
         private bool canZone() {
             return notInteractingWithGUI() && mouseMode == MouseMode.DrawingZone;
+        }
+
+        private bool canUnzone()
+        {
+            return notInteractingWithGUI() && mouseMode == MouseMode.DeletingZone;
         }
 
         private bool canSelect() {

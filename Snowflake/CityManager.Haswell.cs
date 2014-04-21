@@ -142,6 +142,25 @@ namespace Snowflake {
 
         public static void OnLoad()
         {
+            foreach (RenderableBuilding b in Buildings.Values)
+            {
+                b.Dispose();
+            }
+            Buildings.Clear();
+            foreach (RenderablePlot p in Plots.Values)
+            {
+                p.Dispose();
+            }
+            Plots.Clear();
+            foreach (Plot p in Haswell.Controller.City.Grid)
+            {
+                if (p.Building != null) {
+                    if (p.Building is Road) { Buildings[p.Building] = new RenderableRoad((Road)p.Building); }
+                    else { Buildings[p.Building] = new RenderableBuilding(p.Building); }
+                }
+                Plots[p] = new RenderablePlot(p);
+                Plots[p].Create(SceneMgr, cityNode);
+            }
             GameConsole.ActiveInstance.WriteLine("Game Loaded.");
             GuiMgr.AddInfoPopup("Game Loaded.");
         }

@@ -9,7 +9,7 @@ namespace Haswell {
     /// Class Plot.
     /// </summary>
     [Serializable]
-    public class Plot : IComparable<Plot>,ISerializable {
+    public class Plot : IComparable<Plot>, ISerializable {
 
         private Zones zone = Zones.Unzoned;
         private ResourceDict resource;
@@ -20,8 +20,7 @@ namespace Haswell {
         internal InfiniteGrid grid;
         internal List<Plot> hookedPlots;
 
-        public event EventHandler ZoneChanged
-        {
+        public event EventHandler ZoneChanged {
             add { _zoneChanged += value; }
             remove { _zoneChanged -= value; }
         }
@@ -30,8 +29,7 @@ namespace Haswell {
         /// <summary>
         /// Occurs when a building is deleted
         /// </summary>
-        public event EventHandler<BuildingEventArgs> BuildingDeleted
-        {
+        public event EventHandler<BuildingEventArgs> BuildingDeleted {
             add { _buildingDeleted += value; }
             remove { _buildingDeleted -= value; }
         }
@@ -40,8 +38,7 @@ namespace Haswell {
         /// <summary>
         /// Occurs when a building is added
         /// </summary>
-        public event EventHandler<BuildingEventArgs> BuildingAdded
-        {
+        public event EventHandler<BuildingEventArgs> BuildingAdded {
             add { _buildingAdded += value; }
             remove { _buildingAdded -= value; }
         }
@@ -50,8 +47,7 @@ namespace Haswell {
         /// <summary>
         /// Occurs when an adjacent plot fires a BuildingAdded event
         /// </summary>
-        public event EventHandler<BuildingEventArgs> AdjacentBuildingChanged
-        {
+        public event EventHandler<BuildingEventArgs> AdjacentBuildingChanged {
             add { _adjacentBuildingChanged += value; }
             remove { _adjacentBuildingChanged -= value; }
         }
@@ -77,11 +73,9 @@ namespace Haswell {
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        private void initialize(int x, int y)
-        {
+        private void initialize(int x, int y) {
             this.hookedPlots = new List<Plot>();
-            this.BuildingAdded += (object sender, BuildingEventArgs e) =>
-            {
+            this.BuildingAdded += (object sender, BuildingEventArgs e) => {
                 e.Building.UpdateFacing();
             };
 
@@ -91,12 +85,9 @@ namespace Haswell {
             UpdateAdjacentEventHandlers();
         }
 
-        internal void UpdateAdjacentEventHandlers()
-        {
-            foreach (Plot p in GetAdjacentPlots().Values)
-            {
-                if (!p.hookedPlots.Contains(this))
-                {
+        internal void UpdateAdjacentEventHandlers() {
+            foreach (Plot p in GetAdjacentPlots().Values) {
+                if (!p.hookedPlots.Contains(this)) {
                     p.BuildingAdded += InvokeAdjacentEvent;
                     p.UpdateAdjacentEventHandlers();
                     p.InvokeAdjacentEvent(this, new BuildingEventArgs(this.Building));
@@ -105,8 +96,7 @@ namespace Haswell {
             }
         }
 
-        internal void InvokeAdjacentEvent(object sender, BuildingEventArgs e)
-        {
+        internal void InvokeAdjacentEvent(object sender, BuildingEventArgs e) {
             if (_adjacentBuildingChanged != null) { _adjacentBuildingChanged.Invoke(sender, e); }
         }
 
@@ -151,58 +141,52 @@ namespace Haswell {
                 this.building.Update(this.resource);
             UpdateCityResources(cityResources);
         }
-        public void UpdateDaily(ResourceDict cityResources) {
+        public void UpdateDaily() {
             if (this.Building != null)
                 this.building.UpdateDaily(this.resource);
         }
-        public void UpdateWeekly(ResourceDict cityResources) {
+        public void UpdateWeekly() {
             if (this.Building != null)
                 this.building.UpdateWeekly(this.resource);
         }
-        public void UpdateMonthly(ResourceDict cityResources) {
+        public void UpdateMonthly() {
             if (this.Building != null)
                 this.building.UpdateMonthly(this.resource);
         }
-        public void UpdateQuarterly(ResourceDict cityResources) {
+        public void UpdateQuarterly() {
             if (this.Building != null)
                 this.building.UpdateQuarterly(this.resource);
         }
-        public void UpdateBiannually(ResourceDict cityResources) {
+        public void UpdateBiannually() {
             if (this.Building != null)
                 this.building.UpdateBiannually(this.resource);
         }
-        public void UpdateYearly(ResourceDict cityResources) {
+        public void UpdateYearly() {
             if (this.Building != null)
                 this.building.UpdateYearly(this.resource);
         }
 
         private void UpdateCityResources(ResourceDict cityResources) {
+            System.Diagnostics.Debug.WriteLine(this.resource);
             cityResources += this.resource;
         }
 
-        public Dictionary<Direction, Plot> GetAdjacentPlots()
-        {
+        public Dictionary<Direction, Plot> GetAdjacentPlots() {
             Dictionary<Direction, Plot> adj = new Dictionary<Direction, Plot>();
             InfiniteGrid _grid;
 
-            if (this.grid != null) { _grid = this.grid; }
-            else { _grid = Controller.City.Grid; }
+            if (this.grid != null) { _grid = this.grid; } else { _grid = Controller.City.Grid; }
 
-            foreach (Plot p in _grid.GetNeighbors(this))
-            {
-                if (p.X > X)
-                { //+X direction, or North
+            foreach (Plot p in _grid.GetNeighbors(this)) {
+                if (p.X > X) { //+X direction, or North
                     adj[Direction.North] = p;
-                }
-                else if (p.X < X) //-X direction, or South
+                } else if (p.X < X) //-X direction, or South
                 {
                     adj[Direction.South] = p;
-                }
-                else if (p.Y > Y) //+Y direction, or East
+                } else if (p.Y > Y) //+Y direction, or East
                 {
                     adj[Direction.East] = p;
-                }
-                else if (p.Y < Y) //-Y direction, or West
+                } else if (p.Y < Y) //-Y direction, or West
                 {
                     adj[Direction.West] = p;
                 }
@@ -262,7 +246,7 @@ namespace Haswell {
         }
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) {
-            
+
         }
     }
 }

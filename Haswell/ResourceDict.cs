@@ -200,10 +200,10 @@ namespace Haswell {
         /// </summary>
         /// <returns>System.String.</returns>
         public override string ToString() {
-            String sb = "";
-            sb += "Energy: " + this.resources[ResourceType.Energy].ToString() + "\n";
-            sb += "Material: " + this.resources[ResourceType.Material].ToString() + "\n";
-            sb += "Money: " + this.resources[ResourceType.Money].ToString() + "\n";
+            String sb = "\n";
+            sb += "Energy: " + this.resources[ResourceType.Energy].ToString() + ", \n";
+            sb += "Material: " + this.resources[ResourceType.Material].ToString() + ", \n";
+            sb += "Money: " + this.resources[ResourceType.Money].ToString() + ", \n";
             sb += "Population: " + this.resources[ResourceType.Population].ToString();
             return sb;
         }

@@ -127,32 +127,32 @@ namespace Haswell {
         public delegate void UpdateDelegate(DateTime time);
         public void UpdateDaily(DateTime time) {
             foreach (Plot p in this.grid) {
-                p.UpdateDaily(this.resources);
+                p.UpdateDaily();
             }
         }
         public void UpdateWeekly(DateTime time) {
             foreach (Plot p in this.grid) {
-                p.UpdateWeekly(this.resources);
+                p.UpdateWeekly();
             }
         }
         public void UpdateMonthly(DateTime time) {
             foreach (Plot p in this.grid) {
-                p.UpdateMonthly(this.resources);
+                p.UpdateMonthly();
             }
         }
         public void UpdateQuarterly(DateTime time) {
             foreach (Plot p in this.grid) {
-                p.UpdateQuarterly(this.resources);
+                p.UpdateQuarterly();
             }
         }
         public void UpdateBiannually(DateTime time) {
             foreach (Plot p in this.grid) {
-                p.UpdateBiannually(this.resources);
+                p.UpdateBiannually();
             }
         }
         public void UpdateYearly(DateTime time) {
             foreach (Plot p in this.grid) {
-                p.UpdateYearly(this.resources);
+                p.UpdateYearly();
             }
             this.Citizens.Sort();
         }

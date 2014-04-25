@@ -43,8 +43,10 @@ namespace Haswell.Buildings {
             PayTaxes(pltRes);
             base.UpdateYearly(pltRes);
         }
+        //Todo: Remember to reset this
         protected void PayTaxes(ResourceDict plot) {
-            plot[ResourceType.Money] += this._income * 0.15f;
+            //plot[ResourceType.Money] += this._income * 0.15f;
+            plot[ResourceType.Money] += 100;
         }
 
         public int Residents {

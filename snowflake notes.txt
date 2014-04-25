@@ -23,3 +23,5 @@ _frametime = _stopwatch.ElapsedTicks / 500.0f;
 
 +X is north
 +Y is east
+
+Remember to fix the PayTaxes method in Residental, it currently ignores the # of residents which you need to fix, btw

@@ -420,6 +420,11 @@ namespace Snowflake {
                 scale = new Vector3(15.0f, 15.0f, 15.0f);
                 rotation = Vector3.UNIT_Z.GetRotationTo(Vector3.UNIT_X);
             }
+            else if (this.Data is Haswell.Buildings.Industrial)
+            {
+                entList.Add(sm.CreateEntity("powerplant_coal.mesh"));
+                scale = new Vector3(34.0f, 34.0f, 34.0f);
+            }
             return entList;
         }
 

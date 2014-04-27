@@ -188,11 +188,10 @@ namespace Haswell {
         /// <param name="r2">The r2.</param>
         /// <returns>The result of the operator.</returns>
         public static ResourceDict operator +(ResourceDict r1, ResourceDict r2) {
-            ResourceDict rd = new ResourceDict();
             foreach (ResourceType type in Enum.GetValues(typeof(ResourceType))) {
-                rd[type] = r1[type] + r2[type];
+                r1[type] = r1[type] + r2[type];
             }
-            return rd;
+            return r1;
         }
 
         /// <summary>

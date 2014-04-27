@@ -425,6 +425,12 @@ namespace Snowflake {
                 entList.Add(sm.CreateEntity("powerplant_coal.mesh"));
                 scale = new Vector3(34.0f, 34.0f, 34.0f);
             }
+            else if (this.Data is Haswell.Buildings.Infrastructure)
+            {
+                entList.Add(sm.CreateEntity("infrastructure_townhall.mesh"));
+                scale = new Vector3(34.0f, 34.0f, 34.0f);
+                baseRotation = new Quaternion(Mogre.Math.PI, Vector3.UNIT_Y);
+            }
             return entList;
         }
 

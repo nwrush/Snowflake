@@ -1,0 +1,60 @@
+material "infrastructure_02_-_Default"
+{
+	technique infrastructure_02_-_Default_technique
+	{
+		pass infrastructure_02_-_Default_Ambient
+		{
+			ambient 0.592157 0.592157 0.592157 1
+			diffuse 0.592157 0.592157 0.592157 1
+			specular 1 1 1 0.0 0.0
+			emissive 0 0 0 1
+		}
+		pass infrastructure_02_-_Default_Light
+		{
+			ambient 0.592157 0.592157 0.592157 1
+			diffuse 0.592157 0.592157 0.592157 1
+			specular 1 1 1 0.0 0.0
+			emissive 0 0 0 1
+
+			scene_blend add
+
+			iteration once_per_light
+
+			illumination_stage per_light
+			depth_write off
+			vertex_program_ref infrastructure_vsLightGENNORM0
+			{
+			}
+			fragment_program_ref infrastructure_fpLightGENSPEC0NORM0
+			{
+				param_named normalMul float 1.29
+			}
+
+			texture_unit infrastructure_02_-_Default_Specular#0
+			{
+				texture infrastructure_concrete.png
+				tex_coord_set 0
+				colour_op modulate
+			}
+
+			texture_unit infrastructure_02_-_Default_Normal#1
+			{
+				texture infrastructure_concrete.png
+				tex_coord_set 0
+				mipmap_bias -1
+				colour_op modulate
+			}
+		}
+	}
+	technique infrastructure_02_-_Default_basic_technique
+	{
+	scheme basic_mat
+		pass infrastructure_02_-_Default_standard
+		{
+			ambient 0.592157 0.592157 0.592157 1
+			diffuse 0.592157 0.592157 0.592157 1
+			specular 1 1 1 0.0 0.0
+			emissive 0 0 0 1
+		}
+	}
+}

@@ -167,7 +167,6 @@ namespace Haswell {
         }
 
         private void UpdateCityResources(ResourceDict cityResources) {
-            System.Diagnostics.Debug.WriteLine(this.resource);
             cityResources += this.resource;
         }
 

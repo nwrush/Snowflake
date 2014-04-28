@@ -167,7 +167,11 @@ namespace Haswell {
         }
 
         private void UpdateCityResources(ResourceDict cityResources) {
-            cityResources = cityResources + this.resource;
+            if (this.resource != ResourceDict.Zero) {
+                cityResources.Add(this.resource);
+                this.resource = ResourceDict.Zero;
+            }
+
         }
 
         public Dictionary<Direction, Plot> GetAdjacentPlots() {

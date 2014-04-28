@@ -181,17 +181,16 @@ namespace Haswell {
         }
         #endregion
 
-        /// <summary>
-        /// Implements the operator +.
-        /// </summary>
-        /// <param name="r1">The r1.</param>
-        /// <param name="r2">The r2.</param>
-        /// <returns>The result of the operator.</returns>
-        public static ResourceDict operator +(ResourceDict r1, ResourceDict r2) {
+        public void Add(ResourceDict r1) {
             foreach (ResourceType type in Enum.GetValues(typeof(ResourceType))) {
-                r1[type] = r1[type] + r2[type];
+                this[type] = this[type] + r1[type];
             }
-            return r1;
+        }
+
+        public static ResourceDict Zero {
+            get {
+                return new ResourceDict();
+            }
         }
 
         /// <summary>

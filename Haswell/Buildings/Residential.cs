@@ -24,7 +24,6 @@ namespace Haswell.Buildings {
             base.Update(pltRes);
         }
         public override void UpdateDaily(ResourceDict pltRes) {
-            PayTaxes(pltRes);
             base.UpdateDaily(pltRes);
         }
         public override void UpdateWeekly(ResourceDict pltRes) {

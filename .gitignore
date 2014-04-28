@@ -2,7 +2,12 @@
 [Oo]bj/
 NetworkTest/
 
-#Project Specific Binary Files
+#Visual Studio Publish files and stuff
+*.pfx
+*.config
+*.publish
+
+#Project Specific Binary Filess
 *.city
 
 # mstest test results

@@ -252,7 +252,12 @@ namespace Snowflake.States {
         }
         public MouseMode GetMouseMode() { return this.mouseMode; }
         public void SetCursorBuilding(RenderableBuilding rb) {
+            if (this.tempBuilding != null)
+            {
+                this.tempBuilding.Dispose();
+            }
             this.tempBuilding = rb;
+            this.GuiMgr.SetCurrentCursorBuilding(rb);
         }
 
         private void CancelCurrentAction()
@@ -313,10 +318,13 @@ namespace Snowflake.States {
             UpdateScratchZoneBoxZone(CityManager.scratchZoneType);
         }
 
-        private void CancelBuildingPlacement()
+        public void CancelBuildingPlacement()
         {
-            this.tempBuilding.Dispose();
-            this.tempBuilding = null;
+            if (this.tempBuilding != null)
+            {
+                this.tempBuilding.Dispose();
+                this.tempBuilding = null;
+            }
             this.GuiMgr.HideBuildingPlacementPanel();
         }
 

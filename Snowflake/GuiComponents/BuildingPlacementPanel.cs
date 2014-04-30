@@ -47,7 +47,7 @@ namespace Snowflake.GuiComponents
             if (b != null && b != this.renderBldg)
             {
                 this.renderBldg = b;
-                renderNode.RemoveAndDestroyAllChildren();
+                renderNode.DetachAllObjects();
 
                 List<Entity> ents = b.entities;
 

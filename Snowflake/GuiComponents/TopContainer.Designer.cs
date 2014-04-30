@@ -187,22 +187,6 @@ namespace Snowflake.GuiComponents {
                     buildToolbar.Hide();
                 }
             });
-            buildToolbar.AddButton("New Building", new PictureButton("TC_buttonNewBldng")
-            {
-                Size = new Size(boxsize, boxsize),
-                Skin = ResourceManager.Skins["ClearButtonSkin"],
-                Text = "NEW BUILDING",
-                TextStyle = new TextStyle()
-                {
-                    ForegroundColour = Colours.White,
-                    Alignment = Alignment.BottomCenter,
-                    Font = ResourceManager.Fonts["Section"]
-                },
-                Padding = new Thickness(0, 0, 0, 8),
-                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewBuilding"],
-                PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
-                PictureSize = new Size(64, 64)
-            });
             buildToolbar.AddButton("Create Road", new PictureButton("TC_buttonDrawRoad")
             {
                 Size = new Size(120, 120),
@@ -223,6 +207,22 @@ namespace Snowflake.GuiComponents {
                     CityManager.SetMouseMode(States.MouseMode.DrawingRoad);
                     buildToolbar.Hide();
                 }
+            });
+            buildToolbar.AddButton("New Building", new PictureButton("TC_buttonNewBldng")
+            {
+                Size = new Size(boxsize, boxsize),
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Text = "NEW BUILDING",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.White,
+                    Alignment = Alignment.BottomCenter,
+                    Font = ResourceManager.Fonts["Section"]
+                },
+                Padding = new Thickness(0, 0, 0, 8),
+                Picture = ResourceManager.Skins["Tools"].SubSkins["Tools.Build.NewBuilding"],
+                PictureOffset = new Point((boxsize - 64) / 2, (boxsize - 64) / 2),
+                PictureSize = new Size(64, 64)
             });
             buildToolbar.CreateGui(gui);
 

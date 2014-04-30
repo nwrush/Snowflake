@@ -254,7 +254,7 @@ namespace Snowflake {
             zoneNode.SetVisible(false);
 
             selectionBoxNode = cityNode.CreateChildSceneNode();
-            Entity selectionBoxEnt = sm.CreateEntity("selectionbox.mesh");
+            Entity selectionBoxEnt = sm.CreateEntity("selectionbox.mesh", "coolmesh" + DateTime.Now.Ticks);
 
             selectionBoxNode.AttachObject(selectionBoxEnt);
             selectionBoxNode.SetScale(new Vector3(473.0f, 473.0f, 473.0f));

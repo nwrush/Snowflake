@@ -295,7 +295,7 @@ namespace Snowflake.States {
 
         private void OnMouseModeChanged(MouseMode oldMouseMode, MouseMode newMouseMode)
         {
-            if (oldMouseMode == MouseMode.PlacingBuilding)
+            if (oldMouseMode == MouseMode.PlacingBuilding && newMouseMode != MouseMode.PlacingBuilding)
             {
                 CancelBuildingPlacement();
             }

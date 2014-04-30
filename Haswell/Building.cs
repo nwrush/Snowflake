@@ -5,16 +5,13 @@ using System.Text;
 
 namespace Haswell {
     [Serializable]
-    public abstract class Building {
+    public abstract class Building : ICloneable {
 
         protected readonly Zones _zone;
         protected Direction _facing;
         private Plot parent;
 
-        //Todo: Implement this into the constructor and init function
-        protected Dictionary<ResourceType, int> resourceChanges;
-        public event EventHandler<BuildingEventArgs> Deleted
-        {
+        public event EventHandler<BuildingEventArgs> Deleted {
             add { _deleted += value; }
             remove { _deleted -= value; }
         }
@@ -22,11 +19,8 @@ namespace Haswell {
         private EventHandler<BuildingEventArgs> _deleted;
 
         protected bool Initialized;
-        protected Building(Zones zone) : this(new Dictionary<ResourceType, int>(), zone) { }
-        protected Building(Dictionary<ResourceType, int> resource, Zones zone) 
-        {
+        protected Building(Zones zone) {
             this._zone = zone;
-            this.resourceChanges = resource;
             this.Initialized = true;
             this.Deleted += OnDeleted;
         }
@@ -60,8 +54,7 @@ namespace Haswell {
             return adj;
         }
 
-        public event EventHandler WeeklyUpdate
-        {
+        public event EventHandler WeeklyUpdate {
             add { _weeklyUpdate += value; }
             remove { _weeklyUpdate -= value; }
         }
@@ -76,7 +69,7 @@ namespace Haswell {
 
         public virtual void UpdateHour(ResourceDict plotResources) { }
         public virtual void UpdateDaily(ResourceDict plotResources) { }
-        public virtual void UpdateWeekly(ResourceDict plotResources) { 
+        public virtual void UpdateWeekly(ResourceDict plotResources) {
             if (_weeklyUpdate != null) { _weeklyUpdate.Invoke(this, new EventArgs()); }
             UpdateFacing();
         }
@@ -85,19 +78,14 @@ namespace Haswell {
         public virtual void UpdateBiannually(ResourceDict plotResources) { }
         public virtual void UpdateYearly(ResourceDict plotResources) { }
 
-        private void OnAdjacent(object sender, BuildingEventArgs e)
-        {
+        private void OnAdjacent(object sender, BuildingEventArgs e) {
             UpdateFacing();
         }
-        public virtual void UpdateFacing()
-        {
+        public virtual void UpdateFacing() {
             Dictionary<Direction, Building> adj = GetAdjacentBuildings();
-            if (adj.Values.OfType<Road>().Count() > 0)
-            {
-                foreach (KeyValuePair<Direction,Building> kvp in adj)
-                {
-                    if (kvp.Value is Road)
-                    {
+            if (adj.Values.OfType<Road>().Count() > 0) {
+                foreach (KeyValuePair<Direction, Building> kvp in adj) {
+                    if (kvp.Value is Road) {
                         this._facing = kvp.Key;
                         return;
                     }
@@ -147,5 +135,7 @@ namespace Haswell {
                 if (this.parent != null) { this.parent.AdjacentBuildingChanged += OnAdjacent; }
             }
         }
+
+        public abstract object Clone();
     }
 }

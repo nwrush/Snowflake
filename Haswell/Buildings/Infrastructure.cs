@@ -32,5 +32,9 @@ namespace Haswell.Buildings {
         public override void UpdateYearly(ResourceDict plotResources) {
             base.UpdateYearly(plotResources);
         }
+
+        public override object Clone() {
+            throw new NotImplementedException();
+        }
     }
 }

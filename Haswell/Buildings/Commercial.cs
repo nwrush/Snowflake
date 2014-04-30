@@ -12,11 +12,6 @@ namespace Haswell.Buildings {
 
         public Commercial() : base(Zones.Commercial) { }
 
-        public Commercial(Dictionary<ResourceType, int> r)
-            : base(r, Zones.Commercial) {
-            this.resourceChanges.Add(ResourceType.Money, 100);
-        }
-
         public override void Update(ResourceDict plotResources) {
             base.Update(plotResources);
         }
@@ -37,6 +32,10 @@ namespace Haswell.Buildings {
         }
         public override void UpdateYearly(ResourceDict plotResources) {
             base.UpdateYearly(plotResources);
+        }
+
+        public override object Clone() {
+            throw new NotImplementedException();
         }
     }
 }

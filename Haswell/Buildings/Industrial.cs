@@ -10,16 +10,16 @@ namespace Haswell.Buildings {
             : base(Zones.Industrial) {
 
         }
-        public override void Update(ResourceDict plotResources) { 
+        public override void Update(ResourceDict plotResources) {
             base.Update(plotResources);
         }
-        public override void UpdateDaily(ResourceDict plotResources) { 
+        public override void UpdateDaily(ResourceDict plotResources) {
             base.UpdateDaily(plotResources);
         }
-        public override void UpdateWeekly(ResourceDict plotResources) { 
+        public override void UpdateWeekly(ResourceDict plotResources) {
             base.UpdateWeekly(plotResources);
         }
-        public override void UpdateMonthly(ResourceDict plotResources) { 
+        public override void UpdateMonthly(ResourceDict plotResources) {
             base.UpdateMonthly(plotResources);
         }
         public override void UpdateQuarterly(ResourceDict plotResources) {
@@ -28,8 +28,12 @@ namespace Haswell.Buildings {
         public override void UpdateBiannually(ResourceDict plotResources) {
             base.UpdateBiannually(plotResources);
         }
-        public override void UpdateYearly(ResourceDict plotResources) { 
+        public override void UpdateYearly(ResourceDict plotResources) {
             base.UpdateYearly(plotResources);
+        }
+
+        public override object Clone() {
+            throw new NotImplementedException();
         }
     }
 }

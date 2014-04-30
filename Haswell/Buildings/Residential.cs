@@ -5,19 +5,30 @@ using System.Text;
 
 namespace Haswell.Buildings {
     [Serializable]
-    public class Residential : Building, IBuilding {
+    public class Residential : Building, IBuilding, ICloneable {
 
         private int _residents;
         private float _income;
 
         public Residential()
             : base(Zones.Residential) {
-            this.resourceChanges.Add(ResourceType.Money, 100);
         }
         public Residential(int residents, float income)
             : base(Zones.Residential) {
             this._residents = residents;
             this._income = income;
+        }
+        /// <summary>
+        /// Constructor for the Clone Function
+        /// </summary>
+        /// <param name="r">The building to create a copy from.</param>
+        protected Residential(Residential r)
+            : base(Zones.Residential) {
+            this._facing = r.Facing;
+            this._income = r._income;
+            this._residents = r._residents;
+            this.Parent = r.Parent;
+            this.Initialized = r.Initialized;
         }
 
         public override void Update(ResourceDict pltRes) {
@@ -55,6 +66,10 @@ namespace Haswell.Buildings {
             set {
                 this._residents = value;
             }
+        }
+
+        public override object Clone() {
+            return new Residential(this);
         }
     }
 }

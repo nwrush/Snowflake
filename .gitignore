@@ -9,6 +9,7 @@ NetworkTest/
 
 #Project Specific Binary Filess
 *.city
+Depends/
 
 # mstest test results
 TestResults

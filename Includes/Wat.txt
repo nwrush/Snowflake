@@ -1,0 +1,1 @@
+This folder contains dlls, pdbs, and related items that will be copied into the project directory on compile.

@@ -10,6 +10,12 @@ namespace Haswell.Buildings {
             : base(Zones.Infrastructure) {
 
         }
+        protected Infrastructure(Infrastructure i)
+            : base(Zones.Infrastructure) {
+            this._facing = i.Facing;
+            this.Parent = i.Parent;
+            this.Initialized = i.Initialized;
+        }
 
         public override void Update(ResourceDict plotResources) {
             base.Update(plotResources);
@@ -34,7 +40,7 @@ namespace Haswell.Buildings {
         }
 
         public override object Clone() {
-            throw new NotImplementedException();
+            return new Infrastructure(this);
         }
     }
 }

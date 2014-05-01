@@ -12,6 +12,13 @@ namespace Haswell.Buildings {
 
         public Commercial() : base(Zones.Commercial) { }
 
+        protected Commercial(Commercial c)
+            : base(Zones.Commercial) {
+            this._facing = c.Facing;
+            this.Parent = c.Parent;
+            this.Initialized = c.Initialized;
+        }
+
         public override void Update(ResourceDict plotResources) {
             base.Update(plotResources);
         }
@@ -35,7 +42,7 @@ namespace Haswell.Buildings {
         }
 
         public override object Clone() {
-            throw new NotImplementedException();
+            return new Commercial(this);
         }
     }
 }

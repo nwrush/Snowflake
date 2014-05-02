@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Haswell.Buildings {
     [Serializable]
     public class Infrastructure : Building {
         public Infrastructure()
             : base(Zones.Infrastructure) {
-
         }
         protected Infrastructure(Infrastructure i)
             : base(Zones.Infrastructure) {

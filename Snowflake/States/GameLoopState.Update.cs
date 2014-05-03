@@ -102,9 +102,7 @@ namespace Snowflake.States {
 
                     if (canPlaceBuilding()) {
                         //Do a little reflection to be able to pass the type of the cursor building into the generic method
-                        MethodInfo method = typeof(CityManager).GetMethod("NewBuilding");
-                        MethodInfo newBuilding = method.MakeGenericMethod(this.tempBuilding.Data.GetType());
-                        newBuilding.Invoke(null, new object[] { this.tempBuilding.PlotX, this.tempBuilding.PlotY });
+                        CityManager.NewBuilding(this.tempBuilding.PlotX, this.tempBuilding.PlotY, this.tempBuilding.Data);
                         gConsole.WriteLine("Placing building...");
 
                         if (!input.IsKeyDown(KeyCode.KC_LSHIFT)) {

@@ -211,7 +211,7 @@ namespace Snowflake.States {
                 else {
                     int x, y;
                     if (Int32.TryParse(args[0], out x) && Int32.TryParse(args[1], out y)) {
-                        CityManager.NewBuilding<Haswell.Buildings.Commercial>(x, y);
+                        CityManager.NewBuilding(x, y, new Haswell.Buildings.Commercial());
                         return;
                     }
                     else {

@@ -32,7 +32,7 @@ namespace Snowflake.GuiComponents {
                 BorderStyle = {
                     Thickness = new Thickness(4, 24, 4, 4)
                 },
-                Skin = ResourceManager.Skins["BlackPanelSkin"],
+                Skin = ResourceManager.Skins["WindowSkin"],
                 TextStyle = new TextStyle {
                     Alignment = Alignment.TopCenter
                 }

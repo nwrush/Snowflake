@@ -300,20 +300,26 @@ namespace Snowflake.States {
         }
 
         private void UpdateSelectionBox() {
-            Vector3 center = (CityManager.GetPlotCenter(CityManager.SelectionBox.Left, CityManager.SelectionBox.Top)
-                + CityManager.GetPlotCenter(CityManager.SelectionBox.Right, CityManager.SelectionBox.Bottom))
-                 * 0.5f;
-            selectionBox.SetPosition(center.x, center.y, center.z);
-            selectionBox.SetScale(CityManager.SelectionBox.Width * SCALEFACTOR + SCALEFACTOR, SCALEFACTOR / 2.0f, CityManager.SelectionBox.Height * SCALEFACTOR + SCALEFACTOR);
-            selectionBox.SetVisible(true);
+            if (CityManager.SelectionIsValid())
+            {
+                Vector3 center = (CityManager.GetPlotCenter(CityManager.SelectionBox.Left, CityManager.SelectionBox.Top)
+                    + CityManager.GetPlotCenter(CityManager.SelectionBox.Right, CityManager.SelectionBox.Bottom))
+                     * 0.5f;
+                selectionBox.SetPosition(center.x, center.y, center.z);
+                selectionBox.SetScale(CityManager.SelectionBox.Width * SCALEFACTOR + SCALEFACTOR, SCALEFACTOR / 2.0f, CityManager.SelectionBox.Height * SCALEFACTOR + SCALEFACTOR);
+                selectionBox.SetVisible(true);
+            }
         }
         private void UpdateScratchZoneBox() {
-            Vector3 center = (CityManager.GetPlotCenter(CityManager.scratchZoneBox.Left, CityManager.scratchZoneBox.Top)
-                + CityManager.GetPlotCenter(CityManager.scratchZoneBox.Right, CityManager.scratchZoneBox.Bottom))
-                 * 0.5f;
-            scratchZone.SetPosition(center.x, center.y + 1.0f, center.z);
-            scratchZone.SetScale(CityManager.scratchZoneBox.Width + 1, 1.0f, CityManager.scratchZoneBox.Height + 1);
-            scratchZone.SetVisible(true);
+            if (CityManager.ScratchZoneIsValid())
+            {
+                Vector3 center = (CityManager.GetPlotCenter(CityManager.scratchZoneBox.Left, CityManager.scratchZoneBox.Top)
+                    + CityManager.GetPlotCenter(CityManager.scratchZoneBox.Right, CityManager.scratchZoneBox.Bottom))
+                     * 0.5f;
+                scratchZone.SetPosition(center.x, center.y + 1.0f, center.z);
+                scratchZone.SetScale(CityManager.scratchZoneBox.Width + 1, 1.0f, CityManager.scratchZoneBox.Height + 1);
+                scratchZone.SetVisible(true);
+            }
         }
         public void UpdateScratchZoneBoxZone(Zones z) {
             scratchZoneEnt.GetSubEntity(0).SetMaterial(

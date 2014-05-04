@@ -11,6 +11,7 @@ namespace Haswell {
 
         private string name;
         private InfiniteGrid grid;
+        private Weather weather;
 
         private List<Links> pipes;
         private List<Person> Citizens;
@@ -18,6 +19,8 @@ namespace Haswell {
         private ResourceDict resources;
 
         public event EventHandler<BuildingEventArgs> BuildingCreated;
+
+        public Weather Weather { get { return weather; } }
 
         /// <summary>
         /// Creates a city and initialize's it with the given sides
@@ -32,6 +35,7 @@ namespace Haswell {
 
             this.pipes = new List<Links>();
             this.Citizens = new List<Person>();
+            this.weather = new Weather();
 
             initResources();
         }

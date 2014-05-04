@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Snowflake.Modules;
 
@@ -9,25 +10,50 @@ using Miyagi.Common.Data;
 using Miyagi.UI;
 using Miyagi.UI.Controls;
 
+using Haswell;
+
+using Snowflake.GuiComponents.Windows;
+
 namespace Snowflake.GuiComponents {
     public partial class ContextMenu : IGuiComponent {
 
-        private List<Control> items;
+        private Dictionary<string, ContextMenuItem> items;
         private static int i;
 
         public ContextMenu() {
-            items = new List<Control>();
+            items = new Dictionary<string, ContextMenuItem>();
         }
 
         public void Initialize() {
             this.Visible = false;
+
+            this.AddButton("Properties", (object sender, EventArgs e) =>
+            {
+                int i = 0;
+                foreach (Building b in CityManager.GetSelectedBuildings())
+                {
+                    BuildingPropertiesWindow bpw = new BuildingPropertiesWindow(b);
+                    bpw.CreateGui(this.parentPanel.GUI);
+                    bpw.Location += new Point(i * 24, i * 24);
+                    ++i;
+                }
+            });
+        }
+
+        public void ShowControl(string name)
+        {
+            if (items.ContainsKey(name)) { items[name].Visible = true; }
+        }
+        public void HideControl(string name)
+        {
+            if (items.ContainsKey(name)) { items[name].Visible = false; }
         }
 
         /// <summary>
         /// Add a control to this context menu (usually a button)
         /// </summary>
         /// <param name="c">The control to add to this menu</param>
-        public void AddControl(Control c) {
+        public void AddControl(Control c, string name) {
             int height = 0;
             foreach (Control ctrl in parentPanel.Controls) { height += ctrl.Height; }
             if (c.Width > parentPanel.Width) {
@@ -40,7 +66,7 @@ namespace Snowflake.GuiComponents {
             c.Top = height;
             parentPanel.Height = height + c.Height;
 
-            items.Add(c);
+            items.Add(name, new ContextMenuItem() { Control = c, Name = name });
             parentPanel.Controls.Add(c);
 
             if (c is Button) { c.Click += contextMenuClick; }
@@ -51,15 +77,18 @@ namespace Snowflake.GuiComponents {
         /// </summary>
         /// <param name="c">Control to remove</param>
         public void RemoveControl(Control c) {
-            c.Dispose();
-            parentPanel.Controls.Remove(c);
-            parentPanel.Height = parentPanel.Height - c.Height;
-            if (parentPanel.Height <= 0)
+            if (items.ContainsKey(c.Name))
             {
-                parentPanel.Height = 200;
+                c.Dispose();
+                parentPanel.Controls.Remove(c);
+                parentPanel.Height = parentPanel.Height - c.Height;
+                if (parentPanel.Height <= 0)
+                {
+                    parentPanel.Height = 200;
+                }
+                items.Remove(c.Name);
+                c.Click -= contextMenuClick;
             }
-            items.Remove(c);
-            c.Click -= contextMenuClick;
         }
 
         /// <summary>
@@ -75,7 +104,7 @@ namespace Snowflake.GuiComponents {
                 Padding = new Thickness(5, 0, 5, 0)
             };
             b.Click += clickEvent;
-            this.AddControl(b);
+            this.AddControl(b, text);
         }
 
         /// <summary>
@@ -118,5 +147,11 @@ namespace Snowflake.GuiComponents {
         public bool HitTest(Point p) {
             return parentPanel.HitTest(p);
         }
+    }
+
+    class ContextMenuItem {
+        public string Name;
+        public bool Visible { get { return Control.Visible; } set { Control.Visible = value; } }
+        public Control Control;
     }
 }

@@ -9,6 +9,7 @@ using Miyagi.UI.Controls;
 using Miyagi.UI.Controls.Styles;
 
 using Snowflake.GuiComponents;
+using Snowflake.GuiComponents.Windows;
 
 namespace Snowflake {
     public class GuiManager {
@@ -21,6 +22,7 @@ namespace Snowflake {
         private ContextMenu contextMenu;
         private TopContainer topContainer;
         private BuildingPlacementPanel bldgPlacePanel;
+        private WeatherInfoWindow weatherInfo;
 
         #region Properties
 
@@ -54,8 +56,9 @@ namespace Snowflake {
             bcWindow = new BuildingCreationWindow();
             topContainer = new TopContainer();
             bldgPlacePanel = new BuildingPlacementPanel();
+            weatherInfo = new WeatherInfoWindow();
 
-            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow, bldgPlacePanel});
+            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow, bldgPlacePanel, weatherInfo});
 
             Gui = new GUI();
             GuiSystem.GUIManager.GUIs.Add(Gui);
@@ -89,6 +92,11 @@ namespace Snowflake {
                 }
                 ContextMenu.Visible = false;
             });*/
+        }
+
+        public void ShowWeatherPanel()
+        {
+            weatherInfo.Show();
         }
 
         public GUI GetGui()

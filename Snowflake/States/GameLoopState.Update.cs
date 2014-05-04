@@ -226,16 +226,11 @@ namespace Snowflake.States {
                         CityManager.MakeSelection();
 
                         if (CityManager.GetSelectedBuildings().Count > 0) {
-                            ContextMenu.AddButton("Properties...", (object sender, EventArgs e) => {
-                                int i = 0;
-                                foreach (Building b in CityManager.GetSelectedBuildings()) {
-                                    BuildingPropertiesWindow bpw = new BuildingPropertiesWindow(b);
-                                    bpw.CreateGui(this.GuiMgr.GetGui());
-                                    bpw.Location += new Point(i * 24, i * 24);
-                                    ++i;
-                                }
-                                ContextMenu.RemoveButton("Properties...");
-                            });
+                            ContextMenu.ShowControl("Properties");
+                        }
+                        else
+                        {
+                            ContextMenu.HideControl("Properties");
                         }
                     }
                     CityManager.ClearSelection();

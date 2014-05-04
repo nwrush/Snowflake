@@ -11,8 +11,14 @@ namespace TEST {
         static void Main(string[] args) {
             Haswell.Controller.init("Help");
 
-            Point p = new Point(12, 12);
-            Console.WriteLine(p);
+            Haswell.Controller.City.SetZoning(new Point(-10, -10), new Point(10, 10), Zones.Residential);
+            Haswell.Controller.City.CreateBuilding(0, 0, new Haswell.Buildings.Residential());
+            Haswell.Controller.Update(1f);
+
+            List<Haswell.Building> buildings = Haswell.Controller.City.GetAllInSelection(-10, -10, 10, 10);
+            Haswell.BuildingLoad.saveResidential((Haswell.Buildings.Residential)buildings[0]);
+
+            Console.WriteLine("All Done");
             Console.ReadKey();
         }
     }

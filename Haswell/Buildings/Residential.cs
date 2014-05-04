@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
 
 namespace Haswell.Buildings {
     [Serializable]
@@ -68,7 +67,7 @@ namespace Haswell.Buildings {
                 this._residents = value;
             }
         }
-
+        [Obsolete("Are you sure you need to use this?")]
         public override object Clone() {
             return new Residential(this);
         }

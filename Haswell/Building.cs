@@ -135,7 +135,7 @@ namespace Haswell {
                 if (this.parent != null) { this.parent.AdjacentBuildingChanged += OnAdjacent; }
             }
         }
-
+        [Obsolete("Are you sure you need to use this?")]
         public abstract object Clone();
     }
 }

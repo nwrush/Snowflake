@@ -40,7 +40,7 @@ namespace Haswell.Buildings {
         public override void UpdateYearly(ResourceDict plotResources) {
             base.UpdateYearly(plotResources);
         }
-
+        [Obsolete("Are you sure you need to use this?")]
         public override object Clone() {
             return new Commercial(this);
         }

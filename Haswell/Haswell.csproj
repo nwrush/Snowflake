@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="BackgroundThread.cs" />
     <Compile Include="Building.cs" />
+    <Compile Include="BuildingLoad.cs" />
     <Compile Include="Buildings\Commercial.cs" />
     <Compile Include="Events\SerializationEventArgs.cs" />
     <Compile Include="Facing.cs" />

@@ -81,6 +81,10 @@ namespace Snowflake.GuiComponents {
                     Font = ResourceManager.Fonts["Section"],
                     Alignment = Alignment.BottomCenter,
                     ForegroundColour = Colours.White
+                },
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.GuiMgr.ShowWeatherPanel();
                 }
             };
 

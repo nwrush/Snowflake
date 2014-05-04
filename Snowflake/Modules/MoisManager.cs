@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 using MOIS;
 
@@ -86,7 +87,7 @@ namespace Snowflake.Modules
             }
             catch (AccessViolationException e)
             {
-
+                Debug.WriteLine(e.Message);
             }
 			if (mInputMgr == null)
 				return false;

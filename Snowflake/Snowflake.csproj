@@ -124,6 +124,10 @@
     <Compile Include="GuiComponents\Windows\BuildingCreationWindow.Designer.cs">
       <DependentUpon>BuildingCreationWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="GuiComponents\Windows\WeatherInfoWindow.cs" />
+    <Compile Include="GuiComponents\Windows\WeatherInfoWindow.Designer.cs">
+      <DependentUpon>WeatherInfoWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="GuiComponents\Windows\BuildingPropertiesWindow.cs" />
     <Compile Include="GuiComponents\Windows\BuildingPropertiesWindow.Designer.cs">
       <DependentUpon>BuildingPropertiesWindow.cs</DependentUpon>

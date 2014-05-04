@@ -63,7 +63,8 @@ namespace Haswell {
         public void CreateBuilding(int x, int y, Building b) {
 
             if (grid.ElementAt(x, y).AddBuilding(b)) { //Zone check already happens in AddBuilding
-                BuildingCreated.Invoke(this, new BuildingEventArgs(b));
+                if (BuildingCreated != null) 
+                    BuildingCreated.Invoke(this, new BuildingEventArgs(b));
                 return;
             }
 
@@ -217,19 +218,6 @@ namespace Haswell {
                 }
             }
             return selected;
-        }
-
-        /// <summary>
-        /// Zones the selected plots with the given zone
-        /// </summary>
-        /// <param name="zone">The zone.</param>
-        /// <param name="topLeft">The top left.</param>
-        /// <param name="bottomRight">The bottom right.</param>
-        public void ZoneArea(Zones zone, System.Drawing.Point topLeft, System.Drawing.Point bottomRight) {
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(topLeft.X, topLeft.Y, topLeft.X - bottomRight.X, topLeft.Y - bottomRight.Y);
-            for (City c = new City(""); c.grid != null; c.Name += "") {
-
-            }
         }
 
         void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) {

@@ -22,6 +22,8 @@ namespace Snowflake.GuiComponents.Windows
         Label cloudinessLabel;
         ProgressBar fogginessBar;
         Label fogginessLabel;
+        ProgressBar raininessBar;
+        Label raininessLabel;
 
         public override void CreateGui(GUI gui)
         {
@@ -61,7 +63,7 @@ namespace Snowflake.GuiComponents.Windows
                     Multiline = false,
                     Font = ResourceManager.Fonts["Section"]
                 },
-                Location = new Point(35, 34)
+                Location = new Point(35, 32)
             };
             fogginessBar = new ProgressBar()
             {
@@ -93,9 +95,41 @@ namespace Snowflake.GuiComponents.Windows
                     Multiline = false,
                     Font = ResourceManager.Fonts["Section"]
                 },
-                Location = new Point(35, 69)
+                Location = new Point(35, 67)
             };
-            ParentPanel.Controls.AddRange(cloudinessBar, cloudinessLabel, fogginessBar, fogginessLabel);
+            raininessBar = new ProgressBar()
+            {
+                ProgressBarStyle = new ProgressBarStyle()
+                {
+                    Orientation = Orientation.Horizontal,
+                    Mode = ProgressBarMode.Continuous,
+                    Offset = new Point(1, 1)
+                },
+                Width = 150,
+                Height = 15,
+                Location = new Point(20, 85),
+                Skin = ResourceManager.Skins["ProgressBarHSkin"],
+                Min = 0,
+                Max = 1000,
+                BorderStyle = new BorderStyle()
+                {
+                    Thickness = new Thickness(1, 1, 1, 1)
+                }
+            };
+            raininessLabel = new Label()
+            {
+                Text = "PRECIPITATION RATE",
+                AutoSize = true,
+                TextStyle = new TextStyle()
+                {
+                    Alignment = Alignment.TopLeft,
+                    ForegroundColour = Colours.Black,
+                    Multiline = false,
+                    Font = ResourceManager.Fonts["Section"]
+                },
+                Location = new Point(35, 102)
+            };
+            ParentPanel.Controls.AddRange(cloudinessBar, cloudinessLabel, fogginessBar, fogginessLabel, raininessBar, raininessLabel);
         }
     }
 }

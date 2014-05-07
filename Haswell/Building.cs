@@ -120,11 +120,13 @@ namespace Haswell {
                 return this._zone;
             }
         }
+        [Newtonsoft.Json.JsonIgnore]
         public Direction Facing {
             get {
                 return this._facing;
             }
         }
+        [Newtonsoft.Json.JsonIgnore]
         public Plot Parent {
             get {
                 return this.parent;

@@ -17,6 +17,7 @@ namespace TEST {
 
             List<Haswell.Building> buildings = Haswell.Controller.City.GetAllInSelection(-10, -10, 10, 10);
             Haswell.BuildingLoad.saveResidential((Haswell.Buildings.Residential)buildings[0]);
+            Haswell.BuildingLoad.loadResidential();
 
             Console.WriteLine("All Done");
             Console.ReadKey();

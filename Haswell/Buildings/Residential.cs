@@ -67,6 +67,11 @@ namespace Haswell.Buildings {
                 this._residents = value;
             }
         }
+        public float Income {
+            get {
+                return this._income;
+            }
+        }
         [Obsolete("Are you sure you need to use this?")]
         public override object Clone() {
             return new Residential(this);

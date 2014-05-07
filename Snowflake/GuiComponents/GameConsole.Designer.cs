@@ -29,7 +29,7 @@ namespace Snowflake.GuiComponents {
             this.outputPanel = new Panel("GC_OutputPanel") {
                 TabStop = false,
                 TabIndex = 0,
-                Throwable = true,
+                Throwable = false,
                 Size = new Size(508, 360),
                 Movable = false,
                 ResizeMode = ResizeModes.None,

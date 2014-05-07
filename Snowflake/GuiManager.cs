@@ -23,6 +23,7 @@ namespace Snowflake {
         private TopContainer topContainer;
         private BuildingPlacementPanel bldgPlacePanel;
         private WeatherInfoWindow weatherInfo;
+        private BuildingSelectionWindow bldgSelectWindow;
 
         #region Properties
 
@@ -57,8 +58,9 @@ namespace Snowflake {
             topContainer = new TopContainer();
             bldgPlacePanel = new BuildingPlacementPanel();
             weatherInfo = new WeatherInfoWindow();
+            bldgSelectWindow = new BuildingSelectionWindow();
 
-            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow, bldgPlacePanel, weatherInfo});
+            GuiComponents.AddRange(new IGuiComponent[] { gConsole, topContainer, ctrlPanel, cityPanel,  debugPanel, contextMenu, bcWindow, bldgPlacePanel, weatherInfo, bldgSelectWindow});
 
             Gui = new GUI();
             GuiSystem.GUIManager.GUIs.Add(Gui);
@@ -123,6 +125,18 @@ namespace Snowflake {
         }
         public void ConsoleWrite(string text) {
             gConsole.WriteLine(text);
+        }
+        public void ShowBuildingSelectionWindow()
+        {
+            bldgSelectWindow.Visible = true;
+        }
+        public void HideBuildingSelectionWindow()
+        {
+            bldgSelectWindow.Visible = false;
+        }
+        public void SetBuildingSelectionActiveTab(string name)
+        {
+            bldgSelectWindow.FocusPage(name);
         }
 
         public void Update(float frametime) {

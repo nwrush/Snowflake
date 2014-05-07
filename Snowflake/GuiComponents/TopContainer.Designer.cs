@@ -273,7 +273,8 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Commercial());
+                    CityManager.GuiMgr.ShowBuildingSelectionWindow();
+                    CityManager.GuiMgr.SetBuildingSelectionActiveTab("Commercial");
                     buildToolbar.Hide();
                 }
             });

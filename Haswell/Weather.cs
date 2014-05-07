@@ -60,21 +60,30 @@ namespace Haswell {
         /// Gets the amount of cloud coverage
         /// </summary>
         /// <returns>A float between 0 and 1 where 0 is perfectly clear and 1 is completely overcast</returns>
-        public float GetCloudiness() {
-            double raw = (((M.Sin(x * (M.PI / 6) + 1.0) + 1.0 * M.Sin(x * (0.6666667 * M.PI) + 0.2)) / (4)) + 0.5);
+        public float GetCloudinessAverage() {
+            double raw = M.Sin(x * (M.PI / 6) + 1.0) / 4 + 0.5;
+            return FloatClamp(0.0f, 1.0f, raw);
+        }
+        public float GetCloudiness()
+        {
+            double raw = GetCloudinessAverage() + 0.28 * M.Sin(x * (0.6666667 * M.PI) + 0.2);
+            return FloatClamp(0.0f, 1.0f, raw);
+        }
+        /// <summary>
+        /// Gets the expected fog density for this time of year
+        /// </summary>
+        /// <returns>A float between 0 and 1 where 0 is no fog and 1 is pea soup</returns>
+        public float GetFogginessAverage() {
+            double raw = M.Max(M.Max(M.Sin(x * (2 * M.PI / 12.0) + (5 * M.PI / 12)), 0.0) * -M.Sin(x * (2 * M.PI / 3.0)), 0.0);
             return FloatClamp(0.0f, 1.0f, raw);
         }
         /// <summary>
         /// Gets the fog density
         /// </summary>
         /// <returns>A float between 0 and 1 where 0 is no fog and 1 is pea soup</returns>
-        public float GetFogginessChance() {
-            double raw = M.Max(M.Max(M.Sin(x * (2 * M.PI / 12.0) + (5 * M.PI / 12)), 0.0) * -M.Sin(x * (2 * M.PI / 3.0)), 0.0);
-            return FloatClamp(0.0f, 1.0f, raw);
-        }
         public float GetFogginess()
         {
-            double raw = GetFogginessChance() * M.Max(M.Sin(x * 12.78283472 + 0.1357472), 0);
+            double raw = GetFogginessAverage() * M.Max(M.Sin(x * 12.78283472 + 0.1357472), 0);
             return FloatClamp(0.0f, 1.0f, raw);
         }
         /// <summary>
@@ -92,13 +101,24 @@ namespace Haswell {
             return 0.0f;
         }
         /// <summary>
+        /// Gets the expected temperature for this time of year.
+        /// This number is on a scale of -1 to 1. -1 is the coldest any place will ever get, and 1 is the hottest.
+        /// 0 is the freezing point of water.
+        /// Most places will never go below a -0.3 or above a 0.7, and a place like Washington will hover around 0.4.
+        /// </summary>
+        /// <returns>A float between -1 and 1 where -1 is Russian Winter and 1 is Saharah Desert</returns>
+        public float GetTemperatureAverage() {
+            return 0.0f;
+        }
+        /// <summary>
         /// Gets the current temperature.
         /// This number is on a scale of -1 to 1. -1 is the coldest any place will ever get, and 1 is the hottest.
         /// 0 is the freezing point of water.
         /// Most places will never go below a -0.3 or above a 0.7, and a place like Washington will hover around 0.4.
         /// </summary>
         /// <returns>A float between -1 and 1 where -1 is Russian Winter and 1 is Saharah Desert</returns>
-        public float GetTemperature() {
+        public float GetTemperature()
+        {
             return 0.0f;
         }
         /// <summary>

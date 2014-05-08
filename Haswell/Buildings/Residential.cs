@@ -77,4 +77,9 @@ namespace Haswell.Buildings {
             return new Residential(this);
         }
     }
+    public enum ResidentialTypes {
+        thing1,
+        thing2,
+        things
+    };
 }

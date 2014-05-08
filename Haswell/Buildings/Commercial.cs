@@ -45,4 +45,9 @@ namespace Haswell.Buildings {
             return new Commercial(this);
         }
     }
+    public enum CommercialTypes {
+        thing1,
+        thing2,
+        thing3
+    };
 }

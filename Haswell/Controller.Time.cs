@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Haswell {
-    public static partial class Controller {
+namespace Haswell
+{
+    public static partial class Controller
+    {
 
         public static float Time { get; private set; }
         public static float Timescale { get; private set; }
@@ -17,7 +19,8 @@ namespace Haswell {
 
         public static DateTime CurrentTime { get; private set; }
 
-        public static void SetTimescale(float timescale) {
+        public static void SetTimescale(float timescale)
+        {
             Timescale = timescale;
         }
     }

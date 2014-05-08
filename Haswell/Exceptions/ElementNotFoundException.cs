@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell {
+namespace Haswell
+{
     /// <summary>
     /// Class ElementNotFoundException.
     /// </summary>
     [Serializable]
-    public class ElementNotFoundException : Exception {
+    public class ElementNotFoundException : Exception
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementNotFoundException"/> class.
         /// </summary>

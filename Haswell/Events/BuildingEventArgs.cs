@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell {
+namespace Haswell
+{
     /// <summary>
     /// Class BuildingEventArgs.
     /// </summary>
-    public class BuildingEventArgs : EventArgs {
+    public class BuildingEventArgs : EventArgs
+    {
 
         /// <summary>
         /// Gets the building.
@@ -18,7 +20,8 @@ namespace Haswell {
         /// Initializes a new instance of the <see cref="BuildingEventArgs"/> class.
         /// </summary>
         /// <param name="b">The b.</param>
-        public BuildingEventArgs(Building b) {
+        public BuildingEventArgs(Building b)
+        {
             this.Building = b;
         }
     }

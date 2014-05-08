@@ -8,14 +8,17 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Haswell {
+namespace Haswell
+{
     public delegate void Serialized();
-    public static partial class Controller {
+    public static partial class Controller
+    {
 
         private static City activeCity;
         private static BackgroundThread backgroundThread;
 
-        public static void init(string name) {
+        public static void init(string name)
+        {
             activeCity = new City(name);
             System.IO.File.Delete("Snowflake.log");
             backgroundThread = new BackgroundThread();
@@ -24,7 +27,8 @@ namespace Haswell {
             Timescale = 100.0f;
         }
 
-        public static void Update(float frametime) {
+        public static void Update(float frametime)
+        {
             activeCity.Update(frametime);
 
             //Time
@@ -34,27 +38,35 @@ namespace Haswell {
 
             CheckTimedUpdates(_prevTime, CurrentTime);
         }
-        private static void CheckTimedUpdates(DateTime _prevTime, DateTime time) {
-            if (_prevTime.Day != time.Day) {
+        private static void CheckTimedUpdates(DateTime _prevTime, DateTime time)
+        {
+            if (_prevTime.Day != time.Day)
+            {
                 backgroundThread.Events.Enqueue(UpdateDaily);
             }
-            if (_prevTime.DayOfWeek != time.DayOfWeek && time.DayOfWeek == DayOfWeek.Monday) {
+            if (_prevTime.DayOfWeek != time.DayOfWeek && time.DayOfWeek == DayOfWeek.Monday)
+            {
                 backgroundThread.Events.Enqueue(UpdateWeekly);
             }
-            if (_prevTime.Month != time.Month) {
+            if (_prevTime.Month != time.Month)
+            {
                 backgroundThread.Events.Enqueue(UpdateMonthly);
             }
-            if (CheckQuarterly(_prevTime, time)) {
+            if (CheckQuarterly(_prevTime, time))
+            {
                 backgroundThread.Events.Enqueue(UpdateQuarterly);
             }
-            if ((time.Month == 1 || time.Month == 6) && time.Month != _prevTime.Month) {
+            if ((time.Month == 1 || time.Month == 6) && time.Month != _prevTime.Month)
+            {
                 backgroundThread.Events.Enqueue(UpdateBiannually);
             }
-            if (_prevTime.Year != time.Year) {
+            if (_prevTime.Year != time.Year)
+            {
                 backgroundThread.Events.Enqueue(UpdateYearly);
             }
         }
-        private static bool CheckQuarterly(DateTime _prevTime, DateTime _time) {
+        private static bool CheckQuarterly(DateTime _prevTime, DateTime _time)
+        {
             if (_time.Month == _prevTime.Month)
                 return false;
 
@@ -71,27 +83,34 @@ namespace Haswell {
         }
 
         public delegate void UpdateDelegate(DateTime time);
-        private static void UpdateDaily(DateTime time) {
+        private static void UpdateDaily(DateTime time)
+        {
             activeCity.UpdateDaily(time);
         }
-        private static void UpdateWeekly(DateTime time) {
+        private static void UpdateWeekly(DateTime time)
+        {
             activeCity.UpdateWeekly(time);
         }
-        private static void UpdateMonthly(DateTime time) {
+        private static void UpdateMonthly(DateTime time)
+        {
             activeCity.UpdateMonthly(time);
         }
-        private static void UpdateQuarterly(DateTime time) {
+        private static void UpdateQuarterly(DateTime time)
+        {
             activeCity.UpdateQuarterly(time);
         }
-        private static void UpdateBiannually(DateTime time) {
+        private static void UpdateBiannually(DateTime time)
+        {
             activeCity.UpdateBiannually(time);
         }
-        private static void UpdateYearly(DateTime time) {
+        private static void UpdateYearly(DateTime time)
+        {
             activeCity.UpdateYearly(time);
         }
 
         [Obsolete("Do Not Call this function")]
-        public static void LogError(Exception e) {
+        public static void LogError(Exception e)
+        {
             String msg = "\"" + e.Message + "\"";
             msg += " " + "\"" + e.StackTrace + "\"";
             Process p = new Process();
@@ -103,7 +122,8 @@ namespace Haswell {
         /// <summary>
         /// Saves a copy of the current city to City.bin
         /// </summary>
-        public static void Save() {
+        public static void Save()
+        {
             return;
             //BinaryFormatter serializer = new BinaryFormatter();
             //Stream stream = new FileStream("TSPI.city", FileMode.Create, FileAccess.Write, FileShare.None);
@@ -116,7 +136,8 @@ namespace Haswell {
         /// <summary>
         /// Load a copy of the city from a binary file
         /// </summary>
-        public static void Load() {
+        public static void Load()
+        {
             //return;
             BinaryFormatter deserializer = new BinaryFormatter();
             //Todo: Better way to get the name of the city
@@ -126,18 +147,24 @@ namespace Haswell {
             OnDeserialized.Invoke();
         }
 
-        public static City City {
-            get {
+        public static City City
+        {
+            get
+            {
                 return activeCity;
             }
         }
-        public static float ChanceThatThisProgramBecomesSkynet {
-            get {
+        public static float ChanceThatThisProgramBecomesSkynet
+        {
+            get
+            {
                 return 0.0000001f;
             }
         }
-        public static BackgroundThread BackgroundThread {
-            get {
+        public static BackgroundThread BackgroundThread
+        {
+            get
+            {
                 return backgroundThread;
             }
         }

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell {
+namespace Haswell
+{
     /// <summary>
     /// Class ResourceDict.
     /// </summary>
     [Serializable]
-    public class ResourceDict : IDictionary<ResourceType, float> {
+    public class ResourceDict : IDictionary<ResourceType, float>
+    {
         /// <summary>
         /// The resources
         /// </summary>
@@ -17,7 +19,8 @@ namespace Haswell {
         /// <summary>
         /// Initializes a new ResourceDict using the default values
         /// </summary>
-        public ResourceDict() {
+        public ResourceDict()
+        {
             this.resources = new Dictionary<ResourceType, float>();
             this.resources.Add(ResourceType.Money, 0);
             this.resources.Add(ResourceType.Population, 0);
@@ -28,7 +31,8 @@ namespace Haswell {
         /// Initializes a new Resource Dict from a Dictionary of Resource Types
         /// </summary>
         /// <param name="r">The dictionary to use in creation</param>
-        public ResourceDict(Dictionary<ResourceType, float> r) {
+        public ResourceDict(Dictionary<ResourceType, float> r)
+        {
             this.resources = new Dictionary<ResourceType, float>(r);
         }
 
@@ -38,7 +42,8 @@ namespace Haswell {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
-        public void Add(ResourceType key, float value) {
+        public void Add(ResourceType key, float value)
+        {
             resources.Add(key, value);
         }
 
@@ -46,7 +51,8 @@ namespace Haswell {
         /// Determines whether the specified key contains key.
         /// </summary>
         /// <param name="key">The key.</param>
-        public bool ContainsKey(ResourceType key) {
+        public bool ContainsKey(ResourceType key)
+        {
             return this.resources.ContainsKey(key);
         }
 
@@ -54,7 +60,8 @@ namespace Haswell {
         /// Gets the keys.
         /// </summary>
         /// <value>The keys.</value>
-        public ICollection<ResourceType> Keys {
+        public ICollection<ResourceType> Keys
+        {
             get { return this.resources.Keys; }
         }
 
@@ -63,7 +70,8 @@ namespace Haswell {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>System.Boolean.</returns>
-        public bool Remove(ResourceType key) {
+        public bool Remove(ResourceType key)
+        {
             return this.resources.Remove(key);
         }
 
@@ -73,7 +81,8 @@ namespace Haswell {
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>System.Boolean.</returns>
-        public bool TryGetValue(ResourceType key, out float value) {
+        public bool TryGetValue(ResourceType key, out float value)
+        {
             return this.resources.TryGetValue(key, out value);
         }
 
@@ -81,7 +90,8 @@ namespace Haswell {
         /// Gets the values.
         /// </summary>
         /// <value>The values.</value>
-        public ICollection<float> Values {
+        public ICollection<float> Values
+        {
             get { return this.resources.Values; }
         }
 
@@ -90,11 +100,14 @@ namespace Haswell {
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>System.Single.</returns>
-        public float this[ResourceType key] {
-            get {
+        public float this[ResourceType key]
+        {
+            get
+            {
                 return this.resources[key];
             }
-            set {
+            set
+            {
                 this.resources[key] = value;
             }
         }
@@ -103,14 +116,16 @@ namespace Haswell {
         /// Adds the specified item.
         /// </summary>
         /// <param name="item">The item.</param>
-        public void Add(KeyValuePair<ResourceType, float> item) {
+        public void Add(KeyValuePair<ResourceType, float> item)
+        {
             this.resources.Add(item.Key, item.Value);
         }
 
         /// <summary>
         /// Clears this instance.
         /// </summary>
-        public void Clear() {
+        public void Clear()
+        {
             this.resources.Clear();
         }
 
@@ -118,7 +133,8 @@ namespace Haswell {
         /// Determines whether [contains] [the specified item].
         /// </summary>
         /// <param name="item">The item.</param>
-        public bool Contains(KeyValuePair<ResourceType, float> item) {
+        public bool Contains(KeyValuePair<ResourceType, float> item)
+        {
             return this.resources.Contains(item);
         }
 
@@ -127,7 +143,8 @@ namespace Haswell {
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">Index of the array.</param>
-        public void CopyTo(KeyValuePair<Type, float>[] array, int arrayIndex) {
+        public void CopyTo(KeyValuePair<Type, float>[] array, int arrayIndex)
+        {
             throw new NotImplementedException();
         }
 
@@ -135,7 +152,8 @@ namespace Haswell {
         /// Gets the count.
         /// </summary>
         /// <value>The count.</value>
-        public int Count {
+        public int Count
+        {
             get { return this.resources.Count; }
         }
 
@@ -143,7 +161,8 @@ namespace Haswell {
         /// Gets the is read only.
         /// </summary>
         /// <value>The is read only.</value>
-        public bool IsReadOnly {
+        public bool IsReadOnly
+        {
             get { return false; }
         }
 
@@ -152,7 +171,8 @@ namespace Haswell {
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>System.Boolean.</returns>
-        public bool Remove(KeyValuePair<ResourceType, float> item) {
+        public bool Remove(KeyValuePair<ResourceType, float> item)
+        {
             return this.resources.Remove(item.Key);
         }
 
@@ -160,7 +180,8 @@ namespace Haswell {
         /// Gets the enumerator.
         /// </summary>
         /// <returns>System.Collections.Generic.IEnumerator&lt;System.Collections.Generic.KeyValuePair&lt;Haswell.ResourceType,System.Single&gt;&gt;.</returns>
-        public IEnumerator<KeyValuePair<ResourceType, float>> GetEnumerator() {
+        public IEnumerator<KeyValuePair<ResourceType, float>> GetEnumerator()
+        {
             return this.resources.GetEnumerator();
         }
 
@@ -168,7 +189,8 @@ namespace Haswell {
         /// Gets the enumerator.
         /// </summary>
         /// <returns>System.Collections.IEnumerator.</returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
             return this.resources.GetEnumerator();
         }
         /// <summary>
@@ -176,7 +198,8 @@ namespace Haswell {
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">Index of the array.</param>
-        public void CopyTo(KeyValuePair<ResourceType, float>[] array, int arrayIndex) {
+        public void CopyTo(KeyValuePair<ResourceType, float>[] array, int arrayIndex)
+        {
             throw new NotImplementedException();
         }
         #endregion
@@ -187,8 +210,10 @@ namespace Haswell {
         /// <param name="r1">The r1.</param>
         /// <param name="r2">The r2.</param>
         /// <returns>The result of the operator.</returns>
-        public static ResourceDict operator +(ResourceDict r1, ResourceDict r2) {
-            foreach (ResourceType type in Enum.GetValues(typeof(ResourceType))) {
+        public static ResourceDict operator +(ResourceDict r1, ResourceDict r2)
+        {
+            foreach (ResourceType type in Enum.GetValues(typeof(ResourceType)))
+            {
                 r1[type] = r1[type] + r2[type];
             }
             return r1;
@@ -198,7 +223,8 @@ namespace Haswell {
         /// To the string.
         /// </summary>
         /// <returns>System.String.</returns>
-        public override string ToString() {
+        public override string ToString()
+        {
             String sb = "\n";
             sb += "Energy: " + this.resources[ResourceType.Energy].ToString() + ", \n";
             sb += "Material: " + this.resources[ResourceType.Material].ToString() + ", \n";

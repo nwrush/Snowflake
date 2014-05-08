@@ -5,12 +5,14 @@ using System.Text;
 using System.Drawing;
 using System.Runtime.Serialization;
 
-namespace Haswell {
+namespace Haswell
+{
     /// <summary>
     /// Class InfiniteGrid.
     /// </summary>
     [Serializable]
-    public class InfiniteGrid : ICollection<Plot>, IEnumerable<Plot>, ISerializable {
+    public class InfiniteGrid : ICollection<Plot>, IEnumerable<Plot>, ISerializable
+    {
         /// <summary>
         /// The elements
         /// </summary>
@@ -19,45 +21,59 @@ namespace Haswell {
         /// <summary>
         /// Initializes a new instance of the <see cref="InfiniteGrid"/> class.
         /// </summary>
-        public InfiniteGrid() {
+        public InfiniteGrid()
+        {
             elements = new Dictionary<Point, Plot>();
-            for (int r = -10; r <= 10; r++) {
-                for (int c = -10; c <= 10; c++) {
+            for (int r = -10; r <= 10; r++)
+            {
+                for (int c = -10; c <= 10; c++)
+                {
                     elements.Add(new Point(r, c), new Plot(r, c, this));
                 }
             }
         }
 
-        public Plot ElementAt(int x, int y, bool ensureExists = true) {
-            if (!elements.ContainsKey(new Point(x, y))) {
-                if (ensureExists) {
+        public Plot ElementAt(int x, int y, bool ensureExists = true)
+        {
+            if (!elements.ContainsKey(new Point(x, y)))
+            {
+                if (ensureExists)
+                {
                     Plot p = new Plot(x, y, this);
                     elements[new Point(x, y)] = p;
                     return p;
-                } else {
+                }
+                else
+                {
                     return null;
                 }
-            } else {
+            }
+            else
+            {
                 return elements[new Point(x, y)];
             }
         }
-        public bool Exists(int x, int y) {
+        public bool Exists(int x, int y)
+        {
             return elements.ContainsKey(new Point(x, y)) && elements[new Point(x, y)] != null;
         }
-        public Plot RemoveAt(int x, int y) {
+        public Plot RemoveAt(int x, int y)
+        {
             Plot tmp = elements[new Point(x, y)];
             elements.Remove(new Point(x, y));
             return tmp;
         }
 
-        public Plot[,] ToGrid() {
+        public Plot[,] ToGrid()
+        {
             Plot[,] tmp = null;
             makePlot(tmp);
             populateGrid(ref tmp);
             return tmp;
         }
 
-        public List<Plot> GetNeighbors(Plot p) {
+        public List<Plot> GetNeighbors(Plot p)
+        {
             List<Plot> neighbors = new List<Plot>();
             if (p != null)
             {
@@ -69,10 +85,12 @@ namespace Haswell {
             return neighbors;
         }
 
-        private void makePlot(Plot[,] t) {
+        private void makePlot(Plot[,] t)
+        {
             int lowX = 0, lowY = 0, highX = 0, highY = 0;
 
-            foreach (KeyValuePair<Point, Plot> kvp in this.elements) {
+            foreach (KeyValuePair<Point, Plot> kvp in this.elements)
+            {
                 Plot p = kvp.Value;
                 if (p.X > highX)
                     highX = p.X;
@@ -90,8 +108,10 @@ namespace Haswell {
         /// Populates the grid.
         /// </summary>
         /// <param name="t">The t.</param>
-        private void populateGrid(ref Plot[,] t) {
-            foreach (KeyValuePair<Point, Plot> kvp in this.elements) {
+        private void populateGrid(ref Plot[,] t)
+        {
+            foreach (KeyValuePair<Point, Plot> kvp in this.elements)
+            {
                 Plot p = kvp.Value;
                 t[p.X, p.Y] = p;
             }
@@ -107,11 +127,14 @@ namespace Haswell {
         /// Gets or sets the is read only.
         /// </summary>
         /// <value>The is read only.</value>
-        public bool IsReadOnly {
-            get {
+        public bool IsReadOnly
+        {
+            get
+            {
                 return this.isReadOnly;
             }
-            set {
+            set
+            {
                 this.isReadOnly = value;
             }
         }
@@ -120,10 +143,14 @@ namespace Haswell {
         /// Adds.
         /// </summary>
         /// <param name="e">The e.</param>
-        void ICollection<Plot>.Add(Plot e) {
-            if (elements[new Point(e.X, e.Y)] != null) {
+        void ICollection<Plot>.Add(Plot e)
+        {
+            if (elements[new Point(e.X, e.Y)] != null)
+            {
                 throw new ElementAlreadyExistsException();
-            } else {
+            }
+            else
+            {
                 elements[new Point(e.X, e.Y)] = e;
             }
         }
@@ -131,7 +158,8 @@ namespace Haswell {
         /// <summary>
         /// Clears.
         /// </summary>
-        void ICollection<Plot>.Clear() {
+        void ICollection<Plot>.Clear()
+        {
             this.elements.Clear();
         }
 
@@ -140,8 +168,10 @@ namespace Haswell {
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>System.Boolean.</returns>
-        bool ICollection<Plot>.Contains(Plot item) {
-            if (elements[new Point(item.X, item.Y)] != null) {
+        bool ICollection<Plot>.Contains(Plot item)
+        {
+            if (elements[new Point(item.X, item.Y)] != null)
+            {
                 if (item == elements[new Point(item.X, item.Y)]) { return true; }
             }
             return false;
@@ -152,7 +182,8 @@ namespace Haswell {
         /// </summary>
         /// <param name="array">The array.</param>
         /// <param name="arrayIndex">Index of the array.</param>
-        void ICollection<Plot>.CopyTo(Plot[] array, int arrayIndex) {
+        void ICollection<Plot>.CopyTo(Plot[] array, int arrayIndex)
+        {
             throw new NotImplementedException();
         }
 
@@ -160,7 +191,8 @@ namespace Haswell {
         /// Gets the count.
         /// </summary>
         /// <value>The count.</value>
-        int ICollection<Plot>.Count {
+        int ICollection<Plot>.Count
+        {
             get { return this.elements.Count; }
         }
 
@@ -168,7 +200,8 @@ namespace Haswell {
         /// Gets the is read only.
         /// </summary>
         /// <value>The is read only.</value>
-        bool ICollection<Plot>.IsReadOnly {
+        bool ICollection<Plot>.IsReadOnly
+        {
             get { return this.isReadOnly; }
         }
 
@@ -177,7 +210,8 @@ namespace Haswell {
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>System.Boolean.</returns>
-        bool ICollection<Plot>.Remove(Plot item) {
+        bool ICollection<Plot>.Remove(Plot item)
+        {
             this.elements.Remove(new Point(item.X, item.Y));
             return true;
         }
@@ -186,7 +220,8 @@ namespace Haswell {
         /// Gets the enumerator.
         /// </summary>
         /// <returns>System.Collections.Generic.IEnumerator&lt;Haswell.Plot&gt;.</returns>
-        IEnumerator<Plot> IEnumerable<Plot>.GetEnumerator() {
+        IEnumerator<Plot> IEnumerable<Plot>.GetEnumerator()
+        {
             return this.elements.Values.GetEnumerator();
         }
 
@@ -194,7 +229,8 @@ namespace Haswell {
         /// Gets the enumerator.
         /// </summary>
         /// <returns>System.Collections.IEnumerator.</returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() {
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
             return this.elements.GetEnumerator();
         }
         #endregion
@@ -205,7 +241,8 @@ namespace Haswell {
         /// <param name="topLeft">Top left corner of the selection</param>
         /// <param name="bottomRight">Bottom right corner of the selection</param>
         /// <returns>The list of selected plots</returns>
-        public List<Plot> GetAllInSelection(Point topLeft, Point bottomRight) {
+        public List<Plot> GetAllInSelection(Point topLeft, Point bottomRight)
+        {
             return this.GetAllInSelection(new Rectangle(topLeft.X, topLeft.Y, topLeft.X - bottomRight.X, topLeft.Y - bottomRight.Y));
         }
         /// <summary>
@@ -213,11 +250,14 @@ namespace Haswell {
         /// </summary>
         /// <param name="selection">The rectangle with the selection</param>
         /// <returns>The list of selected plots</returns>
-        public List<Plot> GetAllInSelection(Rectangle selection) {
+        public List<Plot> GetAllInSelection(Rectangle selection)
+        {
             //This method and the one above it is the worst thing I think I've ever written, fix it eventually
             List<Plot> tmp = new List<Plot>();
-            for (int r = selection.Left; r <= selection.Right; ++r) {
-                for (int c = selection.Bottom; c <= selection.Top; ++c) {
+            for (int r = selection.Left; r <= selection.Right; ++r)
+            {
+                for (int c = selection.Bottom; c <= selection.Top; ++c)
+                {
                     if (this.elements.ContainsKey(new Point(r, c)))
                         tmp.Add(this.elements[new Point(r, c)]);
                 }
@@ -225,7 +265,8 @@ namespace Haswell {
             return tmp;
         }
 
-        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) {
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
             info.AddValue("Elements", this.elements);
         }
     }

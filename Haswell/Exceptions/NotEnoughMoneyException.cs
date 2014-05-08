@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell.Exceptions {
+namespace Haswell.Exceptions
+{
     /// <summary>
     /// Class NotEnoughMoneyException.
     /// </summary>
     [Serializable]
-    public class NotEnoughMoneyException : Exception {
+    public class NotEnoughMoneyException : Exception
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="NotEnoughMoneyException"/> class.
         /// </summary>

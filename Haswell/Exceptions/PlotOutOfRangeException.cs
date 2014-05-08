@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell {
+namespace Haswell
+{
     /// <summary>
     /// Class PlotOutOfRangeException.
     /// </summary>
     [Serializable]
-    public class PlotOutOfRangeException : Exception {
+    public class PlotOutOfRangeException : Exception
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="PlotOutOfRangeException"/> class.
         /// </summary>

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell {
+namespace Haswell
+{
     /// <summary>
     /// Class ElementAlreadyExistsException.
     /// </summary>
     [Serializable]
-    public class ElementAlreadyExistsException : Exception {
+    public class ElementAlreadyExistsException : Exception
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="ElementAlreadyExistsException"/> class.
         /// </summary>

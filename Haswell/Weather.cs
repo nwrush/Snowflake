@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using M = System.Math;
 
-namespace Haswell {
+namespace Haswell
+{
     /// <summary>
     /// Weather Manager
     /// </summary>
-    public class Weather {
+    public class Weather
+    {
 
         private double x; //Time of year
 
@@ -46,21 +48,24 @@ namespace Haswell {
         /// <summary>
         /// Initializes a new instance of the <see cref="Weather"/> class.
         /// </summary>
-        public Weather() {
+        public Weather()
+        {
 
         }
 
         /// <summary>
         /// Something Something Alex write code here
         /// </summary>
-        public void Update() {
+        public void Update()
+        {
             x = (Controller.CurrentTime.Year + Controller.CurrentTime.DayOfYear / 365.0 + Controller.CurrentTime.Hour / (24.0 * 365.0) + Controller.CurrentTime.Minute / (60.0 * 24.0 * 365.0)) * 12.0;
         }
         /// <summary>
         /// Gets the amount of cloud coverage
         /// </summary>
         /// <returns>A float between 0 and 1 where 0 is perfectly clear and 1 is completely overcast</returns>
-        public float GetCloudinessAverage() {
+        public float GetCloudinessAverage()
+        {
             double raw = M.Sin(x * (M.PI / 6) + 1.0) / 4 + 0.5;
             return FloatClamp(0.0f, 1.0f, raw);
         }
@@ -73,7 +78,8 @@ namespace Haswell {
         /// Gets the expected fog density for this time of year
         /// </summary>
         /// <returns>A float between 0 and 1 where 0 is no fog and 1 is pea soup</returns>
-        public float GetFogginessAverage() {
+        public float GetFogginessAverage()
+        {
             double raw = M.Max(M.Max(M.Sin(x * (2 * M.PI / 12.0) + (5 * M.PI / 12)), 0.0) * -M.Sin(x * (2 * M.PI / 3.0)), 0.0);
             return FloatClamp(0.0f, 1.0f, raw);
         }
@@ -90,14 +96,16 @@ namespace Haswell {
         /// Gets the Unit Vector representing wind direction at the present time
         /// </summary>
         /// <returns>A pointF contanining the x and y components of the unit vector of the wind.</returns>
-        public System.Drawing.PointF GetWindDirection() {
+        public System.Drawing.PointF GetWindDirection()
+        {
             return new System.Drawing.PointF(0.0f, 0.0f);
         }
         /// <summary>
         /// Gets the current speed of the wind
         /// </summary>
         /// <returns>A float representing wind speed in whatever units.</returns>
-        public float GetWindSpeed() {
+        public float GetWindSpeed()
+        {
             return 0.0f;
         }
         /// <summary>
@@ -107,7 +115,8 @@ namespace Haswell {
         /// Most places will never go below a -0.3 or above a 0.7, and a place like Washington will hover around 0.4.
         /// </summary>
         /// <returns>A float between -1 and 1 where -1 is Russian Winter and 1 is Saharah Desert</returns>
-        public float GetTemperatureAverage() {
+        public float GetTemperatureAverage()
+        {
             return 0.0f;
         }
         /// <summary>
@@ -125,7 +134,8 @@ namespace Haswell {
         /// Gets the precipitation rate.
         /// </summary>
         /// <returns>System.Single.</returns>
-        public float GetPrecipitationChance() {
+        public float GetPrecipitationChance()
+        {
             double raw = M.Pow(M.Sin(x * (2 * M.PI / 24.0) + (5 * M.PI / 12.0)), 2.0);
             return FloatClamp(0.0f, 1.0f, raw);
         }

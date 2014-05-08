@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell.Exceptions {
+namespace Haswell.Exceptions
+{
     /// <summary>
     /// Class BuildingCreationFailedException.
     /// </summary>
     [Serializable]
-    public class BuildingCreationFailedException : Exception {
+    public class BuildingCreationFailedException : Exception
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="BuildingCreationFailedException"/> class.
         /// </summary>

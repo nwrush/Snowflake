@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell {
+namespace Haswell
+{
     /// <summary>
     /// Interface for methods that all top level buildings need to have
     /// </summary>
-    interface IBuilding {
+    interface IBuilding
+    {
         void UpdateDaily(ResourceDict plotResources);
         void UpdateWeekly(ResourceDict plotResources);
         void UpdateMonthly(ResourceDict plotResources);

@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Haswell.Exceptions {
+namespace Haswell.Exceptions
+{
     /// <summary>
     /// Class InvalidResourceAmountException.
     /// </summary>
     [System.Serializable]
-    public class InvalidResourceAmountException : System.Exception {
+    public class InvalidResourceAmountException : System.Exception
+    {
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidResourceAmountException"/> class.
         /// </summary>

@@ -5,9 +5,11 @@ using System.Text;
 using System.Drawing;
 using System.Runtime.Serialization;
 
-namespace Haswell {
+namespace Haswell
+{
     [Serializable]
-    public class City:ISerializable {
+    public class City : ISerializable
+    {
 
         private string name;
         private InfiniteGrid grid;
@@ -26,7 +28,8 @@ namespace Haswell {
         /// Creates a city and initialize's it with the given sides
         /// </summary>
         /// <param name="name">Name of the city</param>
-        public City(string name) {
+        public City(string name)
+        {
             //System.Media.SoundPlayer sp = new System.Media.SoundPlayer("../Media/a.wav");
             //System.Diagnostics.Debug.WriteLine("I REGRET NOTHING");
             //sp.PlayLooping();
@@ -42,7 +45,8 @@ namespace Haswell {
         /// <summary>
         /// Set the default resource value
         /// </summary>
-        private void initResources() {
+        private void initResources()
+        {
             this.resources = new ResourceDict();
             this.resources[ResourceType.Energy] = 10000;
             this.resources[ResourceType.Material] = 10000;
@@ -64,36 +68,57 @@ namespace Haswell {
         /// <typeparam name="T">The Type of Building to create</typeparam>
         /// <param name="x">The plot X of the building</param>
         /// <param name="y">The plot Y of the building</param>
-        public void CreateBuilding(int x, int y, Building b) {
-
-            if (grid.ElementAt(x, y).AddBuilding(b)) { //Zone check already happens in AddBuilding
-                if (BuildingCreated != null) 
+        private void CreateBuilding(int x, int y, Building b)
+        {
+            if (grid.ElementAt(x, y).AddBuilding(b))
+            { //Zone check already happens in AddBuilding
+                if (BuildingCreated != null)
                     BuildingCreated.Invoke(this, new BuildingEventArgs(b));
                 return;
             }
 
-            if (grid.ElementAt(x, y).Building != null) {
+            if (grid.ElementAt(x, y).Building != null)
+            {
                 throw new Exceptions.BuildingCreationFailedException("Unable to place building - there's already something there!");
-            } else if (grid.ElementAt(x, y).Zone != b.Zone) {
+            }
+            else if (grid.ElementAt(x, y).Zone != b.Zone)
+            {
                 throw new Exceptions.BuildingCreationFailedException("Cannot create this type of building in " + grid.ElementAt(x, y).Zone.ToString() + " plot!");
-            } else {
+            }
+            else
+            {
                 throw new Exceptions.BuildingCreationFailedException("Building creation failed");
             }
+        }
+        public void CreateBuilding(int x, int y, Buildings.ResidentialTypes r)
+        {
+            CreateBuilding(x, y, new Buildings.Residential(r));
+        }
+        public void CreateBuilding(int x, int y, Buildings.CommercialTypes c)
+        {
+            CreateBuilding(x, y, new Buildings.Commercial(c));
+        }
+        public void CreateBuilding(int x, int y, Buildings.IndustrialTypes i)
+        {
+            CreateBuilding(x, y, new Buildings.Industrial(i));
         }
         /// <summary>
         /// Called by Snowflake when the user requests the creation of a road
         /// </summary>
         /// <param name="x">The plot X of the road</param>
         /// <param name="y">The plot Y of the road</param>
-        public void CreateRoad(int x, int y) {
+        public void CreateRoad(int x, int y)
+        {
             Road r = new Road();
 
             grid.ElementAt(x, y).Zone = r.Zone;
 
-            if (grid.ElementAt(x, y).Building != null) {
+            if (grid.ElementAt(x, y).Building != null)
+            {
                 return;
             }
-            if (grid.ElementAt(x, y).AddBuilding(r)) {
+            if (grid.ElementAt(x, y).AddBuilding(r))
+            {
                 BuildingCreated.Invoke(this, new BuildingEventArgs(r));
                 return;
             }
@@ -104,15 +129,19 @@ namespace Haswell {
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="y">The y.</param>
-        public void DeleteBuilding(int x, int y) {
+        public void DeleteBuilding(int x, int y)
+        {
             grid.ElementAt(x, y).Delete();
         }
 
-        public void SetZoning(Point p1, Point p2, Zones z) {
+        public void SetZoning(Point p1, Point p2, Zones z)
+        {
             Point tl = new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y));
             Point br = new Point(Math.Max(p1.X, p2.X), Math.Max(p1.Y, p2.Y));
-            for (int x = tl.X; x <= br.X; ++x) {
-                for (int y = tl.Y; y <= br.Y; ++y) {
+            for (int x = tl.X; x <= br.X; ++x)
+            {
+                for (int y = tl.Y; y <= br.Y; ++y)
+                {
                     grid.ElementAt(x, y).Zone = z;
                 }
             }
@@ -122,54 +151,71 @@ namespace Haswell {
         /// Updates the specified gametime.
         /// </summary>
         /// <param name="gametime">The gametime.</param>
-        public void Update(float gametime) {
-            foreach (Plot p in grid) {
+        public void Update(float gametime)
+        {
+            foreach (Plot p in grid)
+            {
                 p.Update(this.resources);
             }
         }
 
         public delegate void UpdateDelegate(DateTime time);
-        public void UpdateDaily(DateTime time) {
-            foreach (Plot p in this.grid) {
+        public void UpdateDaily(DateTime time)
+        {
+            foreach (Plot p in this.grid)
+            {
                 p.UpdateDaily();
             }
         }
-        public void UpdateWeekly(DateTime time) {
-            foreach (Plot p in this.grid) {
+        public void UpdateWeekly(DateTime time)
+        {
+            foreach (Plot p in this.grid)
+            {
                 p.UpdateWeekly();
             }
         }
-        public void UpdateMonthly(DateTime time) {
-            foreach (Plot p in this.grid) {
+        public void UpdateMonthly(DateTime time)
+        {
+            foreach (Plot p in this.grid)
+            {
                 p.UpdateMonthly();
             }
         }
-        public void UpdateQuarterly(DateTime time) {
-            foreach (Plot p in this.grid) {
+        public void UpdateQuarterly(DateTime time)
+        {
+            foreach (Plot p in this.grid)
+            {
                 p.UpdateQuarterly();
             }
         }
-        public void UpdateBiannually(DateTime time) {
-            foreach (Plot p in this.grid) {
+        public void UpdateBiannually(DateTime time)
+        {
+            foreach (Plot p in this.grid)
+            {
                 p.UpdateBiannually();
             }
         }
-        public void UpdateYearly(DateTime time) {
-            foreach (Plot p in this.grid) {
+        public void UpdateYearly(DateTime time)
+        {
+            foreach (Plot p in this.grid)
+            {
                 p.UpdateYearly();
             }
             this.Citizens.Sort();
         }
 
-        public override string ToString() {
+        public override string ToString()
+        {
             return "City " + this.name + ", with a population of " + this.Resources[ResourceType.Population] + ".";
         }
         /// <summary>
         /// Gets the grid.
         /// </summary>
         /// <value>The grid.</value>
-        public InfiniteGrid Grid {
-            get {
+        public InfiniteGrid Grid
+        {
+            get
+            {
                 return this.grid;
             }
         }
@@ -177,8 +223,10 @@ namespace Haswell {
         /// Gets the resources.
         /// </summary>
         /// <value>The resources.</value>
-        public ResourceDict Resources {
-            get {
+        public ResourceDict Resources
+        {
+            get
+            {
                 return this.resources;
             }
         }
@@ -186,11 +234,14 @@ namespace Haswell {
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
-        public string Name {
-            get {
+        public string Name
+        {
+            get
+            {
                 return this.name;
             }
-            set {
+            set
+            {
                 this.name = value;
             }
         }
@@ -202,7 +253,8 @@ namespace Haswell {
         /// <param name="x2">The x2.</param>
         /// <param name="y2">The y2.</param>
         /// <returns>System.Collections.Generic.List&lt;Haswell.Building&gt;.</returns>
-        public List<Building> GetAllInSelection(int x1, int y1, int x2, int y2) {
+        public List<Building> GetAllInSelection(int x1, int y1, int x2, int y2)
+        {
             return this.GetAllInSelection(new Point(x1, y1), new Point(x2, y2));
         }
         /// <summary>
@@ -211,12 +263,16 @@ namespace Haswell {
         /// <param name="topLeft">The top left.</param>
         /// <param name="bottomRight">The bottom right.</param>
         /// <returns>System.Collections.Generic.List&lt;Haswell.Building&gt;.</returns>
-        public List<Building> GetAllInSelection(Point topLeft, Point bottomRight) {
+        public List<Building> GetAllInSelection(Point topLeft, Point bottomRight)
+        {
             List<Building> selected = new List<Building>();
 
-            for (int r = topLeft.X; r <= bottomRight.X; r++) {
-                for (int c = topLeft.Y; c <= bottomRight.Y; c++) {
-                    if (this.grid.ElementAt(r, c).Building != null) {
+            for (int r = topLeft.X; r <= bottomRight.X; r++)
+            {
+                for (int c = topLeft.Y; c <= bottomRight.Y; c++)
+                {
+                    if (this.grid.ElementAt(r, c).Building != null)
+                    {
                         selected.Add(this.grid.ElementAt(r, c).Building);
                     }
                 }
@@ -224,10 +280,11 @@ namespace Haswell {
             return selected;
         }
 
-        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context) {
+        void ISerializable.GetObjectData(SerializationInfo info, StreamingContext context)
+        {
             info.AddValue("City Name", name);
 
-            info.AddValue("Resource-Money",Resources[ResourceType.Money]);
+            info.AddValue("Resource-Money", Resources[ResourceType.Money]);
             info.AddValue("Resource-Pop", Resources[ResourceType.Population]);
             info.AddValue("Resource-Energy", Resources[ResourceType.Energy]);
             info.AddValue("Resource-Material", Resources[ResourceType.Material]);

@@ -42,4 +42,9 @@ namespace Haswell.Buildings {
             return new Industrial(this);
         }
     }
+    public enum IndustrialTypes {
+        thing1,
+        thing2,
+        thing3
+    };
 }

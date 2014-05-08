@@ -43,4 +43,9 @@ namespace Haswell.Buildings {
             return new Infrastructure(this);
         }
     }
+    public enum InfrastructureTypes {
+        thing1,
+        thing2,
+        thing3
+    };
 }

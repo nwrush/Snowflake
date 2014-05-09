@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using System.IO;
+using Newtonsoft.Json;
+
 namespace Haswell.Buildings
 {
     [Serializable]
     public class Residential : Building, IBuilding, ICloneable
     {
+        private const string RESIDENTIAL_1 = "Residential_1.json";
+        private const string RESIDENTIAL_2 = "Residential_2.json";
+        private const string RESIDENTIAL_3 = "Residential_3.json";
 
         private int _residents;
         private float _income;
@@ -19,8 +25,31 @@ namespace Haswell.Buildings
         public Residential(ResidentialTypes r)
             : base(Zones.Residential)
         {
-
+            Residential tmp;
+            tmp = JsonConvert.DeserializeObject<Residential>(GetResidentialTemplate(r));
+            this._income = tmp._income;
+            this._residents = tmp.Residents;
         }
+        private string GetResidentialTemplate(ResidentialTypes r)
+        {
+            string fileText = "";
+
+            switch (r)
+            {
+                case ResidentialTypes.Residential_1:
+                    fileText = File.OpenText(RESIDENTIAL_1).ReadToEnd();
+                    break;
+                case ResidentialTypes.Residential_2:
+                    fileText = File.OpenText(RESIDENTIAL_2).ReadToEnd();
+                    break;
+                case ResidentialTypes.Residential_3:
+                    fileText = File.OpenText(RESIDENTIAL_3).ReadToEnd();
+                    break;
+            }
+
+            return fileText;
+        }
+
         public Residential(int residents, float income)
             : base(Zones.Residential)
         {
@@ -103,8 +132,8 @@ namespace Haswell.Buildings
     }
     public enum ResidentialTypes
     {
-        thing1,
-        thing2,
-        things
+        Residential_1,
+        Residential_2,
+        Residential_3
     };
 }

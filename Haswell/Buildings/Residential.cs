@@ -9,12 +9,13 @@ using Newtonsoft.Json;
 namespace Haswell.Buildings
 {
     [Serializable]
-    public class Residential : Building, IBuilding, ICloneable
+    public class Residential : Building, IBuilding
     {
         private const string RESIDENTIAL_1 = "Residential_1.json";
         private const string RESIDENTIAL_2 = "Residential_2.json";
         private const string RESIDENTIAL_3 = "Residential_3.json";
 
+        private ResidentialTypes residentialType;
         private int _residents;
         private float _income;
 
@@ -25,6 +26,7 @@ namespace Haswell.Buildings
         public Residential(ResidentialTypes r)
             : base(Zones.Residential)
         {
+            this.residentialType = r;
             Residential tmp;
             tmp = JsonConvert.DeserializeObject<Residential>(GetResidentialTemplate(r));
             this._income = tmp._income;
@@ -124,10 +126,17 @@ namespace Haswell.Buildings
                 return this._income;
             }
         }
-        [Obsolete("Are you sure you need to use this?")]
-        public override object Clone()
+
+        public ResidentialTypes Type
         {
-            return new Residential(this);
+            get
+            {
+                return this.residentialType;
+            }
+            private set
+            {
+                this.residentialType = value;
+            }
         }
     }
     public enum ResidentialTypes

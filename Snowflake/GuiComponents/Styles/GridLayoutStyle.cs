@@ -10,11 +10,21 @@ namespace Snowflake.GuiComponents.Styles
 {
     public class GridLayoutStyle
     {
-        Skin CellSkin;
-        Thickness CellMargin;
-        Thickness CellPadding;
-        Thickness CellBorder;
-        bool AllowCellResize = true;
+        public Skin CellSkin;
+        public Thickness CellMargin;
+        public Thickness CellPadding;
+        public Thickness CellBorder;
+        public Size CellSize;
+        public bool AllowCellResize = true;
+        public GridLayoutSizeMode SizeMode = GridLayoutSizeMode.AutoFlow;
+
+        public GridLayoutStyle()
+        {
+            CellMargin = new Thickness(0, 0, 0, 0);
+            CellPadding = new Thickness(0, 0, 0, 0);
+            CellBorder = new Thickness(0, 0, 0, 0);
+            CellSize = new Size(16, 16);
+        }
 
     }
 

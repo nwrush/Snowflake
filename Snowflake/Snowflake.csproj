@@ -112,6 +112,7 @@
       <DependentUpon>InfoPopup.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiComponents\PictureButton.cs" />
+    <Compile Include="GuiComponents\Styles\GridLayoutStyle.cs" />
     <Compile Include="GuiComponents\TabPanel.cs" />
     <Compile Include="GuiComponents\TopContainer.cs" />
     <Compile Include="GuiComponents\TopContainer.Designer.cs">
@@ -130,6 +131,7 @@
       <DependentUpon>BuildingSelectionWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiComponents\Windows\ConfirmationWindow.cs" />
+    <Compile Include="GuiComponents\Windows\GridLayoutPanel.cs" />
     <Compile Include="GuiComponents\Windows\WeatherInfoWindow.cs" />
     <Compile Include="GuiComponents\Windows\WeatherInfoWindow.Designer.cs">
       <DependentUpon>WeatherInfoWindow.cs</DependentUpon>

@@ -5,6 +5,8 @@ using System.Text;
 
 using Snowflake.Modules;
 
+using Haswell.Buildings;
+
 using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.UI.Controls;
@@ -48,7 +50,7 @@ namespace Snowflake.GuiComponents.Windows
                 Dock = DockStyle.Fill
             };
 
-            residentialPanel = new Panel()
+            residentialPanel = new GridLayoutPanel()
             {
                 BorderStyle =
                 {
@@ -208,6 +210,16 @@ namespace Snowflake.GuiComponents.Windows
             tabs.AddPage(infrastructurePanel, "Infrastructure");
 
             ParentPanel.Controls.Add(tabs);
+
+
+            foreach (ResidentialTypes t in Enum.GetValues(typeof(ResidentialTypes)))
+            {
+                //Residential b = new Residential(t);
+                residentialPanel.Controls.Add(new Button()
+                {
+                    Text = t.ToString()
+                });
+            }
         }
     }
 }

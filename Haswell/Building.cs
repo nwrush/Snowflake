@@ -6,7 +6,7 @@ using System.Text;
 namespace Haswell
 {
     [Serializable]
-    public abstract class Building : ICloneable
+    public abstract class Building
     {
 
         protected readonly Zones _zone;
@@ -168,7 +168,5 @@ namespace Haswell
                 if (this.parent != null) { this.parent.AdjacentBuildingChanged += OnAdjacent; }
             }
         }
-        [Obsolete("Are you sure you need to use this?")]
-        public abstract object Clone();
     }
 }

@@ -49,11 +49,6 @@ namespace Haswell.Buildings
         {
             base.UpdateYearly(plotResources);
         }
-        [Obsolete("Are you sure you need to use this?")]
-        public override object Clone()
-        {
-            return new Infrastructure(this);
-        }
     }
     public enum InfrastructureTypes
     {

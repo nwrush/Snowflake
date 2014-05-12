@@ -11,13 +11,14 @@ namespace Haswell.Buildings
     [Serializable]
     public class Commercial : Building, IBuilding
     {
+        private CommercialTypes commercialType;
 
         public Commercial() : base(Zones.Commercial) { }
 
         public Commercial(CommercialTypes c)
             : base(Zones.Commercial)
         {
-
+            this.Type = commercialType;
         }
         protected Commercial(Commercial c)
             : base(Zones.Commercial)
@@ -55,10 +56,17 @@ namespace Haswell.Buildings
         {
             base.UpdateYearly(plotResources);
         }
-        [Obsolete("Are you sure you need to use this?")]
-        public override object Clone()
+
+        private CommercialTypes Type
         {
-            return new Commercial(this);
+            get
+            {
+                return this.commercialType;
+            }
+            set
+            {
+                this.commercialType = value;
+            }
         }
     }
     public enum CommercialTypes

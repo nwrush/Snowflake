@@ -90,7 +90,7 @@ namespace Haswell
                 throw new Exceptions.BuildingCreationFailedException("Building creation failed");
             }
         }
-        public void CreateBuilding(int x, int y, Buildings.ResidentialTypes r)
+        public void CreateBuilding(int x, int y, )
         {
             CreateBuilding(x, y, new Buildings.Residential(r));
         }

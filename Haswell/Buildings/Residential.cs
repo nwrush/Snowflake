@@ -11,9 +11,9 @@ namespace Haswell.Buildings
     [Serializable]
     public class Residential : Building, IBuilding
     {
-        private const string RESIDENTIAL_1 = "Residential_1.json";
-        private const string RESIDENTIAL_2 = "Residential_2.json";
-        private const string RESIDENTIAL_3 = "Residential_3.json";
+        private const string RESIDENTIAL_1 = "Building Configuration/Residential_1.json";
+        private const string RESIDENTIAL_2 = "Building Configuration/Residential_2.json";
+        private const string RESIDENTIAL_3 = "Building Configuration/Residential_3.json";
 
         private ResidentialTypes residentialType;
         private int _residents;

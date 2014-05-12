@@ -54,7 +54,7 @@ namespace Snowflake {
         /// <param name="y"></param>
         public static void NewBuilding(int x, int y, Building b) {
             if (Initialized) {
-                try { Haswell.Controller.City.CreateBuilding(x, y, ResidentialTypes.thing1); }
+                try { Haswell.Controller.City.CreateBuilding(x, y, ResidentialTypes.Residential_1); }
                 catch (BuildingCreationFailedException e) {
                     GameConsole.ActiveInstance.WriteLine(e.Message);
                     GuiMgr.AddInfoPopup(e.Message);

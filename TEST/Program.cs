@@ -12,7 +12,7 @@ namespace TEST {
             Haswell.Controller.init("Help");
 
             Haswell.Controller.City.SetZoning(new Point(-10, -10), new Point(10, 10), Zones.Residential);
-            Haswell.Controller.City.CreateBuilding(0, 0, new Haswell.Buildings.Residential());
+            Haswell.Controller.City.CreateBuilding(0, 0, Haswell.Buildings.ResidentialTypes.Residential_1);
             Haswell.Controller.Update(1f);
 
             List<Haswell.Building> buildings = Haswell.Controller.City.GetAllInSelection(-10, -10, 10, 10);

@@ -95,6 +95,13 @@
       <Name>Aardvark</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Building Configuration\Residential_1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Building Configuration\Residential_2.json" />
+    <None Include="Building Configuration\Residential_3.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

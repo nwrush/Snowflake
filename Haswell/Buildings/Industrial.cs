@@ -8,6 +8,8 @@ namespace Haswell.Buildings
     [Serializable]
     public class Industrial : Building
     {
+        private IndustrialTypes industrialType;
+
         public Industrial()
             : base(Zones.Industrial)
         {
@@ -53,10 +55,17 @@ namespace Haswell.Buildings
         {
             base.UpdateYearly(plotResources);
         }
-        [Obsolete("Are you sure you need to use this?")]
-        public override object Clone()
+
+        public IndustrialTypes Type
         {
-            return new Industrial(this);
+            get
+            {
+                return this.industrialType;
+            }
+            set
+            {
+                this.industrialType = value;
+            }
         }
     }
     public enum IndustrialTypes

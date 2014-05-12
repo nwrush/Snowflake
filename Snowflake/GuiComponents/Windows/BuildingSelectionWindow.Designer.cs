@@ -86,7 +86,12 @@ namespace Snowflake.GuiComponents.Windows
                     Multiline = false,
                     Alignment = Alignment.TopLeft
                 },
-                Text = "Residential Buildings"
+                Text = "Residential Buildings",
+                GridLayoutStyle = new Styles.GridLayoutStyle()
+                {
+                    CellSkin = ResourceManager.Skins["SquareButtonSkin"],
+                    CellSize = new Size(150, 150)
+                }
             };
 
             commercialPanel = new Panel()
@@ -217,7 +222,12 @@ namespace Snowflake.GuiComponents.Windows
                 //Residential b = new Residential(t);
                 residentialPanel.Controls.Add(new Button()
                 {
-                    Text = t.ToString()
+                    Text = t.ToString(),
+                    Size = new Size(100, 100),
+                    TextStyle = new TextStyle()
+                    {
+                        Alignment = Alignment.MiddleCenter
+                    }
                 });
             }
         }

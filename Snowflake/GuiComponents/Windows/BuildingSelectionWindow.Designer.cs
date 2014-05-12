@@ -94,7 +94,7 @@ namespace Snowflake.GuiComponents.Windows
                 }
             };
 
-            commercialPanel = new Panel()
+            commercialPanel = new GridLayoutPanel()
             {
                 BorderStyle =
                 {
@@ -130,9 +130,14 @@ namespace Snowflake.GuiComponents.Windows
                     Multiline = false,
                     Alignment = Alignment.TopLeft
                 },
-                Text = "Commercial Buildings"
+                Text = "Commercial Buildings",
+                GridLayoutStyle = new Styles.GridLayoutStyle()
+                {
+                    CellSkin = ResourceManager.Skins["SquareButtonSkin"],
+                    CellSize = new Size(150, 150)
+                }
             };
-            industrialPanel = new Panel()
+            industrialPanel = new GridLayoutPanel()
             {
                 BorderStyle =
                 {
@@ -168,9 +173,14 @@ namespace Snowflake.GuiComponents.Windows
                     Multiline = false,
                     Alignment = Alignment.TopLeft
                 },
-                Text = "Industrial Buildings"
+                Text = "Industrial Buildings",
+                GridLayoutStyle = new Styles.GridLayoutStyle()
+                {
+                    CellSkin = ResourceManager.Skins["SquareButtonSkin"],
+                    CellSize = new Size(150, 150)
+                }
             };
-            infrastructurePanel = new Panel()
+            infrastructurePanel = new GridLayoutPanel()
             {
                 BorderStyle =
                 {
@@ -206,7 +216,12 @@ namespace Snowflake.GuiComponents.Windows
                     Multiline = false,
                     Alignment = Alignment.TopLeft
                 },
-                Text = "Infrastructure Buildings"
+                Text = "Infrastructure Buildings",
+                GridLayoutStyle = new Styles.GridLayoutStyle()
+                {
+                    CellSkin = ResourceManager.Skins["SquareButtonSkin"],
+                    CellSize = new Size(150, 150)
+                }
             };
 
             tabs.AddPage(residentialPanel, "Residential");
@@ -219,8 +234,53 @@ namespace Snowflake.GuiComponents.Windows
 
             foreach (ResidentialTypes t in Enum.GetValues(typeof(ResidentialTypes)))
             {
-                //Residential b = new Residential(t);
-                residentialPanel.Controls.Add(new Button()
+                //Residential r = new Residential(t);
+                Button b = new Button()
+                {
+                    Text = t.ToString(),
+                    Size = new Size(100, 100),
+                    TextStyle = new TextStyle()
+                    {
+                        Alignment = Alignment.MiddleCenter
+                    }
+                };
+                b.Click += (object sender, EventArgs e) =>
+                {
+                    this.Visible = false;
+                    //CityManager.CreateBuildingOnCursor(r);
+                };
+                residentialPanel.Controls.Add(b);
+            }
+            foreach (CommercialTypes t in Enum.GetValues(typeof(CommercialTypes)))
+            {
+                //Commercial b = new Commercial(t);
+                commercialPanel.Controls.Add(new Button()
+                {
+                    Text = t.ToString(),
+                    Size = new Size(100, 100),
+                    TextStyle = new TextStyle()
+                    {
+                        Alignment = Alignment.MiddleCenter
+                    }
+                });
+            }
+            foreach (IndustrialTypes t in Enum.GetValues(typeof(IndustrialTypes)))
+            {
+                //Industrial b = new Industrial(t);
+                industrialPanel.Controls.Add(new Button()
+                {
+                    Text = t.ToString(),
+                    Size = new Size(100, 100),
+                    TextStyle = new TextStyle()
+                    {
+                        Alignment = Alignment.MiddleCenter
+                    }
+                });
+            }
+            foreach (InfrastructureTypes t in Enum.GetValues(typeof(InfrastructureTypes)))
+            {
+                //Infrastructure b = new Infrastructure(t);
+                infrastructurePanel.Controls.Add(new Button()
                 {
                     Text = t.ToString(),
                     Size = new Size(100, 100),

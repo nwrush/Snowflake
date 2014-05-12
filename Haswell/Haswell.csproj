@@ -58,6 +58,7 @@
     <Compile Include="Building.cs" />
     <Compile Include="BuildingLoad.cs" />
     <Compile Include="Buildings\Commercial.cs" />
+    <Compile Include="BuildingType.cs" />
     <Compile Include="Events\SerializationEventArgs.cs" />
     <Compile Include="Facing.cs" />
     <Compile Include="Buildings\Industrial.cs" />

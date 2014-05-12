@@ -12,6 +12,7 @@ namespace Haswell
         protected readonly Zones _zone;
         protected Direction _facing;
         private Plot parent;
+        protected BuildingConfiguration _buildingConfig;
 
         public event EventHandler<BuildingEventArgs> Deleted
         {

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Haswell.Buildings
 {
@@ -11,13 +13,24 @@ namespace Haswell.Buildings
     [Serializable]
     public class Commercial : Building, IBuilding
     {
+        private const string CONFIGURATIONFILE = "Building Configuration/Commercial_";
+
         private CommercialTypes commercialType;
 
         public Commercial() : base(Zones.Commercial) { }
         public Commercial(BuildingConfiguration _bc)
             : base(Zones.Commercial)
         {
+            this._buildingConfig = _bc;
 
+        }
+        private void LoadConfiguration(BuildingConfiguration _bc)
+        {
+            if (0 < _bc.Version && _bc.Version <= 3)
+            {
+                string configText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
+                Commercial tmp = JsonConvert.DeserializeObject<Commercial>(configText);
+            }
         }
         public Commercial(CommercialTypes c)
             : base(Zones.Commercial)

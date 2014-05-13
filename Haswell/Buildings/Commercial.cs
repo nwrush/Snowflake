@@ -14,7 +14,11 @@ namespace Haswell.Buildings
         private CommercialTypes commercialType;
 
         public Commercial() : base(Zones.Commercial) { }
+        public Commercial(BuildingConfiguration _bc)
+            : base(Zones.Commercial)
+        {
 
+        }
         public Commercial(CommercialTypes c)
             : base(Zones.Commercial)
         {

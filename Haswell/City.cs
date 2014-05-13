@@ -90,18 +90,27 @@ namespace Haswell
                 throw new Exceptions.BuildingCreationFailedException("Building creation failed");
             }
         }
-        public void CreateBuilding(int x, int y, )
+        public void CreateBuilding(int x, int y, BuildingConfiguration configuration)
         {
-            CreateBuilding(x, y, new Buildings.Residential(r));
+            //CreateBuilding(x, y, new Buildings.Residential(r));
+            if (configuration.BuildingType == BuildingType.Residential)
+            {
+                CreateBuilding(x, y, new Buildings.Residential(configuration));
+            }
+            switch (configuration.BuildingType)
+            {
+                case BuildingType.Residential:
+                    CreateBuilding(x, y, new Buildings.Residential(configuration));
+                    break;
+                case BuildingType.Commercial:
+                    CreateBuilding(x, y, new Buildings.Commercial(configuration));
+                    break;
+                case BuildingType.Industrial:
+                    CreateBuilding(x, y, new Buildings.Industrial(configuration));
+                    break;
+            }
         }
-        public void CreateBuilding(int x, int y, Buildings.CommercialTypes c)
-        {
-            CreateBuilding(x, y, new Buildings.Commercial(c));
-        }
-        public void CreateBuilding(int x, int y, Buildings.IndustrialTypes i)
-        {
-            CreateBuilding(x, y, new Buildings.Industrial(i));
-        }
+
         /// <summary>
         /// Called by Snowflake when the user requests the creation of a road
         /// </summary>

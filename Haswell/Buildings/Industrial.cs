@@ -10,7 +10,8 @@ namespace Haswell.Buildings
     {
         private IndustrialTypes industrialType;
 
-        public Industrial()
+        public Industrial() : base(Zones.Industrial) { }
+        public Industrial(BuildingConfiguration _bc)
             : base(Zones.Industrial)
         {
 

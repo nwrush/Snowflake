@@ -16,6 +16,7 @@ namespace Haswell.Buildings
         private int _residents;
         private float _income;
 
+        public Residential() : base(Zones.Residential) { }
         public Residential(BuildingConfiguration _bc)
             : base(Zones.Residential)
         {

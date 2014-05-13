@@ -2,18 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Haswell.Buildings
 {
     [Serializable]
     public class Industrial : Building
     {
+        private string CONFIGURATIONFILE = "Building Configuration/Industrial_";
         private IndustrialTypes industrialType;
 
-        public Industrial()
+        public Industrial() : base(Zones.Industrial) { }
+        public Industrial(BuildingConfiguration _bc)
             : base(Zones.Industrial)
         {
+            this._buildingConfig = _bc;
 
+        }
+        private void LoadConfiguration(BuildingConfiguration _bc)
+        {
+            if (0 < _bc.Version && _bc.Version <= 3)
+            {
+                string configText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
+                Industrial tmp = JsonConvert.DeserializeObject<Industrial>(configText);
+            }
         }
         public Industrial(IndustrialTypes i)
             : base(Zones.Industrial)

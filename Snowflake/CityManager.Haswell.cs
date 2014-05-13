@@ -18,16 +18,20 @@ using Haswell.Events;
 using Vector3 = Mogre.Vector3;
 using Rectangle = Miyagi.Common.Data.Rectangle;
 
-namespace Snowflake {
-    public static partial class CityManager {
+namespace Snowflake
+{
+    public static partial class CityManager
+    {
 
         /// <summary>
         /// Initializes the City, setting its origin point and creating the relevant Haswell objects.
         /// </summary>
         /// <param name="originx">X position of city origin</param>
         /// <param name="originy">Y Position of city origin</param>
-        public static void Init(int originx, int originy) {
-            if (!Initialized) {
+        public static void Init(int originx, int originy)
+        {
+            if (!Initialized)
+            {
                 GameConsole.ActiveInstance.WriteLine("Founding new City at " + originx.ToString() + ", " + originy.ToString());
 
                 Origin = new Point(originx, originy);
@@ -37,7 +41,8 @@ namespace Snowflake {
                 Haswell.Controller.OnDeserialized += OnLoad;
                 Initialized = true;
             }
-            else {
+            else
+            {
                 GameConsole.ActiveInstance.WriteError("Attempting to found city in an already initialized area!");
             }
         }
@@ -52,15 +57,19 @@ namespace Snowflake {
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public static void NewBuilding(int x, int y, Building b) {
-            if (Initialized) {
-                try { Haswell.Controller.City.CreateBuilding(x, y, ResidentialTypes.Residential_1); }
-                catch (BuildingCreationFailedException e) {
+        public static void NewBuilding(int x, int y, Building b)
+        {
+            if (Initialized)
+            {
+                try { Haswell.Controller.City.CreateBuilding(x, y, null); }
+                catch (BuildingCreationFailedException e)
+                {
                     GameConsole.ActiveInstance.WriteLine(e.Message);
                     GuiMgr.AddInfoPopup(e.Message);
                 }
             }
-            else {
+            else
+            {
                 GameConsole.ActiveInstance.WriteError("Unable to create building, no city initialized!");
             }
         }
@@ -71,7 +80,7 @@ namespace Snowflake {
         /// <param name="p">Point to set the zoning of</param>
         /// <param name="z">The type of zone to set</param>
         public static bool SetZoning(Point p, Haswell.Zones z) { return SetZoning(p, p, z); }
-        public static bool SetZoning(Rectangle r, Haswell.Zones z ) { return SetZoning(r.Location, new Point(r.Right, r.Bottom), z); }
+        public static bool SetZoning(Rectangle r, Haswell.Zones z) { return SetZoning(r.Location, new Point(r.Right, r.Bottom), z); }
         /// <summary>
         /// Set the Zoning regulation for a given area defined by the points p1 and p2 at the corners of the area.
         /// </summary>
@@ -111,11 +120,14 @@ namespace Snowflake {
             Haswell.Controller.City.DeleteBuilding(x, y);
         }
 
-        private static void UpdateHaswell(float frametime) {
-            try {
+        private static void UpdateHaswell(float frametime)
+        {
+            try
+            {
                 Haswell.Controller.Update(frametime);
             }
-            catch (NotImplementedException e) {
+            catch (NotImplementedException e)
+            {
                 DebugPanel.ActiveInstance[2] = (e.Message);
             }
         }
@@ -154,7 +166,8 @@ namespace Snowflake {
             Plots.Clear();
             foreach (Plot p in Haswell.Controller.City.Grid)
             {
-                if (p.Building != null) {
+                if (p.Building != null)
+                {
                     if (p.Building is Road) { Buildings[p.Building] = new RenderableRoad((Road)p.Building); }
                     else { Buildings[p.Building] = new RenderableBuilding(p.Building); }
                 }

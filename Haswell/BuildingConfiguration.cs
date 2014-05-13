@@ -19,7 +19,7 @@ namespace Haswell
         private readonly BuildingType buildingType;
         private readonly int version;
 
-        protected BuildingConfiguration(BuildingType _bt, int _version)
+        public BuildingConfiguration(BuildingType _bt, int _version)
         {
             this.buildingType = _bt;
             this.version = _version;

@@ -11,45 +11,28 @@ namespace Haswell.Buildings
     [Serializable]
     public class Residential : Building, IBuilding
     {
-        private const string RESIDENTIAL_1 = "Residential_1.json";
-        private const string RESIDENTIAL_2 = "Residential_2.json";
-        private const string RESIDENTIAL_3 = "Residential_3.json";
+        private const string CONFIGURATIONFILE = "Building Configuration/Residential_";
 
-        private ResidentialTypes residentialType;
         private int _residents;
         private float _income;
 
-        public Residential()
+        public Residential() : base(Zones.Residential) { }
+        public Residential(BuildingConfiguration _bc)
             : base(Zones.Residential)
         {
+            this._buildingConfig = _bc;
+            LoadConfiguration(_bc);
         }
-        public Residential(ResidentialTypes r)
-            : base(Zones.Residential)
+        private void LoadConfiguration(BuildingConfiguration _bc)
         {
-            this.residentialType = r;
-            Residential tmp;
-            tmp = JsonConvert.DeserializeObject<Residential>(GetResidentialTemplate(r));
-            this._income = tmp._income;
-            this._residents = tmp.Residents;
-        }
-        private string GetResidentialTemplate(ResidentialTypes r)
-        {
-            string fileText = "";
-
-            switch (r)
+            if (0 < _bc.Version && _bc.Version <= 3)
             {
-                case ResidentialTypes.Residential_1:
-                    fileText = File.OpenText(RESIDENTIAL_1).ReadToEnd();
-                    break;
-                case ResidentialTypes.Residential_2:
-                    fileText = File.OpenText(RESIDENTIAL_2).ReadToEnd();
-                    break;
-                case ResidentialTypes.Residential_3:
-                    fileText = File.OpenText(RESIDENTIAL_3).ReadToEnd();
-                    break;
+                string configurationText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
+                Residential tmp = JsonConvert.DeserializeObject<Residential>(configurationText);
+                this._income = tmp.Income;
+                this.Residents = tmp.Residents;
             }
-
-            return fileText;
+            throw new AccessViolationException("Lol this isn't a access violation");
         }
 
         public Residential(int residents, float income)
@@ -127,22 +110,5 @@ namespace Haswell.Buildings
             }
         }
 
-        public ResidentialTypes Type
-        {
-            get
-            {
-                return this.residentialType;
-            }
-            private set
-            {
-                this.residentialType = value;
-            }
-        }
     }
-    public enum ResidentialTypes
-    {
-        Residential_1,
-        Residential_2,
-        Residential_3
-    };
 }

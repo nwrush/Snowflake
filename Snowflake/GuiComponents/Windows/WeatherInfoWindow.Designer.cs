@@ -24,6 +24,8 @@ namespace Snowflake.GuiComponents.Windows
         Label fogginessLabel;
         ProgressBar raininessBar;
         Label raininessLabel;
+        Label tempCurrent;
+        Label tempLabel;
 
         public override void CreateGui(GUI gui)
         {
@@ -43,7 +45,7 @@ namespace Snowflake.GuiComponents.Windows
                 },
                 Width = 150,
                 Height = 15,
-                Location = new Point(20, 15),
+                Location = new Point(40, 215),
                 Skin = ResourceManager.Skins["ProgressBarHSkin"],
                 Min = 0,
                 Max = 1000,
@@ -63,7 +65,7 @@ namespace Snowflake.GuiComponents.Windows
                     Multiline = false,
                     Font = ResourceManager.Fonts["Section"]
                 },
-                Location = new Point(35, 32)
+                Location = new Point(55, 232)
             };
             fogginessBar = new ProgressBar()
             {
@@ -75,7 +77,7 @@ namespace Snowflake.GuiComponents.Windows
                 },
                 Width = 150,
                 Height = 15,
-                Location = new Point(20, 50),
+                Location = new Point(40, 250),
                 Skin = ResourceManager.Skins["ProgressBarHSkin"],
                 Min = 0,
                 Max = 1000,
@@ -95,7 +97,7 @@ namespace Snowflake.GuiComponents.Windows
                     Multiline = false,
                     Font = ResourceManager.Fonts["Section"]
                 },
-                Location = new Point(35, 67)
+                Location = new Point(55, 267)
             };
             raininessBar = new ProgressBar()
             {
@@ -107,7 +109,7 @@ namespace Snowflake.GuiComponents.Windows
                 },
                 Width = 150,
                 Height = 15,
-                Location = new Point(20, 85),
+                Location = new Point(40, 285),
                 Skin = ResourceManager.Skins["ProgressBarHSkin"],
                 Min = 0,
                 Max = 1000,
@@ -127,9 +129,37 @@ namespace Snowflake.GuiComponents.Windows
                     Multiline = false,
                     Font = ResourceManager.Fonts["Section"]
                 },
-                Location = new Point(35, 102)
+                Location = new Point(55, 302)
             };
-            ParentPanel.Controls.AddRange(cloudinessBar, cloudinessLabel, fogginessBar, fogginessLabel, raininessBar, raininessLabel);
+            tempCurrent = new Label()
+            {
+                Text = "0°",
+                AutoSize = true,
+                TextStyle = new TextStyle()
+                {
+                    Alignment = Alignment.TopCenter,
+                    ForegroundColour = Colours.Black,
+                    Multiline = false,
+                    Font = ResourceManager.Fonts["Subtitle"],
+                },
+                Location = new Point(75, 20)
+            };
+            tempLabel = new Label()
+            {
+                Text = "TEMPERATURE",
+                AutoSize = true,
+                TextStyle = new TextStyle()
+                {
+                    Alignment = Alignment.TopLeft,
+                    ForegroundColour = Colours.Black,
+                    Multiline = false,
+                    Font = ResourceManager.Fonts["Section"]
+                },
+                Location = new Point(55, 100)
+            };
+            ParentPanel.Controls.AddRange(cloudinessBar, cloudinessLabel, fogginessBar, fogginessLabel, raininessBar, raininessLabel, tempCurrent, tempLabel);
+
+            ParentPanel.Size = new Size(250, 400);
         }
     }
 }

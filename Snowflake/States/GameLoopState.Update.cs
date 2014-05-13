@@ -99,10 +99,10 @@ namespace Snowflake.States {
             if (!StateManager.SupressGameControl) {
                 if (!ContextMenu.HitTest(MousePosition(input))) {
                     ContextMenu.Visible = false;
-
+					TargetInvocationException
                     if (canPlaceBuilding()) {
                         //Do a little reflection to be able to pass the type of the cursor building into the generic method
-                        CityManager.NewBuilding(this.tempBuilding.PlotX, this.tempBuilding.PlotY, this.tempBuilding.Data);
+                        CityManager.NewBuilding(this.tempBuilding.PlotX, this.tempBuilding.PlotY, this.tempBuilding.Data.BuildingConfiguration);
                         gConsole.WriteLine("Placing building...");
 
                         if (!input.IsKeyDown(KeyCode.KC_LSHIFT)) {

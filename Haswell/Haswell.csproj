@@ -97,6 +97,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Building Configuration\Commercial_1.json" />
+    <None Include="Building Configuration\Commercial_2.json" />
+    <None Include="Building Configuration\Commercial_3.json" />
+    <None Include="Building Configuration\Industrial_1.json" />
+    <None Include="Building Configuration\Industrial_2.json" />
+    <None Include="Building Configuration\Industrial_3.json" />
     <None Include="Building Configuration\Residential_1.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

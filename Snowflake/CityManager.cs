@@ -220,10 +220,7 @@ namespace Snowflake {
             return Plots[Haswell.Controller.City.Grid.ElementAt(coord.X, coord.Y)] != null;
         }
 
-        public static void CreateBuildingOnCursor() {
-            CreateBuildingOnCursor(new Residential());
-        }
-        public static void CreateBuildingOnCursor(Building template) {
+        public static void CreateBuildingOnCursor(BuildingConfiguration template) {
             RenderableBuilding rb = new RenderableBuilding(template);
             rb.Create(GameMgr.StateMgr.Engine.SceneMgr, cityNode);
             rb.IsVirtual = true;

@@ -5,6 +5,7 @@ using System.Text;
 
 using Mogre;
 using Haswell;
+using Haswell.Buildings;
 
 using Resource = Haswell.Resource;
 
@@ -390,7 +391,28 @@ namespace Snowflake {
         private Building data;
 
         public event EventHandler Deleted;
+		public RenderableBuilding(BuildingConfiguration template) : base() {
+			BuildingType bt = template.BuildingType;
+			switch (bt) {
+				case BuildingType.Residential:
+				this.data = new Residential (template);
+				break;
+				case BuildingType.Commercial:
+				this.data = new Commercial (template);
+				break;
+				case BuildingType.Industrial:
+				this.data = new Industrial (template);
+				break;
+				case BuildingType.Infrastructure:
+				this.data = new Infrastructure (template);
+				break;
+			}
 
+			this.entities = new List<Entity>();
+			this.Name = this.data.GetType().ToString() + "_" + this.GetHashCode();
+
+			data.Deleted += this.OnBuildingDeleted;
+		}
         public RenderableBuilding(Building data) : base() {
             this.data = data;
             this.entities = new List<Entity>();

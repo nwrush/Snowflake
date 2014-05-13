@@ -11,6 +11,7 @@ using Miyagi.UI.Controls.Styles;
 
 using Snowflake.Modules;
 
+using Haswell;
 using Haswell.Buildings;
 
 namespace Snowflake.GuiComponents {
@@ -252,7 +253,7 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Residential());
+                    CityManager.CreateBuildingOnCursor(new BuildingConfiguration(BuildingType.Residential, 1));
                     buildToolbar.Hide();
                 }
             });
@@ -295,7 +296,7 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Industrial());
+                    CityManager.CreateBuildingOnCursor(new BuildingConfiguration(BuildingType.Industrial, 1));
                     buildToolbar.Hide();
                 }
             });
@@ -316,7 +317,7 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Infrastructure());
+                    CityManager.CreateBuildingOnCursor(new BuildingConfiguration(BuildingType.Infrastructure, 1));
                     buildToolbar.Hide();
                 }
             });

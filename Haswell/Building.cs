@@ -169,5 +169,13 @@ namespace Haswell
                 if (this.parent != null) { this.parent.AdjacentBuildingChanged += OnAdjacent; }
             }
         }
+
+        public BuildingConfiguration Configuration
+        {
+            get
+            {
+                return this._buildingConfig;
+            }
+        }
     }
 }

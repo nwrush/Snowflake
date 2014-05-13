@@ -5,6 +5,8 @@ using Mogre;
 using Snowflake.Modules;
 using Snowflake.GuiComponents;
 
+using Haswell;
+
 using Miyagi.Common;
 using Miyagi.Common.Data;
 using Miyagi.UI;
@@ -211,7 +213,7 @@ namespace Snowflake.States {
                 else {
                     int x, y;
                     if (Int32.TryParse(args[0], out x) && Int32.TryParse(args[1], out y)) {
-                        CityManager.NewBuilding(x, y, new Haswell.Buildings.Commercial());
+                        CityManager.NewBuilding(x, y, new Haswell.BuildingConfiguration(BuildingType.Commercial, 1));
                         return;
                     }
                     else {

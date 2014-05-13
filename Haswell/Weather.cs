@@ -117,7 +117,8 @@ namespace Haswell
         /// <returns>A float between -1 and 1 where -1 is Russian Winter and 1 is Saharah Desert</returns>
         public float GetTemperatureAverage()
         {
-            return 0.0f;
+            double raw = 0.5 * M.Sin(x * (2 * M.PI / 12) - (4 * M.PI / 6)) + 0.2;
+            return FloatClamp(0.0f, 1.0f, raw);
         }
         /// <summary>
         /// Gets the current temperature.
@@ -128,7 +129,8 @@ namespace Haswell
         /// <returns>A float between -1 and 1 where -1 is Russian Winter and 1 is Saharah Desert</returns>
         public float GetTemperature()
         {
-            return 0.0f;
+            double raw = GetTemperatureAverage() + 0.2325624 * M.Sin(x) * M.Sin(7.346346 * x);
+            return FloatClamp(0.0f, 1.0f, raw);
         }
         /// <summary>
         /// Gets the precipitation rate.

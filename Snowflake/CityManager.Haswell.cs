@@ -57,11 +57,11 @@ namespace Snowflake
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
-        public static void NewBuilding(int x, int y, Building b)
+        public static void NewBuilding(int x, int y, BuildingConfiguration b)
         {
             if (Initialized)
             {
-                try { Haswell.Controller.City.CreateBuilding(x, y, null); }
+                try { Haswell.Controller.City.CreateBuilding(x, y, b); }
                 catch (BuildingCreationFailedException e)
                 {
                     GameConsole.ActiveInstance.WriteLine(e.Message);

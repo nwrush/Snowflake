@@ -166,6 +166,7 @@ namespace Haswell
             {
                 p.Update(this.resources);
             }
+            weather.Update();
         }
 
         public delegate void UpdateDelegate(DateTime time);

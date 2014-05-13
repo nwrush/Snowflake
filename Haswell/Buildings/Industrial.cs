@@ -13,7 +13,6 @@ namespace Haswell.Buildings
         private string CONFIGURATIONFILE = "Building Configuration/Industrial_";
         private IndustrialTypes industrialType;
 
-        public Industrial() : base(Zones.Industrial) { }
         public Industrial(BuildingConfiguration _bc)
             : base(Zones.Industrial)
         {
@@ -28,18 +27,7 @@ namespace Haswell.Buildings
                 Industrial tmp = JsonConvert.DeserializeObject<Industrial>(configText);
             }
         }
-        public Industrial(IndustrialTypes i)
-            : base(Zones.Industrial)
-        {
 
-        }
-        protected Industrial(Industrial i)
-            : base(Zones.Industrial)
-        {
-            this._facing = i.Facing;
-            this.Parent = i.Parent;
-            this.Initialized = i.Initialized;
-        }
         public override void Update(ResourceDict plotResources)
         {
             base.Update(plotResources);

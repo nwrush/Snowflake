@@ -17,7 +17,6 @@ namespace Haswell.Buildings
 
         private CommercialTypes commercialType;
 
-        public Commercial() : base(Zones.Commercial) { }
         public Commercial(BuildingConfiguration _bc)
             : base(Zones.Commercial)
         {
@@ -31,18 +30,6 @@ namespace Haswell.Buildings
                 string configText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
                 Commercial tmp = JsonConvert.DeserializeObject<Commercial>(configText);
             }
-        }
-        public Commercial(CommercialTypes c)
-            : base(Zones.Commercial)
-        {
-            this.Type = commercialType;
-        }
-        protected Commercial(Commercial c)
-            : base(Zones.Commercial)
-        {
-            this._facing = c.Facing;
-            this.Parent = c.Parent;
-            this.Initialized = c.Initialized;
         }
 
         public override void Update(ResourceDict plotResources)

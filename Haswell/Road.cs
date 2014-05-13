@@ -13,7 +13,7 @@ namespace Haswell
         int speed;//In mph?
 
         public Road()
-            : base()
+            : base(new BuildingConfiguration(BuildingType.Infrastructure, 1))
         {
             this.connections = new Road[4];
             this.speed = 35;

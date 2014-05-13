@@ -9,16 +9,15 @@ namespace Haswell.Buildings
     [Serializable]
     public class Infrastructure : Building
     {
-        public Infrastructure()
+
+        public Infrastructure(BuildingConfiguration _bc)
             : base(Zones.Infrastructure)
         {
+            LoadConfiguration(_bc);
         }
-        protected Infrastructure(Infrastructure i)
-            : base(Zones.Infrastructure)
+        private void LoadConfiguration(BuildingConfiguration _bc)
         {
-            this._facing = i.Facing;
-            this.Parent = i.Parent;
-            this.Initialized = i.Initialized;
+
         }
 
         public override void Update(ResourceDict plotResources)

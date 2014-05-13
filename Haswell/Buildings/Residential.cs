@@ -16,7 +16,6 @@ namespace Haswell.Buildings
         private int _residents;
         private float _income;
 
-        public Residential() : base(Zones.Residential) { }
         public Residential(BuildingConfiguration _bc)
             : base(Zones.Residential)
         {
@@ -33,26 +32,6 @@ namespace Haswell.Buildings
                 this.Residents = tmp.Residents;
             }
             throw new AccessViolationException("Lol this isn't a access violation");
-        }
-
-        public Residential(int residents, float income)
-            : base(Zones.Residential)
-        {
-            this._residents = residents;
-            this._income = income;
-        }
-        /// <summary>
-        /// Constructor for the Clone Function
-        /// </summary>
-        /// <param name="r">The building to create a copy from.</param>
-        protected Residential(Residential r)
-            : base(Zones.Residential)
-        {
-            this._facing = r.Facing;
-            this._income = r._income;
-            this._residents = r._residents;
-            this.Parent = r.Parent;
-            this.Initialized = r.Initialized;
         }
 
         public override void Update(ResourceDict pltRes)

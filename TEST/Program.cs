@@ -5,10 +5,13 @@ using System.Text;
 using System.Drawing;
 using Haswell;
 
-namespace TEST {
-    class Program {
+namespace TEST
+{
+    class Program
+    {
         static List<Person> citizens = new List<Person>();
-        static void Main(string[] args) {
+        static void Main(string[] args)
+        {
             Haswell.Controller.init("Help");
 
             Haswell.Controller.City.SetZoning(new Point(-10, -10), new Point(10, 10), Zones.Residential);

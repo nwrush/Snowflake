@@ -139,7 +139,7 @@ namespace Haswell
             return 1.0f;
             //Override in child classes
         }
-
+        [Newtonsoft.Json.JsonIgnore]
         public Zones Zone
         {
             get

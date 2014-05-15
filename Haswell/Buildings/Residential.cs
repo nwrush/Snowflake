@@ -5,6 +5,7 @@ using System.Text;
 
 using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Haswell.Buildings
 {
@@ -21,18 +22,49 @@ namespace Haswell.Buildings
             : base(Zones.Residential)
         {
             this._buildingConfig = _bc;
-            LoadConfiguration(_bc);
+            //LoadConfiguration(_bc);
+        }
+        private Residential(int residents, int income):base (Zones.Residential)
+        {
+            this._residents = residents;
+            this._income = income;
         }
         private void LoadConfiguration(BuildingConfiguration _bc)
         {
             if (0 < _bc.Version && _bc.Version <= 3)
             {
-                string configurationText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
+                #region TODO
+                //string configurationText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
 
-                Residential tmp = JsonConvert.DeserializeObject<Residential>(configurationText);
+                //JsonTextReader reader = new JsonTextReader(new StringReader(configurationText));
 
-                this._income = tmp.Income;
-                this.Residents = tmp.Residents;
+                //string s;
+
+                //while ((s = reader.ReadAsString()) == null)
+                //{
+                //    if (s == null)
+                //        break;
+
+                //    this.configuration[s] = reader.Value;
+                //}
+                #endregion
+                switch (_bc.Version)
+                {
+                    case 1:
+                        this._residents = 4;
+                        this._income = 10000;
+                        break;
+                    case 2:
+                        this._residents = 500;
+                        this._income = 20000;
+                        break;
+                    case 3:
+                        this._residents = 16;
+                        this._income = 100000;
+                        break;
+                    default:
+                        goto case 1;
+                }
             }
         }
 

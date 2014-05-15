@@ -16,6 +16,7 @@ namespace Haswell.Buildings
         private int _residents;
         private float _income;
 
+        private Residential() : base(Zones.Residential) { }
         public Residential(BuildingConfiguration _bc)
             : base(Zones.Residential)
         {
@@ -27,24 +28,12 @@ namespace Haswell.Buildings
             if (0 < _bc.Version && _bc.Version <= 3)
             {
                 string configurationText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
-                Residential tmp;
 
-                try
-                {
-                    tmp = JsonConvert.DeserializeObject<Residential>(configurationText);
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine(e);
-                    this._income = 100;
-                    this.Residents = 4;
-                    return;
-                }
+                Residential tmp = JsonConvert.DeserializeObject<Residential>(configurationText);
 
                 this._income = tmp.Income;
                 this.Residents = tmp.Residents;
             }
-            throw new AccessViolationException("Lol this isn't a access violation");
         }
 
         public override void Update(ResourceDict pltRes)

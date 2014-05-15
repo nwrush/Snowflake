@@ -113,6 +113,7 @@ namespace Snowflake.GuiComponents {
                 c.Click += (object sender2, EventArgs e2) => { keepWindowSorting(); };
                 c.MouseDown += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
                 c.MouseHeld += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
+                c.ControlAdded += childControlWindowSorting;
             }
             keepWindowSorting();
         }

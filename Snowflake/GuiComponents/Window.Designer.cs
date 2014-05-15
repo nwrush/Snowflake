@@ -68,6 +68,14 @@ namespace Snowflake.GuiComponents {
                 this.Hide();
             };
 
+            ParentPanel.Layout += (object sender, LayoutEventArgs e) =>
+            {
+                keepWindowSorting();
+            };
+            ParentPanel.Click += (object sender, EventArgs e) =>
+            {
+                keepWindowSorting();
+            };
             ParentPanel.ClientSizeChanged += (object sender, EventArgs e) => {
                 foreach (Control c in ParentPanel.Controls) {
                     c.MaxSize = new Size(ParentPanel.Width, ParentPanel.Height);
@@ -84,12 +92,7 @@ namespace Snowflake.GuiComponents {
                 keepWindowSorting();
             };
 
-            ParentPanel.ControlAdded += (object sender, ValueEventArgs<Control> e) => {
-                
-                e.Data.Click += (object sender2, EventArgs e2) => { keepWindowSorting(); };
-                e.Data.MouseDown += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
-                e.Data.MouseHeld += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
-            };
+            ParentPanel.ControlAdded += childControlWindowSorting;
 
             Console.WriteLine("Creating Console");
             gui.Controls.Add(ParentPanel);
@@ -97,6 +100,21 @@ namespace Snowflake.GuiComponents {
             gui.Controls.Add(CloseButton);
 
             Initialize();
+        }
+
+        private void childControlWindowSorting(object sender, ValueEventArgs<Control> e)
+        {
+            e.Data.Click += (object sender2, EventArgs e2) => { keepWindowSorting(); };
+            e.Data.MouseDown += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
+            e.Data.MouseHeld += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
+            e.Data.ControlAdded += childControlWindowSorting;
+            foreach (Control c in e.Data.Controls)
+            {
+                c.Click += (object sender2, EventArgs e2) => { keepWindowSorting(); };
+                c.MouseDown += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
+                c.MouseHeld += (object sender2, MouseButtonEventArgs e2) => { keepWindowSorting(); };
+            }
+            keepWindowSorting();
         }
 
         public virtual void Dispose() {

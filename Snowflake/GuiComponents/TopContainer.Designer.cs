@@ -253,7 +253,8 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new BuildingConfiguration(BuildingType.Residential, 1));
+                    CityManager.GuiMgr.ShowBuildingSelectionWindow();
+                    CityManager.GuiMgr.SetBuildingSelectionActiveTab("Residential");
                     buildToolbar.Hide();
                 }
             });
@@ -296,7 +297,8 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new BuildingConfiguration(BuildingType.Industrial, 1));
+                    CityManager.GuiMgr.ShowBuildingSelectionWindow();
+                    CityManager.GuiMgr.SetBuildingSelectionActiveTab("Industrial");
                     buildToolbar.Hide();
                 }
             });
@@ -317,7 +319,8 @@ namespace Snowflake.GuiComponents {
                 PictureSize = new Size(64, 64),
                 ClickFunc = (object sender) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new BuildingConfiguration(BuildingType.Infrastructure, 1));
+                    CityManager.GuiMgr.ShowBuildingSelectionWindow();
+                    CityManager.GuiMgr.SetBuildingSelectionActiveTab("Infrastructure");
                     buildToolbar.Hide();
                 }
             });

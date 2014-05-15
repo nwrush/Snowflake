@@ -92,11 +92,6 @@ namespace Haswell
         }
         public void CreateBuilding(int x, int y, BuildingConfiguration configuration)
         {
-            //CreateBuilding(x, y, new Buildings.Residential(r));
-            if (configuration.BuildingType == BuildingType.Residential)
-            {
-                CreateBuilding(x, y, new Buildings.Residential(configuration));
-            }
             switch (configuration.BuildingType)
             {
                 case BuildingType.Residential:

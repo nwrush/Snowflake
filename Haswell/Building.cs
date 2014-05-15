@@ -169,7 +169,7 @@ namespace Haswell
                 if (this.parent != null) { this.parent.AdjacentBuildingChanged += OnAdjacent; }
             }
         }
-
+        [Newtonsoft.Json.JsonIgnore]
         public BuildingConfiguration Configuration
         {
             get

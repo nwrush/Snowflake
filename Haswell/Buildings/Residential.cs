@@ -27,7 +27,20 @@ namespace Haswell.Buildings
             if (0 < _bc.Version && _bc.Version <= 3)
             {
                 string configurationText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
-                Residential tmp = JsonConvert.DeserializeObject<Residential>(configurationText);
+                Residential tmp;
+
+                try
+                {
+                    tmp = JsonConvert.DeserializeObject<Residential>(configurationText);
+                }
+                catch (Exception e)
+                {
+                    System.Diagnostics.Debug.WriteLine(e);
+                    this._income = 100;
+                    this.Residents = 4;
+                    return;
+                }
+
                 this._income = tmp.Income;
                 this.Residents = tmp.Residents;
             }

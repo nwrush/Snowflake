@@ -130,9 +130,10 @@ namespace Snowflake.GuiComponents {
             
             OptionsPanel.Controls.AddRange(zoneOption, zoneOptionLabel);
 
-            resourceTypeSelector = new ExpanderToolbar(true, 80, 40*6, 0, 16)
+            resourceTypeSelector = new ExpanderToolbar(true, 80, 40, 0, 16)
             {
-                Location = new Point(OptionsPanel.Location.X + 20, ParentPanel.Location.Y + ParentPanel.Height)
+                Location = new Point(OptionsPanel.Location.X + 20, 80),
+                Skin = "PanelSkin"
             };
             resourceTypeSelector.AddButton("None", new PictureButton()
             {
@@ -142,7 +143,7 @@ namespace Snowflake.GuiComponents {
                 TextStyle =
                 {
                     Alignment = Alignment.MiddleCenter,
-                    ForegroundColour = Colours.White
+                    ForegroundColour = Colours.Black
                 }
             });
             foreach (ResourceType t in Enum.GetValues(typeof(ResourceType)))
@@ -155,7 +156,11 @@ namespace Snowflake.GuiComponents {
                     TextStyle =
                     {
                         Alignment = Alignment.MiddleCenter,
-                        ForegroundColour = Colours.White
+                        ForegroundColour = Colours.Black
+                    },
+                    ClickFunc = (object sender) =>
+                    {
+                        CityManager.ResourceToShow = t;
                     }
                 });
             }
@@ -202,7 +207,7 @@ namespace Snowflake.GuiComponents {
                 }
             };
 
-            buildToolbar = new ExpanderToolbar(true, boxsize, boxsize * 2, 3, 0)
+            buildToolbar = new ExpanderToolbar(true, boxsize, boxsize, 3, 0)
             {
                 Location = new Point(buildButton.Location.X + ToolsContainerPanel.Location.X - 0, ParentPanel.Location.Y + ParentPanel.Height)
             };
@@ -266,7 +271,7 @@ namespace Snowflake.GuiComponents {
             });
             buildToolbar.CreateGui(gui);
 
-            ExpanderToolbar buildingsBar = new ExpanderToolbar(false, boxsize * 4, boxsize, 3, 0, true)
+            ExpanderToolbar buildingsBar = new ExpanderToolbar(false, boxsize, boxsize, 3, 0, true)
             {
                 Location = new Point(buildToolbar.Location.X, buildToolbar.Location.Y),
             };
@@ -387,7 +392,7 @@ namespace Snowflake.GuiComponents {
                 }
             };
 
-            manageToolbar = new ExpanderToolbar(true, boxsize, boxsize * 1, 3, 0)
+            manageToolbar = new ExpanderToolbar(true, boxsize, boxsize, 3, 0)
             {
                 Location = new Point(manageButton.Location.X + ToolsContainerPanel.Location.X - 0, ParentPanel.Location.Y + ParentPanel.Height)
             };
@@ -462,7 +467,7 @@ namespace Snowflake.GuiComponents {
                 }
             };
 
-            governToolbar = new ExpanderToolbar(true, boxsize, boxsize * 1, 3, 0)
+            governToolbar = new ExpanderToolbar(true, boxsize, boxsize, 3, 0)
             {
                 Location = new Point(governButton.Location.X + ToolsContainerPanel.Location.X - 0, ParentPanel.Location.Y + ParentPanel.Height)
             };

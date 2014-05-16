@@ -380,6 +380,7 @@ namespace Snowflake {
             double val = resources[r];
             val = Math.Log10(val) / 5;
             val = Math.Min(Math.Max(val, 0), 1);
+            val = 0.5f;
             eMat.SetDiffuse(c.r, c.g, c.b, (float)val);
             eMat.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
             eMat.SetDepthWriteEnabled(false);
@@ -437,6 +438,7 @@ namespace Snowflake {
     public class RenderableBuilding : Renderable {
 
         private Building data;
+        private ColourValue color;
 
         public event EventHandler Deleted;
 		public RenderableBuilding(BuildingConfiguration template) : base() {
@@ -470,17 +472,26 @@ namespace Snowflake {
         }
 
         public override void Create(SceneManager sm, SceneNode baseNode) {
-            foreach (Entity e in GetBuildingEntities(sm, out this.scale, out this.baseRotation)) { this.entities.Add(e); }
+            foreach (Entity e in GetBuildingEntities(sm, out this.scale, out this.baseRotation, out this.color)) { 
+                this.entities.Add(e); 
+
+                MaterialPtr mat = e.GetSubEntity(0).GetMaterial().Clone(e.Name + "_" + this.GetHashCode().ToString() + "_" + DateTime.Now.ToString());
+                mat.SetDiffuse(this.color);
+                e.GetSubEntity(0).SetMaterial(mat);
+            }
             base.Create(sm, baseNode);
+
 
             if (Data.Parent != null) { this.SetPosition(Data.Parent.X, Data.Parent.Y); }
             if (Data is Road) { node.Translate(0, 2, 0); }
         }
 
-        public virtual List<Entity> GetBuildingEntities(SceneManager sm, out Vector3 scale, out Quaternion rotation) {
+        public virtual List<Entity> GetBuildingEntities(SceneManager sm, out Vector3 scale, out Quaternion rotation, out ColourValue color) {
             List<Entity> entList = new List<Entity>();
             scale = new Vector3(1, 1, 1);
             rotation = Quaternion.IDENTITY;
+            color = ColourValue.White;
+
             if (this.Data is Haswell.Buildings.Commercial) {
                 entList.Add(sm.CreateEntity("skyscraper1.mesh"));
                 scale = new Vector3(80.0f, 80.0f, 80.0f);
@@ -501,6 +512,14 @@ namespace Snowflake {
                 scale = new Vector3(34.0f, 34.0f, 34.0f);
                 baseRotation = new Quaternion(Mogre.Math.PI, Vector3.UNIT_Y);
             }
+
+            if (this.Data.Configuration != null)
+            {
+                if (this.data.Configuration.Version <= 1) { color = new ColourValue(0.9f, 0.2f, 0.1f); }
+                else if (this.data.Configuration.Version <= 2) { color = new ColourValue(0.9f, 0.8f, 0.2f); }
+                else if (this.data.Configuration.Version <= 3) { color = new ColourValue(0.2f, 0.9f, 0.3f); }
+            }
+
             return entList;
         }
 
@@ -540,6 +559,7 @@ namespace Snowflake {
         private Entity turn;
         private Entity tBend;
         private Entity fourWay;
+        private ColourValue color;
 
         private int _dirty;
 
@@ -555,12 +575,12 @@ namespace Snowflake {
 
         public override void Create(SceneManager sm, SceneNode baseNode)
         {
-            this.entities = GetBuildingEntities(sm, out this.scale, out this.baseRotation);
+            this.entities = GetBuildingEntities(sm, out this.scale, out this.baseRotation, out this.color);
             base.Create(sm, baseNode);
 
             UpdateModel();
         }
-        public override List<Entity> GetBuildingEntities(SceneManager sm, out Vector3 scale, out Quaternion rotation)
+        public override List<Entity> GetBuildingEntities(SceneManager sm, out Vector3 scale, out Quaternion rotation, out ColourValue color)
         {
             List<Entity> entList = new List<Entity>();
             scale = new Vector3(1, 1, 1);
@@ -590,6 +610,7 @@ namespace Snowflake {
             entList.Add(straight);
 
             scale = new Vector3(34.0f, 34.0f, 34.0f);
+            color = ColourValue.White;
 
             return entList;
         }

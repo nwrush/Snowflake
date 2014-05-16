@@ -8,6 +8,7 @@ using Haswell;
 using Haswell.Buildings;
 
 using Resource = Haswell.Resource;
+using Math = System.Math;
 
 namespace Snowflake {
     /// <summary>
@@ -227,11 +228,7 @@ namespace Snowflake {
         public event EventHandler<BuildingEventArgs> BuildingAdded;
 
         private static MaterialPtr baseZoneMaterial;
-        private static MaterialPtr residentialZoneMaterial;
-        private static MaterialPtr commercialZoneMaterial;
-        private static MaterialPtr industrialZoneMaterial;
-        private static MaterialPtr infrastructureZoneMaterial;
-        private static MaterialPtr conservationZoneMaterial;
+        private static Dictionary<Zones, MaterialPtr> zoneMaterials;
 
         public RenderablePlot(Plot data) : base()
         {
@@ -242,6 +239,7 @@ namespace Snowflake {
             data.ZoneChanged += this.OnZoneChanged;
             data.BuildingDeleted += this.OnBuildingDeleted;
             data.BuildingAdded += this.OnBuildingAdded;
+            data.Daily += this.OnBuildingDaily;
         }
 
         public override void Create(SceneManager sm, SceneNode cityNode)
@@ -286,13 +284,30 @@ namespace Snowflake {
         {
             base.Update();
             if (this.RenderableBuilding != null) { this.RenderableBuilding.Update(); }
-            if ((CityManager.ShowZones || CityManager.GetMouseMode() == States.MouseMode.DrawingZone) && this.data.Zone != Zones.Unzoned)
+            if (((CityManager.ShowZones || CityManager.GetMouseMode() == States.MouseMode.DrawingZone) && this.data.Zone != Zones.Unzoned)
+                || (CityManager.ResourceToShow != null))
             {
                 zoneNode.SetVisible(true);
             }
             else
             {
                 zoneNode.SetVisible(false);
+            }
+        }
+
+        private void OnBuildingDaily(object sender, BuildingEventArgs e)
+        {
+            if (CityManager.ResourceToShow != null)
+            {
+                ((Entity)zoneNode.GetAttachedObject(0)).GetSubEntity(0).SetMaterial(
+                     GetResourceColoredMaterial(
+                     ((Entity)zoneNode
+                     .GetAttachedObject(0))
+                     .GetSubEntity(0)
+                     .GetMaterial(),
+                     this.data.Resources, CityManager.ResourceToShow.GetValueOrDefault()));
+
+                zoneNode.SetVisible(true);
             }
         }
 
@@ -325,104 +340,50 @@ namespace Snowflake {
                 baseZoneMaterial.Unload();
                 baseZoneMaterial.Dispose(); 
             }
-            if (residentialZoneMaterial != null)
+            if (zoneMaterials != null)
             {
-                residentialZoneMaterial.Unload();
-                residentialZoneMaterial.Dispose(); 
-            }
-            if (commercialZoneMaterial != null)
-            {
-                commercialZoneMaterial.Unload();
-                commercialZoneMaterial.Dispose(); 
-            }
-            if (industrialZoneMaterial != null)
-            {
-                industrialZoneMaterial.Unload();
-                industrialZoneMaterial.Dispose(); 
-            }
-            if (infrastructureZoneMaterial != null)
-            {
-                infrastructureZoneMaterial.Unload();
-                infrastructureZoneMaterial.Dispose(); 
-            }
-            if (conservationZoneMaterial != null)
-            {
-                conservationZoneMaterial.Unload();
-                conservationZoneMaterial.Dispose(); 
+                foreach (MaterialPtr m in zoneMaterials.Values)
+                {
+                    m.Unload();
+                    m.Dispose();
+                }
+                zoneMaterials.Clear();
             }
         }
 
         public static MaterialPtr GetZoneColoredMaterial(MaterialPtr eMat, Zones z)
         {
             baseZoneMaterial = baseZoneMaterial ?? eMat;
-            Pass p = eMat.GetTechnique(0).GetPass(0);
-            //Switch based on zone type
-            switch (z)
+
+            if (zoneMaterials == null)
             {
-                case Zones.Residential:
-                    if (residentialZoneMaterial == null)
-                    {
-                        residentialZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_residential");
-                        p.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-                        p.DepthWriteEnabled = false;
-                        residentialZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 0.5f, 0.2f, 0.5f);
-                    }
-                    return residentialZoneMaterial;
-
-                case Zones.Industrial:
-                    if (industrialZoneMaterial == null)
-                    {
-                        industrialZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_industrial");
-                        p.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-                        p.DepthWriteEnabled = false;
-                        industrialZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(0.5f, 0.5f, 0.5f, 0.5f);
-                    }
-                    return industrialZoneMaterial;
-
-                case Zones.Infrastructure:
-                    if (infrastructureZoneMaterial == null)
-                    {
-                        infrastructureZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_infrastructure");
-                        p.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-                        p.DepthWriteEnabled = false;
-                        infrastructureZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 0.2f, 1.0f, 0.5f);
-                    }
-                    return infrastructureZoneMaterial;
-
-                case Zones.Conservation:
-                    if (conservationZoneMaterial == null)
-                    {
-                        conservationZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_conservation");
-                        p.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-                        p.DepthWriteEnabled = false;
-                        conservationZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 1.0f, 0.2f, 0.5f);
-                    }
-                    return conservationZoneMaterial;
-
-                case Zones.Commercial:
-                    if (commercialZoneMaterial == null)
-                    {
-                        commercialZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_commercial");
-                        p.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-                        p.DepthWriteEnabled = false;
-                        commercialZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 0.8f, 0.2f, 0.5f);
-                    }
-                    return commercialZoneMaterial;
- 
-                default:
-                    p.SetDiffuse(1.0f, 1.0f, 1.0f, 0.5f);
-                    break;
+                zoneMaterials = new Dictionary<Zones, MaterialPtr>();
             }
-            p.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-            p.DepthWriteEnabled = false;
-            p.SetDiffuse(1.0f, 1.0f, 1.0f, 0.5f);
+            if (!(zoneMaterials.ContainsKey(z) && zoneMaterials[z].IsLoaded))
+            {
+                zoneMaterials[z] = baseZoneMaterial.Clone(eMat.Name + "_" + z.ToString());
+                zoneMaterials[z].SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+                ColourValue c = CityManager.GetZoneColor(z);
+                zoneMaterials[z].SetDiffuse(c.r, c.g, c.b, 0.5f);
+                zoneMaterials[z].SetDepthWriteEnabled(false);
+            }
+
+            eMat = zoneMaterials[z];
+
             return eMat;
         }
 
-        public static MaterialPtr GetZoneResourceMaterial(MaterialPtr eMat, ResourceDict resources)
+        public static MaterialPtr GetResourceColoredMaterial(MaterialPtr eMat, ResourceDict resources, ResourceType r)
         {
             eMat = eMat.Clone("material_resources"+resources.GetHashCode()+"t"+DateTime.Now.ToString());
-            Pass p = eMat.GetTechnique(0).GetPass(0);
+
+            ColourValue c = CityManager.GetResourceColor(r);
+            double val = resources[r];
+            val = Math.Log10(val) / 5;
+            val = Math.Min(Math.Max(val, 0), 1);
+            eMat.SetDiffuse(c.r, c.g, c.b, (float)val);
+            eMat.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+            eMat.SetDepthWriteEnabled(false);
 
             return eMat;
         }

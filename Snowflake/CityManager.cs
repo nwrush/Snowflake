@@ -27,7 +27,7 @@ namespace Snowflake {
         public static Point Origin { get; private set; }
         private static string cityName;
         public static bool ShowZones = true;
-        public static Resource? ResourceToShow = null;
+        public static ResourceType? ResourceToShow = null;
 
         public static Dictionary<Building, RenderableBuilding> Buildings;
         public static Dictionary<Plot, RenderablePlot> Plots;
@@ -242,6 +242,41 @@ namespace Snowflake {
             scratchZoneType = z;
             GameMgr.UpdateScratchZoneBoxZone(scratchZoneType);
 
+        }
+
+        public static ColourValue GetZoneColor(Zones z)
+        {
+            switch (z)
+            {
+                case Zones.Residential:
+                    return new ColourValue(1.0f, 0.5f, 0.2f);
+                case Zones.Commercial:
+                    return new ColourValue(1.0f, 0.8f, 0.2f);
+                case Zones.Industrial:
+                    return new ColourValue(0.5f, 0.5f, 0.5f);
+                case Zones.Infrastructure:
+                    return new ColourValue(0.2f, 0.2f, 1.0f);
+                case Zones.Conservation:
+                    return new ColourValue(0.2f, 1.0f, 0.2f);
+            }
+            return ColourValue.White;
+        }
+
+        public static ColourValue GetResourceColor(ResourceType r)
+        {
+            switch (r)
+            {
+                case ResourceType.Money:
+                    return new ColourValue(0.1f, 1.0f, 0.1f);
+                case ResourceType.Energy:
+                    return new ColourValue(1.0f, 0.7f, 0.1f);
+                case ResourceType.Population:
+                    return new ColourValue(0.1f, 0.1f, 1.0f);
+                case ResourceType.Material:
+                    return new ColourValue(0.5f, 0.5f, 0.5f);
+
+            }
+            return ColourValue.White;
         }
 
         /// <summary>

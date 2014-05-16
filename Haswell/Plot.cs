@@ -60,6 +60,17 @@ namespace Haswell
         [NonSerialized]
         private EventHandler<BuildingEventArgs> _adjacentBuildingChanged;
 
+        /// <summary>
+        /// Occurs daily (for hooking in to check resources, etc)
+        /// </summary>
+        public event EventHandler<BuildingEventArgs> Daily
+        {
+            add { _daily += value; }
+            remove { _daily -= value; }
+        }
+        [NonSerialized]
+        private EventHandler<BuildingEventArgs> _daily;
+
         //Location of the plot in the city grid
         //Minimum city plot value is (0,0)
         int plotX, plotY;
@@ -168,6 +179,8 @@ namespace Haswell
         {
             if (this.Building != null)
                 this.building.UpdateDaily(this.resource);
+            if (this._daily != null)
+                this._daily.Invoke(this, new BuildingEventArgs(this.Building));
         }
         public void UpdateWeekly()
         {

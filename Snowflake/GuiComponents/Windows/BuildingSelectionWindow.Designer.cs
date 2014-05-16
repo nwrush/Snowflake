@@ -225,6 +225,69 @@ namespace Snowflake.GuiComponents.Windows
 
 			ParentPanel.Controls.Add (tabs);
 
+            residentialPanel.Controls.Add(new PictureButton()
+            {
+                Size = new Size(150, 150),
+                Skin = ResourceManager.Skins["SquareButtonSkin"],
+                Text = "Residential 1",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.Black,
+                    Alignment = Alignment.MiddleCenter
+                },
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Residential, 1));
+                }
+            });
+
+            commercialPanel.Controls.Add(new PictureButton()
+            {
+                Size = new Size(150, 150),
+                Skin = ResourceManager.Skins["SquareButtonSkin"],
+                Text = "Commercial 1",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.Black,
+                    Alignment = Alignment.MiddleCenter
+                },
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Commercial, 1));
+                }
+            });
+
+            industrialPanel.Controls.Add(new PictureButton()
+            {
+                Size = new Size(150, 150),
+                Skin = ResourceManager.Skins["SquareButtonSkin"],
+                Text = "Industrial 1",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.Black,
+                    Alignment = Alignment.MiddleCenter
+                },
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Industrial, 1));
+                }
+            });
+
+            infrastructurePanel.Controls.Add(new PictureButton()
+            {
+                Size = new Size(150, 150),
+                Skin = ResourceManager.Skins["SquareButtonSkin"],
+                Text = "Infrastructure 1",
+                TextStyle = new TextStyle()
+                {
+                    ForegroundColour = Colours.Black,
+                    Alignment = Alignment.MiddleCenter
+                },
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Infrastructure, 1));
+                }
+            });
 		}
     }
 }

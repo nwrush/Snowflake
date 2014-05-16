@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/!svn/ver/387/trunk/NetFxIS/src
+END
+MyProgram-x64.exe
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/387/trunk/NetFxIS/src/MyProgram-x64.exe
+END
+MyProgram.exe
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/!svn/ver/383/trunk/NetFxIS/src/MyProgram.exe
+END
+MyProgram-IA64.exe
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/387/trunk/NetFxIS/src/MyProgram-IA64.exe
+END

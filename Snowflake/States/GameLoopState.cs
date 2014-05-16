@@ -334,6 +334,7 @@ namespace Snowflake.States {
         /// Shut down the state
         /// </summary>
         public override void Shutdown() {
+            RenderablePlot.DisposeCachedMaterials();
             CompositorManager.Singleton.RemoveAll();
             CompositorManager.Singleton.UnloadAll();
             CompositorManager.Singleton.Dispose();

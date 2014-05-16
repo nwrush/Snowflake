@@ -16,6 +16,7 @@ using Haswell.Exceptions;
 
 using Vector3 = Mogre.Vector3;
 using Rectangle = Miyagi.Common.Data.Rectangle;
+using Resource = Haswell.Resource;
 
 namespace Snowflake {
     public static partial class CityManager {
@@ -26,6 +27,7 @@ namespace Snowflake {
         public static Point Origin { get; private set; }
         private static string cityName;
         public static bool ShowZones = true;
+        public static Resource? ResourceToShow = null;
 
         public static Dictionary<Building, RenderableBuilding> Buildings;
         public static Dictionary<Plot, RenderablePlot> Plots;

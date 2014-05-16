@@ -64,6 +64,22 @@ namespace Snowflake.GuiComponents
         {
             get { return ParentPanel.Width; }
         }
+        public int FullWidth
+        {
+            get {
+                int i = Buttons.Count;
+                if (horizontal) { return boxwidth * i + padding * (2 * i - 1) + expandersize; }
+                else { return boxwidth; }
+            }
+        }
+        public int FullHeight
+        {
+                get {
+                int i = Buttons.Count;
+                if (vertical) { return boxheight * i + padding * (2 * i - 1) + expandersize; }
+                else { return boxheight; }
+            }
+        }
         /// <summary>
         /// Shows (expands) the toolbar
         /// </summary>
@@ -146,27 +162,28 @@ namespace Snowflake.GuiComponents
                 if (vertical) {
                     if (reverse)
                     {
-                        kvp.Value.Location = new Point(0, boxwidth * i + padding * (2 * i - 1));
+                        kvp.Value.Location = new Point(0, boxheight * i + padding * (2 * i - 1));
                     }
                     else
                     {
-                        kvp.Value.Location = new Point(0, (int)_height - expandersize - boxwidth * i - padding * (2 * i - 1));
+                        kvp.Value.Location = new Point(0, (int)_height - expandersize - boxheight * i - padding * (2 * i - 1));
                     }
                 }
                 else if (horizontal) {
                     if (reverse)
                     {
-                        kvp.Value.Location = new Point(boxheight * i + padding * (2 * i - 1), 0);
+                        kvp.Value.Location = new Point(boxwidth * i + padding * (2 * i - 1), 0);
                     }
                     else
                     {
-                        kvp.Value.Location = new Point((int)_width - expandersize - boxheight * i - padding * (2 * i - 1), 0);
+                        kvp.Value.Location = new Point((int)_width - expandersize - boxwidth * i - padding * (2 * i - 1), 0);
                     }
                 }
                 if (kvp.Key == "Expand") { continue; }
                 ++i;
             }
-            if (horizontal) {
+            if (horizontal)
+            {
                 if (fullyHide && ParentPanel.Width <= 2)
                 {
                     ParentPanel.BorderStyle = new Miyagi.UI.Controls.Styles.BorderStyle()
@@ -174,11 +191,31 @@ namespace Snowflake.GuiComponents
                         Thickness = new Miyagi.Common.Data.Thickness(0, 0, 0, 0)
                     };
                 }
-                else {
+                else
+                {
                     ParentPanel.BorderStyle = new Miyagi.UI.Controls.Styles.BorderStyle()
                     {
                         Thickness = new Miyagi.Common.Data.Thickness(reverse ? 1 : 0, 0, 0, 1)
                     };
+                }
+                if (reverse)
+                {
+                    expandButton.Right = (int)_width;
+                }
+                else
+                {
+                    expandButton.Left = 0;
+                }
+            }
+            else
+            {
+                if (reverse)
+                {
+                    expandButton.Top = 0;
+                }
+                else
+                {
+                    expandButton.Bottom = (int)_height;
                 }
             }
         }
@@ -195,10 +232,10 @@ namespace Snowflake.GuiComponents
             this.ParentPanel.Location = this.Location;
             if (vertical)
             {
-                if (expanded && ParentPanel.Height < boxheight)
+                if (expanded && ParentPanel.Height < FullHeight)
                 {
-                    _height = Math.Min(_height + 4 * frametime, boxheight); //((boxheight - _height) * 0.05f);
-                    if (_height >= boxheight)
+                    _height = Math.Min(_height + 4 * frametime, FullHeight); //((boxheight - _height) * 0.05f);
+                    if (_height >= FullHeight)
                     {
                         if (FullyShown != null) { FullyShown.Invoke(this, new EventArgs()); }
                     }
@@ -219,10 +256,10 @@ namespace Snowflake.GuiComponents
             }
             else if (horizontal)
             {
-                if (expanded && ParentPanel.Width < boxwidth)
+                if (expanded && ParentPanel.Width < FullWidth)
                 {
-                    _width = Math.Min(_width + 4 * frametime, boxwidth); //((boxwidth - _width) * 0.05f);
-                    if (_width >= boxwidth)
+                    _width = Math.Min(_width + 4 * frametime, FullWidth); //((boxwidth - _width) * 0.05f);
+                    if (_width >= FullWidth)
                     {
                         if (FullyShown != null) { FullyShown.Invoke(this, new EventArgs()); }
                     }

@@ -49,8 +49,17 @@ namespace Haswell
         }
         public static bool operator ==(BuildingConfiguration b1, BuildingConfiguration b2)
         {
-            if (b1 == null || b2 == null)
+            // If both are null, or both are same instance, return true.
+            if (System.Object.ReferenceEquals(b1, b2))
+            {
+                return true;
+            }
+
+            // If one is null, but not both, return false.
+            if (((object)b1 == null) || ((object)b2 == null))
+            {
                 return false;
+            }
 
             if (b1.buildingType == b2.buildingType && b1.version == b2.version)
             {

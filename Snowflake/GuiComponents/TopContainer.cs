@@ -84,6 +84,7 @@ namespace Snowflake.GuiComponents {
             buildToolbar.Update(frametime);
             governToolbar.Update(frametime);
             manageToolbar.Update(frametime);
+            resourceTypeSelector.Update(frametime);
         }
 
         private void UpdateStats(float frametime) {

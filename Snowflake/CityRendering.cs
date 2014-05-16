@@ -226,6 +226,13 @@ namespace Snowflake {
         public event EventHandler<BuildingEventArgs> BuildingDeleted;
         public event EventHandler<BuildingEventArgs> BuildingAdded;
 
+        private static MaterialPtr baseZoneMaterial;
+        private static MaterialPtr residentialZoneMaterial;
+        private static MaterialPtr commercialZoneMaterial;
+        private static MaterialPtr industrialZoneMaterial;
+        private static MaterialPtr infrastructureZoneMaterial;
+        private static MaterialPtr conservationZoneMaterial;
+
         public RenderablePlot(Plot data) : base()
         {
             this.data = data;
@@ -311,31 +318,80 @@ namespace Snowflake {
             }
         }
 
+        public static void DisposeCachedMaterials()
+        {
+            baseZoneMaterial.Dispose();
+            residentialZoneMaterial.Dispose();
+            commercialZoneMaterial.Dispose();
+            industrialZoneMaterial.Dispose();
+            infrastructureZoneMaterial.Dispose();
+            conservationZoneMaterial.Dispose();
+        }
+
         public static MaterialPtr GetZoneColoredMaterial(MaterialPtr eMat, Zones z)
         {
-            //Todo: Update this to index each zone's material so that they don't have to each create their own.
-            eMat = eMat.Clone(eMat.Name + "_zone_" + DateTime.Now.ToString());
-            eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-            eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+            baseZoneMaterial = baseZoneMaterial ?? eMat;
+           
             //Switch based on zone type
             switch (z)
             {
                 case Zones.Residential:
-                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 0.5f, 0.2f, 0.5f);
-                    break;
+                    if (residentialZoneMaterial == null)
+                    {
+                        residentialZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_residential");
+                        eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+                        eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+                        residentialZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 0.5f, 0.2f, 0.5f);
+                    }
+                    return residentialZoneMaterial;
+
                 case Zones.Industrial:
-                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(0.5f, 0.5f, 0.5f, 0.5f);
-                    break;
+                    if (industrialZoneMaterial == null)
+                    {
+                        industrialZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_industrial");
+                        eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+                        eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+                        industrialZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(0.5f, 0.5f, 0.5f, 0.5f);
+                    }
+                    return industrialZoneMaterial;
+
                 case Zones.Infrastructure:
-                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 0.2f, 1.0f, 0.5f);
-                    break;
+                    if (infrastructureZoneMaterial == null)
+                    {
+                        infrastructureZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_infrastructure");
+                        eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+                        eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+                        infrastructureZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 0.2f, 1.0f, 0.5f);
+                    }
+                    return infrastructureZoneMaterial;
+
                 case Zones.Conservation:
-                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 1.0f, 0.2f, 0.5f);
-                    break;
+                    if (conservationZoneMaterial == null)
+                    {
+                        conservationZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_conservation");
+                        eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+                        eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+                        conservationZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(0.2f, 1.0f, 0.2f, 0.5f);
+                    }
+                    return conservationZoneMaterial;
+
+                case Zones.Commercial:
+                    if (commercialZoneMaterial == null)
+                    {
+                        commercialZoneMaterial = baseZoneMaterial.Clone(baseZoneMaterial.Name + "_commercial");
+                        eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+                        eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+                        commercialZoneMaterial.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 0.8f, 0.2f, 0.5f);
+                    }
+                    return commercialZoneMaterial;
+ 
                 default:
-                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 2.0f, 1.0f, 0.5f);
+                    eMat.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 1.0f, 1.0f, 0.5f);
                     break;
             }
+            eMat.GetTechnique(0).GetPass(0).SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+            eMat.GetTechnique(0).GetPass(0).DepthWriteEnabled = false;
+            eMat.GetTechnique(0).GetPass(0).SetDiffuse(1.0f, 1.0f, 1.0f, 0.5f);
             return eMat;
         }
 

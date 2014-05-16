@@ -7,7 +7,6 @@ using Mogre;
 using Haswell;
 using Haswell.Buildings;
 
-using Resource = Haswell.Resource;
 
 namespace Snowflake {
     /// <summary>

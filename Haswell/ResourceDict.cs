@@ -26,6 +26,7 @@ namespace Haswell
             this.resources.Add(ResourceType.Population, 0);
             this.resources.Add(ResourceType.Energy, 0);
             this.resources.Add(ResourceType.Material, 0);
+            this.resources.Add(ResourceType.Pollution, 0);
         }
         /// <summary>
         /// Initializes a new Resource Dict from a Dictionary of Resource Types
@@ -233,4 +234,12 @@ namespace Haswell
             return sb;
         }
     }
+    public enum ResourceType
+    {
+        Material,
+        Energy,
+        Money,
+        Population,
+        Pollution
+    };
 }

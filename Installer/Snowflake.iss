@@ -65,7 +65,8 @@ Source: "C:\Users\Nikko\Documents\Dev\C#\Snowflake\Snowflake\bin\Release\RenderS
 Source: "C:\Users\Nikko\Documents\Dev\C#\Snowflake\Snowflake\bin\Release\settings.cfg"; DestDir: "{app}\bin"; Flags: ignoreversion
 Source: "C:\Users\Nikko\Documents\Dev\C#\Snowflake\Snowflake\bin\Release\Snowflake.pdb"; DestDir: "{app}\bin"; Flags: ignoreversion
 Source: "C:\Users\Nikko\Documents\Dev\C#\Snowflake\Snowflake\bin\Release\Snowflake.vshost.exe.manifest"; DestDir: "{app}\bin"; Flags: ignoreversion
-Source: "C:\Users\Nikko\Documents\Dev\C#\Snowflake\Snowflake\bin\resources.cfg"; DestDir: "{app}\bin"; Flags: ignoreversion
+
+Source: "C:\Users\Nikko\Documents\Dev\C#\Snowflake\Snowflake\bin\resources.cfg"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

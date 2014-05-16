@@ -22,6 +22,8 @@ namespace Snowflake.GuiComponents {
         private Panel OptionsPanel;
         private CheckBox zoneOption;
         private Label zoneOptionLabel;
+        private DropDownList resourceVisList;
+        private Label resourceVisLabel;
 
         private Panel ToolsContainerPanel;
         private PictureButton buildButton;
@@ -125,6 +127,7 @@ namespace Snowflake.GuiComponents {
                     Font = ResourceManager.Fonts["Section"]
                 }
             };
+            
             OptionsPanel.Controls.AddRange(zoneOption, zoneOptionLabel);
 
             ///

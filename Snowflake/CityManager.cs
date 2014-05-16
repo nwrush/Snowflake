@@ -16,7 +16,6 @@ using Haswell.Exceptions;
 
 using Vector3 = Mogre.Vector3;
 using Rectangle = Miyagi.Common.Data.Rectangle;
-using Resource = Haswell.Resource;
 
 namespace Snowflake {
     public static partial class CityManager {

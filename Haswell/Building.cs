@@ -14,7 +14,7 @@ namespace Haswell
         private Plot parent;
         protected BuildingConfiguration _buildingConfig;
 
-        protected Dictionary<string, object> configuration;
+        //protected Dictionary<string, object> configuration;
 
         public event EventHandler<BuildingEventArgs> Deleted
         {
@@ -30,7 +30,7 @@ namespace Haswell
             this._zone = zone;
             this.Initialized = true;
             this.Deleted += OnDeleted;
-            this.configuration = new Dictionary<string, object>();
+            //this.configuration = new Dictionary<string, object>();
         }
 
         public Dictionary<Direction, Plot> GetAdjacentPlots()

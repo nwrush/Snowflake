@@ -320,12 +320,36 @@ namespace Snowflake {
 
         public static void DisposeCachedMaterials()
         {
-            baseZoneMaterial.Dispose();
-            residentialZoneMaterial.Dispose();
-            commercialZoneMaterial.Dispose();
-            industrialZoneMaterial.Dispose();
-            infrastructureZoneMaterial.Dispose();
-            conservationZoneMaterial.Dispose();
+            if (baseZoneMaterial != null)
+            {
+                baseZoneMaterial.Unload();
+                baseZoneMaterial.Dispose(); 
+            }
+            if (residentialZoneMaterial != null)
+            {
+                residentialZoneMaterial.Unload();
+                residentialZoneMaterial.Dispose(); 
+            }
+            if (commercialZoneMaterial != null)
+            {
+                commercialZoneMaterial.Unload();
+                commercialZoneMaterial.Dispose(); 
+            }
+            if (industrialZoneMaterial != null)
+            {
+                industrialZoneMaterial.Unload();
+                industrialZoneMaterial.Dispose(); 
+            }
+            if (infrastructureZoneMaterial != null)
+            {
+                infrastructureZoneMaterial.Unload();
+                infrastructureZoneMaterial.Dispose(); 
+            }
+            if (conservationZoneMaterial != null)
+            {
+                conservationZoneMaterial.Unload();
+                conservationZoneMaterial.Dispose(); 
+            }
         }
 
         public static MaterialPtr GetZoneColoredMaterial(MaterialPtr eMat, Zones z)

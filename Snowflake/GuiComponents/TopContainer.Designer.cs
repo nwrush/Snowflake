@@ -22,7 +22,7 @@ namespace Snowflake.GuiComponents {
         private Panel OptionsPanel;
         private CheckBox zoneOption;
         private Label zoneOptionLabel;
-        private DropDownList resourceVisList;
+        private ListBox resourceVisList;
         private Label resourceVisLabel;
 
         private Panel ToolsContainerPanel;
@@ -127,8 +127,42 @@ namespace Snowflake.GuiComponents {
                     Font = ResourceManager.Fonts["Section"]
                 }
             };
-            
-            OptionsPanel.Controls.AddRange(zoneOption, zoneOptionLabel);
+            resourceVisList = new ListBox()
+            {
+                Skin = ResourceManager.Skins["DropDownListSkin"],
+                Size = new Size(125, 25),
+                Location = new Point(20, 60),
+                Anchor = AnchorStyles.Vertical,
+                ListStyle = new ListStyle()
+                {
+                    MultiSelect = false,
+                    MaxVisibleItems = 10
+                },
+                AllowDrop = true
+            };
+            resourceVisList.Items.Add(new ListItem()
+            {
+                Text = "None"
+            });
+            foreach (ResourceType r in Enum.GetValues(typeof(ResourceType)))
+            {
+                resourceVisList.Items.Add(new ListItem()
+                {
+                    Text = r.ToString()
+                });
+            }
+            resourceVisList.SelectedIndexChanged += (object sender, EventArgs e) => {
+                ResourceType t;
+                if (Enum.TryParse<ResourceType>(resourceVisList.SelectedItem.Text, out t))
+                {
+                    CityManager.ResourceToShow = t;
+                }
+                else
+                {
+                    CityManager.ResourceToShow = null;
+                }
+            };
+            OptionsPanel.Controls.AddRange(zoneOption, zoneOptionLabel, resourceVisList);
 
             ///
 

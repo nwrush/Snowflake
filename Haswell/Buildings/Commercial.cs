@@ -52,6 +52,10 @@ namespace Haswell.Buildings
         {
             base.Update(plotResources);
         }
+        protected override void Pollute(ResourceDict plot)
+        {
+            throw new NotImplementedException();
+        }
         public override void UpdateDaily(ResourceDict plotResources)
         {
             base.UpdateDaily(plotResources);

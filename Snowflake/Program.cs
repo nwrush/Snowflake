@@ -24,8 +24,11 @@ namespace Snowflake
 
         public const bool USE_FSAA = false;
 
+#if DEBUG
         public const bool BOOT_INTO_GAME = true;
-
+#else
+        public const bool BOOT_INTO_GAME=false;
+#endif
         /************************************************************************/
         /* program starts here                                                  */
         /************************************************************************/

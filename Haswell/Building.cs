@@ -99,6 +99,7 @@ namespace Haswell
 
         //Abstract Update Methods
         protected abstract void PayTaxes(ResourceDict plot);
+        protected abstract void Pollute(ResourceDict plot);
 
         private void OnAdjacent(object sender, BuildingEventArgs e)
         {

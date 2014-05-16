@@ -51,9 +51,10 @@ namespace Haswell.Buildings
 
         public override void Update(ResourceDict plotResources)
         {
+            Pollute(plotResources);
             base.Update(plotResources);
         }
-        private void Pollute(ResourceDict plot)
+        protected override void Pollute(ResourceDict plot)
         {
             plot[ResourceType.Pollution] += this.PollutionAmount * 0.1f;
         }

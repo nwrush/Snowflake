@@ -11,7 +11,10 @@ namespace Haswell.Buildings
     public class Industrial : Building
     {
         private string CONFIGURATIONFILE = "Building Configuration/Industrial_";
-        private IndustrialTypes industrialType;
+
+        private double _income;
+        private int _employees;
+        private int _pollution;
 
         public Industrial(BuildingConfiguration _bc)
             : base(Zones.Industrial)
@@ -23,8 +26,26 @@ namespace Haswell.Buildings
         {
             if (0 < _bc.Version && _bc.Version <= 3)
             {
-                string configText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
-                Industrial tmp = JsonConvert.DeserializeObject<Industrial>(configText);
+                switch (_bc.Version)
+                {
+                    case 1:
+                        this.Income = 1000000;
+                        this.Employees = 250;
+                        this.PollutionAmount = 100;
+                        break;
+                    case 2:
+                        this.Income = 5000000;
+                        this.Employees = 750;
+                        this.PollutionAmount = 500;
+                        break;
+                    case 3:
+                        this.Income = 75000000;
+                        this.Employees = 1000;
+                        this.PollutionAmount = 750;
+                        break;
+                    default:
+                        goto case 1;
+                }
             }
         }
 
@@ -57,22 +78,38 @@ namespace Haswell.Buildings
             base.UpdateYearly(plotResources);
         }
 
-        public IndustrialTypes Type
+        public double Income
         {
             get
             {
-                return this.industrialType;
+                return this._income;
             }
-            set
+            private set
             {
-                this.industrialType = value;
+                this._income = value;
+            }
+        }
+        public int Employees
+        {
+            get
+            {
+                return this._employees;
+            }
+            private set
+            {
+                this._employees = value;
+            }
+        }
+        public int PollutionAmount
+        {
+            get
+            {
+                return this._pollution;
+            }
+            private set
+            {
+                this._pollution = value;
             }
         }
     }
-    public enum IndustrialTypes
-    {
-        thing1,
-        thing2,
-        thing3
-    };
 }

@@ -14,11 +14,9 @@ namespace Haswell.Buildings
     public class Commercial : Building, IBuilding
     {
         private const string CONFIGURATIONFILE = "Building Configuration/Commercial_";
-
-        private CommercialTypes commercialType;
         
-        private int income;
-        private 
+        private double _income;
+        private int _employees;
 
         public Commercial(BuildingConfiguration _bc)
             : base(Zones.Commercial)
@@ -33,13 +31,16 @@ namespace Haswell.Buildings
                 switch (_bc.Version)
                 {
                     case 1:
-
+                        this._income = 70000;
+                        this._employees = 500;
                         break;
                     case 2:
-
+                        this._income = 1000000;
+                        this._employees = 1000;
                         break;
                     case 3:
-
+                        this._income = 50000000;
+                        this._employees = 75000;
                         break;
                     default:
                         goto case 1;
@@ -67,6 +68,11 @@ namespace Haswell.Buildings
         {
             base.UpdateQuarterly(plotResources);
         }
+        private void PayTaxes(ResourceDict plot)
+        {
+            plot[ResourceType.Money] += ((float)this._income * 0.15f) / 4;
+        }
+
         public override void UpdateBiannually(ResourceDict plotResources)
         {
             base.UpdateBiannually(plotResources);
@@ -76,22 +82,20 @@ namespace Haswell.Buildings
             base.UpdateYearly(plotResources);
         }
 
-        private CommercialTypes Type
+
+        public double Income
         {
             get
             {
-                return this.commercialType;
+                return this._income;
             }
-            set
+        }
+        public int Employees
+        {
+            get
             {
-                this.commercialType = value;
+                return this._employees;
             }
         }
     }
-    public enum CommercialTypes
-    {
-        thing1,
-        thing2,
-        thing3
-    };
 }

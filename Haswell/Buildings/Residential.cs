@@ -15,7 +15,7 @@ namespace Haswell.Buildings
         private const string CONFIGURATIONFILE = "Building Configuration/Residential_";
 
         private int _residents;
-        private float _income;
+        private double _income;
 
         private Residential() : base(Zones.Residential) { }
         public Residential(BuildingConfiguration _bc)
@@ -97,11 +97,9 @@ namespace Haswell.Buildings
             PayTaxes(pltRes);
             base.UpdateYearly(pltRes);
         }
-        //Todo: Remember to reset this
         protected void PayTaxes(ResourceDict plot)
         {
-            //plot[ResourceType.Money] += this._income * 0.15f;
-            plot[ResourceType.Money] += 100;
+            plot[ResourceType.Money] += (float)this._income * 0.15f;
         }
 
         public int Residents
@@ -115,7 +113,7 @@ namespace Haswell.Buildings
                 this._residents = value;
             }
         }
-        public float Income
+        public double Income
         {
             get
             {

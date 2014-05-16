@@ -22,7 +22,7 @@ namespace Haswell.Buildings
             : base(Zones.Residential)
         {
             this._buildingConfig = _bc;
-            //LoadConfiguration(_bc);
+            LoadConfiguration(_bc);
         }
         private Residential(int residents, int income):base (Zones.Residential)
         {

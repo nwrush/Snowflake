@@ -16,19 +16,34 @@ namespace Haswell.Buildings
         private const string CONFIGURATIONFILE = "Building Configuration/Commercial_";
 
         private CommercialTypes commercialType;
+        
+        private int income;
+        private 
 
         public Commercial(BuildingConfiguration _bc)
             : base(Zones.Commercial)
         {
             this._buildingConfig = _bc;
-
+            LoadConfiguration(_bc);
         }
         private void LoadConfiguration(BuildingConfiguration _bc)
         {
             if (0 < _bc.Version && _bc.Version <= 3)
             {
-                string configText = File.OpenText(CONFIGURATIONFILE + _bc.Version + ".json").ReadToEnd();
-                Commercial tmp = JsonConvert.DeserializeObject<Commercial>(configText);
+                switch (_bc.Version)
+                {
+                    case 1:
+
+                        break;
+                    case 2:
+
+                        break;
+                    case 3:
+
+                        break;
+                    default:
+                        goto case 1;
+                }
             }
         }
 

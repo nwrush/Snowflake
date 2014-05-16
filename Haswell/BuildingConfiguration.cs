@@ -49,14 +49,18 @@ namespace Haswell
         }
         public static bool operator ==(BuildingConfiguration b1, BuildingConfiguration b2)
         {
-            if (b1 == null || b2 == null)
-                return false;
-
-            if (b1.buildingType == b2.buildingType && b1.version == b2.version)
+            try
             {
-                return true;
+                if (b1.buildingType == b2.buildingType && b1.version == b2.version)
+                {
+                    return true;
+                }
+                return false;
             }
-            return false;
+            catch (NullReferenceException e)
+            {
+                return false;
+            }
         }
         public static bool operator !=(BuildingConfiguration b1, BuildingConfiguration b2)
         {

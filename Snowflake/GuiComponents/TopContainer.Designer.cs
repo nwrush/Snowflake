@@ -22,8 +22,6 @@ namespace Snowflake.GuiComponents {
         private Panel OptionsPanel;
         private CheckBox zoneOption;
         private Label zoneOptionLabel;
-        private DropDownList resourceVisList;
-        private Label resourceVisLabel;
 
         private Panel ToolsContainerPanel;
         private PictureButton buildButton;
@@ -47,6 +45,8 @@ namespace Snowflake.GuiComponents {
         private Label currentActionLabelShadow;
         private PictureButton toggleZoneTypeLeft;
         private PictureButton toggleZoneTypeRight;
+
+        private ExpanderToolbar resourceTypeSelector;
 
         public void CreateGui(GUI gui) {
             //store game width and height
@@ -80,7 +80,7 @@ namespace Snowflake.GuiComponents {
                 PictureOffset = new Point(48, 20),
                 Padding = new Thickness(0, 0, 0, 8),
                 Text = "      WEATHER",
-                TextStyle = new TextStyle() {
+                TextStyle =  {
                     Font = ResourceManager.Fonts["Section"],
                     Alignment = Alignment.BottomCenter,
                     ForegroundColour = Colours.White
@@ -105,7 +105,7 @@ namespace Snowflake.GuiComponents {
                 Location = new Point(20, 20),
                 Size = new Size(16, 16),
 
-                BorderStyle = new BorderStyle()
+                BorderStyle = 
                 {
                     Thickness = new Thickness(1, 1, 1, 1)
                 }
@@ -119,7 +119,7 @@ namespace Snowflake.GuiComponents {
                 Text = "Show Zones",
                 AutoSize = true,
                 Location = new Point(44, 22),
-                TextStyle = new TextStyle()
+                TextStyle =
                 {
                     Alignment = Alignment.TopLeft,
                     ForegroundColour = Colours.White,
@@ -129,6 +129,38 @@ namespace Snowflake.GuiComponents {
             };
             
             OptionsPanel.Controls.AddRange(zoneOption, zoneOptionLabel);
+
+            resourceTypeSelector = new ExpanderToolbar(true, 80, 40*6, 0, 16)
+            {
+                Location = new Point(OptionsPanel.Location.X + 20, ParentPanel.Location.Y + ParentPanel.Height)
+            };
+            resourceTypeSelector.AddButton("None", new PictureButton()
+            {
+                Text = "None",
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Size = new Size(80, 40),
+                TextStyle =
+                {
+                    Alignment = Alignment.MiddleCenter,
+                    ForegroundColour = Colours.White
+                }
+            });
+            foreach (ResourceType t in Enum.GetValues(typeof(ResourceType)))
+            {
+                resourceTypeSelector.AddButton(t.ToString(), new PictureButton()
+                {
+                    Text = t.ToString(),
+                    Skin = ResourceManager.Skins["ClearButtonSkin"],
+                    Size = new Size(80, 40),
+                    TextStyle =
+                    {
+                        Alignment = Alignment.MiddleCenter,
+                        ForegroundColour = Colours.White
+                    }
+                });
+            }
+            resourceTypeSelector.CreateGui(gui);
+            resourceTypeSelector.Expand();
 
             ///
 

@@ -227,7 +227,7 @@ namespace Snowflake.GuiComponents.Windows
 
             for (int i = 1; i <= 3; ++i)
             {
-                residentialPanel.Controls.Add(new PictureButton()
+                Button b = new Button()
                 {
                     Size = new Size(150, 150),
                     Skin = ResourceManager.Skins["SquareButtonSkin"],
@@ -236,61 +236,74 @@ namespace Snowflake.GuiComponents.Windows
                     {
                         ForegroundColour = Colours.Black,
                         Alignment = Alignment.MiddleCenter
-                    },
-                    ClickFunc = (object sender) =>
-                    {
-                        CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Residential, i));
                     }
-                });
+                };
+                b.Click += (object sender, EventArgs e) =>
+                {
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Residential, i));
+                };
+                residentialPanel.Controls.Add(b);
             }
 
-            commercialPanel.Controls.Add(new PictureButton()
+            for (int i = 1; i <= 3; ++i)
             {
-                Size = new Size(150, 150),
-                Skin = ResourceManager.Skins["SquareButtonSkin"],
-                Text = "Commercial 1",
-                TextStyle = new TextStyle()
+                Button b = new Button()
                 {
-                    ForegroundColour = Colours.Black,
-                    Alignment = Alignment.MiddleCenter
-                },
-                ClickFunc = (object sender) =>
+                    Size = new Size(150, 150),
+                    Skin = ResourceManager.Skins["SquareButtonSkin"],
+                    Text = "Commercial " + i,
+                    TextStyle = new TextStyle()
+                    {
+                        ForegroundColour = Colours.Black,
+                        Alignment = Alignment.MiddleCenter
+                    }
+                };
+                b.Click += (object sender, EventArgs e) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Commercial, 1));
-                }
-            });
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Commercial, i));
+                };
+                commercialPanel.Controls.Add(b);
+            }
 
-            industrialPanel.Controls.Add(new PictureButton()
+            for (int i = 1; i <= 3; ++i)
             {
-                Size = new Size(150, 150),
-                Skin = ResourceManager.Skins["SquareButtonSkin"],
-                Text = "Industrial 1",
-                TextStyle = new TextStyle()
+                Button b = new Button()
                 {
-                    ForegroundColour = Colours.Black,
-                    Alignment = Alignment.MiddleCenter
-                },
-                ClickFunc = (object sender) =>
+                    Size = new Size(150, 150),
+                    Skin = ResourceManager.Skins["SquareButtonSkin"],
+                    Text = "Industrial " + i,
+                    TextStyle = new TextStyle()
+                    {
+                        ForegroundColour = Colours.Black,
+                        Alignment = Alignment.MiddleCenter
+                    }
+                };
+                b.Click += (object sender, EventArgs e) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Industrial, 1));
-                }
-            });
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Industrial, i));
+                };
+                industrialPanel.Controls.Add(b);
+            }
 
-            infrastructurePanel.Controls.Add(new PictureButton()
+            for (int i = 1; i <= 3; ++i)
             {
-                Size = new Size(150, 150),
-                Skin = ResourceManager.Skins["SquareButtonSkin"],
-                Text = "Infrastructure 1",
-                TextStyle = new TextStyle()
+                Button b = new Button()
                 {
-                    ForegroundColour = Colours.Black,
-                    Alignment = Alignment.MiddleCenter
-                },
-                ClickFunc = (object sender) =>
+                    Size = new Size(150, 150),
+                    Skin = ResourceManager.Skins["SquareButtonSkin"],
+                    Text = "Infrastructure " + i,
+                    TextStyle = new TextStyle()
+                    {
+                        ForegroundColour = Colours.Black,
+                        Alignment = Alignment.MiddleCenter
+                    }
+                };
+                b.Click += (object sender, EventArgs e) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Infrastructure, 1));
-                }
-            });
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Infrastructure, i));
+                };
+                infrastructurePanel.Controls.Add(b);
+            }
 		}
     }
 }

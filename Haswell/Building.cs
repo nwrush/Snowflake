@@ -97,6 +97,9 @@ namespace Haswell
         public virtual void UpdateBiannually(ResourceDict plotResources) { }
         public virtual void UpdateYearly(ResourceDict plotResources) { }
 
+        //Abstract Update Methods
+        protected abstract void PayTaxes(ResourceDict plot);
+
         private void OnAdjacent(object sender, BuildingEventArgs e)
         {
             UpdateFacing();

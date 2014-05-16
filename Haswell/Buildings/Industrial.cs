@@ -73,6 +73,10 @@ namespace Haswell.Buildings
         {
             base.UpdateQuarterly(plotResources);
         }
+        protected override void PayTaxes(ResourceDict plot)
+        {
+            plot[ResourceType.Money] += ((float)this.Income * 0.25f) / 4;
+        }
         public override void UpdateBiannually(ResourceDict plotResources)
         {
             base.UpdateBiannually(plotResources);

@@ -24,7 +24,8 @@ namespace Haswell.Buildings
             this._buildingConfig = _bc;
             LoadConfiguration(_bc);
         }
-        private Residential(int residents, int income):base (Zones.Residential)
+        private Residential(int residents, int income)
+            : base(Zones.Residential)
         {
             this._residents = residents;
             this._income = income;
@@ -97,7 +98,7 @@ namespace Haswell.Buildings
             PayTaxes(pltRes);
             base.UpdateYearly(pltRes);
         }
-        protected void PayTaxes(ResourceDict plot)
+        protected override void PayTaxes(ResourceDict plot)
         {
             plot[ResourceType.Money] += (float)this._income * 0.15f;
         }

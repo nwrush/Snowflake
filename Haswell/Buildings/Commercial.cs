@@ -14,7 +14,7 @@ namespace Haswell.Buildings
     public class Commercial : Building, IBuilding
     {
         private const string CONFIGURATIONFILE = "Building Configuration/Commercial_";
-        
+
         private double _income;
         private int _employees;
 
@@ -68,7 +68,7 @@ namespace Haswell.Buildings
         {
             base.UpdateQuarterly(plotResources);
         }
-        private void PayTaxes(ResourceDict plot)
+        protected override void PayTaxes(ResourceDict plot)
         {
             plot[ResourceType.Money] += ((float)this._income * 0.15f) / 4;
         }

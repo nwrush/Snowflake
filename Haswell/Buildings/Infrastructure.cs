@@ -48,6 +48,10 @@ namespace Haswell.Buildings
         {
             base.UpdateYearly(plotResources);
         }
+        protected override void PayTaxes(ResourceDict plot)
+        {
+            throw new NotImplementedException();
+        }
     }
     public enum InfrastructureTypes
     {

@@ -22,6 +22,9 @@ namespace Snowflake.GuiComponents {
         private Panel OptionsPanel;
         private CheckBox zoneOption;
         private Label zoneOptionLabel;
+        private Label resourceTypeLabel;
+        private TextBox resourceTypeBox;
+        private Button resourceDropdownButton;
 
         private Panel ToolsContainerPanel;
         private PictureButton buildButton;
@@ -47,6 +50,7 @@ namespace Snowflake.GuiComponents {
         private PictureButton toggleZoneTypeRight;
 
         private ExpanderToolbar resourceTypeSelector;
+        
 
         public void CreateGui(GUI gui) {
             //store game width and height
@@ -94,7 +98,7 @@ namespace Snowflake.GuiComponents {
             OptionsPanel = new Panel("OptionsPanel_ParentPanel")
             {
                 Location = new Point(140, 0),
-                Size = new Size(140, 120),
+                Size = new Size(340, 120),
                 Movable = false,
                 Throwable = false,
                 ResizeMode = ResizeModes.None,
@@ -113,6 +117,8 @@ namespace Snowflake.GuiComponents {
             zoneOption.Click += (object sender, EventArgs e) =>
             {
                 CityManager.ShowZones = zoneOption.Checked;
+                CityManager.ResourceToShow = null;
+                resourceTypeBox.Text = "None";
             };
             zoneOptionLabel = new Label("ZoneOptionLabel")
             {
@@ -130,42 +136,109 @@ namespace Snowflake.GuiComponents {
             
             OptionsPanel.Controls.AddRange(zoneOption, zoneOptionLabel);
 
-            resourceTypeSelector = new ExpanderToolbar(true, 80, 40, 0, 16)
+            resourceTypeSelector = new ExpanderToolbar(true, 120, 40, 0, 0)
             {
-                Location = new Point(OptionsPanel.Location.X + 20, 80),
-                Skin = "PanelSkin"
+                Location = new Point(OptionsPanel.Location.X + 20, 102),
+                //Skin = "PanelSkin"
             };
             resourceTypeSelector.AddButton("None", new PictureButton()
             {
                 Text = "None",
-                Skin = ResourceManager.Skins["ClearButtonSkin"],
-                Size = new Size(80, 40),
+                Skin = ResourceManager.Skins["BlackPanelSkin"],
+                Size = new Size(120, 40),
                 TextStyle =
                 {
                     Alignment = Alignment.MiddleCenter,
-                    ForegroundColour = Colours.Black
-                }
+                    ForegroundColour = Colours.White
+                },
+                ClickFunc = (object sender) =>
+                {
+                    CityManager.ResourceToShow = null;
+                    resourceTypeBox.Text = "None";
+                    resourceTypeSelector.Contract();
+                } 
             });
             foreach (ResourceType t in Enum.GetValues(typeof(ResourceType)))
             {
                 resourceTypeSelector.AddButton(t.ToString(), new PictureButton()
                 {
                     Text = t.ToString(),
-                    Skin = ResourceManager.Skins["ClearButtonSkin"],
-                    Size = new Size(80, 40),
+                    Skin = ResourceManager.Skins["BlackPanelSkin"],
+                    Size = new Size(120, 40),
                     TextStyle =
                     {
                         Alignment = Alignment.MiddleCenter,
-                        ForegroundColour = Colours.Black
+                        ForegroundColour = Colours.White
                     },
                     ClickFunc = (object sender) =>
                     {
                         CityManager.ResourceToShow = t;
+                        CityManager.ShowZones = false;
+                        resourceTypeBox.Text = t.ToString();
+                        resourceTypeSelector.Contract();
                     }
                 });
             }
             resourceTypeSelector.CreateGui(gui);
-            resourceTypeSelector.Expand();
+            resourceTypeLabel = new Label()
+            {
+                Text = "Show Resource:",
+                AutoSize = true,
+                Location = new Point(22, 44),
+                TextStyle =
+                {
+                    Alignment = Alignment.TopLeft,
+                    ForegroundColour = Colours.White,
+                    Multiline = false,
+                    Font = ResourceManager.Fonts["Section"]
+                }
+            };
+            resourceTypeBox = new TextBox()
+            {
+                Size = new Size(120, 30),
+                Location = new Point(20, 62),
+                Text = "None",
+                TextStyle =
+                {
+                    ForegroundColour = Colours.White,
+                    Multiline = false,
+                    Alignment = Alignment.MiddleCenter
+                },
+                Enabled = false,
+                Skin = ResourceManager.Skins["BlackPanelSkin"],
+                BorderStyle =
+                {
+                    Thickness = new Thickness(1, 1, 1, 1)
+                }
+            };
+            resourceDropdownButton = new PictureButton()
+            {
+                Skin = ResourceManager.Skins["ClearButtonSkin"],
+                Size = new Size(30, 30),
+                Location = new Point(140, 62),
+                Text = "v",
+                TextStyle =
+                {
+                    Alignment = Alignment.MiddleCenter,
+                    ForegroundColour = Colours.White
+                },
+                ClickFunc = (object sender) =>
+                {
+                    if (resourceTypeSelector.visible)
+                    {
+                        resourceTypeSelector.Contract();
+                    }
+                    else
+                    {
+                        resourceTypeSelector.Expand();
+                    }
+                },
+                BorderStyle =
+                {
+                    Thickness = new Thickness(1, 1, 1, 1)
+                }
+            };
+            OptionsPanel.Controls.AddRange(resourceTypeLabel, resourceTypeBox, resourceDropdownButton);
 
             ///
 

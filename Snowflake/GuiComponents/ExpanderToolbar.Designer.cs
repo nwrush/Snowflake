@@ -78,7 +78,8 @@ namespace Snowflake.GuiComponents
                 VScrollBarStyle = new ScrollBarStyle()
                 {
                     Extent = 0
-                }
+                },
+                AlwaysOnTop = true
             };
 
             ParentPanel.Controls.Add(expandButton);

@@ -226,8 +226,7 @@ namespace Snowflake {
         public event EventHandler<BuildingEventArgs> BuildingDeleted;
         public event EventHandler<BuildingEventArgs> BuildingAdded;
 
-        private static MaterialPtr baseZoneMaterial;
-        private static Dictionary<Zones, MaterialPtr> zoneMaterials;
+        private MaterialPtr plotMaterial;
 
         public RenderablePlot(Plot data) : base()
         {
@@ -257,6 +256,8 @@ namespace Snowflake {
             zoneTile.CastShadows = false;
             zoneNode.Translate(new Vector3(0, 100, 0));
             zoneNode.SetVisible(false);
+            plotMaterial = zoneTile.GetSubEntity(0).GetMaterial().Clone("Plot:"+PlotX+","+PlotY);
+            zoneTile.GetSubEntity(0).SetMaterial(plotMaterial);
 
             selectionBoxNode = cityNode.CreateChildSceneNode();
             Entity selectionBoxEnt = sm.CreateEntity("selectionbox_" + PlotX + "," + PlotY + "_" + this.GetHashCode(), "selectionbox.mesh");
@@ -283,8 +284,13 @@ namespace Snowflake {
         {
             base.Update();
             if (this.RenderableBuilding != null) { this.RenderableBuilding.Update(); }
+            UpdateZoneVisibility();
+        }
+
+        public void UpdateZoneVisibility()
+        {
             if (((CityManager.ShowZones || CityManager.GetMouseMode() == States.MouseMode.DrawingZone) && this.data.Zone != Zones.Unzoned)
-                || (CityManager.ResourceToShow != null))
+    || (CityManager.ResourceToShow != null))
             {
                 zoneNode.SetVisible(true);
             }
@@ -298,32 +304,19 @@ namespace Snowflake {
         {
             if (CityManager.ResourceToShow != null)
             {
-                ((Entity)zoneNode.GetAttachedObject(0)).GetSubEntity(0).SetMaterial(
-                     GetResourceColoredMaterial(
-                     ((Entity)zoneNode
-                     .GetAttachedObject(0))
-                     .GetSubEntity(0)
-                     .GetMaterial(),
-                     this.data.Resources, CityManager.ResourceToShow.GetValueOrDefault()));
-
-                zoneNode.SetVisible(true);
+                ColorMaterialWithResource(plotMaterial, this.data.Resources, CityManager.ResourceToShow.GetValueOrDefault());
+            }
+            else if (CityManager.ResourceToShow == null && this.data.Zone != Zones.Unzoned)
+            {
+                OnZoneChanged(this.data, new EventArgs());
             }
         }
 
         private void OnZoneChanged(object sender, EventArgs e)
         {
-            if (this.data.Zone == Zones.Unzoned) { zoneNode.SetVisible(false); }
-            else { 
+            if (this.data.Zone != Zones.Unzoned) { 
 
-                ((Entity)zoneNode.GetAttachedObject(0)).GetSubEntity(0).SetMaterial(
-                    GetZoneColoredMaterial(
-                    ((Entity)zoneNode
-                    .GetAttachedObject(0))
-                    .GetSubEntity(0)
-                    .GetMaterial(),
-                    this.data.Zone));
-
-                zoneNode.SetVisible(true);
+                ColorMaterialWithZone(plotMaterial, this.data.Zone);
             }
 
             if (this.ZoneChanged != null)
@@ -332,60 +325,35 @@ namespace Snowflake {
             }
         }
 
-        public static void DisposeCachedMaterials()
+        public void DisposeCachedMaterials()
         {
-            if (baseZoneMaterial != null)
-            {
-                baseZoneMaterial.Unload();
-                baseZoneMaterial.Dispose(); 
-            }
-            if (zoneMaterials != null)
-            {
-                foreach (MaterialPtr m in zoneMaterials.Values)
-                {
-                    m.Unload();
-                    m.Dispose();
-                }
-                zoneMaterials.Clear();
-            }
+            plotMaterial.Unload();
+            plotMaterial.Dispose();
         }
 
-        public static MaterialPtr GetZoneColoredMaterial(MaterialPtr eMat, Zones z)
+        public override void Dispose()
         {
-            baseZoneMaterial = baseZoneMaterial ?? eMat;
-
-            if (zoneMaterials == null)
-            {
-                zoneMaterials = new Dictionary<Zones, MaterialPtr>();
-            }
-            if (!(zoneMaterials.ContainsKey(z) && zoneMaterials[z].IsLoaded))
-            {
-                zoneMaterials[z] = baseZoneMaterial.Clone(eMat.Name + "_" + z.ToString());
-                zoneMaterials[z].SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
-                ColourValue c = CityManager.GetZoneColor(z);
-                zoneMaterials[z].SetDiffuse(c.r, c.g, c.b, 0.5f);
-                zoneMaterials[z].SetDepthWriteEnabled(false);
-            }
-
-            eMat = zoneMaterials[z];
-
-            return eMat;
+            base.Dispose();
+            DisposeCachedMaterials();
         }
 
-        public static MaterialPtr GetResourceColoredMaterial(MaterialPtr eMat, ResourceDict resources, ResourceType r)
+        public static void ColorMaterialWithZone(MaterialPtr eMat, Zones z)
         {
-            eMat = eMat.Clone("material_resources"+resources.GetHashCode()+"t"+DateTime.Now.ToString());
+            eMat.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
+            ColourValue c = CityManager.GetZoneColor(z);
+            eMat.SetDiffuse(c.r, c.g, c.b, 0.5f);
+            eMat.SetDepthWriteEnabled(false);
+        }
 
+        public static void ColorMaterialWithResource(MaterialPtr eMat, ResourceDict resources, ResourceType r)
+        {
             ColourValue c = CityManager.GetResourceColor(r);
             double val = resources[r];
-            val = Math.Log10(val) / 5;
+            val = Math.Log10(val) / 6.0;
             val = Math.Min(Math.Max(val, 0), 1);
-            val = 0.5f;
             eMat.SetDiffuse(c.r, c.g, c.b, (float)val);
             eMat.SetSceneBlending(SceneBlendType.SBT_TRANSPARENT_ALPHA);
             eMat.SetDepthWriteEnabled(false);
-
-            return eMat;
         }
 
         private void OnBuildingAdded(object sender, BuildingEventArgs e)

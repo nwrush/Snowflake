@@ -447,6 +447,18 @@ namespace Snowflake {
             }
         }
 
+        public static void DisposeAll()
+        {
+            foreach (RenderableBuilding r in Buildings.Values)
+            {
+                r.Dispose();
+            }
+            foreach (RenderablePlot p in Plots.Values)
+            {
+                p.Dispose();
+            }
+        }
+
         public static void Quit() {
             GameMgr.StartShutdown();
             //Todo: fancy UI for asking if the player is really absolutely sure they want to quit without saving their life's work

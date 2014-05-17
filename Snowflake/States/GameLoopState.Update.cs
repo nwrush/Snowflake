@@ -315,13 +315,13 @@ namespace Snowflake.States {
                 scratchZone.SetVisible(true);
             }
         }
-        public void UpdateScratchZoneBoxZone(Zones z) {
-            scratchZoneEnt.GetSubEntity(0).SetMaterial(
-                RenderablePlot.GetZoneColoredMaterial(
-                scratchZoneEnt
-                .GetSubEntity(0)
-                .GetMaterial(),
-                z));
+        public void UpdateScratchZoneBoxZone(Zones z) 
+        {
+            if (scratchZoneMaterial == null) { 
+                scratchZoneMaterial = scratchZoneEnt.GetSubEntity(0).GetMaterial().Clone("UI zone dummy"); 
+                scratchZoneEnt.GetSubEntity(0).SetMaterial(scratchZoneMaterial);
+            }
+            RenderablePlot.ColorMaterialWithZone(scratchZoneMaterial, z);
         }
         public void UpdateGUI(float frametime) {
             if (CityManager.Initialized) {

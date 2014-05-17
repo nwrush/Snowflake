@@ -107,7 +107,6 @@ namespace Haswell
                     CreateBuilding(x, y, new Buildings.Industrial(configuration));
                     break;
             }
-            Console.WriteLine("bcv @ haswell: " + configuration.Version);
         }
 
         /// <summary>

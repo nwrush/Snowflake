@@ -37,6 +37,7 @@ namespace Snowflake.States {
         private Entity selectionBoxEnt;
         private SceneNode scratchZone;
         private Entity scratchZoneEnt;
+        private MaterialPtr scratchZoneMaterial;
         private MouseMode mouseMode = MouseMode.Selection;
         private RenderableBuilding tempBuilding;
 
@@ -334,10 +335,13 @@ namespace Snowflake.States {
         /// Shut down the state
         /// </summary>
         public override void Shutdown() {
-            RenderablePlot.DisposeCachedMaterials();
             CompositorManager.Singleton.RemoveAll();
             CompositorManager.Singleton.UnloadAll();
             CompositorManager.Singleton.Dispose();
+            CityManager.DisposeAll();
+
+            scratchZoneMaterial.Unload();
+            scratchZoneMaterial.Dispose();
         }
 
         public void StartShutdown()

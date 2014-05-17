@@ -284,7 +284,6 @@ namespace Snowflake.GuiComponents.Windows
                 b.Click += (object sender, EventArgs e) =>
                 {
                     CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Industrial, locali));
-                    Console.WriteLine("bcv @ cm call: " + i);
                 };
                 industrialPanel.Controls.Add(b);
             }

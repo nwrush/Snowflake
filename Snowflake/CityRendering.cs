@@ -503,7 +503,7 @@ namespace Snowflake {
             }
             else if (this.Data is Haswell.Buildings.Industrial)
             {
-                entList.Add(sm.CreateEntity("powerplant_coal.mesh"));
+                entList.Add(sm.CreateEntity(this.Name + "_" + this.GetHashCode() + "_coal", "powerplant_coal.mesh"));
                 scale = new Vector3(34.0f, 34.0f, 34.0f);
             }
             else if (this.Data is Haswell.Buildings.Infrastructure)
@@ -513,7 +513,7 @@ namespace Snowflake {
                 baseRotation = new Quaternion(Mogre.Math.PI, Vector3.UNIT_Y);
             }
 
-            if (this.Data.Configuration != null)
+            if (!(this.data.Configuration == null))
             {
                 if (this.data.Configuration.Version <= 1) { color = new ColourValue(0.9f, 0.2f, 0.1f); }
                 else if (this.data.Configuration.Version <= 2) { color = new ColourValue(0.9f, 0.8f, 0.2f); }
@@ -588,12 +588,12 @@ namespace Snowflake {
             
             Dictionary<Direction, Building> neighbors = new Dictionary<Direction, Building>();
             neighbors = this.Data.GetAdjacentBuildings();
-            
+
             fourWay = sm.CreateEntity("road_4-way.mesh");
             fourWay.CastShadows = false;
             fourWay.Visible = false;
             entList.Add(fourWay);
-            
+
             tBend = sm.CreateEntity("road_t-bend.mesh");
             tBend.CastShadows = false;
             tBend.Visible = false;

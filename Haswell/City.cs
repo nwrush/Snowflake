@@ -103,7 +103,11 @@ namespace Haswell
                 case BuildingType.Industrial:
                     CreateBuilding(x, y, new Buildings.Industrial(configuration));
                     break;
+                case BuildingType.Infrastructure:
+                    CreateBuilding(x, y, new Buildings.Industrial(configuration));
+                    break;
             }
+            Console.WriteLine("bcv @ haswell: " + configuration.Version);
         }
 
         /// <summary>

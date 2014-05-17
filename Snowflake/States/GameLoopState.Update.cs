@@ -100,7 +100,7 @@ namespace Snowflake.States {
                 if (!ContextMenu.HitTest(MousePosition(input))) {
                     ContextMenu.Visible = false;
                     if (canPlaceBuilding()) {
-                        //Do a little reflection to be able to pass the type of the cursor building into the generic method
+                        
                         CityManager.NewBuilding(this.tempBuilding.PlotX, this.tempBuilding.PlotY, this.tempBuilding.Data.Configuration);
                         gConsole.WriteLine("Placing building...");
 

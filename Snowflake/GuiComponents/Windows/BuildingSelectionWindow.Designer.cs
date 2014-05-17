@@ -227,6 +227,7 @@ namespace Snowflake.GuiComponents.Windows
 
             for (int i = 1; i <= 3; ++i)
             {
+                int locali = i;
                 Button b = new Button()
                 {
                     Size = new Size(150, 150),
@@ -240,13 +241,14 @@ namespace Snowflake.GuiComponents.Windows
                 };
                 b.Click += (object sender, EventArgs e) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Residential, i));
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Residential, locali));
                 };
                 residentialPanel.Controls.Add(b);
             }
 
             for (int i = 1; i <= 3; ++i)
             {
+                int locali = i;
                 Button b = new Button()
                 {
                     Size = new Size(150, 150),
@@ -260,13 +262,14 @@ namespace Snowflake.GuiComponents.Windows
                 };
                 b.Click += (object sender, EventArgs e) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Commercial, i));
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Commercial, locali));
                 };
                 commercialPanel.Controls.Add(b);
             }
 
             for (int i = 1; i <= 3; ++i)
             {
+                int locali = i;
                 Button b = new Button()
                 {
                     Size = new Size(150, 150),
@@ -280,13 +283,15 @@ namespace Snowflake.GuiComponents.Windows
                 };
                 b.Click += (object sender, EventArgs e) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Industrial, i));
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Industrial, locali));
+                    Console.WriteLine("bcv @ cm call: " + i);
                 };
                 industrialPanel.Controls.Add(b);
             }
 
             for (int i = 1; i <= 3; ++i)
             {
+                int locali = i;
                 Button b = new Button()
                 {
                     Size = new Size(150, 150),
@@ -300,7 +305,7 @@ namespace Snowflake.GuiComponents.Windows
                 };
                 b.Click += (object sender, EventArgs e) =>
                 {
-                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Infrastructure, i));
+                    CityManager.CreateBuildingOnCursor(new Haswell.BuildingConfiguration(Haswell.BuildingType.Infrastructure, locali));
                 };
                 infrastructurePanel.Controls.Add(b);
             }

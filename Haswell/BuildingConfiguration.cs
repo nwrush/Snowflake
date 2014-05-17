@@ -63,8 +63,9 @@ namespace Haswell
 
             if (b1.buildingType == b2.buildingType && b1.version == b2.version)
             {
-                return false;
+                return true;
             }
+            return false;
         }
         public static bool operator !=(BuildingConfiguration b1, BuildingConfiguration b2)
         {

@@ -174,6 +174,7 @@ namespace Haswell
             if (this.Building != null)
                 this.building.Update(this.resource);
             UpdateCityResources(cityResources);
+            this.resource = new ResourceDict();
         }
         public void UpdateDaily()
         {

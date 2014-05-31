@@ -92,7 +92,7 @@ namespace Snowflake.Modules {
             mRoot.RenderSystem.EventOccurred += OnRenderSystemEventOccurred;
 
             // create window and get the native window handle (needed for MOIS)
-            mWindow = mRoot.CreateRenderWindow("Project Sustain", Program.WINDOW_WIDTH, Program.WINDOW_HEIGHT, false);
+            mWindow = mRoot.CreateRenderWindow("Project Sustain", Program.WINDOW_WIDTH, Program.WINDOW_HEIGHT, true);
             mWindow.GetCustomAttribute("WINDOW", out mWindowHandle);
 
             mResourceMgr.InitGroup("PostLoad");

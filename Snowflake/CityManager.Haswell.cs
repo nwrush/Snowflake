@@ -35,7 +35,7 @@ namespace Snowflake
                 GameConsole.ActiveInstance.WriteLine("Founding new City at " + originx.ToString() + ", " + originy.ToString());
 
                 Origin = new Point(originx, originy);
-                Haswell.Controller.init(cityName ?? "New City");
+                Haswell.Controller.init(cityName ?? "Pullman");
                 Haswell.Controller.City.BuildingCreated += CreateBuilding;
                 Haswell.Controller.OnSerialized += OnSave;
                 Haswell.Controller.OnDeserialized += OnLoad;
